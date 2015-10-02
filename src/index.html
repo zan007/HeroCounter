@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>HeroCounter</title>
+  
+  <%include src="meta/meta.html"%>
+  <link rel="stylesheet" type="text/css" href="<%=stylesPath%>">
+  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+  <%include src="meta/loader.html"%>  
+</head>
+<body>
+  
+  <%template id="/" src="app/heroes/heroes.html"%>
+  <%template id="/event-heroes" src="app/heroes/event-heroes.html"%>
+  <%template id="/event-titans" src="app/titans/event-titans.html"%>
+  <%template id="/titans" src="app/titans/titans.html"%>
+  <%template id="hc-creature-tile" src="app/common/controls/hc-creature-tile/hc-creature-tile.html"%>
+  <%include src="app/app.html"%>  
+  
+  <%include src="meta/<%=scriptsPath%>"%>
+  <script>
+    $script.ready('scripts', function() {
+      angular.bootstrap(document, ['heroCounter']);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+.tile-container {
+	width: 157px;
+	min-height: 140px;
+	background-color: #26527e;
+	.border-radius(5px);
+	text-align: center;
+	text-transform: uppercase;
+	position: relative;
+	display: inline-block;
+	margin-right: 20px;
+
+	.creature-avatar {
+		position: absolute;
+		.border-radius(50%);
+		overflow: hidden;
+		border: solid 2px #12aaeb;
+		width: 30%;
+		height: 30%;
+		left: 35%;
+		top: -15%;
+		background-color: #0b1f39;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.tile-content {
+		padding-top: 30px;
+		font-size: 9px;
+
+		.label {
+			
+			color: #4974a3;
+		}
+
+		.value {
+			color: #fff;
+		}
+
+		.defeat-button {
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			background-color: #214b76;
+			margin-top: 10px;
+			.border-radius(0 0 5px 5px);
+			cursor: pointer;
+			color: #fff;
+		}
+	}
+}

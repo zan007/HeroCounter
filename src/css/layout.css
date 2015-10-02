@@ -1,0 +1,194 @@
+@maxWidth: 960px;
+@footerHeight: 60px;
+@menuWidth: 51px;
+@menuSlideDuration: 400ms;
+
+@menuBackgroundColor: #26527e;
+@mainBackgroundColor: #0b1f39;
+@tileButtonBackgroundColor: #214b76;
+@activeFontColor: #fff;
+@fontColor: #5682b2;
+@activeMenuItemColor: #3b6897;
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+html {
+    height: 100%;
+}
+body {
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.02);
+    -webkit-font-smoothing: antialiased;
+    font-family: "brandon-blk", "RBNo2 Light", "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", Helvetica, "Trebuchet MS", Tahoma, sans-serif;
+    height: 100%;
+}
+
+.main-container {
+    background-color: @mainBackgroundColor;
+}
+
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.icon-menu {
+    display: none;
+}
+
+.menu {
+    position: absolute;
+    z-index: 2;
+    overflow: hidden;
+    background-color: @menuBackgroundColor;
+    font-size: 13px;
+    border-radius: 2.5px;
+
+    ul {
+        padding-left: 10px;
+        margin-top: 50px;
+
+        .menu-element {
+            padding: 0 15px;
+            
+            font-family: 'brandon-blk';
+            width: 175px;
+            height: 30px;
+            border-radius: 2.5px;
+            cursor: pointer;
+
+            .title {
+                font-size: 13px;
+                color: #5682b2;
+                line-height: 30px;
+            }
+
+            .icon {
+                display: none;
+            }
+
+            &:hover {
+                background-color: @activeMenuItemColor;
+                .title {
+                    color: #fff;
+                }
+
+                .icon {
+                    display: inline-block;
+                    color: #12aaeb;
+                    float: right;
+                    font-size: 15px;
+                    padding-top: 5px;
+                }
+            }
+
+            &.selected {
+                color: red;
+            }
+        }
+    }
+}
+
+.menu-toggle {
+    display: none;
+    border: 0;
+    background: none;
+    font-size: 34px;
+    margin: 2px 0 0 4px;
+    padding: 0;
+    outline: none
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    background-color: @mainBackgroundColor;
+}
+
+.news {
+    background-color: @mainBackgroundColor;
+    .rotate-y(30deg);
+}
+
+@media only screen and (max-width: 780px) {
+
+    .icon-menu {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        display: block;
+        font-size: 30px;
+        color: #fff;
+        z-index: 1000;
+    }
+
+    .menu {
+        margin-top: 0px!important;
+        opacity: 0;
+        position: absolute!important;
+        width: 0px!important;
+        height: 100%;
+        padding: 0!important;
+        .transition(all 1.5s ease-out .15s);
+        display: block;
+
+        &.opened {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 33%!important;
+            height: 100%;
+            opacity: 1;
+            .transition(all 1.5s easy-in .15s);
+
+            .icon-menu {
+                position: absolute;
+                left: 80px;
+
+            }
+
+        }
+    }
+
+    .icon-open-menu {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+    }
+
+    .content {
+        .transition-transform(@menuSlideDuration, ease);
+        .translate-3d(0);
+        .backface-visibility(hidden);
+    }
+    .menu-opened {
+        .content, .header, .footer {
+            .translate-3d(@menuWidth);
+        }
+        .menu {
+            .translate-3d(0);
+        }
+    }
+}
+.enter-animation.ng-enter {
+    -webkit-transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+.enter-animation.ng-enter, .enter-animation.ng-leave, .enter-animation.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+.enter-animation.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

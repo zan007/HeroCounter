@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'brandon-blk';
+  src: url('../font/brandon_med-webfont.eot'),
+  url('../font/brandon_med-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../font/brandon_med-webfont.woff') format('woff'),
+  url('../font/brandon_med-webfont.ttf')  format('truetype'),
+  url('../font/brandon_med-webfont.svg#svgFontName') format('svg'); 
+}

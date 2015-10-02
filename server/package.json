@@ -1,0 +1,14 @@
+{
+  "name": "sk-gallery-server",
+  "description": "Seed for angular control",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.x",
+    "body-parser": "1.4.x",
+    "async": "0.2.x",
+    "moment" : "2.6.x",
+    "mime": "1.2.x",
+    "lorem-ipsum": "0.1.0"
+  }
+}

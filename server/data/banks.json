@@ -1,0 +1,172 @@
+[
+    {
+        "id": 1,
+        "label": "ALIOR",
+        "name": "Alior Bank"
+    },
+    {
+        "id": 2,
+        "label": "ALLIANZ",
+        "name": "Allianz Bank"
+    },
+    {
+        "id": 3,
+        "label": "BGZ",
+        "name": "Bank BGŻ"
+    },
+    {
+        "id": 5,
+        "label": "BPH",
+        "name": "Bank BPH"
+    },
+    {
+        "id": 4,
+        "label": "BOS",
+        "name": "Bank Ochrony Środowiska"
+    },
+    {
+        "id": 37,
+        "label": "POCZTOWY",
+        "name": "Bank Pocztowy"
+    },
+    {
+        "id": 6,
+        "label": "BZWBK",
+        "name": "Bank Zachodni WBK"
+    },
+    {
+        "id": 7,
+        "label": "BRE",
+        "name": "BRE Bank"
+    },
+    {
+        "id": 8,
+        "label": "CITI",
+        "name": "Citi Handlowy"
+    },
+    {
+        "id": 9,
+        "label": "DEUTSCHE",
+        "name": "Deutsche Bank"
+    },
+    {
+        "id": 36,
+        "label": "DNBNORD",
+        "name": "DnB NORD"
+    },
+    {
+        "id": 10,
+        "label": "EURO",
+        "name": "Euro Bank"
+    },
+    {
+        "id": 35,
+        "label": "FMBANK",
+        "name": "FM Bank"
+    },
+    {
+        "id": 11,
+        "label": "FORTIS",
+        "name": "Fortis Bank"
+    },
+    {
+        "id": 12,
+        "label": "GETIN",
+        "name": "Getin Bank"
+    },
+    {
+        "id": 32,
+        "label": "HSBC",
+        "name": "HSBC"
+    },
+    {
+        "id": 13,
+        "label": "ING",
+        "name": "ING Bank Śląski"
+    },
+    {
+        "id": 14,
+        "label": "INTELIGO",
+        "name": "Inteligo"
+    },
+    {
+        "id": 15,
+        "label": "INVEST",
+        "name": "Invest Bank"
+    },
+    {
+        "id": 16,
+        "label": "KREDYT",
+        "name": "Kredyt Bank"
+    },
+    {
+        "id": 17,
+        "label": "LUKAS",
+        "name": "Lukas Bank"
+    },
+    {
+        "id": 18,
+        "label": "MBANK",
+        "name": "mBank"
+    },
+    {
+        "id": 33,
+        "label": "MERITUM",
+        "name": "Meritum"
+    },
+    {
+        "id": 19,
+        "label": "MILLENIUM",
+        "name": "Millennium Bank"
+    },
+    {
+        "id": 20,
+        "label": "MULTI",
+        "name": "MultiBank"
+    },
+    {
+        "id": 34,
+        "label": "NOBLE",
+        "name": "Noble Bank"
+    },
+    {
+        "id": 21,
+        "label": "NORDEA",
+        "name": "Nordea Bank"
+    },
+    {
+        "id": 22,
+        "label": "PEKAO",
+        "name": "Pekao SA"
+    },
+    {
+        "id": 23,
+        "label": "PKO",
+        "name": "PKO Bank Polski"
+    },
+    {
+        "id": 30,
+        "label": "POLBANK",
+        "name": "Polbank"
+    },
+    {
+        "id": 24,
+        "label": "RAIFFEISEN",
+        "name": "Raiffeisen Bank"
+    },
+    {
+        "id": 31,
+        "label": "SANTANDER",
+        "name": "Santander"
+    },
+    {
+        "id": 25,
+        "label": "VOLKSWAGEN",
+        "name": "Volkswagen Bank"
+    },
+    {
+        "id": 26,
+        "label": "TEMPLATE",
+        "name": "Inne"
+    }
+]

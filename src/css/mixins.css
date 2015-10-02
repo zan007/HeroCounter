@@ -1,0 +1,137 @@
+
+.translate-3d (@x, @y: 0, @z: 0) {
+	-webkit-transform: translate3d(@x, @y, @z);
+	-moz-transform: translate3d(@x, @y, @z);
+	-ms-transform: translate3d(@x, @y, @z);	
+	transform: translate3d(@x, @y, @z);
+}
+
+.backface-visibility(@visibility) {
+	-webkit-backface-visibility: @visibility;
+	-moz-backface-visibility: @visibility;
+	-ms-backface-visibility: @visibility;
+	backface-visibility: @visibility;
+}
+
+.border-radius(@property) {
+    -webkit-border-radius: @property;
+    -moz-border-radius: @property;
+    border-radius: @property;
+}
+
+.transition(@property) {
+    -webkit-transition: @property;
+    -moz-transition: @property;
+    -o-transition: @property;
+    transition: @property;
+}
+
+.transition-transform (@transformArguments, @anotherProperty) {
+	-webkit-transition: -webkit-transform @transformArguments @anotherProperty;
+	-moz-transition: -moz-transform @transformArguments @anotherProperty;
+	-ms-transition: -ms-transform @transformArguments @anotherProperty;
+	transition: transform @transformArguments @anotherProperty;
+}
+
+.rotate-y(@degrees) {
+    -moz-transform: rotateY(@degrees); 
+    -webkit-transform: rotateY(@degrees);
+    transform: rotateY(@degrees);
+}
+
+.opacity-transition (@duration: 0.2s) {
+	-webkit-transition: opacity @duration;  
+	-moz-transition: opacity @duration;
+	-ms-transition: opacity @duration; 
+	-o-transition: opacity @duration;  
+}
+
+.inset-shadow (@x-axis, @y-axis, @blur, @spread, @alpha: 0.4) {
+	box-shadow: inset @x-axis @y-axis @blur @spread rgba(0,0,0,@alpha);
+  	-webkit-box-shadow: inset @x-axis @y-axis @blur @spread rgba(0,0,0,@alpha);
+  	-moz-box-shadow: inset @x-axis @y-axis @blur @spread rgba(0,0,0,@alpha);
+}
+
+.no-shadow () {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.clearfix () {
+  zoom: 1;
+  &:before { content: ''; display: block; }
+  &:after { content: ''; display: table; clear: both; }
+}
+
+.radial-gradient(@x, @y, @stop1, @stop2, @stop3, @stop1-color, @stop2-color, @stop3-color) {
+	background: @stop1-color; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, @y, center center, 100%, color-stop(@stop1, @stop1-color), color-stop(@stop2, @stop2-color), color-stop(@stop3, @stop3-color)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3); /* IE10+ */
+    background: radial-gradient(ellipse at @x @y, @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3); /* W3C */
+}
+
+.radial-gradient(@stop1, @stop2, @stop1-color, @stop2-color) {
+    background: -moz-radial-gradient(center, ellipse cover,  @stop1-color @stop1, @stop2-color @stop2); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(@stop1,@stop1-color), color-stop(@stop2,@stop2-color)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  @stop1-color @stop1,@stop2-color @stop2); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  @stop1-color @stop1,@stop2-color @stop2); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  @stop1-color @stop1,@stop2-color @stop2); /* IE10+ */
+    background: radial-gradient(ellipse at center,  @stop1-color @stop1,@stop2-color @stop2); /* W3C */
+}
+
+.linear-gradient-from-top(@stop1, @stop2, @stop1-color, @stop2-color){
+	background: @stop1-color;
+    background: -moz-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(@stop1, @stop1-color), color-stop(@stop2, @stop2-color));
+    background: -webkit-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2);
+    background: -o-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2);
+    background: -ms-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2);
+    background: linear-gradient(to bottom,  @stop1-color @stop1, @stop2-color @stop2);     
+}
+
+.linear-gradient-from-top(@stop1, @stop2, @stop3, @stop4, @stop1-color, @stop2-color, @stop3-color, @stop4-color) {
+    background: @stop1-color;
+    background: -moz-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3, @stop4-color @stop4);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(@stop1, @stop1-color), color-stop(@stop2, @stop2-color), color-stop(@stop3, @stop3-color), color-stop(@stop4, @stop4-color));
+    background: -webkit-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3, @stop4-color @stop4);
+    background: -o-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3, @stop4-color @stop4);
+    background: -ms-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3, @stop4-color @stop4);
+    background: linear-gradient(to bottom,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3, @stop4-color @stop4);           
+}
+
+.linear-gradient-from-top(@stop1, @stop2, @stop3, @stop1-color, @stop2-color, @stop3-color) {
+    background: @stop1-color;
+    background: -moz-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(@stop1, @stop1-color), color-stop(@stop2, @stop2-color), color-stop(@stop3, @stop3-color));
+    background: -webkit-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3);
+    background: -o-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3);
+    background: -ms-linear-gradient(top,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3);
+    background: linear-gradient(to bottom,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3);           
+}
+
+.linear-gradient-from-left(@stop1, @stop2, @stop1-color, @stop2-color) {
+	background: -moz-linear-gradient(left, @stop1-color @stop1, @stop2-color @stop2); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(@stop1, @stop1-color), color-stop(@stop2,@stop2-color)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, @stop1-color @stop1, @stop2-color @stop2); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, @stop1-color @stop1, @stop2-color @stop2); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, @stop1-color @stop1, @stop2-color @stop2); /* IE10+ */
+    background: linear-gradient(to right, @stop1-color @stop1, @stop2-color @stop2); /* W3C */
+}
+
+.border-right-separator(@stop1-color, @stop2-color) {
+    border-right: solid 8px @stop2-color;
+    -webkit-border-image: -webkit-linear-gradient(@stop1-color, @stop2-color, @stop1-color) 1 100%;
+    -o-border-image: -o-linear-gradient(@stop1-color, @stop2-color) 1 100%;
+    -moz-border-image: -moz-linear-gradient(@stop1-color, @stop2-color, @stop1-color) 1 100%;
+}
+
+.border-left-separator(@stop1-color, @stop2-color) {
+    border-left: solid 8px @stop2-color;
+    -webkit-border-image: -webkit-linear-gradient(@stop1-color, @stop2-color, @stop1-color) 1 100%;
+    -o-border-image: -o-linear-gradient(@stop1-color, @stop2-color) 1 100%;
+    -moz-border-image: -moz-linear-gradient(@stop1-color, @stop2-color, @stop1-color) 1 100%;
+}

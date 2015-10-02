@@ -1,0 +1,9 @@
+<div ng-controller="LoginAppCtrl" class="main-container full-height container-fluid row" router="currentRoute">
+   login page
+   <ul>
+        <li ng-repeat="route in routes" route-to="route" class="menu-element" ng-class="{selected: route.selected}">   
+            <span class="title">{{route.title}}</span><i class="icon icon-circle"></i>
+        </li>
+    </ul>
+    <div ng-include src="currentRoute.path" class="enter-animation full-height"></div>
+</div>

@@ -85,6 +85,17 @@ factory('dataSource', ['$http', '$q', '$rootScope',
                 }).then(null, function() {
                     $rootScope.$broadcast('dataSource.error');
                 });
+            },
+            signup: function(credential) {
+                return call({ method: 'POST',
+                                 url: '/signup',
+                                 data: { 
+                                    login: credential.login,
+                                    password: credential.password
+                                }
+                            }, function(data) {
+                                
+                            });
             }
 
 

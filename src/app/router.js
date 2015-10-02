@@ -6,6 +6,8 @@ provider('routes', function() {
 		{title: 'TITANS', path: '/titans', icon: 'icon-circle', selected: true},
 		{title: 'EVENT HEROES', path: '/event-heroes', icon: 'icon-circle', selected: false},
 		{title: 'EVENT TITANS', path: '/event-titans', icon: 'icon-circle', selected: false},
+		{title: 'LOGIN', path: '/login', icon: 'icon-circle', selected: false},
+		{title: 'REGISTER', path: '/register', icon: 'icon-circle', selected: false},
 	],
 	defaultRoute = routes[0];
 

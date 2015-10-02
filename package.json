@@ -11,6 +11,6 @@
     "grunt-contrib-watch": "~0.6.x",
     "grunt-fontello": "^0.1.3",
     "grunt-htmlrender": "git://github.com/skuligowski/grunt-htmlrender#master",
-    "lodash-node": "~2.4.x"
+    "lodash-node": "~2.4.x",
   }
 }

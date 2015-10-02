@@ -1,12 +1,18 @@
 var express = require('express'),
+    session = require('express-session'),
     bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
     fs = require('fs'),
     path = require('path'),
-    config = require('./config'),
+    appConfig = require('./config/app'),
+    databaseConfig = require('./config/database'),
     mime = require('mime'),
     async = require('async'),
     gen = require('./gen'),
     mysql = require('mysql'),
+    authentication = require('./authentication'),
+    passport = require('passport'),
+    flash    = require('connect-flash'),
     moment = require('moment');
 
 express.static.mime.define({
@@ -22,25 +28,22 @@ var app = express(),
     srcDir = path.join('..', 'dist'),
     imgDir = path.join('..','/server/img');
 
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'heroCounter'
-});
+var connection = mysql.createConnection(databaseConfig.details);
+
+require('./authentication')(passport);
 
 app.use(bodyParser.json());
+app.use(cookieParser);
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
 app.use('/css', express.static(path.join(__dirname, srcDir, 'css')));
 app.use('/img', express.static(path.join(__dirname, srcDir, 'img')));
 app.use('/font', express.static(path.join(__dirname, srcDir, 'font')));
 app.use('/vendor', express.static(path.join(__dirname, srcDir, 'vendor')));
-
-var creatureMultiplier = {
-    titan: 24*60*60*100,
-    hero: 1
-}
 
 var recalcCreatureRespTime = function(callback) {
     var today = moment().valueOf();
@@ -118,6 +121,15 @@ app.get('/init', function(req, res, next) {
         res.send(data);
     });
 });*/
+/*app.post('/signup', passport.authenticate('local-signup', {
+    successRedirect : function(){
+        res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+    }, // redirect to the secure profile section
+    failureRedirect : function(){
+        res.sendfile(path.join(__dirname, srcDir, 'login.html'));
+    }, // redirect back to the signup page if there is an error
+    failureFlash : true // allow flash messages    
+}));*/
 
 app.post('/defeat', function(req, res, next){
     var today = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -175,7 +187,20 @@ app.get('/creatures', function(req, res, next){
     res.send(data);
 });*/
 
-app.get('/*', function(req, res, next) {
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    console.log('islogged');
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+   res.sendfile(path.join(__dirname, srcDir, 'login.html'));
+   //return next();
+}
+
+app.get('/*', isLoggedIn, function(req, res, next) {
+    console.log('poczatek');
     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
 });
 
@@ -185,8 +210,8 @@ var runServer = function(err, generatedData) {
         throw err;
 
     data = generatedData;
-    app.listen(config.listenPort);
-    console.log('Listening on port: ' + config.listenPort);
+    app.listen(appConfig.listenPort);
+    console.log('Listening on port: ' + appConfig.listenPort);
 }
 
 if (!fs.existsSync(dataFile)) {

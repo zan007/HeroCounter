@@ -9,6 +9,12 @@
     "async": "0.2.x",
     "moment" : "2.6.x",
     "mime": "1.2.x",
-    "lorem-ipsum": "0.1.0"
+    "lorem-ipsum": "0.1.0",
+    "passport" : "~0.1.17",         
+    "passport-local" : "~0.1.6",
+    "bcrypt-nodejs" : "latest",
+    "cookie-parser": "~1.0.0",
+    "express-session": "~1.0.0",
+    "connect-flash" : "~0.1.1"
   }
 }

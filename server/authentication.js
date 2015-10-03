@@ -1,6 +1,9 @@
 path = require('path');
 var bcrypt   = require('bcrypt-nodejs');
+var databaseConfig = require('./config/database');
+var mysql = require('mysql');
 var LocalStrategy = require('passport-local').Strategy;
+var connection = mysql.createConnection(databaseConfig.details);
 
 var generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
@@ -28,7 +31,7 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
     	console.log('opopopo');
-        connection.query("select * from user where id = ?", [id], function(err,rows){	
+        connection.query('select * from user where id = ?', [id], function(err,rows){	
 			done(err, rows[0]);
 		});
     });
@@ -46,19 +49,18 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, login, password, done) {
-    	console.log('ocococ');
         // asynchronous
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-       	connection.query("select * from user where login = ?", [login], function(err,rows){
-			console.log(rows);
-			console.log("above row object");
+       	connection.query('select * from user where login = ?', login, function(err, rows){
 			if (err)
                 return done(err);
-			 if (rows.length) {
+
+			 if (rows.length > 0) {
+			 	console.log('that login is already taken.');
                 return done(null, false, req.flash('signupMessage', 'That login is already taken.'));
             } else {
 
@@ -66,16 +68,18 @@ module.exports = function(passport) {
                 // create the user
                 var newUser = {
                 	login: login,
-                	password: generateHash(password) 
+                	password: generateHash(password),
+                	name: 'test',
+                	margoNick: 'margonick'
+
                 };
-			
-				connection.query("INSERT INTO user ( login, password ) values (?, ?)", [newUser.login, newUser.password], function(err,rows){
-					if(rows.length) {
-						newUser.id = rows[0].id;
-						return done(null, newUser); // to pewnie niepotrzebne
-					} else {
-						throw err;
-					}
+				
+				connection.query('insert into user set ?', newUser, function(error, rows2){
+					console.log(rows2);
+					if (error) throw error;
+
+					newUser.id = rows2.insertId;
+					return done(null, newUser); // to pewnie niepotrzebne
 				});	
             }	
 		});

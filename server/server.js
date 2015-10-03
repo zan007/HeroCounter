@@ -32,8 +32,8 @@ var connection = mysql.createConnection(databaseConfig.details);
 
 require('./authentication')(passport);
 
+app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cookieParser);
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -121,15 +121,13 @@ app.get('/init', function(req, res, next) {
         res.send(data);
     });
 });*/
-/*app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : function(){
-        res.sendfile(path.join(__dirname, srcDir, 'index.html'));
-    }, // redirect to the secure profile section
-    failureRedirect : function(){
-        res.sendfile(path.join(__dirname, srcDir, 'login.html'));
-    }, // redirect back to the signup page if there is an error
+app.post('/signup', passport.authenticate('local-signup', {
+    failureRedirect : '/register', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages    
-}));*/
+}), function(req, res){
+    console.log('rejestracja poprawnie');
+    res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+});
 
 app.post('/defeat', function(req, res, next){
     var today = moment().format("YYYY-MM-DD HH:mm:ss");

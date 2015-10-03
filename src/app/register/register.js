@@ -7,12 +7,16 @@ controller('registerCtrl', ['$scope', '$rootScope', 'dataSource', '$http',
     		
     		$scope.creatures = $rootScope.model.creatures;	
     	});*/
-		var signup = function() {
+		$scope.cos = {
+			a: 'asd',
+			b: 'gg'
+		}
+		$scope.register = function() {
 			var credentials = {
 				login: $scope.login,
 				password: $scope.password
 			}
-			dataSource.signup(credentials);
+			dataSource.register(credentials);
 		} 
     }
 ]);

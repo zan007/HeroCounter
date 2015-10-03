@@ -86,7 +86,7 @@ factory('dataSource', ['$http', '$q', '$rootScope',
                     $rootScope.$broadcast('dataSource.error');
                 });
             },
-            signup: function(credential) {
+            register: function(credential) {
                 return call({ method: 'POST',
                                  url: '/signup',
                                  data: { 
@@ -94,7 +94,7 @@ factory('dataSource', ['$http', '$q', '$rootScope',
                                     password: credential.password
                                 }
                             }, function(data) {
-                                
+                                console.log(data);
                             });
             }
 

@@ -73,7 +73,7 @@ module.exports = function(passport) {
                 	margoNick: 'margonick'
 
                 };
-				
+				console.log('new user', newUser.password);
 				connection.query('insert into user set ?', newUser, function(error, rows2){
 					console.log(rows2);
 					if (error) throw error;
@@ -88,4 +88,44 @@ module.exports = function(passport) {
 
     }));
 
+	passport.use('local-login', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField : 'login',
+        passwordField : 'password',
+        passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+    function(req, login, password, done) { // callback with email and password from our form
+
+         connection.query('SELECT * FROM user WHERE login = ?', [login], function(err,rows){
+			if (err)
+                return done(err);
+            //console.log(rows, password, rows[0].password);
+			 if (!rows.length) {
+			 	console.log('login failed');
+                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+            } 
+			
+			// if the user is found but the password is wrong
+			bcrypt.compare(password, rows[0].password, function(err, res){
+				console.log(res);
+				console.log('iiii', bcrypt.compareSync(password, rows[0].password));
+				if(!res){
+					console.log('wrong password but login ok');
+                	return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+				} else {
+					return done(null, rows[0]);
+				}
+			});
+            /*if (!bcrypt.compare(password, rows[0].password)){
+            	console.log('wrong password but login ok');
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+			}
+            // all is well, return successful user
+            return done(null, rows[0]);			*/
+		
+		});
+		
+
+
+    }));
 };

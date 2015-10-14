@@ -2,11 +2,11 @@ angular.module('router', []).
 
 provider('routes', function() {
 	var routes = [
-		{title: 'HEROES', path: '/', icon: 'icon-circle', selected: true},
-		{title: 'TITANS', path: '/titans', icon: 'icon-circle', selected: true},
+		{title: 'HEROES', path: '/heroes', icon: 'icon-circle', selected: false},
+		{title: 'TITANS', path: '/titans', icon: 'icon-circle', selected: false},
 		{title: 'EVENT HEROES', path: '/event-heroes', icon: 'icon-circle', selected: false},
 		{title: 'EVENT TITANS', path: '/event-titans', icon: 'icon-circle', selected: false},
-		{title: 'LOGIN', path: '/login', icon: 'icon-circle', selected: false},
+		{title: 'LOGIN', path: '/', icon: 'icon-circle', selected: true},
 		{title: 'REGISTER', path: '/register', icon: 'icon-circle', selected: false},
 	],
 	defaultRoute = routes[0];
@@ -37,7 +37,7 @@ config(['$routeProvider', '$locationProvider', 'routesProvider',
     $locationProvider.html5Mode(true);
 }]).
 
-directive('router', ['routes', '$location', function(routes, $location) {
+directive('router', ['routes', '$location', 'dataSource', function(routes, $location, dataSource) {
 	return {
 		restrict: 'A',
 		controller: ['$scope', '$attrs', function($scope, $attrs) {
@@ -52,9 +52,17 @@ directive('router', ['routes', '$location', function(routes, $location) {
 			});
 
 			this.setRoute = function(route) {
-				$scope[$attrs.router] = route;
-				routes.select(route);
-				$location.path(route.path);
+				
+				if(dataSource.isLoggedIn()){
+					$scope[$attrs.router] = route;
+					routes.select(route);
+					$location.path(route.path);
+				} else {
+					var route = {title: 'LOGIN', path: '/', icon: 'icon-circle', selected: true};
+					$scope[$attrs.router] = route;
+					routes.select(route);
+					$location.path('/');
+				}
 			}
 		}]
 	}

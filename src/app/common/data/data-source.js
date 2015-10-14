@@ -1,7 +1,7 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope',
-    function($http, $q, $rootScope) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
+    function($http, $q, $rootScope, $location, $route) {
        
         var model = {
             creatures: []
@@ -94,21 +94,55 @@ factory('dataSource', ['$http', '$q', '$rootScope',
                                     password: credential.password
                                 }
                             }, function(data) {
+                                //res.redirect('http://localhost');
+                                //$route.reload();
+                                console.log('rejestracja');
+                                //$location.path('/*');
                                 console.log(data);
                             });
+            },
+            logg: function(credential){
+                 return call({ method: 'POST',
+                                 url: '/login',
+                                 data: { 
+                                    login: credential.login,
+                                    password: credential.password
+                                }
+                            }, function(data) {
+                                //res.redirect('http://localhost');
+                                //$route.reload();
+                                console.log('logowanie');
+                                $location.path('/heroes');
+                                
+                                console.log(data);
+                            });
+            },
+            isLoggedIn: function(){
+                
+                 // Initialize a new promise 
+                 var deferred = $q.defer(); // Make an AJAX call to check if the user is logged in 
+                $http.get('/isLoggedIn').success(function(user){ // Authenticated 
+                    if (user !== '0') 
+                        deferred.resolve(); // Not Authenticated 
+                    else { 
+                        deferred.reject(); 
+                        $location.url('/login'); 
+                    } 
+                }); 
+                return deferred.promise; 
+            },
+            logout: function() {
+                return call({ method: 'GET',
+                                 url: '/logout',
+                                 data: { }
+                            }, function(data) {
+                                //res.redirect('http://localhost');
+                                //$route.reload();
+                                console.log('wylogowanie');
+                                $location.path('/');
+                                
+                            });
             }
-
-
         };
-        /*$http.get('pictures').then(function(response) {
-            var data = response.data;
-
-            $rootScope.pictures = data;
-           
-            $rootScope.$broadcast('dataSource.ready');
-        }).then(null, function() {
-            $rootScope.$broadcast('dataSource.error');
-        });*/
-
     }
 ]);

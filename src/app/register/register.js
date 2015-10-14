@@ -18,5 +18,7 @@ controller('registerCtrl', ['$scope', '$rootScope', 'dataSource', '$http',
 			}
 			dataSource.register(credentials);
 		} 
+
+		
     }
 ]);

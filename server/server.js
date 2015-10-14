@@ -151,6 +151,13 @@ app.post('/defeat', function(req, res, next){
     }
 });
 
+app.post('/login', passport.authenticate('local-login', {
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }), function(req, res){
+    console.log('logowanie poprawnie ');
+     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+});
 app.get('/creatures', function(req, res, next){
     creatures = [];
     connection.query({
@@ -188,20 +195,38 @@ app.get('/creatures', function(req, res, next){
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on 
-    console.log('islogged');
-    if (req.isAuthenticated())
+    console.log('islogged', req.isAuthenticated());
+    if (req.isAuthenticated()){
+        console.log('next');
+        
         return next();
-
+    }
+    res.status(401);
+    res.sendfile(path.join(__dirname, srcDir, 'index.html'));
     // if they aren't redirect them to the home page
-   res.sendfile(path.join(__dirname, srcDir, 'login.html'));
-   //return next();
+   /*res.sendfile(path.join(__dirname, srcDir, 'login.html'));*/
+   /*return next();*/
 }
 
-app.get('/*', isLoggedIn, function(req, res, next) {
+app.get('/', isLoggedIn, function(req, res, next) {
     console.log('poczatek');
+    res.status(200);
     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+   
 });
 
+app.get('/logout', function(req, res) {
+    console.log('logout');
+    req.logout();
+    res.send(200);
+     //res.sendfile(path.join(__dirname, srcDir, 'login.html'));
+    //res.redirect('/');
+});
+
+app.get('/isLoggedIn', function(req, res) {
+    console.log('isloggedIn request', req.isAuthenticated());
+    res.send(req.isAuthenticated()? req.user : '0');
+});
 
 var runServer = function(err, generatedData) {
     if (err)

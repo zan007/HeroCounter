@@ -7,5 +7,12 @@ controller('loginCtrl', ['$scope', '$rootScope', 'dataSource', '$http',
     		
     		$scope.creatures = $rootScope.model.creatures;	
     	});*/
+		$scope.logg = function() {
+			var data = dataSource.logg({
+				login: $scope.login,
+				password: $scope.password
+			})
+			
+		}
     }
 ]);

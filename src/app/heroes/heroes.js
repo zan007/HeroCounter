@@ -7,9 +7,5 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http',
     		
     		$scope.creatures = $rootScope.model.creatures;	
     	});
-
-    	$scope.logout = function() {
-    		dataSource.logout();
-    	}
     }
 ]);

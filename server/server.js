@@ -83,8 +83,6 @@ var recalcCreatureRespTime = function(callback) {
 };
 
 app.get('/init', function(req, res, next) {
-    //creatures = [];
-    //var output = {};
     recalcCreatureRespTime(function(data) {
         
         var output = {
@@ -92,35 +90,8 @@ app.get('/init', function(req, res, next) {
         }
         res.send(output);
     });
-    /*var data = {creatures: recalcCreatureRespTime()};*/
-    //console.log(output);
-    /*connection.query({
-        sql: 'select * from creature',
-        timeout: 1000
-    }, function(err, rows, fields) {
-        if (err) throw err;
-
-        var creatures = recalcCreatureRespTime();
-        
-        data.creatures = creatures;
-        res.send(data);
-    });*/
-   // res.send(output);
 });
 
-/*app.get('/gen/:accCount/:trnCount/:monthsBack', function(req, res, next) {
-    var trnCount = parseInt(req.params.trnCount, 0),
-        accCount = parseInt(req.params.accCount, 0),
-        monthsBack = parseInt(req.params.monthsBack, 0);
-
-    gen.generateData(accCount, trnCount, monthsBack, function(err, generatedData) {
-        if (err)
-            return res.send(err);
-        console.log('generate data');
-        data = generatedData;
-        res.send(data);
-    });
-});*/
 app.post('/signup', passport.authenticate('local-signup', {
     failureRedirect : '/register', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages    
@@ -176,25 +147,7 @@ app.get('/creatures', function(req, res, next){
     });
 });
 
-/*app.get('/update', function(req, res, next) {
-    var fromDate = req.query.fromDate;
-    var toDate = req.query.toDate;
-    var moreTransactions = [];
-
-    for (var i = 0; i < data.transactions.length; ++i) {
-        if ((fromDate < data.transactions[i].date) && (toDate > data.transactions[i].date)) {
-            moreTransactions.push(data.transactions[i]);
-        }
-    }
-
-    data.moreTransactions = moreTransactions;
-    data.transactionsFromTime = fromDate;
-    res.send(data);
-});*/
-
 function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on 
     console.log('islogged', req.isAuthenticated());
     if (req.isAuthenticated()){
         console.log('next');
@@ -203,9 +156,6 @@ function isLoggedIn(req, res, next) {
     }
     res.status(401);
     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
-    // if they aren't redirect them to the home page
-   /*res.sendfile(path.join(__dirname, srcDir, 'login.html'));*/
-   /*return next();*/
 }
 
 app.get('/', isLoggedIn, function(req, res, next) {
@@ -219,8 +169,6 @@ app.get('/logout', function(req, res) {
     console.log('logout');
     req.logout();
     res.send(200);
-     //res.sendfile(path.join(__dirname, srcDir, 'login.html'));
-    //res.redirect('/');
 });
 
 app.get('/isLoggedIn', function(req, res) {

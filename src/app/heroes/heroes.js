@@ -1,4 +1,4 @@
-angular.module('heroes', ['dataSource', 'ngEnter']).
+angular.module('heroes', ['dataSource', 'ngEnter', 'controls.hcCreatureTile']).
 
 controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http',
     function($scope, $rootScope, dataSource, fileService, $http) {

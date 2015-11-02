@@ -2,17 +2,21 @@ angular.module('router', []).
 
 provider('routes', function() {
 	var routes = [
-		{title: 'HEROES', path: '/', icon: 'icon-circle', selected: true},
-		{title: 'TITANS', path: '/titans', icon: 'icon-circle', selected: true},
-		{title: 'EVENT HEROES', path: '/event-heroes', icon: 'icon-circle', selected: false},
-		{title: 'EVENT TITANS', path: '/event-titans', icon: 'icon-circle', selected: false},
-	],
-	defaultRoute = routes[0];
+			{title: 'LOGIN', path: '/', icon: 'icon-circle', selected: true},
+			{title: 'REGISTER', path: '/register', icon: 'icon-circle', selected: false},
+			{title: 'HEROES', path: '/heroes', icon: 'icon-circle', selected: false},
+			{title: 'TITANS', path: '/titans', icon: 'icon-circle', selected: false},
+			{title: 'EVENT HEROES', path: '/event-heroes', icon: 'icon-circle', selected: false},
+			{title: 'EVENT TITANS', path: '/event-titans', icon: 'icon-circle', selected: false}
+		],
+		defaultRoute = routes[0];
 
 	this.$get = function() {
+
 		return {
 			register: function($routeProvider) {
 			    var routeProvider = $routeProvider;
+
 			    for(var i = 0; i < routes.length; i++)
 			    	routeProvider = routeProvider.when(routes[i].path, { idx: i });	
 			    routeProvider.otherwise({ redirectTo: '/' })
@@ -24,6 +28,16 @@ provider('routes', function() {
 			},
 			getList: function() {
 				return routes;
+			},
+			getLoginList: function() {
+				var loginRoutes = [routes[0], routes[1]];
+				return loginRoutes;
+			},
+			getAfterLoginList: function() {
+				return [{title: 'HEROES', path: '/heroes', icon: 'icon-circle', selected: false},
+			{title: 'TITANS', path: '/titans', icon: 'icon-circle', selected: false},
+			{title: 'EVENT HEROES', path: '/event-heroes', icon: 'icon-circle', selected: false},
+			{title: 'EVENT TITANS', path: '/event-titans', icon: 'icon-circle', selected: false}];
 			}
 		}
 	}
@@ -35,12 +49,12 @@ config(['$routeProvider', '$locationProvider', 'routesProvider',
     $locationProvider.html5Mode(true);
 }]).
 
-directive('router', ['routes', '$location', function(routes, $location) {
+directive('router', ['routes', '$location', 'dataSource', 'userAuthService', function(routes, $location, dataSource, userAuthService) {
 	return {
 		restrict: 'A',
 		controller: ['$scope', '$attrs', function($scope, $attrs) {
-			var model = $scope[$attrs.router] || {},
-				routesList = routes.getList();
+			var model = $scope[$attrs.router] || {};
+			var routesList = routes.getList();
 			
 			$scope.$on('$routeChangeSuccess', function(evt, routeData) {
 				if (!routeData.$$route)
@@ -50,9 +64,17 @@ directive('router', ['routes', '$location', function(routes, $location) {
 			});
 
 			this.setRoute = function(route) {
-				$scope[$attrs.router] = route;
-				routes.select(route);
-				$location.path(route.path);
+				
+				//if(userAuthService.isLogged){
+					$scope[$attrs.router] = route;
+					routes.select(route);
+					$location.path(route.path);
+				/*} else {
+					var route = {title: 'LOGIN', path: '/', icon: 'icon-circle', selected: true};
+					$scope[$attrs.router] = route;
+					routes.select(route);
+					$location.path('/');
+				}*/
 			}
 		}]
 	}
@@ -69,9 +91,6 @@ directive('routeTo', function() {
 		link: function($scope, $element, $attrs, routerCtrl) {
 			var evt = "ontouchstart" in document.documentElement ? 'touchstart' : 'mousedown';
 			$element.bind(evt, function() {
-				if($attrs.initCombo === "") {
-					$scope.$root.initTransactionCombo();
-				}
 				routerCtrl.setRoute($scope.item);
 				$scope.$apply();
 			});

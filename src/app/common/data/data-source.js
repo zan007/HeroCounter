@@ -1,7 +1,7 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
-	function($http, $q, $rootScope, $location, $route) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location',
+	function($http, $q, $rootScope, $location) {
 	   
 		var model = {
 			creatures: []
@@ -81,11 +81,14 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
 			isLoggedIn: function(){
 				var deferred = $q.defer();
 				$http.get('/isLoggedIn').success(function(user){ 
-					if (user !== '0') 
+					if (user !== '0') {
 						deferred.resolve();
-					else { 
+						return true;
+					}
+					else {
 						deferred.reject(); 
 						$location.url('/login'); 
+						return false;
 					} 
 				}); 
 				return deferred.promise; 

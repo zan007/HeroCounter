@@ -167,8 +167,10 @@ app.get('/', isLoggedIn, function(req, res, next) {
 
 app.get('/logout', function(req, res) {
     console.log('logout');
-    req.logout();
-    res.send(200);
+    req.logOut();
+    req.session.destroy(function (err) {
+        res.send(200);
+    });
 });
 
 app.get('/isLoggedIn', function(req, res) {

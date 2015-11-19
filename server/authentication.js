@@ -41,14 +41,14 @@ module.exports = function(passport) {
 			if (rows.length > 0) {
 				return done(null, false, req.flash('signupMessage', 'That login is already taken.'));
 			} else {
-
+				var registerData = req.body;
 				var newUser = {
 					login: login,
 					password: generateHash(password),
-					name: 'test',
-					margoNick: 'margonick'
+					name: registerData.name,
+					margoNick: registerData.margoNick
 				};
-
+				console.log('poczatek rejestracji');
 				connection.query('insert into user set ?', newUser, function(error, rows2){
 					if (error) throw error;
 
@@ -74,7 +74,8 @@ module.exports = function(passport) {
 				return done(err);
 
 			if (!rows.length) {
-				return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+				console.log('authentication failuer');
+				return done(null, false, {message: 'authentication failured'});//req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
 			} 
 			
 			bcrypt.compare(password, rows[0].password, function(err, res){

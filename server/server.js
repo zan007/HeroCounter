@@ -32,18 +32,18 @@ var connection = mysql.createConnection(databaseConfig.details);
 
 require('./authentication')(passport);
 
+app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
+app.use('/css', express.static(path.join(__dirname, srcDir, 'css')));
+app.use('/img', express.static(path.join(__dirname, srcDir, 'img')));
+app.use('/font', express.static(path.join(__dirname, srcDir, 'font')));
+app.use('/vendor', express.static(path.join(__dirname, srcDir, 'vendor')));
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
-app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
-app.use('/css', express.static(path.join(__dirname, srcDir, 'css')));
-app.use('/img', express.static(path.join(__dirname, srcDir, 'img')));
-app.use('/font', express.static(path.join(__dirname, srcDir, 'font')));
-app.use('/vendor', express.static(path.join(__dirname, srcDir, 'vendor')));
 
 var recalcCreatureRespTime = function(callback) {
     var today = moment().valueOf();
@@ -78,17 +78,25 @@ var recalcCreatureRespTime = function(callback) {
 
             creatures.push(currentCreature);
         }
-        callback(creatures);
+        callback(null, creatures);
     });
 };
 
 app.get('/init', function(req, res, next) {
-    recalcCreatureRespTime(function(data) {
+    var model = {};
+    async.series({
+        personalData: function(callback){
+            var user = req.user;
+            console.log(user);
+            callback(null, user);
+        },
+        creatures: recalcCreatureRespTime
+    },
+    function(err, results){
         
-        var output = {
-            creatures: data
-        }
-        res.send(output);
+        model.personalData = results.personalData;
+        model.creatures = results.creatures;
+        res.send(model);
     });
 });
 
@@ -126,9 +134,9 @@ app.post('/login', passport.authenticate('local-login', {
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }), function(req, res){
-    console.log('logowanie poprawnie ');
-     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
-});
+        console.log('logowanie poprawnie ');
+        res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+    });
 app.get('/creatures', function(req, res, next){
     creatures = [];
     connection.query({
@@ -167,13 +175,15 @@ app.get('/', isLoggedIn, function(req, res, next) {
 
 app.get('/logout', function(req, res) {
     console.log('logout');
-    req.logout();
-    res.send(200);
+    req.logOut();
+    req.session.destroy(function (err) {
+        res.send(200);
+    });
 });
 
 app.get('/isLoggedIn', function(req, res) {
-    console.log('isloggedIn request', req.isAuthenticated());
-    res.send(req.isAuthenticated()? req.user : '0');
+    console.log('isloggedIn request', req.isAuthenticated(), req.user);
+    res.send(req.isAuthenticated()? req.user : {});
 });
 
 var runServer = function(err, generatedData) {

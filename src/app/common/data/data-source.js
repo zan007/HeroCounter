@@ -1,12 +1,22 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
-	function($http, $q, $rootScope, $location, $route) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location',
+	function($http, $q, $rootScope, $location) {
 	   
-		var model = {
-			creatures: []
-		};
-		$rootScope.model = model;
+/*		var model = {
+			creatures: [],
+			personalData: {}
+		};*/
+		var model;
+
+		var initModel = function() {
+			$rootScope.model = {
+				creatures: [],
+				personalData: {}
+			};			
+		}
+		initModel();
+
 		$rootScope.opened = false;
 	
 		var call = function(httpData, responseFn) {
@@ -25,15 +35,16 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
 			return promise;
 		};
 
-		$http.get('init').then(function(response) {
+		/*$http.get('init').then(function(response) {
 			var data = response.data;
 
 			model.creatures = data.creatures;
-		   
+		 	model.personalData = data.personalData;
+
 			$rootScope.$broadcast('dataSource.ready');
 		}).then(null, function() {
 			$rootScope.$broadcast('dataSource.error');
-		});
+		});*/
 
 		return {
 			defeatCreature: function(creature) {
@@ -49,22 +60,25 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
 				$http.get('init').then(function(response) {
 					var data = response.data;
 
-					model.creatures = data.creatures;
-				   
+					$rootScope.model.creatures = data.creatures;
+				   	$rootScope.model.personalData = data.personalData;
+
 					$rootScope.$broadcast('dataSource.ready');
 				}).then(null, function() {
 					$rootScope.$broadcast('dataSource.error');
 				});
 			},
-			register: function(credential) {
+			register: function(registerData) {
 				return call({ method: 'POST',
 								 url: '/signup',
 								 data: { 
-									login: credential.login,
-									password: credential.password
+									login: registerData.login,
+									password: registerData.password,
+									name: registerData.name,
+									margoNick: registerData.margoNick
 								}
 							}, function(data) {
-
+								
 							});
 			},
 			logg: function(credential){
@@ -75,19 +89,28 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
 									password: credential.password
 								}
 							}, function(data) {
-								$location.path('/heroes');
+								//console.log(data);
+								//$location.path('/heroes');
 							});
 			},
 			isLoggedIn: function(){
 				var deferred = $q.defer();
 				$http.get('/isLoggedIn').success(function(user){ 
-					if (user !== '0') 
+					if(user){
+						deferred.resolve(user);
+					} else {
+						deferred.reject();
+					}
+					/*if (user !== '0') {
 						deferred.resolve();
-					else { 
+						return ;
+					} else {
 						deferred.reject(); 
 						$location.url('/login'); 
-					} 
+						return false;
+					}*/ 
 				}); 
+
 				return deferred.promise; 
 			},
 			logout: function() {
@@ -95,7 +118,8 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', '$route',
 								 url: '/logout',
 								 data: { }
 							}, function(data) {
-								$location.path('/');
+								initModel();
+								$rootScope.$broadcast('dataSource.ready');
 							});
 			}
 		};

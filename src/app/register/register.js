@@ -2,23 +2,14 @@ angular.module('register', ['dataSource', 'ngEnter']).
 
 controller('registerCtrl', ['$scope', '$rootScope', 'dataSource', '$http',
     function($scope, $rootScope, dataSource, fileService, $http) {
-    	/*dataSource.init();
-    	$rootScope.$on('dataSource.ready', function() {
-    		
-    		$scope.creatures = $rootScope.model.creatures;	
-    	});*/
-		$scope.cos = {
-			a: 'asd',
-			b: 'gg'
+    	
+    	$scope.register = function(registerData) {
+			userAuthService.register(registerData).then(function(data){
+				$state.go('login');
+			}).then(null, function() {
+				$scope.registerMessage = 'REGISTER FAILED, YOU CAN NOW LOGIN';
+			});
 		}
-		$scope.register = function() {
-			var credentials = {
-				login: $scope.login,
-				password: $scope.password
-			}
-			dataSource.register(credentials);
-		} 
-
 		
     }
 ]);

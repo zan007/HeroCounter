@@ -1,8 +1,13 @@
 <div ng-controller="loginCtrl">
-<form name="loginForm">
-		login <input ng-model="login"/>
-		<hr>
-		password <input ng-model="password"/>
-		<div class="btn" ng-click="logg(login, password)">send</div>
-	</form>
+	<div class="auth-box">
+		<div class="auth-type">LOGIN</div>
+		<div class="header">LOG IN INTO YOUR ACCOUNT</div>
+		<form name="loginForm">
+				<div><input class="auth-input" ng-model="login" placeholder="LOGIN"/></div>
+				<div><input class="auth-input" ng-model="password" placeholder="PASSWORD"/></div>
+				<button class="button" ng-click="logg(login, password)">LOGIN</button>
+
+		</form>
+	</div>
+	<p ng-bind="loginMessage"></p>
 </div>

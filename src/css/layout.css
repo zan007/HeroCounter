@@ -28,6 +28,7 @@ body {
 
 .main-container {
     background-color: @mainBackgroundColor;
+    font-family: 'brandon-blk';
 }
 
 .nav, .pagination, .carousel, .panel-title a {
@@ -88,8 +89,14 @@ body {
                 }
             }
 
-            &.selected {
-                color: red;
+            &.active {
+                .icon {
+                    display: inline-block;
+                    color: #12aaeb;
+                    float: right;
+                    font-size: 15px;
+                    padding-top: 5px;
+                }
             }
         }
     }
@@ -114,6 +121,53 @@ body {
 .news {
     background-color: @mainBackgroundColor;
     .rotate-y(30deg);
+}
+
+.auth-box {
+    position: absolute;
+    right: 10px;
+    top: 30%;
+    width: 300px;
+    height: auto;
+    .border-radius(5px);
+    background-color: #275482;
+    font-size: 14px;
+    padding: 20px 30px;
+    text-align: center;
+
+    .auth-type {
+        color: #13a4e4;
+    }
+
+    .header {
+        color: white;
+        margin-bottom: 40px;
+    }
+
+    .auth-input {
+        -webkit-appearance: none;
+        .border-radius(3px);
+        border: 0;
+        background-color: #3b6897;
+        height: 30px;
+        width: 150px;
+        text-align: left;
+        padding-left: 20px;
+        margin-bottom: 20px;
+        color: white;
+        line-height: 30px;
+    }
+}
+
+.button {
+    -webkit-appearance: none;
+    border: 0;
+    width: 150px;
+    height: 30px;
+    background-color: #129fdd;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 780px) {

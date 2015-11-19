@@ -6,7 +6,7 @@
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
     <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
         <ul>
-            <li class="menu-element" ng-repeat="state in states" ng-class="{selected: state.selected}" ui-sref="{{state.reference}}">   
+            <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">   
                 <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
             </li>
         </ul>
@@ -17,5 +17,6 @@
     </div>
     <div class="news col-xs-5 col-sm-3 col-md-4 full-height">
         neeeeeeeeeeeeews
+        personalData: {{personalData}}
     </div>
 </div>

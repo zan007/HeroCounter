@@ -12,7 +12,9 @@ angular.module('heroCounter', [
 	'hideMenu',
 	'ngEnter',
 	'timer',
-	'userAuthService'
+	'userAuthService',
+	'socketService',
+	'notification-service'
 ])
 .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
    $httpProvider.interceptors.push(function($q, $location) {
@@ -68,6 +70,11 @@ angular.module('heroCounter', [
 			url: '/register',
 			templateUrl: '/register',
 			authRequire: false
+		})
+		.state('settings', {
+			url: '/settings',
+			templateUrl: '/settings',
+			authRequire: false
 		});
 }])
 .run(function ($rootScope, userAuthService, $state) {
@@ -105,7 +112,11 @@ angular.module('heroCounter', [
 		}, { 
 			reference: 'eventTitans',
 			selected: false,
-			name: "EVENT TITANS"
+			name: 'EVENT TITANS'
+		}, {
+			reference: 'settings',
+			selected: false,
+			name: 'SETTINGS'
 		}],
 	false: [{
 			reference: 'login',
@@ -118,22 +129,26 @@ angular.module('heroCounter', [
 		}]
 
 })
-.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates',
-	function($rootScope, $scope, dataSource, userAuthService, $state, appStates) {
+.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'socketService', 'notificationService',
+	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, socketService, notificationService) {
 
 		userAuthService.init();
+
 		$rootScope.$on('app-ready', function(data, next) {
 
 			$rootScope.states = appStates[userAuthService.getIsLogged()];
 			if(userAuthService.getIsLogged()) {
+				$scope.showLogout = true;
 				dataSource.init();
+				socketService.initializeConnection();
 			}
 			$state.reload(true);
-			//$state.go($scope.states[0].reference);
+			
 		});
 
 		$rootScope.$on('auth-login-success', function(data, next) {
 			dataSource.init();
+			socketService.initializeConnection();
 		});
 
 		$scope.btnClick = false;
@@ -142,12 +157,21 @@ angular.module('heroCounter', [
 			userAuthService.logout().then(function(data){
 				$rootScope.states = appStates[userAuthService.getIsLogged()];
 				$rootScope.model = {};
-				$state.go($scope.states[0].reference);
+				socketService.disconnect();
+				$state.go($rootScope.states[0].reference);
 			});
 		}
 
 		$rootScope.$on('dataSource.ready', function() {
     		$scope.personalData = $rootScope.model.personalData;
     	});
+
+    	socketService.on('creaturesUpdated', function(data) {
+    		console.log('zupdatowana lista ', data);
+
+    		$rootScope.model.creatures = data.creatures;
+    		notificationService.showInfoNotification('Creatures list updated');
+    		$rootScope.$broadcast('dataSource.ready');
+    	})
 }]);
 

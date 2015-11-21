@@ -6,3 +6,4 @@
 @import (less) "layout.css";
 @import (less) "home/home.css";
 @import (less) "controls/hc-creature-tile.css";
+@import (less) "vendor/angular-ui-notification.css";

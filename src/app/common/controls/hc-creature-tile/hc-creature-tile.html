@@ -2,13 +2,34 @@
 	<div class="creature-avatar">
 		<img ng-src="{{creature.image}}"/>
 	</div>
+	<div class="tile-header" ng-bind="creature.name"></div>
+	<div class="tile-subtitle">
+		<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+		<div ng-show="!creature.timeToResp">Czas nieznany</div>
+	</div>
 	<div class="tile-content">
-		<p class="label">Minimalny czas respu</p>
+		<section class="tile-section">
+			<div class="value" ng-bind="creature.minRespTime"></div>
+			<div class="label">Minimalny czas respu</div>
+		</section>
+		<section class="tile-section">
+			<div class="value" ng-bind="creature.maxRespTime"></div>
+			<div class="label">Maxymalny czas respu</div>
+		</section>
+		<section class="tile-section">
+			<div class="value" ng-bind="creature.defeatCounter"></div>
+			<div class="label">Pokonany</div>
+		</section>
+		<!-- <p class="label">Minimalny czas respu</p>
 		<p class="value" ng-bind="creature.minRespTime"></p>
 		<p class="label">Maksymalny czas respu</p>
 		<p class="value" ng-bind="creature.maxRespTime"></p>
 		<p class="label">Czas do respu</p>
-		<p class="value" ng-show="creature.timeToResp"><timer interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer></p>
-		<div class="defeat-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
+		<p class="value" ng-show="creature.timeToResp"><timer interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer></p> -->
+
+	</div>
+	<div class="action-buttons">
+		<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
+		<div class="tile-button" ng-click="">Podobno ubita</div>
 	</div>
 </div>

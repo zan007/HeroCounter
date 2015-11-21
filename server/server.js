@@ -13,7 +13,10 @@ var express = require('express'),
     authentication = require('./authentication'),
     passport = require('passport'),
     flash    = require('connect-flash'),
-    moment = require('moment');
+    moment = require('moment'),
+    http = require('http').Server(express),
+    socketIo = require('socket.io'),
+    io;
 
 express.static.mime.define({
     'application/x-font-woff': ['woff'],
@@ -75,7 +78,7 @@ var recalcCreatureRespTime = function(callback) {
                 console.log(moment(dateDifference).valueOf());
                 currentCreature.timeToResp = dateDifference;
             }
-
+            console.log(currentCreature, 'ddoodododod');
             creatures.push(currentCreature);
         }
         callback(null, creatures);
@@ -119,10 +122,12 @@ app.post('/defeat', function(req, res, next){
         connection.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, rows2, fields){
 
         });
-        recalcCreatureRespTime(function(data) { 
+        recalcCreatureRespTime(function(empty, data) { 
+            console.log('recalc defeat', data);
             var output = {
                 creatures: data
             }
+            io.emit('creaturesUpdated', output);
             res.send(output);
         });
     } else {
@@ -180,18 +185,28 @@ app.get('/logout', function(req, res) {
         res.send(200);
     });
 });
-
 app.get('/isLoggedIn', function(req, res) {
     console.log('isloggedIn request', req.isAuthenticated(), req.user);
     res.send(req.isAuthenticated()? req.user : {});
 });
+
+
+
 
 var runServer = function(err, generatedData) {
     if (err)
         throw err;
 
     data = generatedData;
-    app.listen(appConfig.listenPort);
+    var server = app.listen(appConfig.listenPort);
+    io = require('socket.io').listen(server);
+    io.on('connection', function(socket){
+      console.log('a user connected');
+
+       socket.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+    });
     console.log('Listening on port: ' + appConfig.listenPort);
 }
 

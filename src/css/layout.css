@@ -57,7 +57,6 @@ body {
 
         .menu-element {
             padding: 0 15px;
-            
             font-family: 'brandon-blk';
             width: 175px;
             height: 30px;
@@ -98,7 +97,21 @@ body {
                     padding-top: 5px;
                 }
             }
+
         }
+    }
+
+    .menu-button {
+        background-color: #214b76;
+        border-radius: 5px 5px 5px 5px;
+        position: absolute;
+        bottom: 30px;
+        width: 175px;
+        height: 30px;
+        color: white;
+        -webkit-appearance: none;
+        border: solid 1px #12aaeb;
+        margin-left: 10px;
     }
 }
 

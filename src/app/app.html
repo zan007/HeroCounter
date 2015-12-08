@@ -1,4 +1,4 @@
-<div ng-controller="AppCtrl" class="main-container full-height container-fluid row" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
+<div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
     <!-- <div class="header">
         <button class="menu-toggle" ng-click="$root.opened=!$root.opened"><i class="icon-menu"></i>
         </button>
@@ -10,14 +10,14 @@
                 <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
             </li>
         </ul>
-        <button class="menu-button" ng-click="logout()">Logout</button>
+        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
     </nav>
 
-    <div class="content col-xs-7 col-sm-6 col-md-6 full-height">
-        <div ui-view class="enter-animation full-height"></div>
+    <div class="content col-xs-7 col-sm-6 col-md-6 full-height scrollable">
+        <div class="row">
+            <div ui-view class="enter-animation container-fluid full-height"></div>
+        </div>
     </div>
     <div class="news col-xs-5 col-sm-3 col-md-4 full-height">
-        neeeeeeeeeeeeews
-        personalData: {{personalData}}
     </div>
 </div>

@@ -39,6 +39,12 @@
     transform: rotateY(@degrees);
 }
 
+.rotate(@degrees) {
+    -webkit-transform: rotate(@degrees);
+      -ms-transform: rotate(@degrees);
+          transform: rotate(@degrees);
+}
+
 .opacity-transition (@duration: 0.2s) {
 	-webkit-transition: opacity @duration;  
 	-moz-transition: opacity @duration;

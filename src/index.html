@@ -11,6 +11,7 @@
 </head>
 <body>
   <%template id="/heroes" src="app/heroes/heroes.html"%>
+  <%template id="/filter-box" src="app/heroes/filter-box.html"%>
   <%template id="/" src="app/login/login.html"%>
   <%template id="/register" src="app/register/register.html"%>
   <%template id="/heroes" src="app/heroes/heroes.html"%>
@@ -23,9 +24,14 @@
   
   <%include src="meta/<%=scriptsPath%>"%>
   <script>
-    $script.ready('scripts', function() {
-      $script.ready('angular-ui-router', function(){
-        angular.bootstrap(document, ['heroCounter']);  
+    $script.ready('angular', function() {
+      console.log('angular ready');
+      $script.ready('scripts', function(){
+        console.log('scripts ready');
+        $script.ready('angular-ui-router', function(){
+          console.log('angular ui ready');
+          angular.bootstrap(document, ['heroCounter']);  
+        });
       });
       
     });

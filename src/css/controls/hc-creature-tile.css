@@ -1,5 +1,5 @@
 .tile-container {
-	width: 310px;
+	width: 100%;
 	min-height: 100px;
 	background-color: #26527e;
 	.border-radius(5px);
@@ -43,8 +43,13 @@
 			margin-top: 30px;
 			display: inline-block;
 			height: 60px;
-			width: 100px;
+			/*width: 75px;*/
 			border-right: 3px dotted #234d78;
+			text-align: center;
+
+			&:last-child {
+				border-right: none;
+			}
 		}
 
 		.label {
@@ -59,6 +64,7 @@
 		.value {
 			color: #1792cd;
 			font-size: 14px;
+			font-weight: 600;
 		}
 	}
 

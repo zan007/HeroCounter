@@ -5,16 +5,17 @@ angular.module('heroCounter', [
 	'login',
 	'heroes',
 	'titans',
+	'settings',
 	'eventHeroes',
 	'eventTitans',
 	'dataSource',
 	'ngTouch',
-	'hideMenu',
 	'ngEnter',
 	'timer',
 	'userAuthService',
 	'socketService',
-	'notification-service'
+	'notification-service',
+	'utils.fastFilter'
 ])
 .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
    $httpProvider.interceptors.push(function($q, $location) {
@@ -101,7 +102,7 @@ angular.module('heroCounter', [
 			reference: 'heroes',
 			selected: true,
 			name: 'HEROES'
-		}, {
+		}, /*{
 			reference: 'eventHeroes',
 			selected: false,
 			name: 'EVENT HEROES',
@@ -113,7 +114,7 @@ angular.module('heroCounter', [
 			reference: 'eventTitans',
 			selected: false,
 			name: 'EVENT TITANS'
-		}, {
+		},*/ {
 			reference: 'settings',
 			selected: false,
 			name: 'SETTINGS'
@@ -133,12 +134,13 @@ angular.module('heroCounter', [
 	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, socketService, notificationService) {
 
 		userAuthService.init();
+		$rootScope.showLogout = false;
 
 		$rootScope.$on('app-ready', function(data, next) {
 
 			$rootScope.states = appStates[userAuthService.getIsLogged()];
 			if(userAuthService.getIsLogged()) {
-				$scope.showLogout = true;
+				$rootScope.showLogout = true;
 				dataSource.init();
 				socketService.initializeConnection();
 			}
@@ -149,6 +151,7 @@ angular.module('heroCounter', [
 		$rootScope.$on('auth-login-success', function(data, next) {
 			dataSource.init();
 			socketService.initializeConnection();
+			$rootScope.showLogout = true;
 		});
 
 		$scope.btnClick = false;
@@ -159,6 +162,7 @@ angular.module('heroCounter', [
 				$rootScope.model = {};
 				socketService.disconnect();
 				$state.go($rootScope.states[0].reference);
+
 			});
 		}
 

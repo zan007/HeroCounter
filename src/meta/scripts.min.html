@@ -1,12 +1,22 @@
 <script charset="utf-8">
-$script([
-    '/vendor/jquery/1.10.2/jquery.js',
-    '/vendor/angular/1.2.6/angular.min.js',
-    '/vendor/angular/1.2.6/angular-touch.min.js',
+$script(['/vendor/angular/1.2.6/angular.min.js',
+	'/vendor/angular/1.2.6/angular-touch.min.js',
     '/vendor/angular/1.2.6/angular-animate.min.js',
     '/vendor/angular/1.2.6/angular-route.min.js',
     '/vendor/angular/1.2.6/i18n/angular-locale_pl.js',
-
+    '/vendor/angular/1.2.6/angular-resource.min.js'], 'angular');
+$script([
+    '/vendor/jquery/1.10.2/jquery.js',
+	'/vendor/timer/timer.min.js',
+    '/vendor/moment/min/moment.min.js',
+    '/vendor/moment/min/locales.min.js',
+    '/vendor/humanize-duration/humanize-duration.js',
+    '/vendor/bootstrap/bootstrap.min.js',
+    '/vendor/socket-io/socket.io.js',
+    '/vendor/angular-ui-notification/angular-ui-notification.min.js',
+    '/vendor/slider/rzslider.min.js',
     '/app/app.<%=timestamp%>.js'
 ], 'scripts');
+$script('/vendor/angular-ui-router/release/angular-ui-router.min.js', 'angular-ui-router');
+
 </script>

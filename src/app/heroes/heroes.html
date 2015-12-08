@@ -1,5 +1,10 @@
-<div ng-controller="heroesCtrl" class="container-fluid">
-	<div class="row">
-		<div ng-repeat="creature in creatures" hc-creature-tile="creature"></div>
+<div ng-controller="heroesCtrl" class="row heroes">
+	<div class="container-fluid">
+		<div class="row">
+		 	<%include src="filter-box.html"%>
+		</div>
+		<div class="row">
+			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+		</div>
 	</div>
 </div>

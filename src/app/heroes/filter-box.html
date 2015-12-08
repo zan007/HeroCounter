@@ -1,0 +1,67 @@
+<div class="col-md-6">
+	<div class="filter-box">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">LEVEL RANGE</header>
+					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<rzslider rz-slider-model="timeSlider.value"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/> 
+						<label for="common-checkbox-known-time"></label>
+						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="query-container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="query-box text-center col-md-12">
+					<div class="input-holder">
+						<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="query-box">
+					<div class="container-fluid">
+						<div class="row">
+							<header class="col-md-12">Creature Types</header>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
+									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
+									<label for="common-checkbox1"></label>
+									<span class="checkbox-label">Titans</span>
+								</div>
+								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
+									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
+									<label for="common-checkbox2"></label>
+									<span class="checkbox-label">Heroes</span>
+								 </div>
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,53 +1,101 @@
 .tile-container {
-	width: 157px;
-	min-height: 140px;
+	width: 100%;
+	min-height: 100px;
 	background-color: #26527e;
 	.border-radius(5px);
-	text-align: center;
 	text-transform: uppercase;
 	position: relative;
 	display: inline-block;
-	margin-right: 20px;
+	margin-right: 10px;
+	margin-top: 10px;
 
 	.creature-avatar {
 		position: absolute;
-		.border-radius(50%);
 		overflow: hidden;
-		border: solid 2px #12aaeb;
-		width: 30%;
-		height: 30%;
-		left: 35%;
-		top: -15%;
-		background-color: #0b1f39;
+		right: 0;
+		top: 0;
+		padding: 10px;
 
 		img {
-			width: 100%;
-			height: 100%;
+			width: 50%;
+			height: 50%;
+			float: right;
 		}
 	}
 
+	.tile-header {
+		font-size: 14px;
+		color: white;
+		padding: 30px 0 10px 30px;
+	}
+
+	.tile-subtitle {
+		color: #1792cd;
+		font-size: 12px;
+		padding: 0 0 0 35px;
+	}
+
 	.tile-content {
-		padding-top: 30px;
-		font-size: 9px;
+		margin-bottom: 40px;
+		text-align: center;
+
+		.tile-section {
+			margin-top: 30px;
+			display: inline-block;
+			height: 60px;
+			/*width: 75px;*/
+			border-right: 3px dotted #234d78;
+			text-align: center;
+
+			&:last-child {
+				border-right: none;
+			}
+		}
 
 		.label {
-			
-			color: #4974a3;
+			white-space: normal;
+			color: #96abc0;
+			font-size: 11px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: top;
 		}
 
 		.value {
-			color: #fff;
+			color: #1792cd;
+			font-size: 14px;
+			font-weight: 600;
 		}
+	}
 
-		.defeat-button {
-			width: 100%;
-			height: 30px;
-			line-height: 30px;
-			background-color: #214b76;
-			margin-top: 10px;
-			.border-radius(0 0 5px 5px);
-			cursor: pointer;
-			color: #fff;
+	.action-buttons {
+		background-color: #194068;
+		width: 100%;
+		.border-radius(0 0 5px 5px);
+		border-spacing: 1px;
+		font-size: 0;
+		display: table;
+		min-height: 30px;
+		position: absolute;
+		bottom: 0;
+	}
+
+	.tile-button {
+		text-align: center;
+		
+		display: table-cell;
+		vertical-align: middle;
+		height: auto;
+		width: 50%;
+		font-size: 12px;
+		
+		background-color: #214b76;
+		.border-radius(0 0 5px 5px);
+		cursor: pointer;
+		color: #3c6795;
+
+		&:hover {
+			color: white;
 		}
 	}
 }

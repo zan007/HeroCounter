@@ -98,6 +98,9 @@ module.exports = function (grunt) {
       app:{
         src:['src/app/**/*.js'],
         dest:'dist/app/app.<%=timestamp%>.js'
+      },
+      options: {
+        mangle: false
       }
     },
     less: {

@@ -11,20 +11,27 @@
 </head>
 <body>
   <%template id="/heroes" src="app/heroes/heroes.html"%>
+  <%template id="/filter-box" src="app/heroes/filter-box.html"%>
   <%template id="/" src="app/login/login.html"%>
   <%template id="/register" src="app/register/register.html"%>
   <%template id="/heroes" src="app/heroes/heroes.html"%>
   <%template id="/event-heroes" src="app/heroes/event-heroes.html"%>
   <%template id="/event-titans" src="app/titans/event-titans.html"%>
   <%template id="/titans" src="app/titans/titans.html"%>
+  <%template id="/settings" src="app/settings/settings.html"%>
   <%template id="hc-creature-tile" src="app/common/controls/hc-creature-tile/hc-creature-tile.html"%>
   <%include src="app/app.html"%>  
   
   <%include src="meta/<%=scriptsPath%>"%>
   <script>
-    $script.ready('scripts', function() {
-      $script.ready('angular-ui-router', function(){
-        angular.bootstrap(document, ['heroCounter']);  
+    $script.ready('angular', function() {
+      console.log('angular ready');
+      $script.ready('scripts', function(){
+        console.log('scripts ready');
+        $script.ready('angular-ui-router', function(){
+          console.log('angular ui ready');
+          angular.bootstrap(document, ['heroCounter']);  
+        });
       });
       
     });

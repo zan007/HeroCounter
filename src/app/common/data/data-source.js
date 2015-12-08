@@ -1,7 +1,7 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location',
-	function($http, $q, $rootScope, $location) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'socketService',
+	function($http, $q, $rootScope, $location, socketService) {
 	   
 /*		var model = {
 			creatures: [],
@@ -50,7 +50,9 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location',
 			defeatCreature: function(creature) {
 				return call({ method: 'POST',
 								 url: '/defeat',
-								 data: { creatureName: creature.name }
+								 data: { 
+								 	creatureName: creature.name 
+								 }
 							}, function(data) {
 								$rootScope.model.creatures = data.creatures;
 								$rootScope.$broadcast('dataSource.ready');

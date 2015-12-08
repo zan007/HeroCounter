@@ -24,11 +24,27 @@ body {
     -webkit-font-smoothing: antialiased;
     font-family: "brandon-blk", "RBNo2 Light", "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", Helvetica, "Trebuchet MS", Tahoma, sans-serif;
     height: 100%;
+    overflow-y: hidden;
+}
+
+.scrollable {
+    overflow: auto;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .main-container {
     background-color: @mainBackgroundColor;
     font-family: 'brandon-blk';
+    min-height: 600px;
+    height: 100%;
 }
 
 .nav, .pagination, .carousel, .panel-title a {
@@ -57,7 +73,6 @@ body {
 
         .menu-element {
             padding: 0 15px;
-            
             font-family: 'brandon-blk';
             width: 175px;
             height: 30px;
@@ -98,7 +113,21 @@ body {
                     padding-top: 5px;
                 }
             }
+
         }
+    }
+
+    .menu-button {
+        background-color: #214b76;
+        border-radius: 5px 5px 5px 5px;
+        position: absolute;
+        bottom: 30px;
+        width: 175px;
+        height: 30px;
+        color: white;
+        -webkit-appearance: none;
+        border: solid 1px #12aaeb;
+        margin-left: 10px;
     }
 }
 
@@ -123,6 +152,14 @@ body {
     .rotate-y(30deg);
 }
 
+.heroes {
+    font-size: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
 .auth-box {
     position: absolute;
     right: 10px;
@@ -142,20 +179,6 @@ body {
     .header {
         color: white;
         margin-bottom: 40px;
-    }
-
-    .auth-input {
-        -webkit-appearance: none;
-        .border-radius(3px);
-        border: 0;
-        background-color: #3b6897;
-        height: 30px;
-        width: 150px;
-        text-align: left;
-        padding-left: 20px;
-        margin-bottom: 20px;
-        color: white;
-        line-height: 30px;
     }
 }
 

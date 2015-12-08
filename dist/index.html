@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>HeroCounter</title>
+  
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="author" content="iFIN24.pl">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- web app in fullscreen mode on iPad -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" type="text/css" href="/app/app.1449607591314.css">
+  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+
+  <script>
+  /*
+   AngularJS v1.2.6
+   (c) 2010-2014 Google, Inc. http://angularjs.org
+   License: MIT
+  */
+  (function(){'use strict';function d(a){return function(){var c=arguments[0],b,c="["+(a?a+":":"")+c+"] http://errors.angularjs.org/1.2.6/"+(a?a+"/":"")+c;for(b=1;b<arguments.length;b++)c=c+(1==b?"?":"&")+"p"+(b-1)+"="+encodeURIComponent("function"==typeof arguments[b]?arguments[b].toString().replace(/ \{[\s\S]*$/,""):"undefined"==typeof arguments[b]?"undefined":"string"!=typeof arguments[b]?JSON.stringify(arguments[b]):arguments[b]);return Error(c)}}(function(a){var c=d("$injector"),b=d("ng");a=a.angular||(a.angular={});a.$minErr=a.$minErr||d;return a.module||(a.module=function(){var a={};return function(e,d,f){if("hasOwnProperty"===e)throw b("badname","module");d&&a.hasOwnProperty(e)&&(a[e]=null);return a[e]||(a[e]=function(){function a(c,d,e){return function(){b[e||"push"]([c,d,arguments]);return g}}if(!d)throw c("nomod",e);var b=[],h=[],k=a("$injector","invoke"),g={_invokeQueue:b,_runBlocks:h,requires:d,name:e,provider:a("$provide","provider"),factory:a("$provide","factory"),service:a("$provide","service"),value:a("$provide","value"),constant:a("$provide","constant","unshift"),animation:a("$animateProvider","register"),filter:a("$filterProvider","register"),controller:a("$controllerProvider","register"),directive:a("$compileProvider","directive"),config:k,run:function(a){h.push(a);return this}};f&&k(f);return g}())}}())})(window)})(window);
+
+  /*!
+   * $script.js Async loader & dependency manager
+   * https://github.com/ded/script.js
+   * (c) Dustin Diaz, Jacob Thornton 2011
+   * License: MIT
+   */
+  (function(a,b,c){typeof c["module"]!="undefined"&&c.module.exports?c.module.exports=b():typeof c["define"]!="undefined"&&c["define"]=="function"&&c.define.amd?define(a,b):c[a]=b()})("$script",function(){function p(a,b){for(var c=0,d=a.length;c<d;++c)if(!b(a[c]))return j;return 1}function q(a,b){p(a,function(a){return!b(a)})}function r(a,b,i){function o(a){return a.call?a():d[a]}function t(){if(!--n){d[m]=1,l&&l();for(var a in f)p(a.split("|"),o)&&!q(f[a],o)&&(f[a]=[])}}a=a[k]?a:[a];var j=b&&b.call,l=j?b:i,m=j?a.join(""):b,n=a.length;return setTimeout(function(){q(a,function(a){if(h[a])return m&&(e[m]=1),h[a]==2&&t();h[a]=1,m&&(e[m]=1),s(!c.test(a)&&g?g+a+".js":a,t)})},0),r}function s(c,d){var e=a.createElement("script"),f=j;e.onload=e.onerror=e[o]=function(){if(e[m]&&!/^c|loade/.test(e[m])||f)return;e.onload=e[o]=null,f=1,h[c]=2,d()},e.async=1,e.src=c,b.insertBefore(e,b.firstChild)}var a=document,b=a.getElementsByTagName("head")[0],c=/^https?:\/\//,d={},e={},f={},g,h={},i="string",j=!1,k="push",l="DOMContentLoaded",m="readyState",n="addEventListener",o="onreadystatechange";return!a[m]&&a[n]&&(a[n](l,function t(){a.removeEventListener(l,t,j),a[m]="complete"},j),a[m]="loading"),r.get=s,r.order=function(a,b,c){(function d(e){e=a.shift(),a.length?r(e,d):r(e,b,c)})()},r.path=function(a){g=a},r.ready=function(a,b,c){a=a[k]?a:[a];var e=[];return!q(a,function(a){d[a]||e[k](a)})&&p(a,function(a){return d[a]})?b():!function(a){f[a]=f[a]||[],f[a][k](b),c&&c(e)}(a.join("|")),r},r},this)
+  </script>  
+</head>
+<body>
+  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
+	<div class="container-fluid">
+		<div class="row">
+		 	<div class="col-md-6">
+	<div class="filter-box">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">LEVEL RANGE</header>
+					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<rzslider rz-slider-model="timeSlider.value"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/> 
+						<label for="common-checkbox-known-time"></label>
+						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="query-container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="query-box text-center col-md-12">
+					<div class="input-holder">
+						<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="query-box">
+					<div class="container-fluid">
+						<div class="row">
+							<header class="col-md-12">Creature Types</header>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
+									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
+									<label for="common-checkbox1"></label>
+									<span class="checkbox-label">Titans</span>
+								</div>
+								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
+									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
+									<label for="common-checkbox2"></label>
+									<span class="checkbox-label">Heroes</span>
+								 </div>
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="row">
+			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+		</div>
+	</div>
+</div>
+</script>
+  <script id="/filter-box" type="text/ng-template"><div class="col-md-6">
+	<div class="filter-box">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">LEVEL RANGE</header>
+					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<rzslider rz-slider-model="timeSlider.value"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/> 
+						<label for="common-checkbox-known-time"></label>
+						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="query-container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="query-box text-center col-md-12">
+					<div class="input-holder">
+						<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="query-box">
+					<div class="container-fluid">
+						<div class="row">
+							<header class="col-md-12">Creature Types</header>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
+									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
+									<label for="common-checkbox1"></label>
+									<span class="checkbox-label">Titans</span>
+								</div>
+								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
+									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
+									<label for="common-checkbox2"></label>
+									<span class="checkbox-label">Heroes</span>
+								 </div>
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div></script>
+  <script id="/" type="text/ng-template"><div ng-controller="loginCtrl">
+	<div class="auth-box">
+		<div class="auth-type">LOGIN</div>
+		<div class="header">LOG IN INTO YOUR ACCOUNT</div>
+		<form name="loginForm">
+				<div><input class="form-input" ng-model="login" placeholder="LOGIN"/></div>
+				<div><input class="form-input" ng-model="password" placeholder="PASSWORD"/></div>
+				<button class="button" ng-click="logg(login, password)">LOGIN</button>
+
+		</form>
+	</div>
+	<p ng-bind="loginMessage"></p>
+</div>
+</script>
+  <script id="/register" type="text/ng-template"><div ng-controller="registerCtrl">
+	<div class="auth-box">
+		<div class="auth-type">SIGNUP</div>
+		<div class="header">CREATE YOUR ACCOUNT</div>
+		<form name="signup-form">
+				<div><input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/></div>
+				<div><input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/></div>
+				<div><input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/></div>
+				<div><input class="form-input" ng-model="registerData.name" placeholder="NAME"/></div>
+				<div><input class="form-input" ng-model="registerData.margoNick" placeholder="MARGO NICK"/></div>
+				<button class="button" ng-click="register(registerData)">SIGNUP</button>
+		</form>
+	</div>
+	
+	
+</div>
+</script>
+  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
+	<div class="container-fluid">
+		<div class="row">
+		 	<div class="col-md-6">
+	<div class="filter-box">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">LEVEL RANGE</header>
+					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<rzslider rz-slider-model="timeSlider.value"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/> 
+						<label for="common-checkbox-known-time"></label>
+						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="query-container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="query-box text-center col-md-12">
+					<div class="input-holder">
+						<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="query-box">
+					<div class="container-fluid">
+						<div class="row">
+							<header class="col-md-12">Creature Types</header>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
+									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
+									<label for="common-checkbox1"></label>
+									<span class="checkbox-label">Titans</span>
+								</div>
+								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
+									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
+									<label for="common-checkbox2"></label>
+									<span class="checkbox-label">Heroes</span>
+								 </div>
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="row">
+			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+		</div>
+	</div>
+</div>
+</script>
+  <script id="/event-heroes" type="text/ng-template">event-heroes</script>
+  <script id="/event-titans" type="text/ng-template">event titans</script>
+  <script id="/titans" type="text/ng-template">titans</script>
+  <script id="/settings" type="text/ng-template"><div ng-controller="settingsCtrl">
+	Settings
+</div>
+</script>
+  <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
+	<div class="tile-container container-fluid">
+		<div class="row">
+			<div class="creature-avatar">
+				<img ng-src="{{creature.image}}"/>
+			</div>
+			<div class="tile-header" ng-bind="creature.name"></div>
+			<div class="tile-subtitle">
+				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+				<div ng-show="!creature.timeToResp">Czas nieznany</div>
+			</div>
+			<div class="tile-content container-fluid">
+				<div class="row">
+					<section class="tile-section col-md-4">
+						<div class="value" ng-bind="creature.minRespTime"></div>
+						<div class="label row">Min czas respu</div>
+					</section>
+					<section class="tile-section col-md-4">
+						<div class="value" ng-bind="creature.maxRespTime"></div>
+						<div class="label row">Max czas respu</div>
+					</section>
+					<section class="tile-section col-md-4">
+						<div class="value" ng-bind="creature.defeatCounter"></div>
+						<div class="label row">Pokonany</div>
+					</section>
+				</div>
+				<!-- <p class="label">Minimalny czas respu</p>
+				<p class="value" ng-bind="creature.minRespTime"></p>
+				<p class="label">Maksymalny czas respu</p>
+				<p class="value" ng-bind="creature.maxRespTime"></p>
+				<p class="label">Czas do respu</p>
+				<p class="value" ng-show="creature.timeToResp"><timer interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer></p> -->
+
+			</div>
+			<div class="action-buttons">
+				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
+				<div class="tile-button" ng-click="">Podobno ubita</div>
+			</div>
+		</div>
+	</div>
+</div></script>
+  <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
+    <!-- <div class="header">
+        <button class="menu-toggle" ng-click="$root.opened=!$root.opened"><i class="icon-menu"></i>
+        </button>
+    </div> -->
+    <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
+    <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
+        <ul>
+            <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">   
+                <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+            </li>
+        </ul>
+        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+    </nav>
+
+    <div class="content col-xs-7 col-sm-6 col-md-6 full-height scrollable">
+        <div class="row">
+            <div ui-view class="enter-animation container-fluid full-height"></div>
+        </div>
+    </div>
+    <div class="news col-xs-5 col-sm-3 col-md-4 full-height">
+    </div>
+</div>
+  
+  
+  <script charset="utf-8">
+$script(['/vendor/angular/1.2.6/angular.min.js',
+	'/vendor/angular/1.2.6/angular-touch.min.js',
+    '/vendor/angular/1.2.6/angular-animate.min.js',
+    '/vendor/angular/1.2.6/angular-route.min.js',
+    '/vendor/angular/1.2.6/i18n/angular-locale_pl.js',
+    '/vendor/angular/1.2.6/angular-resource.min.js'], 'angular');
+$script([
+    '/vendor/jquery/1.10.2/jquery.js',
+	'/vendor/timer/timer.min.js',
+    '/vendor/moment/min/moment.min.js',
+    '/vendor/moment/min/locales.min.js',
+    '/vendor/humanize-duration/humanize-duration.js',
+    '/vendor/bootstrap/bootstrap.min.js',
+    '/vendor/socket-io/socket.io.js',
+    '/vendor/angular-ui-notification/angular-ui-notification.min.js',
+    '/vendor/slider/rzslider.min.js',
+    '/app/app.1449607591314.js'
+], 'scripts');
+$script('/vendor/angular-ui-router/release/angular-ui-router.min.js', 'angular-ui-router');
+
+</script>
+
+  <script>
+    $script.ready('angular', function() {
+      console.log('angular ready');
+      $script.ready('scripts', function(){
+        console.log('scripts ready');
+        $script.ready('angular-ui-router', function(){
+          console.log('angular ui ready');
+          angular.bootstrap(document, ['heroCounter']);  
+        });
+      });
+      
+    });
+  </script>
+</body>
+</html>

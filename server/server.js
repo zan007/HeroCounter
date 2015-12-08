@@ -16,7 +16,8 @@ var express = require('express'),
     moment = require('moment'),
     http = require('http').Server(express),
     socketIo = require('socket.io'),
-    io;
+    io,
+    favicon = require('serve-favicon');
 
 express.static.mime.define({
     'application/x-font-woff': ['woff'],
@@ -40,6 +41,7 @@ app.use('/css', express.static(path.join(__dirname, srcDir, 'css')));
 app.use('/img', express.static(path.join(__dirname, srcDir, 'img')));
 app.use('/font', express.static(path.join(__dirname, srcDir, 'font')));
 app.use('/vendor', express.static(path.join(__dirname, srcDir, 'vendor')));
+app.use(favicon(__dirname + '/dist/favicon.ico'));
 
 app.use(cookieParser());
 app.use(bodyParser.json());

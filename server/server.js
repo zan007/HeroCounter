@@ -167,7 +167,7 @@ function isLoggedIn(req, res, next) {
         
         return next();
     }
-    res.status(401);
+   /* res.status(401);*/
     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
 }
 

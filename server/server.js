@@ -200,7 +200,7 @@ var runServer = function(err, generatedData) {
         throw err;
 
     data = generatedData;
-    var server = app.listen(appConfig.listenPort);
+    var server = app.listen(process.env.PORT || 8000);
     io = require('socket.io').listen(server);
     io.on('connection', function(socket){
       console.log('a user connected');

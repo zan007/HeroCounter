@@ -21,7 +21,7 @@ angular.module('socketService', [])
 			})
 		},
 		initializeConnection: function () {
-			return io('hero-counter.herokuapp.com');
+			return io('http://hero-counter.herokuapp.com:80');
 		},
 		disconnect: function() {
 			socket.disconnect();

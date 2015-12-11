@@ -24,6 +24,8 @@ express.static.mime.define({
     'application/font-woff': ['woff']
 });
 
+process.env.NODE_ENV = 'production';
+
 var app = express(),
     data = {
         creatures: ''

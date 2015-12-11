@@ -11,7 +11,7 @@
 
   <!-- web app in fullscreen mode on iPad -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" type="text/css" href="/app/app.1449607591314.css">
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
 
   <script>
@@ -358,15 +358,14 @@
   
   
   <script charset="utf-8">
-$script(['/vendor/angular/1.2.6/angular.min.js',
-	'/vendor/angular/1.2.6/angular-touch.min.js',
-    '/vendor/angular/1.2.6/angular-animate.min.js',
-    '/vendor/angular/1.2.6/angular-route.min.js',
-    '/vendor/angular/1.2.6/i18n/angular-locale_pl.js',
-    '/vendor/angular/1.2.6/angular-resource.min.js'], 'angular');
+$script('/vendor/angular/1.2.6/angular.min.js', 'angular');
 $script([
     '/vendor/jquery/1.10.2/jquery.js',
-	'/vendor/timer/timer.min.js',
+    '/vendor/angular/1.2.6/angular-touch.js',
+    '/vendor/angular/1.2.6/angular-animate.js',
+    '/vendor/angular/1.2.6/angular-route.js',
+    '/vendor/angular/1.2.6/i18n/angular-locale_pl.js',
+    '/vendor/timer/timer.min.js',
     '/vendor/moment/min/moment.min.js',
     '/vendor/moment/min/locales.min.js',
     '/vendor/humanize-duration/humanize-duration.js',
@@ -374,11 +373,34 @@ $script([
     '/vendor/socket-io/socket.io.js',
     '/vendor/angular-ui-notification/angular-ui-notification.min.js',
     '/vendor/slider/rzslider.min.js',
-    '/app/app.1449607591314.js'
+    '/app/app.js',
+'/app/common/controls/animations/appAnimations.js',
+'/app/common/controls/hc-creature-tile/hc-creature-tile.js',
+'/app/common/controls/ng-enter/ng-enter.js',
+'/app/common/data/data-source.js',
+'/app/common/filters/creature-lvl-filter.js',
+'/app/common/filters/creature-type-filter.js',
+'/app/common/filters/creatures-filter.js',
+'/app/common/filters/creatures-query-filter.js',
+'/app/common/filters/only-with-known-time-filter.js',
+'/app/common/filters/resp-time-filter.js',
+'/app/common/services/notification-service.js',
+'/app/common/services/socket-service.js',
+'/app/common/services/user-auth-service.js',
+'/app/common/utils/fast-filter.js',
+'/app/heroes/event-heroes.js',
+'/app/heroes/heroes.js',
+'/app/hide-menu.js',
+'/app/login/login.js',
+'/app/register/register.js',
+'/app/router.js',
+'/app/settings/settings.js',
+'/app/titans/event-titans.js',
+'/app/titans/titans.js'
 ], 'scripts');
-$script('/vendor/angular-ui-router/release/angular-ui-router.min.js', 'angular-ui-router');
-
+$script('/vendor/angular-ui-router/release/angular-ui-router.js', 'angular-ui-router');
 </script>
+
 
   <script>
     $script.ready('angular', function() {

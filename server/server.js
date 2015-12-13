@@ -34,8 +34,13 @@ var app = express(),
     srcDir = path.join('..', 'dist'),
     imgDir = path.join('..','/server/img');
 
-var connection = mysql.createConnection(databaseConfig.details);
-
+var pool  = mysql.createPool({
+  connectionLimit: 50,
+  host: databaseConfig.details.host,
+  user: databaseConfig.details.user,
+  password: databaseConfig.details.password,
+  database: databaseConfig.details.database
+});
 require('./authentication')(passport);
 
 app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
@@ -52,40 +57,44 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 var io;
+
 var recalcCreatureRespTime = function(callback) {
     var today = moment().valueOf();
     var creatures = [];
-    connection.query({
-        sql: 'select * from creature',
-        timeout: 1000
-    }, function(err, rows, fields) {
-        if (err) throw err;
+    pool.getConnection(function(err, connection) {
+        connection.query({
+            sql: 'select * from creature',
+            timeout: 1000
+        }, function(err, rows, fields) {
+            if (err) throw err;
 
-        for (var i = 0; i < rows.length; i++) {
-            currentCreature = rows[i];
-            
-            var msDate  = moment(rows[i].defeatedDate).valueOf();
+            for (var i = 0; i < rows.length; i++) {
+                currentCreature = rows[i];
+                
+                var msDate  = moment(rows[i].defeatedDate).valueOf();
 
-            var minRespDate = currentCreature.type === 'titan'? moment(currentCreature.defeatedDate).add('days', currentCreature.minRespTime) : moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime); 
-            var maxRespDate = currentCreature.type === 'titan'? moment(currentCreature.defeatedDate).add('days', currentCreature.maxRespTime) : moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
-            console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
-            if(moment(maxRespDate).isBefore(today)) {
-                console.log('stare');
-                currentCreature.timeToResp = null;
-            } else {
-               /* console.log(maxRespDate > today);
-                console.log('oooo ' + moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
-                console.log('today format ' + moment(today).format('DD/MM/YYYY HH:mm:ss'));
-                console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
-                var today2 = moment();
-                var dateDifference = moment(maxRespDate).diff(moment(today));
-                console.log(moment(dateDifference).valueOf());
-                currentCreature.timeToResp = dateDifference;
+                var minRespDate = currentCreature.type === 'titan'? moment(currentCreature.defeatedDate).add('days', currentCreature.minRespTime) : moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime); 
+                var maxRespDate = currentCreature.type === 'titan'? moment(currentCreature.defeatedDate).add('days', currentCreature.maxRespTime) : moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
+                console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+                if(moment(maxRespDate).isBefore(today)) {
+                    console.log('stare');
+                    currentCreature.timeToResp = null;
+                } else {
+                   /* console.log(maxRespDate > today);
+                    console.log('oooo ' + moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+                    console.log('today format ' + moment(today).format('DD/MM/YYYY HH:mm:ss'));
+                    console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
+                    var today2 = moment();
+                    var dateDifference = moment(maxRespDate).diff(moment(today));
+                    console.log(moment(dateDifference).valueOf());
+                    currentCreature.timeToResp = dateDifference;
+                }
+                console.log(currentCreature, 'ddoodododod');
+                creatures.push(currentCreature);
             }
-            console.log(currentCreature, 'ddoodododod');
-            creatures.push(currentCreature);
-        }
-        callback(null, creatures);
+            connection.release();
+            callback(null, creatures);
+        });
     });
 };
 
@@ -120,10 +129,10 @@ app.post('/defeat', function(req, res, next){
     if(req.body && req.body.creatureName) {
         var creatureName = req.body.creatureName;
 
-        connection.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err, rows2, fields){
+        pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err, rows2, fields){
 
         });
-        connection.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, rows2, fields){
+        pool.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, rows2, fields){
 
         });
         recalcCreatureRespTime(function(empty, data) { 
@@ -148,19 +157,22 @@ app.post('/login', passport.authenticate('local-login', {
     });
 app.get('/creatures', function(req, res, next){
     creatures = [];
-    connection.query({
-        sql: 'select * from creature',
-        timeout: 1000
-    }, function(err, rows, fields) {
-        if (err) throw err;
+    pool.getConnection(function(err, connection) {
+        connection.query({
+            sql: 'select * from creature',
+            timeout: 1000
+        }, function(err, rows, fields) {
+            if (err) throw err;
 
-        for (var i = 0; i < rows.length; i++) {
-            console.log(rows[i]);
-            creatures.push(rows[i]);
-        };
+            for (var i = 0; i < rows.length; i++) {
+                console.log(rows[i]);
+                creatures.push(rows[i]);
+            };
 
-        //console.log(creatures);
-        res.send(creatures);
+            //console.log(creatures);
+            connection.release();
+            res.send(creatures);
+        });
     });
 });
 

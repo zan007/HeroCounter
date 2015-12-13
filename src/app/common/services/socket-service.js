@@ -28,7 +28,8 @@ angular.module('socketService', [])
 			/*socket = new io.Socket('localhost',{
 				port: 8000
 			});*/
-			socket = io.connect('https://localhost:8000');
+			//socket = io.connect('https://localhost:8000');
+			socket = io.connect('https://hero-counter.herokuapp.com');
 		//return io('http://localhost:8000');			
 		//socket = io.connect();
 			//return io('http://hero-counter.herokuapp.com:80');

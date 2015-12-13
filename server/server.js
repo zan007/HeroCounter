@@ -197,11 +197,11 @@ app.get('/isLoggedIn', function(req, res) {
 
 
 
-var runServer = function(err, generatedData) {
+var runServer = function(err) {
     if (err)
         throw err;
 
-    data = generatedData;
+    //data = generatedData;
     var server = app.listen(process.env.PORT || 8000);
     var io = require('socket.io').listen(server);
    
@@ -218,10 +218,4 @@ var runServer = function(err, generatedData) {
     console.log('Listening on port: ' + appConfig.listenPort);
 }
 
-if (!fs.existsSync(dataFile)) {
-    gen.generateData(3, 100, 3, runServer);
-} else {
-    fs.readFile(dataFile, function(err, dataBuffer) {
-        runServer(null, JSON.parse(dataBuffer));
-    });
-}
+runServer(null);

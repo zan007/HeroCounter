@@ -51,7 +51,7 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secre
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
+var io;
 var recalcCreatureRespTime = function(callback) {
     var today = moment().valueOf();
     var creatures = [];
@@ -159,7 +159,7 @@ app.get('/creatures', function(req, res, next){
             creatures.push(rows[i]);
         };
 
-        console.log(creatures);
+        //console.log(creatures);
         res.send(creatures);
     });
 });
@@ -203,10 +203,7 @@ var runServer = function(err) {
 
     //data = generatedData;
     var server = app.listen(process.env.PORT || 8000);
-    var io = require('socket.io').listen(server);
-   
-    io.set("transports", ["xhr-polling"]); 
-    io.set("polling duration", 20); 
+    io = require('socket.io').listen(server);
 
     io.on('connection', function(socket){
       console.log('a user connected');

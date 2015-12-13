@@ -12,7 +12,7 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
                 dataSource.defeatCreature(creature);
             }
             $scope.$watch('creature', function(creature) {
-                console.log(creature);
+                
             });
         },
         templateUrl: 'hc-creature-tile'

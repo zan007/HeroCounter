@@ -1,6 +1,7 @@
 angular.module('socketService', [])
 .factory('socketService', function ($rootScope) {
-	var socket = io.connect();
+	
+	var socket = new io.Socket();
 	return {
 		on: function (eventName, callback) {
 			socket.on(eventName, function () {  
@@ -21,7 +22,9 @@ angular.module('socketService', [])
 			})
 		},
 		initializeConnection: function () {
-			return io('http://hero-counter.herokuapp.com:80');
+			socket = io.connect();
+			//return io('http://hero-counter.herokuapp.com:80');
+			//return io('http://localhost:8080');
 		},
 		disconnect: function() {
 			socket.disconnect();

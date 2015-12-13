@@ -203,7 +203,11 @@ var runServer = function(err, generatedData) {
 
     data = generatedData;
     var server = app.listen(process.env.PORT || 8000);
-    io = require('socket.io').listen(server);
+    var io = require('socket.io').listen(server);
+   
+    io.set("transports", ["xhr-polling"]); 
+    io.set("polling duration", 20); 
+
     io.on('connection', function(socket){
       console.log('a user connected');
 

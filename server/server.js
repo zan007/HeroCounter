@@ -15,7 +15,6 @@ var express = require('express'),
     flash    = require('connect-flash'),
     moment = require('moment'),
     http = require('http').Server(express),
-    socketIo = require('socket.io'),
     io,
     favicon = require('serve-favicon');
 
@@ -32,15 +31,28 @@ var app = express(),
     },
     dataFile = path.normalize('data/data.json'),
     srcDir = path.join('..', 'dist'),
-    imgDir = path.join('..','/server/img');
+    imgDir = path.join('..','/server/img'),
+    pool;
 
-var pool  = mysql.createPool({
-  connectionLimit: 50,
-  host: databaseConfig.details.host,
-  user: databaseConfig.details.user,
-  password: databaseConfig.details.password,
-  database: databaseConfig.details.database
-});
+if(process.argv[2] === 'remote') {
+    pool = mysql.createPool({
+      connectionLimit: 50,
+      host: databaseConfig.details.host,
+      user: databaseConfig.details.user,
+      password: databaseConfig.details.password,
+      database: databaseConfig.details.database
+    });
+    console.log('remote');
+} else {
+    pool = mysql.createPool({
+      connectionLimit: 50,
+      host: databaseConfig.homeDetails.host,
+      user: databaseConfig.homeDetails.user,
+      password: databaseConfig.homeDetails.password,
+      database: databaseConfig.homeDetails.database
+    });
+}
+
 require('./authentication')(passport);
 
 app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
@@ -56,7 +68,26 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secre
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-var io;
+
+var runServer = function(err) {
+    if (err)
+        throw err;
+
+    //data = generatedData;
+    var server = app.listen(process.env.PORT || 8000);
+    io = require('socket.io').listen(server);
+
+    io.sockets.on('connection', function(socket){
+      console.log('a user connected');
+      
+       socket.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+    });
+    console.log('Listening on port: ' + appConfig.listenPort);
+}
+
+runServer(null);
 
 var recalcCreatureRespTime = function(callback) {
     var today = moment().valueOf();
@@ -73,9 +104,9 @@ var recalcCreatureRespTime = function(callback) {
                 
                 var msDate  = moment(rows[i].defeatedDate).valueOf();
 
-                var minRespDate = currentCreature.type === 'titan'? moment(currentCreature.defeatedDate).add('days', currentCreature.minRespTime) : moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime); 
-                var maxRespDate = currentCreature.type === 'titan'? moment(currentCreature.defeatedDate).add('days', currentCreature.maxRespTime) : moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
-                console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+                var minRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime); 
+                var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
+                //console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
                 if(moment(maxRespDate).isBefore(today)) {
                     console.log('stare');
                     currentCreature.timeToResp = null;
@@ -86,10 +117,10 @@ var recalcCreatureRespTime = function(callback) {
                     console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
                     var today2 = moment();
                     var dateDifference = moment(maxRespDate).diff(moment(today));
-                    console.log(moment(dateDifference).valueOf());
+                  //  console.log(moment(dateDifference).valueOf());
                     currentCreature.timeToResp = dateDifference;
                 }
-                console.log(currentCreature, 'ddoodododod');
+                //console.log(currentCreature, 'ddoodododod');
                 creatures.push(currentCreature);
             }
             connection.release();
@@ -112,6 +143,8 @@ app.get('/init', function(req, res, next) {
         
         model.personalData = results.personalData;
         model.creatures = results.creatures;
+        console.log('powinien byc emit');
+        io.sockets.emit('hello', {hello: true});
         res.send(model);
     });
 });
@@ -136,11 +169,14 @@ app.post('/defeat', function(req, res, next){
 
         });
         recalcCreatureRespTime(function(empty, data) { 
-            console.log('recalc defeat', data);
+            /*console.log('recalc defeat', data);*/
             var output = {
                 creatures: data
             }
+            console.log('recalc defeat');
+
             io.emit('creaturesUpdated', output);
+            
             res.send(output);
         });
     } else {
@@ -165,7 +201,7 @@ app.get('/creatures', function(req, res, next){
             if (err) throw err;
 
             for (var i = 0; i < rows.length; i++) {
-                console.log(rows[i]);
+                /*console.log(rows[i]);*/
                 creatures.push(rows[i]);
             };
 
@@ -209,22 +245,4 @@ app.get('/isLoggedIn', function(req, res) {
 
 
 
-var runServer = function(err) {
-    if (err)
-        throw err;
 
-    //data = generatedData;
-    var server = app.listen(process.env.PORT || 8000);
-    io = require('socket.io').listen(server);
-
-    io.on('connection', function(socket){
-      console.log('a user connected');
-
-       socket.on('disconnect', function(){
-        console.log('user disconnected');
-      });
-    });
-    console.log('Listening on port: ' + appConfig.listenPort);
-}
-
-runServer(null);

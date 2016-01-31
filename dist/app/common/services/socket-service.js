@@ -1,5 +1,5 @@
 angular.module('socketService', [])
-.factory('socketService', function ($rootScope) {
+.factory('socketService', ['$location', '$rootScope', function ($location, $rootScope) {
 	
 	/*var socket = new io.Socket('localhost',{
 		port: 8000
@@ -29,7 +29,7 @@ angular.module('socketService', [])
 			})
 		},
 		initializeConnection: function () {
-			socket = io.connect('https://hero-counter.herokuapp.com');
+			socket = io.connect('https://hero-counter.herokuapp.com:'+$location.port());
 			//socket = io.connect('http://localhost:8000');
 			//return io('http://localhost:8000');
 
@@ -42,4 +42,4 @@ angular.module('socketService', [])
 		}
 
 	};
-});
+}]);

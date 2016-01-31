@@ -4,7 +4,7 @@ angular.module('socketService', [])
 	/*var socket = new io.Socket('localhost',{
 		port: 8000
 	});*/
-	var socket = io();
+	var socket = new io();
 	//var socket = io.connect();
 	console.log('socket init', socket);
 	console.log('socket init', io);

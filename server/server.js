@@ -76,11 +76,7 @@ var runServer = function(err) {
     //data = generatedData;
     var server = app.listen(process.env.PORT || 8000);
     io = require('socket.io').listen(server);
-    io.configure(function () { 
-        io.set("transports", ["xhr-polling"]); 
-        io.set("polling duration", 10); 
-    });
-    
+
     io.sockets.on('connection', function(socket){
       console.log('a user connected');
       

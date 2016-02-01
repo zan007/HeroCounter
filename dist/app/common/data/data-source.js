@@ -59,16 +59,17 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'socketService'
 							});
 			},
 			init: function(){
-				$http.get('init').then(function(response) {
-					var data = response.data;
+				return call({method: 'GET',
+							url: '/init',
+							data: {}
+							}, function(data) {
+								//var data = response.data;
 
-					$rootScope.model.creatures = data.creatures;
-				   	$rootScope.model.personalData = data.personalData;
+								$rootScope.model.creatures = data.creatures;
+							   	$rootScope.model.personalData = data.personalData;
 
-					$rootScope.$broadcast('dataSource.ready');
-				}).then(null, function() {
-					$rootScope.$broadcast('dataSource.error');
-				});
+								$rootScope.$broadcast('dataSource.ready');
+							});
 			},
 			register: function(registerData) {
 				return call({ method: 'POST',

@@ -142,9 +142,9 @@ angular.module('heroCounter', [
 			$rootScope.states = appStates[userAuthService.getIsLogged()];
 			if(userAuthService.getIsLogged()) {
 				$rootScope.showLogout = true;
-				dataSource.init();
+				/*dataSource.init();
 				socketService.initializeConnection();
-				console.log('socket ', socketService.getSocket());
+				console.log('socket ', socketService.getSocket());*/
 			}
 			$state.reload(true);
 			

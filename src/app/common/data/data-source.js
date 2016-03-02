@@ -77,6 +77,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'socketService'
 								 data: { 
 									login: registerData.login,
 									password: registerData.password,
+									email: registerData.email,
 									name: registerData.name,
 									margoNick: registerData.margoNick
 								}

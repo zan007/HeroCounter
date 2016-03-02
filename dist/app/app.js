@@ -46,37 +46,66 @@ angular.module('heroCounter', [
 		.state('heroes', {
 			url: '/heroes',
 			templateUrl: '/heroes',
-			authRequire: true
+			authRequire: true,
+			params: {
+				newsVisible: true
+			}
 		})
 		.state('eventHeroes', {
 			url: '/event-heroes',
 			templateUrl: '/event-heroes',
-			authRequire: true
+			authRequire: true,
+			params: {
+				newsVisible: true
+			}
 		})
 		.state('titans', {
 			url: '/titans',
 			templateUrl: '/titans',
-			authRequire: true
+			authRequire: true,
+			params: {
+				newsVisible: true
+			}
 		})
 		.state('eventTitans', {
 			url: '/event-titans',
 			templateUrl: '/event-titans',
-			authRequire: true
+			authRequire: true,
+			params: {
+				newsVisible: true
+			}
 		})
 		.state('login', {
 			url: '/login',
 			templateUrl: '/',
-			authRequire: false
+			authRequire: false,
+			params: {
+				newsVisible: false
+			}
 		})
 		.state('register', {
 			url: '/register',
 			templateUrl: '/register',
-			authRequire: false
+			authRequire: false,
+			params: {
+				newsVisible: false
+			}
 		})
 		.state('settings', {
 			url: '/settings',
 			templateUrl: '/settings',
-			authRequire: false
+			authRequire: false,
+			params: {
+				newsVisible: false
+			}
+		})
+		.state('basic', {
+			url: '/basic',
+			templateUrl: '/basic',
+			authRequire: false,
+			params: {
+				newsVisible: false
+			}
 		});
 }])
 .run(function ($rootScope, userAuthService, $state) {
@@ -131,19 +160,20 @@ angular.module('heroCounter', [
 		}]
 
 })
-.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'socketService', 'notificationService',
-	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, socketService, notificationService) {
+.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'socketService', 'notificationService', '$stateParams',
+	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, socketService, notificationService, $stateParams) {
 
 		userAuthService.init();
 		$rootScope.showLogout = false;
-
+		$scope.stateParams = $stateParams;
+		console.log($scope.stateParams);
 		$rootScope.$on('app-ready', function(data, next) {
 
 			$rootScope.states = appStates[userAuthService.getIsLogged()];
 			if(userAuthService.getIsLogged()) {
 				$rootScope.showLogout = true;
-				/*dataSource.init();
-				socketService.initializeConnection();
+				dataSource.init();
+				/*socketService.initializeConnection();
 				console.log('socket ', socketService.getSocket());*/
 			}
 			$state.reload(true);

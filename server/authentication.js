@@ -1,16 +1,31 @@
 path = require('path');
-var bcrypt   = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
+var crypto = require('crypto');
 var databaseConfig = require('./config/database');
 var mysql = require('mysql');
 var LocalStrategy = require('passport-local').Strategy;
+var mailer = require('./mailer');
 //var connection = mysql.createConnection(databaseConfig.details);
-var pool  = mysql.createPool({
-  connectionLimit: 50,
-  host: databaseConfig.details.host,
-  user: databaseConfig.details.user,
-  password: databaseConfig.details.password,
-  database: databaseConfig.details.database
-});
+
+if(process.argv[2] === 'remote') {
+    pool = mysql.createPool({
+      connectionLimit: 50,
+      host: databaseConfig.details.host,
+      user: databaseConfig.details.user,
+      password: databaseConfig.details.password,
+      database: databaseConfig.details.database
+    });
+    console.log('remote');
+} else {
+    pool = mysql.createPool({
+      connectionLimit: 50,
+      host: databaseConfig.homeDetails.host,
+      user: databaseConfig.homeDetails.user,
+      password: databaseConfig.homeDetails.password,
+      database: databaseConfig.homeDetails.database
+    });
+}
+
 var generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }
@@ -19,10 +34,13 @@ var validPassword = function(password) {
 	return bcrypt.compareSync(password, this.local.password);
 }
 
-
+var generateMailToken = function() {
+	return crypto.randomBytes(48).toString('hex');
+};
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done) {
+		console.log('serializacja ',user);
 		done(null, user.id);
 	});
 
@@ -42,6 +60,7 @@ module.exports = function(passport) {
 		passReqToCallback : true
 	},
 	function(req, login, password, done) {
+		console.log(req.body);
 		process.nextTick(function() {
 			pool.getConnection(function(err, connection) {
 				connection.query('select * from user where login = ?', login, function(err, rows){
@@ -49,16 +68,23 @@ module.exports = function(passport) {
 						return done(err);
 
 					if (rows.length > 0) {
-						return done(null, false, req.flash('signupMessage', 'That login is already taken.'));
+						return done(null, false, {message: 'That login is already taken.'});
 					} else {
+						var timestamp = new Date().getTime();
+						var tokenExpirationDate = timestamp + 7200000; 
+						var activationToken = generateMailToken();
 						var registerData = req.body;
 						var newUser = {
 							login: login,
 							password: generateHash(password),
 							name: registerData.name,
-							margoNick: registerData.margoNick
+							email: registerData.email,
+							margoNick: registerData.margoNick,
+							activationToken: activationToken,
+							tokenExpirationDate: tokenExpirationDate
 						};
-						console.log('poczatek rejestracji');
+						console.log('poczatek rejestracji', newUser);
+						mailer.sendRegisterLink(activationToken, newUser, req);
 						connection.query('insert into user set ?', newUser, function(error, rows2){
 							if (error) throw error;
 
@@ -80,6 +106,7 @@ module.exports = function(passport) {
 		passReqToCallback : true 
 	},
 	function(req, login, password, done) {
+		console.log('poczatek logownaia');
 		pool.getConnection(function(err, connection) {
 			connection.query('SELECT * FROM user WHERE login = ?', [login], function(err,rows){
 				if (err)
@@ -93,12 +120,28 @@ module.exports = function(passport) {
 				bcrypt.compare(password, rows[0].password, function(err, res){
 					if(!res){
 						console.log('wrong password but login ok');
-						return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+						connection.release();
+						return done(null, false, {message: 'Wrong password, please try again'});
 					} else {
-						return done(null, rows[0]);
+						connection.query('SELECT * FROM user WHERE login = ? AND activationToken IS NULL', [login], function(err, rows) {
+							if(err) {
+								console.log('dupa dupa', err);
+								return done(err);
+							}
+
+							if(rows.length === 1) {
+								console.log(rows.length);
+								connection.release();
+								return done(null, rows[0]);
+							} else if(rows.length === 0) {
+								console.log('Before log in please click activation link from email');
+								connection.release();
+								return done(null, false, {message: 'Please activate account by click in activation link from email before login'});
+							}
+						});
 					}
 				});
-				connection.release();
+				
 			});
 		});
 	}));

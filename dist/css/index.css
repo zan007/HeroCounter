@@ -558,10 +558,14 @@ body {
 .text-center {
   text-align: center;
 }
-.auth-box {
+.info-box {
   position: absolute;
-  right: 10px;
-  top: 30%;
+  top: 50%;
+  right: 50%;
+  -webkit-transform: translate3d(50%, -50%, 0);
+  -moz-transform: translate3d(50%, -50%, 0);
+  -ms-transform: translate3d(50%, -50%, 0);
+  transform: translate3d(50%, -50%, 0);
   width: 300px;
   height: auto;
   -webkit-border-radius: 5px;
@@ -571,11 +575,12 @@ body {
   font-size: 14px;
   padding: 20px 30px;
   text-align: center;
+  color: white;
 }
-.auth-box .auth-type {
+.info-box .auth-type {
   color: #13a4e4;
 }
-.auth-box .header {
+.info-box .header {
   color: white;
   margin-bottom: 40px;
 }

@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>My Email</title>
+    <style type="text/css">
+      .container {
+      		min-height: 600px;
+      		height: 100%;
+	      	background-color: #0b1f39;
+	      	-webkit-box-sizing: border-box;
+		    -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+		    overflow-y: hidden;
+		    position: relative;
+      }
+
+      .info-container {
+      	 	position: absolute;
+		    top: 50%;
+		    right: 50%;
+		    -webkit-transform: translate3d(50%, 50%, 0);
+			-moz-transform: translate3d(50%, 50%, 0);
+			-ms-transform: translate3d(50%, 50%, 0);	
+			transform: translate3d(50%, 50%, 0);
+		    width: 600px;
+		    height: auto;
+		    -webkit-border-radius: 5px;
+		    -moz-border-radius: 5px;
+		    border-radius: 5px;
+		    background-color: #275482;
+		    font-size: 14px;
+		    padding: 20px 30px;
+		    text-align: center;
+		    color: white;
+      }
+    </style>
+  </head>
+  <body>
+	<div class="container">
+		<div class="info-container">
+			<p>You are receiving this because you (or someone else) have requested the reset of the password for your account</p>
+          	<p>Please click on the following link, or paste this into your browser to complete the process:</p>
+          	<p>http://' + req.headers.host + '/activate/' + token</p>
+			<p>If you did not request this, please ignore this email</p>
+		</div>
+	</div>
+  </body>
+<html>
+

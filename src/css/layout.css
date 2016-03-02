@@ -160,10 +160,11 @@ body {
     text-align: center;
 }
 
-.auth-box {
+.info-box {
     position: absolute;
-    right: 10px;
-    top: 30%;
+    top: 50%;
+    right: 50%;
+    .translate-3d(50%, -50%);
     width: 300px;
     height: auto;
     .border-radius(5px);
@@ -171,7 +172,8 @@ body {
     font-size: 14px;
     padding: 20px 30px;
     text-align: center;
-
+    color: white;
+    
     .auth-type {
         color: #13a4e4;
     }

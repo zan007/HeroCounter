@@ -6,8 +6,8 @@ controller('registerCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'user
     	$scope.register = function(registerData) {
 			userAuthService.register(registerData).then(function(data){
 				$state.go('login');
-			}).then(null, function() {
-				$scope.registerMessage = 'REGISTER FAILED, YOU CAN NOW LOGIN';
+			}).then(null, function(error) {
+				$scope.registerMessage = error.message;
 			});
 		}
 		

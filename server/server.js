@@ -154,6 +154,7 @@ app.post('/signup', passport.authenticate('local-signup', {
     failureFlash : true // allow flash messages    
 }), function(req, res){
     console.log('rejestracja poprawnie');
+    req.logOut();
     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
 });
 
@@ -183,14 +184,64 @@ app.post('/defeat', function(req, res, next){
         res.status(404).send('not Found');
     }
 });
+app.get('/activate/:token', function(req, res) {
+    console.log('poczatek aktywacji', req.params);
+    if(req.params.token) {
+        var token = req.params.token;
+        var currentTimestamp = new Date().getTime();
 
-app.post('/login', passport.authenticate('local-login', {
+        pool.query('select * from user where activationToken = ? and tokenExpirationDate > ?', [token, currentTimestamp], function(err, rows, fields) {
+                if (err) throw err;
+
+                if(rows.length == 1) {
+                    console.log(rows[0]);
+                    res.status(200);
+                    pool.query('update user set activationToken = ? where activationToken = ?', [null, token], function(err, rows, fields) {
+                            if (err) throw err;
+
+
+                            res.sendfile(path.join(__dirname, srcDir, 'token-activated.html'));            
+                         
+                    })
+                    
+                } else {
+                    res.status(404).send('not found');
+                }
+        })
+    } else {
+        res.status(404).send('not Found');
+    }
+});
+/*app.post('/login', passport.authenticate('local-login', {
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }), function(req, res){
-        console.log('logowanie poprawnie ');
+        console.log('logowanie poprawnie ', res);
         res.sendfile(path.join(__dirname, srcDir, 'index.html'));
-    });
+    });*/
+app.post('/login', function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+        console.log('/login', user);
+        if(err) {
+            return next(err);
+        }
+        if(!user) {
+            console.log('500');
+            return res.status(500).send(info);
+            //return next(err);
+        }
+        req.login(user, function(err) {
+            if (err) { 
+                console.log('req.login error');
+                return next(err); 
+                //res.status(500).send(info);
+            }
+
+            console.log('logowanie poprawnie ');
+            res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+        });
+    })(req, res, next);
+});
 app.get('/creatures', function(req, res, next){
     creatures = [];
     pool.getConnection(function(err, connection) {
@@ -227,7 +278,6 @@ app.get('/', isLoggedIn, function(req, res, next) {
     console.log('poczatek');
     res.status(200);
     res.sendfile(path.join(__dirname, srcDir, 'index.html'));
-   
 });
 
 app.get('/logout', function(req, res) {
@@ -241,7 +291,6 @@ app.get('/isLoggedIn', function(req, res) {
     console.log('isloggedIn request', req.isAuthenticated(), req.user);
     res.send(req.isAuthenticated()? req.user : {});
 });
-
 
 
 

@@ -13,11 +13,11 @@
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
     </nav>
 
-    <div class="content col-xs-7 col-sm-6 col-md-6 full-height scrollable">
-        <div class="row">
-            <div ui-view class="enter-animation container-fluid full-height"></div>
+    <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
+        <div class="row full-height">
+            <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
         </div>
     </div>
-    <div class="news col-xs-5 col-sm-3 col-md-4 full-height">
+    <div class="news col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
     </div>
 </div>

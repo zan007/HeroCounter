@@ -13,6 +13,18 @@
 	backface-visibility: @visibility;
 }
 
+.translateY(@property) {
+    -moz-transform: translateY(@property); 
+    -webkit-transform: translateY(@property);
+    transform: translateY(@property);
+}
+
+.translateX(@property) {
+    -moz-transform: translateX(@property); 
+    -webkit-transform: translateX(@property);
+    transform: translateX(@property);
+}
+
 .border-radius(@property) {
     -webkit-border-radius: @property;
     -moz-border-radius: @property;

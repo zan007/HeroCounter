@@ -1,9 +1,15 @@
 angular.module('heroes', ['dataSource', 'ngEnter', 'controls.hcCreatureTile', 'rzModule', 'filters.creaturesFilter']).
 
-controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creaturesFilter', '$cookies','$cookieStore', '$stateParams', '$timeout',
-	function($scope, $rootScope, dataSource, $http, creaturesFilter, $cookies, $cookieStore, $stateParams, $timeout) {
+controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creaturesFilter', '$cookies','$cookieStore', '$stateParams', '$timeout', 'socketFactory', 'notificationService',
+	function($scope, $rootScope, dataSource, $http, creaturesFilter, $cookies, $cookieStore, $stateParams, $timeout, socketFactory, notificationService) {
 		$scope.filteredCreatures = {};
 		$scope.filter = creaturesFilter.get();
+
+		$rootScope.$on('dataSource.ready', function() {
+			$scope.creatures = $rootScope.model.creatures;
+			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+		});
+		
 		if($rootScope.model.creatures && $rootScope.model.creatures.length > 0) {
 			$scope.creatures = $rootScope.model.creatures;
 			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
@@ -38,6 +44,7 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 		$scope.timeSlider = {
 			value: 24
 		};
+
 	   	$scope.$watch('creatureType', function(creatureType) {
 			$cookieStore.put('creatureType', creatureType); 
 			$scope.filter.creatureType = creatureType;
@@ -69,12 +76,5 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 				
 			}
 		});
-
-		$rootScope.$on('dataSource.ready', function() {
-			$scope.creatures = $rootScope.model.creatures;
-			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
-		});
-
-	   
 	}
 ]);

@@ -1,7 +1,7 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'socketService',
-	function($http, $q, $rootScope, $location, socketService) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location',
+	function($http, $q, $rootScope, $location) {
 	   
 /*		var model = {
 			creatures: [],
@@ -54,8 +54,8 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'socketService'
 								 	creatureName: creature.name 
 								 }
 							}, function(data) {
-								$rootScope.model.creatures = data.creatures;
-								$rootScope.$broadcast('dataSource.ready');
+								//$rootScope.model.creatures = data.creatures;
+								//$rootScope.$broadcast('dataSource.ready');
 							});
 			},
 			init: function(){

@@ -13,7 +13,7 @@ angular.module('heroCounter', [
 	'ngEnter',
 	'timer',
 	'userAuthService',
-	'socketService',
+	'socketFactory',
 	'notification-service',
 	'utils.fastFilter',
 	'ngCookies'
@@ -160,21 +160,21 @@ angular.module('heroCounter', [
 		}]
 
 })
-.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'socketService', 'notificationService', '$stateParams',
-	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, socketService, notificationService, $stateParams) {
+.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory',
+	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory) {
 
 		userAuthService.init();
 		$rootScope.showLogout = false;
 		$scope.stateParams = $stateParams;
-		console.log($scope.stateParams);
+
 		$rootScope.$on('app-ready', function(data, next) {
 
 			$rootScope.states = appStates[userAuthService.getIsLogged()];
 			if(userAuthService.getIsLogged()) {
 				$rootScope.showLogout = true;
 				dataSource.init();
-				/*socketService.initializeConnection();
-				console.log('socket ', socketService.getSocket());*/
+				socketFactory.initializeSocket();
+				createSocketEventHandlers();
 			}
 			$state.reload(true);
 			
@@ -182,10 +182,14 @@ angular.module('heroCounter', [
 
 		$rootScope.$on('auth-login-success', function(data, next) {
 			dataSource.init();
-			socketService.initializeConnection();
-
+			socketFactory.initializeSocket();
+			createSocketEventHandlers();
 			$rootScope.showLogout = true;
 		});
+
+		$rootScope.$on('dataSource.ready', function() {
+    		$scope.personalData = $rootScope.model.personalData;
+    	});
 
 		$scope.btnClick = false;
 
@@ -193,27 +197,26 @@ angular.module('heroCounter', [
 			userAuthService.logout().then(function(data){
 				$rootScope.states = appStates[userAuthService.getIsLogged()];
 				$rootScope.model = {};
-				socketService.disconnect();
+				socketFactory.disconnect();
 				$state.go($rootScope.states[0].reference);
-
 			});
 		}
 
-		$rootScope.$on('dataSource.ready', function() {
-    		$scope.personalData = $rootScope.model.personalData;
-    	});
+		var createSocketEventHandlers = function() {
+			socketFactory.getSocket().then(function(socket) {
 
-    	socketService.on('creaturesUpdated', function(data) {
-    		console.log('zupdatowana lista ', data);
+				socket.on('hello', function() {
+	    			console.log('udalo sie hello');
+	    		})
 
-    		$rootScope.model.creatures = data.creatures;
-    		notificationService.showInfoNotification('Creatures list updated');
-    		$rootScope.$broadcast('dataSource.ready');
-    	});
+	    		socket.on('creaturesUpdated', function(data) {
+		    		console.log('zupdatowana lista ', data);
 
-    	socketService.on('hello', function(data) {
-    		console.log('hello ',data);
-    	})
-
+		    		$rootScope.model.creatures = data.creatures;
+		    		notificationService.showInfoNotification('Creatures list updated');
+		    		$rootScope.$broadcast('dataSource.ready');
+				});
+			});
+		};
 }]);
 

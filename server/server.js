@@ -26,6 +26,7 @@ express.static.mime.define({
 process.env.NODE_ENV = 'production';
 
 var app = express(),
+    server,
     data = {
         creatures: ''
     },
@@ -68,26 +69,36 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secre
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+var socketUserCounter = 0;
+
+var setEventHandlers = function() {
+    io.sockets.on('connection', function(socket){
+        socketUserCounter++;
+        console.log('a user connected ', socketUserCounter);
+              
+        socket.on('disconnect', function(){
+            socketUserCounter--;
+            socket.disconnect(true);
+            console.log('user disconnected ', socketUserCounter);
+        });
+    });    
+}
 
 var runServer = function(err) {
     if (err)
         throw err;
 
     //data = generatedData;
-    var server = app.listen(process.env.PORT || 8000);
+    server = app.listen(process.env.PORT || 8000);
+    //io = require('socket.io').listen(server);
     io = require('socket.io').listen(server);
-
-    io.sockets.on('connection', function(socket){
-      console.log('a user connected');
-      
-       socket.on('disconnect', function(){
-        console.log('user disconnected');
-      });
-    });
+    setEventHandlers();
+    
     console.log('Listening on port: ' + appConfig.listenPort);
 }
 
 runServer(null);
+
 
 var recalcCreatureRespTime = function(callback) {
     var today = moment().valueOf();

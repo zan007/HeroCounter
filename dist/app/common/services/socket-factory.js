@@ -1,5 +1,5 @@
 angular.module('socketFactory', [])
-.factory('socketFactory', ['$q', '$rootScope', '$timeout', 'userAuthService', function ($q, $rootScope, $timeout, userAuthService) {
+.factory('socketFactory', ['$q', '$rootScope', '$timeout', 'userAuthService', '$location', function ($q, $rootScope, $timeout, userAuthService, $location) {
 	/*var socket = $q.defer();
 
 	$rootScope.$on('app-ready', function(data, next) {
@@ -30,7 +30,7 @@ angular.module('socketFactory', [])
     	initializeSocket: function() {
     		socket = new io();
 	        //newSocket = io.connect('https://hero-counter.herokuapp.com');
-	        socket = io.connect('http://localhost:8000');
+	        socket = io.connect($location.protocol() + '://' + $location.host() + ':' + $location.port());
 	        deferred.resolve(socket);
     	},
     	disconnect: function() {

@@ -153,3 +153,11 @@
     -o-border-image: -o-linear-gradient(@stop1-color, @stop2-color) 1 100%;
     -moz-border-image: -moz-linear-gradient(@stop1-color, @stop2-color, @stop1-color) 1 100%;
 }
+
+.background-alpha(@color, @alpha) {
+    @myred:red(@color);
+    @mygreen:green(@color);
+    @myblue:blue(@color);
+    background-color: @color;
+    background-color: rgba(@myred,@mygreen,@myblue,@alpha);
+}

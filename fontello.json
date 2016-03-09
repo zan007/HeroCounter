@@ -19,18 +19,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "745f12abe1472d14f8f658de7e5aba66",
-      "css": "close-menu",
-      "code": 59394,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "fdfbd1fcbd4cb229716a810801a5f207",
-      "css": "open-menu",
-      "code": 59393,
-      "src": "fontawesome"
-    },
-    {
       "uid": "422e07e5afb80258a9c4ed1706498f8a",
       "css": "circle",
       "code": 59392,
@@ -41,6 +29,18 @@
       "css": "cancel",
       "code": 59397,
       "src": "modernpics"
+    },
+    {
+      "uid": "15739f3032c2aa3df67efc96b3ffef56",
+      "css": "error",
+      "code": 59393,
+      "src": "websymbols"
+    },
+    {
+      "uid": "67a9d2e5512b8aa812eff7da6d36bffc",
+      "css": "success",
+      "code": 59394,
+      "src": "elusive"
     }
   ]
 }

@@ -1,0 +1,39 @@
+.ui-notification {
+	font-family: 'brandon-blk';
+
+}
+
+.ui-notification.error, .ui-notification.success {
+	.border-radius(3px);
+	width: 30%;
+	h3 {
+		text-align: center;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		border-bottom: none;
+	}
+
+	i {
+		font-size: 40px;
+	}
+
+	.subtitle {
+		margin-top: 20px;
+		font-size: 20px;
+	}
+
+	.title {
+		font-size: 20px;
+
+	}
+
+	.message {
+		font-size: 15px;
+		text-align: center;
+	}
+
+	.subtitle, .title, .message {
+		font-style: normal!important;
+		font-weight: normal!important;
+	}
+}

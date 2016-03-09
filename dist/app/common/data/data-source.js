@@ -1,7 +1,7 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location',
-	function($http, $q, $rootScope, $location) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService',
+	function($http, $q, $rootScope, $location, notificationService) {
 	   
 /*		var model = {
 			creatures: [],
@@ -29,6 +29,8 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location',
 				$rootScope.$broadcast('dataSource.stop');
 				return result || response.data;
 			}).then(null, function(reason) {
+				console.log(reason);
+				notificationService.showErrorNotification(reason.data.message);
 				$rootScope.$broadcast('dataSource.error');
 				return $q.reject(reason);
 			});

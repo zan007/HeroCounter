@@ -32,7 +32,7 @@ angular.module('heroCounter', [
 					console.log('401');
 					$location.url('/login');
 				}
-
+				
 				return $q.reject(response);
 			}
 		};

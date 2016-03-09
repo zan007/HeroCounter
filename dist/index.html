@@ -189,6 +189,7 @@
 			</form>
 		</div>
 		<p ng-bind="loginMessage"></p>
+		<button class="button" ng-click="showNotification()">komunikat</button>
 	</div>
 </div>
 </script>
@@ -395,11 +396,33 @@
     </nav>
 
     <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
-        <div class="row full-height">
-            <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
-        </div>
+        <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
     </div>
-    <div class="news col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
+    <div class="news container-fluid col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
+        <div class="row">
+            <div class="col-xs-6 left-element">
+                <div class="time">7:54</div>
+                <div>
+                    <i class="icon-circle"></i>
+                    <div class="person">NIRUN BRIENDUS</div>
+                </div>
+
+                <div class="creature">RENEGAT BAULUS</div>
+                <div class="details">ZOSTAL POKONANY PRZEZ: SZOPEN, ZIUTEK</div>
+            </div>
+            <div class="col-xs-6 right-element">
+                <div class="time">7:54</div>
+                <div>
+                    <i class="icon-circle"></i>
+                    <div class="person">NIRUN BRIENDUS</div>
+                </div>
+                <div class="creature">RENEGAT BAULUS</div>
+                <div class="details">ZOSTAL POKONANY PRZEZ: SZOPEN, ZIUTEK</div>
+            </div>
+        </div>
+        <div class="left-element">
+            
+        </div>
     </div>
 </div>
   

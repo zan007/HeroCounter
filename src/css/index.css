@@ -5,6 +5,8 @@
 @import (less) "variables.css";
 @import (less) "layout.css";
 @import (less) "filter-box.css";
+@import (less) "notifications.css";
+@import (less) "news.css";
 @import (less) "forms.css";
 @import (less) "controls/hc-creature-tile.css";
 @import (less) "vendor/angular-ui-notification.css";

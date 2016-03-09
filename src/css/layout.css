@@ -3,8 +3,8 @@
 @menuWidth: 51px;
 @menuSlideDuration: 400ms;
 
-@menuBackgroundColor: #26527e;
-@mainBackgroundColor: #0b1f39;
+@menuBackgroundColor: #295786;
+@mainBackgroundColor: #0d2643;
 @tileButtonBackgroundColor: #214b76;
 @activeFontColor: #fff;
 @fontColor: #5682b2;
@@ -35,9 +35,14 @@ body {
     cursor: pointer;
 }
 
-.no-gutter > [class*='col-'] {
-    padding-right: 0;
-    padding-left: 0;
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .main-container {
@@ -63,7 +68,7 @@ body {
     position: absolute;
     z-index: 2;
     overflow: hidden;
-    background-color: @menuBackgroundColor;
+    .background-alpha(@menuBackgroundColor, 0.9);
     font-size: 13px;
     border-radius: 2.5px;
 
@@ -149,7 +154,7 @@ body {
 
 .news {
     background-color: @mainBackgroundColor;
-    .rotate-y(30deg);
+    /*.rotate-y(30deg);*/
 }
 
 .heroes {
@@ -168,7 +173,7 @@ body {
     width: 300px;
     height: auto;
     .border-radius(5px);
-    background-color: #275482;
+    .background-alpha(#275482, 0.6);
     font-size: 14px;
     padding: 20px 30px;
     text-align: center;

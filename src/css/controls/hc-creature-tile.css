@@ -1,7 +1,8 @@
 .tile-container {
 	width: 100%;
 	min-height: 100px;
-	background-color: #26527e;
+	background-color: #295786;
+	.background-alpha(#295786, 0.9);
 	.border-radius(5px);
 	text-transform: uppercase;
 	position: relative;
@@ -69,7 +70,8 @@
 	}
 
 	.action-buttons {
-		background-color: #194068;
+		background-color: #07294a;
+		.background-alpha(#07294a, 0.15);
 		width: 100%;
 		.border-radius(0 0 5px 5px);
 		border-spacing: 1px;
@@ -89,7 +91,8 @@
 		width: 50%;
 		font-size: 12px;
 		
-		background-color: #214b76;
+		background-color: #295786;
+		.background-alpha(#295786, 1);
 		.border-radius(0 0 5px 5px);
 		cursor: pointer;
 		color: #3c6795;

@@ -3,7 +3,7 @@ angular.module('notification-service', [
 ])
 .config(function(NotificationProvider) {
 	NotificationProvider.setOptions({
-		delay: 10000,
+		delay: 2000,
 		startTop: 20,
 		startRight: 10,
 		verticalSpacing: 20,
@@ -16,6 +16,12 @@ angular.module('notification-service', [
 	return {
 		showInfoNotification: function(message) {
 			Notification.info(message);
+		}, 
+		showErrorNotification: function(message) {
+			Notification.error({message: message, title: '<i class="icon-error"></i><div class="subtitle">Ooops, something went wrong.</div>'});
+		},
+		showSuccessNotification: function(message) {
+			Notification.success({title: '<i class="icon-success"></i><div class="subtitle">' + message + '</div>'});
 		}
 	}
 });

@@ -274,6 +274,138 @@ app.get('/creatures', function(req, res, next){
     });
 });
 
+app.get('getEvents', function(req, res, next) {
+    var events = [];
+    if(req.params) {
+        var fromTimestamp = req.params.from;
+        var toTimestamp = req.params.to;
+        pool.getConnection(function(err, connection) {
+            connection.query({
+                sql: 'select * from battle where '
+            });
+        });
+    }
+});
+
+app.get('/registerEvent', function(req, res, next) {
+    
+    var token = req.body.token,
+        nick = req.body.nick,
+        creature = req.body.creature,
+        group = req.body.group,
+        place = req.body.place,
+        timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    token = '42031482ed73ae3391e0476329fdb6033fdffeba6f5c511eef74f61de36ab5e16cc63adaf946b98569ec133e130b34c4';
+                                    nick = 'Nirun';
+                                    creature = 'Renegat Baulus';
+                                    group = ['Nirun', 'Szopen'];
+                                    place = 'Mroczny przesmyk';
+    pool.getConnection(function(err, connection) {
+        connection.query('select id from user where userToken = ?', token, function(err, rows) {
+            if (err) throw err;
+
+            if(rows.length === 1) {
+                var userId = rows[0].id;
+                var placeId = '';
+                console.log('select user', timestamp);
+                connection.query('select id from place where name = ?', place, function(err, rows) {
+                    if(err) throw err;
+
+                     console.log('select place');
+                    if(rows.length === 1) {
+                        placeId = rows[0].id;
+                       
+                    } else {
+                        console.log('insert place');
+                        connection.query('insert into place set ?', {name: place}, function(err, rows) {
+                            if(err) throw err;
+
+                            placeId = rows.insertId;
+                        });
+                    }
+                });
+                var creatureId = '';
+                connection.query('select id from creature where name = ?', creature, function(err, rows) {
+                    if (err) throw err;
+
+                   
+                    console.log('select creature');
+                    if(rows.length === 1) {
+                        creatureId = rows[0].id;
+                        console.log('select creature v2', userId, nick);
+                        connection.query('select id from hero where userId = ? and heroName = ?', [userId, nick], function(err, rows) {
+                            if (err) throw err;
+
+                            console.log(rows);
+                            if(rows.length === 1) {
+                                console.log('insert hero');
+                                var heroId = rows[0].id;
+                                if(creatureId && placeId) {
+                                    console.log(timestamp);
+                                    var battleFields = {
+                                        creatureId: creatureId,
+                                        battleDate: timestamp,
+                                        placeId: placeId  
+                                    }
+
+                                    connection.query('insert into battle set ?', battleFields, function(err, rows) {
+                                        if (err) throw err;
+                                        console.log('insert battle');
+                                        var battleId = rows.insertId;
+
+                                        for(var i = 0, len = group.length; i < len; i++) {
+                                            currentHeroName = group[i];
+                                            console.log(currentHeroName);
+                                            connection.query('select id from hero where heroName = ?', currentHeroName, function(err, rows) {
+                                                if (err) throw err;
+
+                                                console.log('for hero');
+                                                var currentHeroId = '';
+                                                if(rows.length === 1) {
+                                                    currentHeroId = rows[0].id;
+                                                } else {
+                                                    connection.query('insert into hero set ?', {heroName: currentHeroName}, function(err, rows) {
+                                                        if(err) throw err;
+                                                        console.log('insert into hero new', rows);
+                                                        currentHeroId = rows.insertId;
+                                                    });
+                                                }
+
+                                                if(currentHeroId && battleId) {
+                                                    var heroBattleFields = {
+                                                        heroId: currentHeroId,
+                                                        battleId: battleId
+                                                    }
+                                                    console.log('insert heroBattle', heroBattleFields);
+                                                    connection.query('insert into heroBattle set ?', heroBattleFields, function(err, rows) {
+                                                        if(err) throw err;
+
+                                                        connection.release();
+                                                        res.status(200).send();
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            } else {
+                                connection.release();
+                                res.status(500).send({message: 'unknown hero'});
+                            }
+                        });
+                    } else {
+                        connection.release();
+                        res.status(500).send({message: 'unknown creature'});
+                    }
+                });
+            } else {
+                res.status(500).send({message: 'unknown token'});
+            }
+        });
+    });
+});
+
 function isLoggedIn(req, res, next) {
     console.log('islogged', req.isAuthenticated());
     if (req.isAuthenticated()){

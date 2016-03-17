@@ -25,6 +25,22 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 			hero: true
 		};
 
+		$scope.sendRequest = function() {
+			dataSource.call({method: 'GET',
+								url: '/registerEvent',
+								data: { 
+									token: '42031482ed73ae3391e0476329fdb6033fdffeba6f5c511eef74f61de36ab5e16cc63adaf946b98569ec133e130b34c4',
+								 	nick: 'Nirun',
+								 	creature: 'Renegat Baulus',
+								 	group: [],
+								 	place: 'Mroczny przesmyk'
+								}
+							}, function(data) {
+								//$rootScope.model.creatures = data.creatures;
+								//$rootScope.$broadcast('dataSource.ready');
+							});
+		}
+
 		$scope.lvlRangeSlider = {
 			minValue: $cookieStore.get('lvlRange.minValue') ? $cookieStore.get('lvlRange.minValue'): 20,
 			maxValue: $cookieStore.get('lvlRange.maxValue') ? $cookieStore.get('lvlRange.maxValue'): 320,

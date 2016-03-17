@@ -460,7 +460,7 @@ body {
   padding-left: 0;
 }
 .main-container {
-  background-color: #0d2643;
+  background-color: #173b62;
   font-family: 'brandon-blk';
   min-height: 600px;
   height: 100%;
@@ -550,10 +550,10 @@ body {
 .content {
   position: relative;
   z-index: 1;
-  background-color: #0d2643;
+  background-color: #173b62;
 }
 .news {
-  background-color: #0d2643;
+  background-color: #173b62;
   /*.rotate-y(30deg);*/
 }
 .heroes {
@@ -697,14 +697,14 @@ ul {
   width: 100%;
   background-color: #26527e;
   background-color: rgba(38, 82, 126, 0.9);
-  height: 160px;
+  min-height: 160px;
   display: inline-block;
   /*margin-right: 10px;*/
   margin-top: 10px;
   margin-bottom: 10px;
   float: left;
   font-size: 12px;
-  padding: 10px;
+  padding: 10px 0 10px 0;
   position: relative;
 }
 .filter-box .filter-header {
@@ -756,7 +756,7 @@ ul {
   background-color: #12aaeb;
 }
 .query-container {
-  height: 160px;
+  min-height: 160px;
   width: 100%;
   display: inline-block;
   margin-bottom: 10px;
@@ -764,7 +764,7 @@ ul {
 }
 .query-container .query-box {
   width: 100%;
-  height: 75px;
+  min-height: 75px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -815,7 +815,7 @@ ul {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  width: 30%;
+  width: 500px;
 }
 .ui-notification.error h3,
 .ui-notification.success h3 {
@@ -917,7 +917,10 @@ ul {
   height: 20px;
   cursor: pointer;
   position: absolute;
-  top: 0;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   left: 0;
   background: #5682b2;
   -webkit-border-radius: 4px;
@@ -988,9 +991,9 @@ ul {
 }
 .tile-container {
   width: 100%;
-  min-height: 100px;
-  background-color: #295786;
-  background-color: rgba(41, 87, 134, 0.9);
+  min-height: 235px;
+  background-color: #275482;
+  background-color: rgba(39, 84, 130, 0.9);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -1015,7 +1018,7 @@ ul {
 .tile-container .tile-header {
   font-size: 14px;
   color: white;
-  padding: 30px 0 10px 30px;
+  padding: 30px 65px 10px 30px;
 }
 .tile-container .tile-subtitle {
   color: #1792cd;
@@ -1041,6 +1044,7 @@ ul {
   white-space: normal;
   color: #96abc0;
   font-size: 11px;
+  padding-left: 5px;
   text-align: center;
   display: inline-block;
   vertical-align: top;
@@ -1051,8 +1055,7 @@ ul {
   font-weight: 600;
 }
 .tile-container .action-buttons {
-  background-color: #07294a;
-  background-color: rgba(7, 41, 74, 0.15);
+  background-color: #1c456e;
   width: 100%;
   -webkit-border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
@@ -1071,7 +1074,7 @@ ul {
   height: auto;
   width: 50%;
   font-size: 12px;
-  background-color: #295786;
+  background-color: #224d79;
   -webkit-border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
   border-radius: 0 0 5px 5px;

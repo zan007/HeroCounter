@@ -34,7 +34,7 @@ var validPassword = function(password) {
 	return bcrypt.compareSync(password, this.local.password);
 }
 
-var generateMailToken = function() {
+var generateToken = function() {
 	return crypto.randomBytes(48).toString('hex');
 };
 
@@ -72,16 +72,17 @@ module.exports = function(passport) {
 					} else {
 						var timestamp = new Date().getTime();
 						var tokenExpirationDate = timestamp + 7200000; 
-						var activationToken = generateMailToken();
+						var activationToken = generateToken();
+						var userToken = generateToken();
 						var registerData = req.body;
 						var newUser = {
 							login: login,
 							password: generateHash(password),
 							name: registerData.name,
 							email: registerData.email,
-							margoNick: registerData.margoNick,
 							activationToken: activationToken,
-							tokenExpirationDate: tokenExpirationDate
+							tokenExpirationDate: tokenExpirationDate,
+							userToken: userToken
 						};
 						console.log('poczatek rejestracji', newUser);
 						mailer.sendRegisterLink(activationToken, newUser, req);

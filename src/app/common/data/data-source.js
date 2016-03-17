@@ -49,6 +49,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 		});*/
 
 		return {
+			call: call,
 			defeatCreature: function(creature) {
 				return call({ method: 'POST',
 								 url: '/defeat',
@@ -80,8 +81,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 									login: registerData.login,
 									password: registerData.password,
 									email: registerData.email,
-									name: registerData.name,
-									margoNick: registerData.margoNick
+									name: registerData.name
 								}
 							}, function(data) {
 								

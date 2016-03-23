@@ -1,0 +1,87 @@
+.hc-events-timeline {
+	position: relative;
+
+	.day-label + .event-info {
+		margin-top: 60px;
+	}
+
+	.left-element, .right-element {
+		position: relative;
+		padding-top: 10px;
+
+		i {
+			position: absolute;
+			color: #12aeef;
+			font-size: 12px;
+		}
+
+		.pretty-time {
+			font-size: 11px;
+			font-style: bold;
+			text-transform: uppercase;
+		}
+
+		.person {
+			color: #12aeef;
+			font-size: 12px;
+			text-transform: uppercase;
+		}
+
+		.creature {
+			font-size: 16px;
+			text-transform: uppercase;
+			margin-top: 7px;
+			margin-bottom: 15px;
+		}
+
+		.details {
+			color: #b9d5ee;
+			font-size: 12px;
+		}
+
+		.day-label {
+			position: absolute;
+			width: 100%;
+			height: 30px;
+			margin: 20px 0px;
+			.value {
+				margin: 0 24%;
+				.border-radius(5px);
+				background: blue;
+				color: white;
+				text-align: center;
+				text-transform: uppercase;
+			}
+			
+		}
+	}
+
+	.left-element {
+		padding-right: 25px;
+		text-align: right;
+		z-index: 7;
+
+		i {
+			right: -10px;
+		}
+
+		.day-label {
+			left: 50%;
+		}
+	}
+
+	.right-element {
+		padding-top: 100px;
+		padding-left: 25px;
+		text-align: left;
+		border-left: solid 3px #1d4975;
+
+		.day-label {
+			right: 50%;
+		}
+
+		i {
+			left: -10px;
+		}
+	}
+}

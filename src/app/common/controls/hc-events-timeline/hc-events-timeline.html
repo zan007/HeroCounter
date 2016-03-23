@@ -1,0 +1,23 @@
+ <div class="row hc-events-timeline">
+    <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0}">
+        <div class="day-label" ng-if="showDayLabel(event, $index)">
+            <div class="value" ng-bind="getDayName(event.battleDate)"></div>
+        </div>
+        <div class="event-info">
+            <div hc-pretty-time="event.battleDate"></div>
+            <div>
+                <i class="icon-circle"></i>
+                <div class="person" ng-bind="event.group[0].heroName"></div>
+            </div>
+
+            <div class="creature" ng-bind="event.creature.name"></div>
+            <div class="details">
+                <span>was defeated by: </span>
+                <span ng-repeat="member in event.group">
+                    <span>{{member.heroName}}</span>
+                    <span ng-show="!$last">,</span>
+                </span>
+            </div>
+         </div>
+     </div>
+</div>

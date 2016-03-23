@@ -854,59 +854,6 @@ ul {
 .news {
   color: white;
 }
-.news .left-element,
-.news .right-element {
-  position: relative;
-}
-.news .left-element i,
-.news .right-element i {
-  position: absolute;
-  color: #12aeef;
-  font-size: 12px;
-}
-.news .left-element .time,
-.news .right-element .time {
-  font-size: 11px;
-  font-style: bold;
-  text-transform: uppercase;
-}
-.news .left-element .person,
-.news .right-element .person {
-  color: #12aeef;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-.news .left-element .creature,
-.news .right-element .creature {
-  font-size: 16px;
-  text-transform: uppercase;
-  margin-top: 7px;
-  margin-bottom: 15px;
-}
-.news .left-element .details,
-.news .right-element .details {
-  color: #b9d5ee;
-  font-size: 12px;
-}
-.news .left-element {
-  height: 100px;
-  padding-right: 25px;
-  text-align: right;
-  z-index: 7;
-}
-.news .left-element i {
-  right: -10px;
-}
-.news .right-element {
-  height: 200px;
-  padding-top: 100px;
-  padding-left: 25px;
-  text-align: left;
-  border-left: solid 3px #1d4975;
-}
-.news .right-element i {
-  left: -10px;
-}
 .form-checkbox {
   display: inline-block;
   position: relative;
@@ -1083,6 +1030,88 @@ ul {
 }
 .tile-container .tile-button:hover {
   color: white;
+}
+.hc-events-timeline {
+  position: relative;
+}
+.hc-events-timeline .day-label + .event-info {
+  margin-top: 60px;
+}
+.hc-events-timeline .left-element,
+.hc-events-timeline .right-element {
+  position: relative;
+  padding-top: 10px;
+}
+.hc-events-timeline .left-element i,
+.hc-events-timeline .right-element i {
+  position: absolute;
+  color: #12aeef;
+  font-size: 12px;
+}
+.hc-events-timeline .left-element .pretty-time,
+.hc-events-timeline .right-element .pretty-time {
+  font-size: 11px;
+  font-style: bold;
+  text-transform: uppercase;
+}
+.hc-events-timeline .left-element .person,
+.hc-events-timeline .right-element .person {
+  color: #12aeef;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.hc-events-timeline .left-element .creature,
+.hc-events-timeline .right-element .creature {
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-top: 7px;
+  margin-bottom: 15px;
+}
+.hc-events-timeline .left-element .details,
+.hc-events-timeline .right-element .details {
+  color: #b9d5ee;
+  font-size: 12px;
+}
+.hc-events-timeline .left-element .day-label,
+.hc-events-timeline .right-element .day-label {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  margin: 20px 0px;
+}
+.hc-events-timeline .left-element .day-label .value,
+.hc-events-timeline .right-element .day-label .value {
+  margin: 0 24%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: blue;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+}
+.hc-events-timeline .left-element {
+  padding-right: 25px;
+  text-align: right;
+  z-index: 7;
+}
+.hc-events-timeline .left-element i {
+  right: -10px;
+}
+.hc-events-timeline .left-element .day-label {
+  left: 50%;
+}
+.hc-events-timeline .right-element {
+  padding-top: 100px;
+  padding-left: 25px;
+  text-align: left;
+  border-left: solid 3px #1d4975;
+}
+.hc-events-timeline .right-element .day-label {
+  right: 50%;
+}
+.hc-events-timeline .right-element i {
+  left: -10px;
 }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

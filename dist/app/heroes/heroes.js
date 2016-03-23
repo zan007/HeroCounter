@@ -26,13 +26,13 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 		};
 
 		$scope.sendRequest = function() {
-			dataSource.call({method: 'GET',
+			dataSource.call({method: 'POST',
 								url: '/registerEvent',
 								data: { 
 									token: '42031482ed73ae3391e0476329fdb6033fdffeba6f5c511eef74f61de36ab5e16cc63adaf946b98569ec133e130b34c4',
 								 	nick: 'Nirun',
 								 	creature: 'Renegat Baulus',
-								 	group: [],
+								 	group: ['Nirun', 'Szopen'],
 								 	place: 'Mroczny przesmyk'
 								}
 							}, function(data) {

@@ -16,7 +16,9 @@ angular.module('heroCounter', [
 	'socketFactory',
 	'notification-service',
 	'utils.fastFilter',
-	'ngCookies'
+	'ngCookies',
+	'controls.hcPrettyTime',
+	'controls.hcEventsTimeline'
 ])
 .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
    $httpProvider.interceptors.push(function($q, $location) {
@@ -189,7 +191,9 @@ angular.module('heroCounter', [
 
 		$rootScope.$on('dataSource.ready', function() {
     		$scope.personalData = $rootScope.model.personalData;
+    		$scope.events = $rootScope.model.events;
     	});
+    	
 
 		$scope.btnClick = false;
 

@@ -70,7 +70,8 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 
 								$rootScope.model.creatures = data.creatures;
 							   	$rootScope.model.personalData = data.personalData;
-
+							   	$rootScope.model.events = data.events;
+							   	
 								$rootScope.$broadcast('dataSource.ready');
 							});
 			},

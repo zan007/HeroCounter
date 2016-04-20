@@ -29,7 +29,7 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 			dataSource.call({method: 'POST',
 								url: '/registerEvent',
 								data: { 
-									token: '42031482ed73ae3391e0476329fdb6033fdffeba6f5c511eef74f61de36ab5e16cc63adaf946b98569ec133e130b34c4',
+									token: 'bcf3e0ce2f2986c9d7a5e651446de927654161635ab77a4e5c137cc0765f6751746ea326620c88f37674ebe1914ff37a',
 								 	nick: 'Nirun',
 								 	creature: 'Renegat Baulus',
 								 	group: ['Nirun', 'Szopen'],

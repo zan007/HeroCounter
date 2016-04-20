@@ -20,10 +20,10 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 				var eventYearMonth = (eventDate.getMonth() + 1) + " " +eventDate.getYear();
 				if(currentYearMonth === eventYearMonth && currentDate.getDate() === eventDate.getDate()) {
 					return 'today';
-				} else if (currentYearMonth === eventYearMonth && currentDate.getDate() - 1 == eventDate.getDate()) {
+				} else if (currentYearMonth === eventYearMonth && currentDate.getDate() - 1 === eventDate.getDate()) {
 					return 'yesterday';
 				} else {
-					return eventDate.getDate() + " " + (eventDate.getMonth() + 1);
+					return eventDate.getDate() + "." + (eventDate.getMonth() + 1);
 				}
 			}
 			

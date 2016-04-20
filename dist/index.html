@@ -293,7 +293,12 @@
   <script id="/event-titans" type="text/ng-template">event titans</script>
   <script id="/titans" type="text/ng-template">titans</script>
   <script id="/settings" type="text/ng-template"><div ng-controller="settingsCtrl">
-	Settings
+	Users to accept
+    <div ng-repeat="user in model.usersToAccept">
+        user: <span ng-bind="user"></span>
+        <span><button class="btn" ng-click="acceptUser(user)">Accept</button></span>
+        <span><button class="btn" ng-click="rejectUser(user)">Reject</button></span>
+    </div>
 </div>
 </script>
   <script id="/basic" type="text/ng-template"><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -340,6 +345,18 @@
 </table>
 </body>
 </html></script>
+  <script id="/activation" type="text/ng-template"><div ng-controller="activationCtrl" class="full-height">
+        <div class="row full-height">
+            <div class="col-xs-12 full-height">
+                <div class="info-box center full-height">
+                    <p>Your account is activate now</p>
+                    <p>You can now go to login by press te link below</p>
+                    <a ui-sref="login">Login</a>
+                </div>
+            </div>
+        </div>
+</div>
+</script>
   <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
 	<div class="tile-container container-fluid">
 		<div class="row">
@@ -382,7 +399,7 @@
 	</div>
 </div></script>
   <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline">
-    <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0}">
+    <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
         <div class="day-label" ng-if="showDayLabel(event, $index)">
             <div class="value" ng-bind="getDayName(event.battleDate)"></div>
         </div>
@@ -425,7 +442,7 @@
     <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
         <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
     </div>
-    <div class="news container-fluid col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
+    <div class="news container-fluid scrollable col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
         <div hc-events-timeline="events"></div>
     </div>
 </div>
@@ -448,7 +465,8 @@ $script([
     '/vendor/socket-io/socket.io.js',
     '/vendor/angular-ui-notification/angular-ui-notification.min.js',
     '/vendor/slider/rzslider.min.js',
-    '/app/app.js',
+    '/app/activation/activation.js',
+'/app/app.js',
 '/app/common/controls/animations/appAnimations.js',
 '/app/common/controls/hc-creature-tile/hc-creature-tile.js',
 '/app/common/controls/hc-events-timeline/hc-events-timeline.js',

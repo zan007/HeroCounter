@@ -5,6 +5,7 @@ angular.module('heroCounter', [
 	'login',
 	'heroes',
 	'titans',
+	'activation',
 	'settings',
 	'eventHeroes',
 	'eventTitans',
@@ -96,6 +97,14 @@ angular.module('heroCounter', [
 		.state('settings', {
 			url: '/settings',
 			templateUrl: '/settings',
+			authRequire: true,
+			params: {
+				newsVisible: false
+			}
+		})
+	    .state('activation', {
+			url: '/activation',
+			templateUrl: '/activation',
 			authRequire: false,
 			params: {
 				newsVisible: false
@@ -219,6 +228,13 @@ angular.module('heroCounter', [
 		    		$rootScope.model.creatures = data.creatures;
 		    		notificationService.showInfoNotification('Creatures list updated');
 		    		$rootScope.$broadcast('dataSource.ready');
+				});
+
+				socket.on('eventsUpdated', function (data) {
+					console.log('nowy event', data);
+					$rootScope.model.events.unshift(data);
+					notificationService.showInfoNotification('Events list updated');
+					$rootScope.$broadcast('dataSource.ready');
 				});
 			});
 		};

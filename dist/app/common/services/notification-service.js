@@ -17,11 +17,12 @@ angular.module('notification-service', [
 		showInfoNotification: function(message) {
 			Notification.info(message);
 		}, 
-		showErrorNotification: function(message) {
-			Notification.error({message: message, title: '<i class="icon-error"></i><div class="subtitle">Ooops, something went wrong.</div>'});
+		showErrorNotification: function(message, persistence) {
+			var messageTitle = '<i class="icon-error"></i><div class="subtitle">Ooops, something went wrong.</div>';
+			Notification.error({message: message, title: messageTitle, delay: persistence ? 15000: 2000});
 		},
 		showSuccessNotification: function(message) {
 			Notification.success({title: '<i class="icon-success"></i><div class="subtitle">' + message + '</div>'});
 		}
-	}
+	};
 });

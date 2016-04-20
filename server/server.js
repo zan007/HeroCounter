@@ -182,7 +182,7 @@ app.get('/init', function(req, res, next) {
 
 app.post('/signup', passport.authenticate('local-signup', {
     failureRedirect : '/register', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages    
+    failureFlash : true // allow flash messages
 }), function(req, res){
     console.log('rejestracja poprawnie');
     req.logOut();
@@ -215,10 +215,10 @@ app.post('/defeat', function(req, res, next){
         res.status(404).send('not Found');
     }
 });
-app.get('/activate/:token', function(req, res) {
+app.post('/activate', function(req, res) {
     console.log('poczatek aktywacji', req.params);
-    if(req.params.token) {
-        var token = req.params.token;
+    if(req.body && req.body.token) {
+        var token = req.body.token;
         var currentTimestamp = new Date().getTime();
 
         pool.query('select * from user where activationToken = ? and tokenExpirationDate > ?', [token, currentTimestamp], function(err, rows, fields) {
@@ -228,20 +228,59 @@ app.get('/activate/:token', function(req, res) {
                     console.log(rows[0]);
                     res.status(200);
                     pool.query('update user set activationToken = ? where activationToken = ?', [null, token], function(err, rows, fields) {
-                            if (err) throw err;
+						if (err) throw err;
 
 
-                            res.sendfile(path.join(__dirname, srcDir, 'token-activated.html'));            
-                         
-                    })
+						res.status(200).send();
+
+                    });
                     
                 } else {
                     res.status(404).send('not found');
                 }
-        })
+        });
     } else {
         res.status(404).send('not Found');
     }
+});
+
+app.post('/acceptUserActivation', function(req, res) {
+	console.log('poczatek akceptacji uzytkownika', req.params);
+	if(req.body && req.body.userId) {
+		var userId = req.body.userId;
+
+		pool.query('update user set waitForAccept = ? where id = ?', [0, userId], function(err, rows, fields) {
+			if (err) throw err;
+
+			getUsersToAccept(function(usersToAccept) {
+				res.status(200).send(usersToAccept);
+			}, function() {
+				res.status(404).send('not Found');
+			});
+
+		});
+	} else {
+		res.status(404).send('not Found');
+	}
+});
+
+app.post('/rejectUserActivation', function(req, res) {
+	console.log('poczatek odrzucania uzytkownika', req.params);
+	if(req.body && req.body.userId) {
+		var userId = req.body.userId;
+
+		pool.query('update user set waitForAccept = ? where id = ?', [null, userId], function(err, rows, fields) {
+			if (err) throw err;
+
+			getUsersToAccept(function(usersToAccept) {
+				res.status(200).send(usersToAccept);
+			}, function() {
+				res.status(404).send('not Found');
+			});
+		});
+	} else {
+		res.status(404).send('not Found');
+	}
 });
 /*app.post('/login', passport.authenticate('local-login', {
         failureRedirect : '/login', // redirect back to the signup page if there is an error
@@ -285,7 +324,7 @@ app.get('/creatures', function(req, res, next){
             for (var i = 0; i < rows.length; i++) {
                 /*console.log(rows[i]);*/
                 creatures.push(rows[i]);
-            };
+            }
 
             //console.log(creatures);
             connection.release();
@@ -437,6 +476,82 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, cb) {
     });
 };
 
+var getUsersToAccept = function(successCallback, errorCallback) {
+	pool.getConnection(function(err, connection){
+		var userToAcceptModel = ['id', 'email', 'name'];
+		async.waterfall([function(cb) {
+			connection.query('select id, email, name from user where waitForAccept = ?', 1, function(err, rows){
+				if (err) throw err;
+
+				if(rows) {
+					return cb(null, rows);
+				}
+
+			});
+
+		},
+		function(users, cb){
+			var usersToAccept = [];
+			for(var i = 0, len = users.length; i < len; i++) {
+				(function() {
+					var iCopy = i;
+					console.log(iCopy);
+					var user = users[iCopy];
+					connection.query('select heroName from hero where userId = ?', user.id, function(err, rows){
+						if (err) throw err;
+
+						if(rows) {
+							usersToAccept.push({userId: user.id,
+								email: user.email,
+								name: user.name,
+								heroes: rows
+							});
+
+							if(iCopy === users.length - 1) {
+								successCallback(usersToAccept);
+								//res.status(200).send(usersToAccept);
+							}
+						}});
+				}());
+			}
+
+		},
+		function (err, errorMessage) {
+			errorCallback();
+		}]);
+	});
+};
+
+var checkAdministrator = function(userId, successCallback, errorCallback) {
+	pool.getConnection(function(err, connection){
+		connection.query('select * from user where id = ? && isAdministrator = ?', [userId ,true], function(err, rows) {
+			if(err) throw err;
+
+			connection.release();
+			if(rows.length === 1) {
+				successCallback();
+			} else {
+				errorCallback();
+			}
+
+		});
+	});
+};
+
+app.post('/getUsersToAccept', function(req, res, next) {
+	if(req.body && req.body.userId){
+		checkAdministrator(req.body.userId, function(){
+			getUsersToAccept(function (usersToAccept) {
+				res.status(200).send(usersToAccept);
+			}, function () {
+				res.status(500).send();
+			});
+		}, function() {
+			res.status(500).send();
+		});
+	}
+});
+
 app.post('/registerEvent', function(req, res, next) {
     if(req.body){
         var token = req.body.token,
@@ -551,9 +666,16 @@ app.post('/registerEvent', function(req, res, next) {
                                         console.log('recalc defeat');
 
                                         io.emit('creaturesUpdated', output);
-                                        
+
+										getEvents(function(cb, data){
+											console.log('getEvents po dodaniu', data);
+											io.emit('eventsUpdated', data[0]);
+										}, timestamp, timestamp);
+
                                         res.status(200).send(output);
                                     });
+
+
                                 });
                                
                             }

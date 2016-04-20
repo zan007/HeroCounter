@@ -1,3 +1,8 @@
 <div ng-controller="settingsCtrl">
-	Settings
+	Users to accept
+    <div ng-repeat="user in model.usersToAccept">
+        user: <span ng-bind="user"></span>
+        <span><button class="btn" ng-click="acceptUser(user)">Accept</button></span>
+        <span><button class="btn" ng-click="rejectUser(user)">Reject</button></span>
+    </div>
 </div>

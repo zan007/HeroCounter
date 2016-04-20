@@ -12,7 +12,9 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 		var initModel = function() {
 			$rootScope.model = {
 				creatures: [],
-				personalData: {}
+				personalData: {},
+				events: [],
+				usersToAccept: []
 			};			
 		}
 		initModel();
@@ -30,7 +32,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				return result || response.data;
 			}).then(null, function(reason) {
 				console.log(reason);
-				notificationService.showErrorNotification(reason.data.message);
+				notificationService.showErrorNotification(reason.data.message, reason.data.persistence);
 				$rootScope.$broadcast('dataSource.error');
 				return $q.reject(reason);
 			});
@@ -71,7 +73,8 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 								$rootScope.model.creatures = data.creatures;
 							   	$rootScope.model.personalData = data.personalData;
 							   	$rootScope.model.events = data.events;
-							   	
+							   	$rootScope.model.usersToAccept = data.usersToAccept;
+					
 								$rootScope.$broadcast('dataSource.ready');
 							});
 			},
@@ -128,6 +131,51 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 								initModel();
 								$rootScope.$broadcast('dataSource.ready');
 							});
+			},
+			refreshUsersToAccept: function() {
+				return call({
+					method: 'POST',
+					url: '/getUsersToAccept',
+					data: {
+						userId: $rootScope.model.personalData.id
+					}
+				}, function (data) {
+					$rootScope.model.usersToAccept = data;
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			activateUserAccount: function(token) {
+				return call({ method: 'POST',
+					url: '/activate',
+					data: {
+						token: token
+					}
+				}, function(data) {
+					$rootScope.model.usersToAccept = data;
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			acceptUserActivation: function(user) {
+				return call({ method: 'POST',
+					url: '/acceptUserActivation',
+					data: {
+						userId: user.userId
+					}
+				}, function(data) {
+					$rootScope.model.usersToAccept = data;
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			rejectUserActivation: function(user) {
+				return call({ method: 'POST',
+					url: '/rejectUserActivation',
+					data: {
+						userId: user.userId
+					}
+				}, function(data) {
+					$rootScope.model.usersToAccept = data;
+					$rootScope.$broadcast('dataSource.ready');
+				});
 			}
 		};
 	}

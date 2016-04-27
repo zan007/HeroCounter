@@ -15,6 +15,14 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource',
 
 		};
 
+		$scope.changePassword = function(changePasswordForm){
+			dataSource.changePassword($rootScope.model.personalData, changePasswordForm.oldPassword, changePasswordForm.newPassword);
+		};
+
+		$scope.changeEmail = function(changeEmailForm){
+			dataSource.changeEmail($rootScope.model.personalData, changeEmailForm.newEmail);
+		};
+
 		$scope.acceptUser = function(user){
 			dataSource.acceptUserActivation(user);
 		};
@@ -23,13 +31,6 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource',
 			dataSource.rejectUserActivation(user);
 		};
 
-		$scope.addHero = function(hero) {
-			dataSource.addHero(hero);
-		};
-
-		$scope.removeHero = function(hero) {
-			dataSource.removeHero(hero);
-		};
 
 		
     }

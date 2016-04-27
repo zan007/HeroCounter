@@ -50,6 +50,7 @@ body {
     font-family: 'brandon-blk';
     min-height: 600px;
     height: 100%;
+    background-image: url("../img/main-background.png");
 }
 
 .nav, .pagination, .carousel, .panel-title a {
@@ -71,6 +72,7 @@ body {
     .background-alpha(@menuBackgroundColor, 0.9);
     font-size: 13px;
     border-radius: 2.5px;
+    opacity: 0.9;
 
     ul {
         padding-left: 10px;
@@ -149,11 +151,11 @@ body {
 .content {
     position: relative;
     z-index: 1;
-    background-color: @mainBackgroundColor;
+
 }
 
 .news {
-    background-color: @mainBackgroundColor;
+
     /*.rotate-y(30deg);*/
 }
 
@@ -198,8 +200,22 @@ body {
     color: white;
     margin-top: 10px;
     margin-bottom: 10px;
+    .border-radius(4px);
+
+    &.accept {
+        background-color: #5cb85c;
+    }
+
+    &.cancel {
+        background-color: #d9534f;
+    }
 }
 
+.button-group {
+    .button {
+        margin-left: 10px;
+    }
+}
 @media only screen and (max-width: 780px) {
 
     .icon-menu {

@@ -19,6 +19,7 @@ var express = require('express'),
     _ = require('lodash'),
     bluebird = require('bluebird'),
     io,
+	bcrypt = require('bcrypt-nodejs');
     favicon = require('serve-favicon');
 
 express.static.mime.define({
@@ -445,7 +446,7 @@ app.get('/getEvents', function(req, res, next) {
     }
 });
 
-var insertIntoHeroBattle = function(connection, currentHeroName, battleId, cb) {
+var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userId, guest, cb) {
     connection.query('select id from hero where heroName = ?', currentHeroName, function(err, rows) {
         if (err) cb(err);
 
@@ -454,24 +455,51 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, cb) {
         if(rows.length === 1) {
             currentHeroId = rows[0].id;
             console.log('znalazlem currentheroid', currentHeroId);
+			//update creature set defeatedDate = ? where id = ?
+			if(userId !== null && guest === true){
+				connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+					if(err) cb(err);
+				});
+			} else if(userId !== null && guest === false) {
+				connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+					if(err) cb(err);
+				});
+			}
+
+			var heroBattleFields = {
+				heroId: currentHeroId,
+				battleId: battleId
+			};
+			console.log('herobattle', heroBattleFields);
+			connection.query('insert into heroBattle set ?', heroBattleFields, function (err, rows) {
+			});
         } else {
-            console.log('dupa', currentHeroName);
-            connection.query('insert into hero set ?', {heroName: currentHeroName}, function(err, rows) {
-                if(err) cb(err);
-                
-                console.log('insert into hero new', rows);
-                currentHeroId = rows.insertId;
-                console.log('currentHeroId', currentHeroId);
-                var heroBattleFields = {
-                    heroId: currentHeroId,
-                    battleId: battleId
-                }
-                console.log('herobattle', heroBattleFields);
-                connection.query('insert into heroBattle set ?', heroBattleFields, function(err, rows) {
-                });
-            });
-        }
-        
+			console.log('dupa', currentHeroName);
+			connection.query('insert into hero set ?', {heroName: currentHeroName}, function (err, rows) {
+				if (err) cb(err);
+
+				console.log('insert into hero new', rows);
+				currentHeroId = rows.insertId;
+				console.log('currentHeroId', currentHeroId);
+				var heroBattleFields = {
+					heroId: currentHeroId,
+					battleId: battleId
+				};
+				console.log('herobattle', heroBattleFields);
+				connection.query('insert into heroBattle set ?', heroBattleFields, function (err, rows) {
+				});
+
+				if(userId !== null && guest === true){
+					connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+						if(err) cb(err);
+					});
+				} else if(userId !== null && guest === false) {
+					connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+						if(err) cb(err);
+					});
+				}
+			});
+		}
         
     });
 };
@@ -497,7 +525,7 @@ var getUsersToAccept = function(successCallback, errorCallback) {
 					var iCopy = i;
 					console.log(iCopy);
 					var user = users[iCopy];
-					connection.query('select heroName from hero where userId = ?', user.id, function(err, rows){
+					connection.query('select heroName from hero where mainUserId = ?', user.id, function(err, rows){
 						if (err) throw err;
 
 						if(rows) {
@@ -557,6 +585,7 @@ app.post('/registerEvent', function(req, res, next) {
         var token = req.body.token,
         nick = req.body.nick,
         creature = req.body.creature,
+		guest = req.body.guest,
         group = req.body.group,
         place = req.body.place,
         timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -617,21 +646,37 @@ app.post('/registerEvent', function(req, res, next) {
                                     }
                                 });
                             },
-                            function(cb) {
-                                connection.query('select id from hero where userId = ? and heroName = ?', [userId, nick], function(err, rows) {
-                                    if (err) cb(err);
+                            /*function(cb) {
+								if(guest) {
+									connection.query('select id from hero where guestUserId = ? and heroName = ?', [userId, nick], function (err, rows) {
+										if (err) cb(err);
 
-                                    if(rows.length === 1) {
-                                        var heroId = rows[0].id;
+										if (rows.length === 1) {
+											var heroId = rows[0].id;
 
-                                        cb();
-                                    } else {
-                                        console.log('unknown hero');
-                                        connection.release();
-                                        cb({}, 'unknown hero');
-                                    }
-                                });
-                            },
+											cb();
+										} else {
+											console.log('unknown hero');
+											connection.release();
+											cb({}, 'unknown hero');
+										}
+									});
+								} else {
+									connection.query('select id from hero where mainUserId = ? and heroName = ?', [userId, nick], function (err, rows) {
+										if (err) cb(err);
+
+										if (rows.length === 1) {
+											var heroId = rows[0].id;
+
+											cb();
+										} else {
+											console.log('unknown hero');
+											connection.release();
+											cb({}, 'unknown hero');
+										}
+									});
+								}
+                            },*/
                             function(cb) {
                                 battleFields = {
                                     creatureId: creatureId,
@@ -651,7 +696,11 @@ app.post('/registerEvent', function(req, res, next) {
                                 for(var i = 0, len = group.length; i < len; i++) {
                                     var currentHeroName = group[i];
                                     console.log(currentHeroName);
-                                    insertIntoHeroBattle(connection, currentHeroName, battleId, cb);
+									if(currentHeroName === nick) {
+										insertIntoHeroBattle(connection, currentHeroName, battleId, userId, guest, cb);
+									} else {
+										insertIntoHeroBattle(connection, currentHeroName, battleId, null, null, cb);
+									}
                                 }
                                 connection.commit(function(err) {
                                     if (err) cb(err);
@@ -730,6 +779,79 @@ app.get('/isLoggedIn', function(req, res) {
     res.send(req.isAuthenticated()? req.user : {});
 });
 
+app.post('/changeEmail', function(req, res, next) {
+	if(req.body){
+		var newEmail = req.body.newEmail,
+			oldEmail = req.body.oldEmail,
+			userId = req.body.userId;
+
+		pool.getConnection(function(err, connection){
+			if(req.user.email === oldEmail && req.user.id === userId) {
+				connection.query('update user set email = ? where id = ?', [newEmail, userId], function (err, result) {
+					if (err) throw err;
+
+					req.user.email = newEmail;
+					res.status(200).send(req.user);
+					connection.release();
+
+				});
+			}
+		});
+	}
+});
+
+app.post('/changePassword', function(req, res, next) {
+	if(req.body){
+		var newPasswordPlain = req.body.newPassword,
+			oldPassword = req.body.oldPassword,
+			userId = req.body.userId;
+
+		bcrypt.compare(oldPassword, req.user.password, function(err, result){
+			if(result){
+				var newPasswordHash = bcrypt.hashSync(newPasswordPlain, bcrypt.genSaltSync(8), null);
+
+				pool.getConnection(function(err, connection){
+					if(req.user.id === userId) {
+						connection.query('update user set password = ? where id = ?', [newPasswordHash, userId], function (err, rows) {
+							if (err) throw err;
+
+							req.user.password = newPasswordHash;
+							res.status(200).send(req.user);
+							connection.release();
+
+						});
+					} else {
+						res.status(500).send();
+					}
+				});
+			} else {
+				res.status(500).send({message: 'wrong old password'});
+			}
+		});
+	}
+});
 
 
+app.post('/applySettings', function(req, res, next) {
+	if(req.body) {
+		var phoneNumber = req.body.phoneNumber,
+			ggNumber = req.body.ggNumber,
+			titanReminder = req.body.titanReminder,
+			userId = req.body.userId;
+
+		pool.getConnection(function(err, connection){
+			if(req.user.id === userId) {
+				userSettings = [phoneNumber ? phoneNumber: null, ggNumber ? ggNumber: null, titanReminder, userId];
+				connection.query('update user set phoneNumber = ? ggNumber = ? titanReminder = ? where id = ?', userSettings, function (err, rows) {
+					if (err) throw err;
+
+					res.status(200).send(req.user);
+					connection.release();
+				});
+			} else {
+				res.status(500).send();
+			}
+		});
+	}
+});
 

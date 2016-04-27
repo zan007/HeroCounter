@@ -176,6 +176,34 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 					$rootScope.model.usersToAccept = data;
 					$rootScope.$broadcast('dataSource.ready');
 				});
+			},
+			changeEmail: function(user, newEmailAddress) {
+				return call({ method: 'POST',
+					url: '/changeEmail',
+					data: {
+						userId: user.id,
+						oldEmail: user.email,
+						newEmail: newEmailAddress
+					}
+				}, function(data) {
+					$rootScope.model.personalData = data;
+
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			changePassword: function(user, oldPassword, newPassword) {
+				return call({ method: 'POST',
+					url: '/changePassword',
+					data: {
+						userId: user.id,
+						oldPassword: oldPassword,
+						newPassword: newPassword
+					}
+				}, function(data) {
+					$rootScope.model.personalData = data;
+
+					$rootScope.$broadcast('dataSource.ready');
+				});
 			}
 		};
 	}

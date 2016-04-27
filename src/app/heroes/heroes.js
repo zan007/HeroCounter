@@ -33,7 +33,8 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 								 	nick: 'Nirun',
 								 	creature: 'Renegat Baulus',
 								 	group: ['Nirun', 'Szopen'],
-								 	place: 'Mroczny przesmyk'
+								 	place: 'Mroczny przesmyk',
+									guest: true
 								}
 							}, function(data) {
 								//$rootScope.model.creatures = data.creatures;

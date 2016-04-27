@@ -28,11 +28,11 @@ if(process.argv[2] === 'remote') {
 
 var generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-}
+};
 
 var validPassword = function(password) {
 	return bcrypt.compareSync(password, this.local.password);
-}
+};
 
 var generateToken = function() {
 	return crypto.randomBytes(48).toString('hex');
@@ -61,7 +61,6 @@ module.exports = function(passport) {
 		console.log('serializacja ',user);
 		done(null, user.id);
 	});
-
 	passport.deserializeUser(function(id, done) {
 		pool.getConnection(function(err, connection) {
 			connection.query('select * from user where id = ?', [id], function(err,rows){	

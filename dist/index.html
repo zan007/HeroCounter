@@ -53,7 +53,7 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
-						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/> 
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
 						<label for="common-checkbox-known-time"></label>
 						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
 					</div>
@@ -104,6 +104,7 @@
 </div>
 		</div>
 		<div class="row">
+			<button class="form-button" ng-click="sendRequest()">send</button>
 			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
 		</div>
 	</div>
@@ -127,7 +128,7 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
-						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/> 
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
 						<label for="common-checkbox-known-time"></label>
 						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
 					</div>
@@ -204,7 +205,6 @@
 					<div><input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/></div>
 					<div><input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/></div>
 					<div><input class="form-input" ng-model="registerData.name" placeholder="NAME"/></div>
-					<div><input class="form-input" ng-model="registerData.margoNick" placeholder="MARGO NICK"/></div>
 					<button class="button" ng-click="register(registerData)">SIGNUP</button>
 			</form>
 		</div>
@@ -232,7 +232,7 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
-						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/> 
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
 						<label for="common-checkbox-known-time"></label>
 						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
 					</div>
@@ -283,6 +283,7 @@
 </div>
 		</div>
 		<div class="row">
+			<button class="form-button" ng-click="sendRequest()">send</button>
 			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
 		</div>
 	</div>
@@ -291,8 +292,180 @@
   <script id="/event-heroes" type="text/ng-template">event-heroes</script>
   <script id="/event-titans" type="text/ng-template">event titans</script>
   <script id="/titans" type="text/ng-template">titans</script>
-  <script id="/settings" type="text/ng-template"><div ng-controller="settingsCtrl">
-	Settings
+  <script id="/settings" type="text/ng-template"><div ng-controller="settingsCtrl" class="row settings">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <header class="main-header">My Account</header>
+                <header class="sub-header">You can change your account settings here</header>
+                <div class="row container-fluid">
+                    <div class="main-box">
+                        <section class="settings-section contact">
+                            <header class="section-header row">
+                                <div class="col-xs-8">
+                                    <h2>settings</h2>
+                                    <h1>Contact</h1>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button class="button" ng-click="editContactSettings =! editContactSettings" ng-class="{active: editContactSettings}">
+                                        Edit settings
+                                    </button>
+                                </div>
+                            </header>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="row">
+                                        <div class="property col-xs-6">
+                                            <div class="section-label">Name</div>
+                                            <div class="section-value" ng-bind="model.personalData.name"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="row">
+                                        <div class="property col-xs-6">
+                                            <div class="section-label">Phone number</div>
+                                            <div class="section-value">888750279</div>
+                                        </div>
+                                        <div class="property-switcher col-xs-6" ng-show="editContactSettings">
+                                            <div class="section-label">Show phone number on profile</div>
+                                            <div class="form-checkbox">
+                                                <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="onlyWithKnownTime"/>
+                                                <label for="common-checkbox-show-phone"></label>
+                                                <span class="checkbox-label"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="row">
+                                        <div class="property col-xs-6">
+                                            <div class="section-label">GG number</div>
+                                            <div class="section-value">2041651</div>
+                                        </div>
+                                        <div class="property-switcher col-xs-6" ng-show="editContactSettings">
+
+                                            <div class="section-label">Show GG on profile</div>
+                                            <div class="form-checkbox">
+                                                <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="onlyWithKnownTime"/>
+                                                <label for="common-checkbox-show-gg"></label>
+                                                <span class="checkbox-label"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="editContactSettings">
+                                <div class="button-group col-xs-12">
+                                    <button class="button accept">Change</button>
+                                    <button class="button cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="main-box">
+                            <section class="settings-section email">
+                                <header class="section-header row">
+                                    <div class="col-xs-8">
+                                        <h2>settings</h2>
+                                        <h1>Email</h1>
+                                    </div>
+                                </header>
+                                <hr/>
+                                <div class="row">
+                                    <div class="property col-xs-6">
+                                        <div class="section-label">Email address</div>
+                                        <div class="section-value" ng-bind="model.personalData.email"></div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button class="button">Change email</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="main-box">
+                            <section class="settings-section password">
+                                <header class="section-header row">
+                                    <div class="col-xs-8">
+                                        <h2>settings</h2>
+                                        <h1>Password</h1>
+                                    </div>
+                                </header>
+                                <hr/>
+                                <div class="row">
+                                    <div class="property">
+                                        <div class="section-label"> address</div>
+                                        <div class="section-value" ng-bind="model.personalData.email"></div>
+
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button class="button">Change email</button>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="additional-box col-xs-12 col-md-4">
+                <div class="avatar-box">
+
+                </div>
+                <div class="about-box">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+	<!--Users to accept
+    <div ng-repeat="user in model.usersToAccept">
+        user: <span ng-bind="user"></span>
+        <span><button class="btn" ng-click="acceptUser(user)">Accept</button></span>
+        <span><button class="btn" ng-click="rejectUser(user)">Reject</button></span>
+    </div>
+
+    <div>
+        numer gg <input type="text" ng-model="settingsModel.ggNumber"/>
+    </div>
+    <div>
+        Pokazuj adres email <input type="checkbox" ng-model="settingsModel.showEmail"/>
+    </div>
+    <div>
+        numer telefonu <input type="number" ng-model="settingsModel.phoneNumber"/>
+    </div>
+    <div>
+        <button class="btn" ng-click="showChangePasswordForm=!showChangePasswordForm">zmien hasło</button>
+        <div ng-show="showChangePasswordForm">
+            stare haslo <input type="text" ng-model="changePasswordForm.oldPassword"/>
+            nowe haslo <input type="text" ng-model="changePasswordForm.newPassword"/>
+            powtorz nowe haslo <input type="text" ng-model="changePasswordForm.repeatedNewPassword"/>
+            <button class="btn" ng-click="changePassword(changePasswordForm)">wyslij</button>
+        </div>
+    </div>
+    <div>
+        <button class="btn" ng-click="showChangeEmailForm=!showChangeEmailForm">zmien email</button>
+        <div ng-show="showChangeEmailForm">
+            stary email <input type="text" ng-model="changeEmailForm.oldEmail"/>
+            nowy email <input type="text" ng-model="changeEmailForm.newEmail"/>
+            powtorz nowy email <input type="text" ng-model="changeEmailForm.repeatedEmail"/>
+            <button class="btn" ng-click="changeEmail(changeEmailForm)">wyslij</button>
+        </div>
+    </div>
+    <div>
+        informuj poprzez email o nadchodzacych tytanach <input type="checkbox" ng-model="settingsModel.sendTitanReminder"/>
+    </div>-->
+
+
 </div>
 </script>
   <script id="/basic" type="text/ng-template"><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -339,6 +512,18 @@
 </table>
 </body>
 </html></script>
+  <script id="/activation" type="text/ng-template"><div ng-controller="activationCtrl" class="full-height">
+        <div class="row full-height">
+            <div class="col-xs-12 full-height">
+                <div class="info-box center full-height">
+                    <p>Your account is activate now</p>
+                    <p>You can now go to login by press te link below</p>
+                    <a ui-sref="login">Login</a>
+                </div>
+            </div>
+        </div>
+</div>
+</script>
   <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
 	<div class="tile-container container-fluid">
 		<div class="row">
@@ -380,6 +565,32 @@
 		</div>
 	</div>
 </div></script>
+  <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline">
+    <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
+        <div class="day-label" ng-if="showDayLabel(event, $index)">
+            <div class="value" ng-bind="getDayName(event.battleDate)"></div>
+        </div>
+        <div class="event-info">
+            <div hc-pretty-time="event.battleDate"></div>
+            <div>
+                <i class="icon-circle"></i>
+                <div class="person" ng-bind="event.group[0].heroName"></div>
+            </div>
+
+            <div class="creature" ng-bind="event.creature.name"></div>
+            <div class="details">
+                <span>was defeated by: </span>
+                <span ng-repeat="member in event.group">
+                    <span>{{member.heroName}}</span>
+                    <span ng-show="!$last">,</span>
+                </span>
+            </div>
+         </div>
+     </div>
+</div></script>
+  <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
+	<span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
+</div></script>
   <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
     <!-- <div class="header">
         <button class="menu-toggle" ng-click="$root.opened=!$root.opened"><i class="icon-menu"></i>
@@ -398,31 +609,8 @@
     <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
         <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
     </div>
-    <div class="news container-fluid col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
-        <div class="row">
-            <div class="col-xs-6 left-element">
-                <div class="time">7:54</div>
-                <div>
-                    <i class="icon-circle"></i>
-                    <div class="person">NIRUN BRIENDUS</div>
-                </div>
-
-                <div class="creature">RENEGAT BAULUS</div>
-                <div class="details">ZOSTAL POKONANY PRZEZ: SZOPEN, ZIUTEK</div>
-            </div>
-            <div class="col-xs-6 right-element">
-                <div class="time">7:54</div>
-                <div>
-                    <i class="icon-circle"></i>
-                    <div class="person">NIRUN BRIENDUS</div>
-                </div>
-                <div class="creature">RENEGAT BAULUS</div>
-                <div class="details">ZOSTAL POKONANY PRZEZ: SZOPEN, ZIUTEK</div>
-            </div>
-        </div>
-        <div class="left-element">
-            
-        </div>
+    <div class="news container-fluid scrollable col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
+        <div hc-events-timeline="events"></div>
     </div>
 </div>
   
@@ -444,9 +632,12 @@ $script([
     '/vendor/socket-io/socket.io.js',
     '/vendor/angular-ui-notification/angular-ui-notification.min.js',
     '/vendor/slider/rzslider.min.js',
-    '/app/app.js',
+    '/app/activation/activation.js',
+'/app/app.js',
 '/app/common/controls/animations/appAnimations.js',
 '/app/common/controls/hc-creature-tile/hc-creature-tile.js',
+'/app/common/controls/hc-events-timeline/hc-events-timeline.js',
+'/app/common/controls/hc-pretty-time/hc-pretty-time.js',
 '/app/common/controls/ng-enter/ng-enter.js',
 '/app/common/data/data-source.js',
 '/app/common/filters/creature-lvl-filter.js',

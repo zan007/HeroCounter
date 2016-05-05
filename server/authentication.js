@@ -28,14 +28,32 @@ if(process.argv[2] === 'remote') {
 
 var generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-}
+};
 
 var validPassword = function(password) {
 	return bcrypt.compareSync(password, this.local.password);
-}
+};
 
-var generateMailToken = function() {
+var generateToken = function() {
 	return crypto.randomBytes(48).toString('hex');
+};
+
+var sendActivationReminder = function(newUserName, req) {
+	pool.getConnection(function(err, connection) {
+		connection.query('select email from user where isAdministrator = ?', 1, function (error, rows) {
+			if (error) throw error;
+
+			var administrators = [];
+			for (var i = 0, len = rows.length; i < len; i++) {
+				administrators.push(rows[i].email);
+			}
+
+			console.log('administratorzy: ', administrators);
+			if (administrators.length > 0) {
+				mailer.sendActivationReminder(newUserName, administrators, req);
+			}
+		});
+	});
 };
 
 module.exports = function(passport) {
@@ -43,7 +61,6 @@ module.exports = function(passport) {
 		console.log('serializacja ',user);
 		done(null, user.id);
 	});
-
 	passport.deserializeUser(function(id, done) {
 		pool.getConnection(function(err, connection) {
 			connection.query('select * from user where id = ?', [id], function(err,rows){	
@@ -72,16 +89,17 @@ module.exports = function(passport) {
 					} else {
 						var timestamp = new Date().getTime();
 						var tokenExpirationDate = timestamp + 7200000; 
-						var activationToken = generateMailToken();
+						var activationToken = generateToken();
+						var userToken = generateToken();
 						var registerData = req.body;
 						var newUser = {
 							login: login,
 							password: generateHash(password),
 							name: registerData.name,
 							email: registerData.email,
-							margoNick: registerData.margoNick,
 							activationToken: activationToken,
-							tokenExpirationDate: tokenExpirationDate
+							tokenExpirationDate: tokenExpirationDate,
+							userToken: userToken
 						};
 						console.log('poczatek rejestracji', newUser);
 						mailer.sendRegisterLink(activationToken, newUser, req);
@@ -89,6 +107,21 @@ module.exports = function(passport) {
 							if (error) throw error;
 
 							newUser.id = rows2.insertId;
+							sendActivationReminder(newUser.name, req);
+							/*connection.query('select email from user where isAdministrator = ?', 1, function(error, rows) {
+								if (error) throw error;
+
+								var administrators = [];
+								for(var i = 0, len = rows.length; i < len; i++) {
+									administrators.push(rows[i].email);
+								}
+
+								console.log('administratorzy: ', administrators);
+								if(administrators.length > 0) {
+									mailer.sendActivationReminder(newUser.name, administrators, req);
+								}
+							});*/
+
 							return done(null, newUser);
 						});	
 					}
@@ -131,12 +164,28 @@ module.exports = function(passport) {
 
 							if(rows.length === 1) {
 								console.log(rows.length);
-								connection.release();
-								return done(null, rows[0]);
+								connection.query('SELECT * FROM user WHERE login = ? AND waitForAccept = ?', [login, 0], function(err, rows) {
+									if(err) {
+										console.log('dupa dupa', err);
+										return done(err);
+									}
+									if(rows.length === 1) {
+										connection.release();
+										return done(null, rows[0]);
+									} if(rows.length === 0) {
+										console.log('Before log in your account must be accepted by administrator. ' +
+											'We send email to him to make it faster. If your account will be accepted we inform you by email');
+										connection.release();
+										return done(null, false, {persistence: true, message: 'Before log in your account must be accepted by administrator. ' +
+										'We send email to him to make it faster. If your account will be accepted we inform you via email'});
+									}
+
+								});
+
 							} else if(rows.length === 0) {
 								console.log('Before log in please click activation link from email');
 								connection.release();
-								return done(null, false, {message: 'Please activate account by click in activation link from email before login'});
+								return done(null, false, {persistence: true, message: 'Please activate account by click in activation link from email before login'});
 							}
 						});
 					}

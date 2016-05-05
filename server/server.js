@@ -9,13 +9,17 @@ var express = require('express'),
     mime = require('mime'),
     async = require('async'),
     gen = require('./gen'),
+    dateUtils = require('./date-utils'),
     mysql = require('mysql'),
     authentication = require('./authentication'),
     passport = require('passport'),
     flash    = require('connect-flash'),
     moment = require('moment'),
     http = require('http').Server(express),
+    _ = require('lodash'),
+    bluebird = require('bluebird'),
     io,
+	bcrypt = require('bcrypt-nodejs');
     favicon = require('serve-favicon');
 
 express.static.mime.define({
@@ -37,20 +41,22 @@ var app = express(),
 
 if(process.argv[2] === 'remote') {
     pool = mysql.createPool({
-      connectionLimit: 50,
-      host: databaseConfig.details.host,
-      user: databaseConfig.details.user,
-      password: databaseConfig.details.password,
-      database: databaseConfig.details.database
+        connectionLimit: 50,
+        host: databaseConfig.details.host,
+        user: databaseConfig.details.user,
+        password: databaseConfig.details.password,
+        database: databaseConfig.details.database,
+        multipleStatements: true
     });
     console.log('remote');
 } else {
     pool = mysql.createPool({
-      connectionLimit: 50,
-      host: databaseConfig.homeDetails.host,
-      user: databaseConfig.homeDetails.user,
-      password: databaseConfig.homeDetails.password,
-      database: databaseConfig.homeDetails.database
+        connectionLimit: 50,
+        host: databaseConfig.homeDetails.host,
+        user: databaseConfig.homeDetails.user,
+        password: databaseConfig.homeDetails.password,
+        database: databaseConfig.homeDetails.database,
+        multipleStatements: true
     });
 }
 
@@ -142,18 +148,33 @@ var recalcCreatureRespTime = function(callback) {
 
 app.get('/init', function(req, res, next) {
     var model = {};
+    var currentTimestamp = new Date().getTime();
+    var eventOffset = moment(currentTimestamp).add('d', 2).valueOf();
+    console.log('eventOffset', eventOffset.valueOf());
     async.series({
         personalData: function(callback){
             var user = req.user;
             console.log(user);
             callback(null, user);
         },
-        creatures: recalcCreatureRespTime
+        creatures: recalcCreatureRespTime,
+        events: getEvents/*function(next) {
+            console.log('getEvents');
+            getEvents(currentTimestamp, eventOffset, function(data, data2){
+                console.log('data ',data, 'data2', data2);
+                next(null, data2);
+            });*/
+            //console.log(next);
+            /*console.log('init, events ', events);
+            return events;*/
+            //next(null, events);
+        //}
     },
     function(err, results){
         
         model.personalData = results.personalData;
         model.creatures = results.creatures;
+        model.events = results.events;
         console.log('powinien byc emit');
         io.sockets.emit('hello', {hello: true});
         res.send(model);
@@ -162,7 +183,7 @@ app.get('/init', function(req, res, next) {
 
 app.post('/signup', passport.authenticate('local-signup', {
     failureRedirect : '/register', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages    
+    failureFlash : true // allow flash messages
 }), function(req, res){
     console.log('rejestracja poprawnie');
     req.logOut();
@@ -195,10 +216,10 @@ app.post('/defeat', function(req, res, next){
         res.status(404).send('not Found');
     }
 });
-app.get('/activate/:token', function(req, res) {
+app.post('/activate', function(req, res) {
     console.log('poczatek aktywacji', req.params);
-    if(req.params.token) {
-        var token = req.params.token;
+    if(req.body && req.body.token) {
+        var token = req.body.token;
         var currentTimestamp = new Date().getTime();
 
         pool.query('select * from user where activationToken = ? and tokenExpirationDate > ?', [token, currentTimestamp], function(err, rows, fields) {
@@ -208,20 +229,59 @@ app.get('/activate/:token', function(req, res) {
                     console.log(rows[0]);
                     res.status(200);
                     pool.query('update user set activationToken = ? where activationToken = ?', [null, token], function(err, rows, fields) {
-                            if (err) throw err;
+						if (err) throw err;
 
 
-                            res.sendfile(path.join(__dirname, srcDir, 'token-activated.html'));            
-                         
-                    })
+						res.status(200).send();
+
+                    });
                     
                 } else {
                     res.status(404).send('not found');
                 }
-        })
+        });
     } else {
         res.status(404).send('not Found');
     }
+});
+
+app.post('/acceptUserActivation', function(req, res) {
+	console.log('poczatek akceptacji uzytkownika', req.params);
+	if(req.body && req.body.userId) {
+		var userId = req.body.userId;
+
+		pool.query('update user set waitForAccept = ? where id = ?', [0, userId], function(err, rows, fields) {
+			if (err) throw err;
+
+			getUsersToAccept(function(usersToAccept) {
+				res.status(200).send(usersToAccept);
+			}, function() {
+				res.status(404).send('not Found');
+			});
+
+		});
+	} else {
+		res.status(404).send('not Found');
+	}
+});
+
+app.post('/rejectUserActivation', function(req, res) {
+	console.log('poczatek odrzucania uzytkownika', req.params);
+	if(req.body && req.body.userId) {
+		var userId = req.body.userId;
+
+		pool.query('update user set waitForAccept = ? where id = ?', [null, userId], function(err, rows, fields) {
+			if (err) throw err;
+
+			getUsersToAccept(function(usersToAccept) {
+				res.status(200).send(usersToAccept);
+			}, function() {
+				res.status(404).send('not Found');
+			});
+		});
+	} else {
+		res.status(404).send('not Found');
+	}
 });
 /*app.post('/login', passport.authenticate('local-login', {
         failureRedirect : '/login', // redirect back to the signup page if there is an error
@@ -265,13 +325,429 @@ app.get('/creatures', function(req, res, next){
             for (var i = 0; i < rows.length; i++) {
                 /*console.log(rows[i]);*/
                 creatures.push(rows[i]);
-            };
+            }
 
             //console.log(creatures);
             connection.release();
             res.send(creatures);
         });
     });
+});
+
+var getEvents = function(cb, fromTimestamp, toTimestamp) {
+    var events = [];
+    console.log('getEfents w srodku ',fromTimestamp, toTimestamp);
+    pool.getConnection(function(err, connection) {
+        if(!fromTimestamp && !toTimestamp){
+            toTimestamp = new Date().getTime();
+            fromTimestamp = moment(fromTimestamp).subtract('d', 10).valueOf();
+        }
+        fromDatetime = dateUtils.timestampToSqlDatetime(fromTimestamp);
+        toDatetime = dateUtils.timestampToSqlDatetime(toTimestamp);
+        console.log('from ',fromDatetime,' to: ',toDatetime);
+
+        connection.query('select * from battle where battleDate >= ? and battleDate <= ?', [fromDatetime, toDatetime], function(err, rows) {
+                if(err) throw err;
+
+                console.log('query events');
+                //for(var i = 0, len = rows.length; i < len; i++) {
+                async.forEachLimit(rows, 1, function(currentBattle, battleCallback){
+                    console.log('foreach ', currentBattle);
+                    var place = '',
+                        creature = '',
+                        battleDate = currentBattle.battleDate,
+                        group = [];
+                        
+                    async.waterfall([
+                        function(wcb) {
+                            connection.query('select * from place where id = ?', currentBattle.placeId, function(err, rows) {
+                                if(err) wcb(err);
+
+                                place = rows[0];
+                                wcb();
+                            });
+                        },
+                        function(wcb) {
+                            connection.query('select * from creature where id = ?', currentBattle.creatureId, function(err, rows) {
+                                if(err) wcb(err);
+
+                                creature = rows[0];
+                                wcb();
+                            });
+                        },
+                        function(wcb) {
+                            connection.query('select hero.* from hero left join heroBattle on heroBattle.heroId = hero.id and herobattle.id = ?', currentBattle.id, function(err, rows) {
+                                if(err) wcb(err);
+
+                                for(var j = 0, len = rows.length; j < len; j++){
+                                    group.push(rows[j]);
+                                }
+                                wcb();
+                            });
+                        },
+                        function(wcb) {
+                            events.push({
+                                id: currentBattle.id,
+                                place: place,
+                                creature: creature,
+                                battleDate: battleDate,
+                                group: group
+                            });
+                            
+                           wcb(); 
+                        }
+                    ], function (err) {
+                        console.log('przed battleCallback', events);
+                        battleCallback();
+                        if (err) throw err;
+                    });
+                    /*connection.query('select * from place where id = ?', currentBattle.placeId, function(err, rows) {
+                        if(err) throw err;
+
+                        place = rows[0];
+                    });
+                    connection.query('select * from creature where id = ?', currentBattle.creatureId, function(err, rows) {
+                        if(err) throw err;
+
+                        creature = rows[0];
+                    });
+                    connection.query('select hero.* from hero left join heroBattle on heroBattle.heroId = hero.id and herobattle.id = ?', currentBattle.id, function(err, rows) {
+                        if(err) throw err;
+
+                        for(var j = 0, len = rows.length; i < len; i++){
+                            group.push(rows[i]);
+                        }
+                    });
+                    events[i] = {
+                        id: currentBattle.id,
+                        place: place,
+                        creature: creature,
+                        battleDate: battleDate,
+                        group: group
+                    }*/
+                   
+                }, function(err, result) {
+                    console.log('po battleCallback', events, result);
+                    var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
+
+                    cb(null, sortedEvents);
+                });
+        });
+    });
+};
+
+app.get('/getEvents', function(req, res, next) {
+    if(req.body) {
+        var fromTimestamp = req.body.from;
+        var toTimestamp = req.body.to;
+        var events = getEvents(fromTimestamp, toTimestamp);
+
+        res.send(events);
+    }
+});
+
+var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userId, guest, cb) {
+    connection.query('select id from hero where heroName = ?', currentHeroName, function(err, rows) {
+        if (err) cb(err);
+
+        console.log('for hero');
+        var currentHeroId = '';
+        if(rows.length === 1) {
+            currentHeroId = rows[0].id;
+            console.log('znalazlem currentheroid', currentHeroId);
+			//update creature set defeatedDate = ? where id = ?
+			if(userId !== null && guest === true){
+				connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+					if(err) cb(err);
+				});
+			} else if(userId !== null && guest === false) {
+				connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+					if(err) cb(err);
+				});
+			}
+
+			var heroBattleFields = {
+				heroId: currentHeroId,
+				battleId: battleId
+			};
+			console.log('herobattle', heroBattleFields);
+			connection.query('insert into heroBattle set ?', heroBattleFields, function (err, rows) {
+			});
+        } else {
+			console.log('dupa', currentHeroName);
+			connection.query('insert into hero set ?', {heroName: currentHeroName}, function (err, rows) {
+				if (err) cb(err);
+
+				console.log('insert into hero new', rows);
+				currentHeroId = rows.insertId;
+				console.log('currentHeroId', currentHeroId);
+				var heroBattleFields = {
+					heroId: currentHeroId,
+					battleId: battleId
+				};
+				console.log('herobattle', heroBattleFields);
+				connection.query('insert into heroBattle set ?', heroBattleFields, function (err, rows) {
+				});
+
+				if(userId !== null && guest === true){
+					connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+						if(err) cb(err);
+					});
+				} else if(userId !== null && guest === false) {
+					connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err, rows){
+						if(err) cb(err);
+					});
+				}
+			});
+		}
+        
+    });
+};
+
+var getUsersToAccept = function(successCallback, errorCallback) {
+	pool.getConnection(function(err, connection){
+		var userToAcceptModel = ['id', 'email', 'name'];
+		async.waterfall([function(cb) {
+			connection.query('select id, email, name from user where waitForAccept = ?', 1, function(err, rows){
+				if (err) throw err;
+
+				if(rows) {
+					return cb(null, rows);
+				}
+
+			});
+
+		},
+		function(users, cb){
+			var usersToAccept = [];
+			for(var i = 0, len = users.length; i < len; i++) {
+				(function() {
+					var iCopy = i;
+					console.log(iCopy);
+					var user = users[iCopy];
+					connection.query('select heroName from hero where mainUserId = ?', user.id, function(err, rows){
+						if (err) throw err;
+
+						if(rows) {
+							usersToAccept.push({userId: user.id,
+								email: user.email,
+								name: user.name,
+								heroes: rows
+							});
+
+							if(iCopy === users.length - 1) {
+								successCallback(usersToAccept);
+								//res.status(200).send(usersToAccept);
+							}
+						}});
+				}());
+			}
+
+		},
+		function (err, errorMessage) {
+			errorCallback();
+		}]);
+	});
+};
+
+var checkAdministrator = function(userId, successCallback, errorCallback) {
+	pool.getConnection(function(err, connection){
+		connection.query('select * from user where id = ? && isAdministrator = ?', [userId ,true], function(err, rows) {
+			if(err) throw err;
+
+			connection.release();
+			if(rows.length === 1) {
+				successCallback();
+			} else {
+				errorCallback();
+			}
+
+		});
+	});
+};
+
+app.post('/getUsersToAccept', function(req, res, next) {
+	if(req.body && req.body.userId){
+		checkAdministrator(req.body.userId, function(){
+			getUsersToAccept(function (usersToAccept) {
+				res.status(200).send(usersToAccept);
+			}, function () {
+				res.status(500).send();
+			});
+		}, function() {
+			res.status(500).send();
+		});
+	}
+});
+
+app.post('/registerEvent', function(req, res, next) {
+    if(req.body){
+        var token = req.body.token,
+        nick = req.body.nick,
+        creature = req.body.creature,
+		guest = req.body.guest,
+        group = req.body.group,
+        place = req.body.place,
+        timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        pool.getConnection(function(err, connection) {
+            connection.query('select id from user where userToken = ?', token, function(err, rows) {
+                if (err) throw err;
+
+                if(rows.length === 1) {
+                    var userId = rows[0].id;
+                    var placeId = '';
+                    var creatureId = '';
+                    var battleId = '';
+                    var battleFields = '';
+
+                    console.log('select user', timestamp);
+                    connection.beginTransaction(function(err) {
+                        if (err) {
+                            return connection.rollback(function() {
+                                throw err;
+                            });
+                        }
+
+                        async.waterfall([
+                            function(cb) {
+                                connection.query('select id from place where name = ?', place, function(err, rows) {
+                                    if (err) {
+                                        cb(err);
+                                    }
+
+                                    if(rows.length === 1) {
+                                        placeId = rows[0].id;
+                                        cb();
+                                    } else {
+                                        connection.query('insert into place set ?', {name: place}, function(err, rows) {
+                                            if(err) cb(err);
+
+                                            placeId = rows.insertId;
+                                            cb();
+                                        });
+                                    }
+                                });
+                            },
+                            function(cb) {
+                                connection.query('select id from creature where name = ?', creature, function(err, rows) {
+                                    if (err) cb(err);
+
+                                    if(rows.length === 1) {
+                                        creatureId = rows[0].id;
+
+                                        connection.query('update creature set defeatedDate = ? where id = ?; update creature set defeatCounter = defeatCounter + 1 where id = ?', [timestamp, creatureId, creatureId], function(err, rows) {
+                                            if(err) cb(err);
+
+                                            cb();
+                                        });
+                                    } else {
+                                        cb({}, 'unknown creature');
+                                    }
+                                });
+                            },
+                            /*function(cb) {
+								if(guest) {
+									connection.query('select id from hero where guestUserId = ? and heroName = ?', [userId, nick], function (err, rows) {
+										if (err) cb(err);
+
+										if (rows.length === 1) {
+											var heroId = rows[0].id;
+
+											cb();
+										} else {
+											console.log('unknown hero');
+											connection.release();
+											cb({}, 'unknown hero');
+										}
+									});
+								} else {
+									connection.query('select id from hero where mainUserId = ? and heroName = ?', [userId, nick], function (err, rows) {
+										if (err) cb(err);
+
+										if (rows.length === 1) {
+											var heroId = rows[0].id;
+
+											cb();
+										} else {
+											console.log('unknown hero');
+											connection.release();
+											cb({}, 'unknown hero');
+										}
+									});
+								}
+                            },*/
+                            function(cb) {
+                                battleFields = {
+                                    creatureId: creatureId,
+                                    battleDate: timestamp,
+                                    placeId: placeId  
+                                }
+
+                                connection.query('insert into battle set ?', battleFields, function(err, rows) {
+                                    if (err) cb(err);
+
+                                    console.log('insert battle');
+                                    battleId = rows.insertId;
+                                    cb();
+                                });
+                            },
+                            function(cb) {
+                                for(var i = 0, len = group.length; i < len; i++) {
+                                    var currentHeroName = group[i];
+                                    console.log(currentHeroName);
+									if(currentHeroName === nick) {
+										insertIntoHeroBattle(connection, currentHeroName, battleId, userId, guest, cb);
+									} else {
+										insertIntoHeroBattle(connection, currentHeroName, battleId, null, null, cb);
+									}
+                                }
+                                connection.commit(function(err) {
+                                    if (err) cb(err);
+
+                                    console.log('success!');
+                                    connection.release();
+                                    recalcCreatureRespTime(function(empty, data) { 
+                                        /*console.log('recalc defeat', data);*/
+                                        var output = {
+                                            creatures: data
+                                        }
+                                        console.log('recalc defeat');
+
+                                        io.emit('creaturesUpdated', output);
+
+										getEvents(function(cb, data){
+											console.log('getEvents po dodaniu', data);
+											io.emit('eventsUpdated', data[0]);
+										}, timestamp, timestamp);
+
+                                        res.status(200).send(output);
+                                    });
+
+
+                                });
+                               
+                            }
+                        ], function (err, errorMessage) {
+                            console.log('zwykly err');
+                            return connection.rollback(function() {
+                                console.log('rollback');
+                                if(!errorMessage) {
+                                    connection.release();
+                                    throw err;
+                                } else {
+                                    console.log('errorMessage: ', errorMessage);
+                                    res.status(500).send({message: errorMessage});
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    res.status(500).send({message: 'unknown token'});
+                }
+            });
+        });
+    }
 });
 
 function isLoggedIn(req, res, next) {
@@ -303,6 +779,79 @@ app.get('/isLoggedIn', function(req, res) {
     res.send(req.isAuthenticated()? req.user : {});
 });
 
+app.post('/changeEmail', function(req, res, next) {
+	if(req.body){
+		var newEmail = req.body.newEmail,
+			oldEmail = req.body.oldEmail,
+			userId = req.body.userId;
+
+		pool.getConnection(function(err, connection){
+			if(req.user.email === oldEmail && req.user.id === userId) {
+				connection.query('update user set email = ? where id = ?', [newEmail, userId], function (err, result) {
+					if (err) throw err;
+
+					req.user.email = newEmail;
+					res.status(200).send(req.user);
+					connection.release();
+
+				});
+			}
+		});
+	}
+});
+
+app.post('/changePassword', function(req, res, next) {
+	if(req.body){
+		var newPasswordPlain = req.body.newPassword,
+			oldPassword = req.body.oldPassword,
+			userId = req.body.userId;
+
+		bcrypt.compare(oldPassword, req.user.password, function(err, result){
+			if(result){
+				var newPasswordHash = bcrypt.hashSync(newPasswordPlain, bcrypt.genSaltSync(8), null);
+
+				pool.getConnection(function(err, connection){
+					if(req.user.id === userId) {
+						connection.query('update user set password = ? where id = ?', [newPasswordHash, userId], function (err, rows) {
+							if (err) throw err;
+
+							req.user.password = newPasswordHash;
+							res.status(200).send(req.user);
+							connection.release();
+
+						});
+					} else {
+						res.status(500).send();
+					}
+				});
+			} else {
+				res.status(500).send({message: 'wrong old password'});
+			}
+		});
+	}
+});
 
 
+app.post('/applySettings', function(req, res, next) {
+	if(req.body) {
+		var phoneNumber = req.body.phoneNumber,
+			ggNumber = req.body.ggNumber,
+			titanReminder = req.body.titanReminder,
+			userId = req.body.userId;
+
+		pool.getConnection(function(err, connection){
+			if(req.user.id === userId) {
+				userSettings = [phoneNumber ? phoneNumber: null, ggNumber ? ggNumber: null, titanReminder, userId];
+				connection.query('update user set phoneNumber = ? ggNumber = ? titanReminder = ? where id = ?', userSettings, function (err, rows) {
+					if (err) throw err;
+
+					res.status(200).send(req.user);
+					connection.release();
+				});
+			} else {
+				res.status(500).send();
+			}
+		});
+	}
+});
 

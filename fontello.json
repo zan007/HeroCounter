@@ -41,6 +41,18 @@
       "css": "success",
       "code": 59394,
       "src": "elusive"
+    },
+    {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star",
+      "code": 59398,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2aeb4987b469d22fcb8b471b6d2cdfff",
+      "css": "pencil",
+      "code": 59399,
+      "src": "linecons"
     }
   ]
 }

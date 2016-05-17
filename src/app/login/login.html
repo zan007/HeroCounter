@@ -3,9 +3,9 @@
 		<div class="info-box">
 			<div class="auth-type">LOGIN</div>
 			<div class="header">LOG IN INTO YOUR ACCOUNT</div>
-			<form name="loginForm">
-					<div><input class="form-input" ng-model="login" placeholder="LOGIN"/></div>
-					<div><input class="form-input" ng-model="password" placeholder="PASSWORD"/></div>
+			<form novalidate name="loginForm">
+					<div><input type="text" name="login" class="form-input" ng-model="login" placeholder="LOGIN" hc-validation-pattern="TEXT"/></div>
+					<div><input type="text" name="password" class="form-input" ng-model="password" placeholder="PASSWORD"/></div>
 					<button class="button" ng-click="logg(login, password)">LOGIN</button>
 
 			</form>

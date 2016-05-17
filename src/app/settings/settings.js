@@ -15,6 +15,24 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource',
 
 		};
 
+		$scope.readFileImg = function(files){
+			$scope.uploadPhoto = null;
+
+			if (files && files.length) {
+
+			    var readImgCallback = function(err, img){
+					$scope.loading = false;
+					if(err) return console.log(err);
+
+			      	$scope.$apply(function(){
+			        	$scope.uploadPhoto = img;
+			      	});
+
+			      	console.log($scope.uploadPhoto);
+				}
+			}
+	    };
+
 		$scope.changePassword = function(changePasswordForm){
 			dataSource.changePassword($rootScope.model.personalData, changePasswordForm.oldPassword, changePasswordForm.newPassword);
 		};

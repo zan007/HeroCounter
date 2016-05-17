@@ -1,8 +1,9 @@
-angular.module('login', ['dataSource', 'ngEnter', 'userAuthService']).
+angular.module('login', ['dataSource', 'ngEnter', 'userAuthService', 'controls.hcValidationPattern']).
 
 controller('loginCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'userAuthService', 'appStates', '$state', 'notificationService',
     function($scope, $rootScope, dataSource, $http, userAuthService, appStates, $state, notificationService) {
     	$rootScope.showLogout = false;
+
 		$scope.logg = function(login, password) {
 			userAuthService.loggIn(login, password).then(function(data){
 				$rootScope.states = appStates[true];

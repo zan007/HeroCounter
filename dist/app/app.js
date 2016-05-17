@@ -19,7 +19,8 @@ angular.module('heroCounter', [
 	'utils.fastFilter',
 	'ngCookies',
 	'controls.hcPrettyTime',
-	'controls.hcEventsTimeline'
+	'controls.hcEventsTimeline',
+	'controls.hcValidationPattern'
 ])
 .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
    $httpProvider.interceptors.push(function($q, $location) {

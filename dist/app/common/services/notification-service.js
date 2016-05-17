@@ -1,4 +1,4 @@
-angular.module('notification-service', [
+angular.module('notificationService', [
 	'ui-notification'
 ])
 .config(function(NotificationProvider) {

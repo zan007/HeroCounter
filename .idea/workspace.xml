@@ -2,38 +2,123 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa742d42-75f6-49b8-a5bf-8c88d0a812d2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/font/fontello.eot" afterPath="$PROJECT_DIR$/dist/font/fontello.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/font/fontello.ttf" afterPath="$PROJECT_DIR$/dist/font/fontello.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/font/fontello.eot" afterPath="$PROJECT_DIR$/src/font/fontello.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/font/fontello.ttf" afterPath="$PROJECT_DIR$/src/font/fontello.ttf" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/vendor/loader/loader.min.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/app/common/data/data-source.js" afterPath="$PROJECT_DIR$/dist/app/common/data/data-source.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/app/heroes/heroes.js" afterPath="$PROJECT_DIR$/dist/app/heroes/heroes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/app/settings/settings.js" afterPath="$PROJECT_DIR$/dist/app/settings/settings.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/css/index.css" afterPath="$PROJECT_DIR$/dist/css/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/css/index.css.map" afterPath="$PROJECT_DIR$/dist/css/index.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/font/fontello.svg" afterPath="$PROJECT_DIR$/dist/font/fontello.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/font/fontello.woff" afterPath="$PROJECT_DIR$/dist/font/fontello.woff" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fontello.json" afterPath="$PROJECT_DIR$/fontello.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/authentication.js" afterPath="$PROJECT_DIR$/server/authentication.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/vendor/ng-file-upload/ng-file-upload.js" afterPath="$PROJECT_DIR$/dist/vendor/ng-file-upload/ng-file-upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/.jshintrc" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/.jshintrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/.npmignore" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/.npmignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/Gruntfile.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/Gruntfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/LICENSE" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/README.md" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/artifacts/ng_file_upload_demo_server_war.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/artifacts/ng_file_upload_demo_server_war.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/artifacts/ng_file_upload_demo_server_war_exploded.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/artifacts/ng_file_upload_demo_server_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/codeStyleSettings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/compiler.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/copyright/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/encodings.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__com_google_appengine_appengine_api_1_0_sdk_1_9_18.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__com_google_appengine_appengine_api_1_0_sdk_1_9_18.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__com_google_appengine_appengine_endpoints_1_9_18.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__com_google_appengine_appengine_endpoints_1_9_18.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_2.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/misc.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/modules.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/vcs.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/workspace.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/C#/UploadController.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/C#/UploadController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/C#/UploadHandler.ashx" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/C#/UploadHandler.ashx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/C#/UploadHandler.ashx.cs" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/C#/UploadHandler.ashx.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/pom.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/java/com/df/angularfileupload/CORSFilter.java" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/java/com/df/angularfileupload/CORSFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/java/com/df/angularfileupload/FileUpload.java" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/java/com/df/angularfileupload/FileUpload.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/java/com/df/angularfileupload/S3Signature.java" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/java/com/df/angularfileupload/S3Signature.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/resources/META-INF/jdoconfig.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/resources/META-INF/jdoconfig.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/resources/META-INF/persistence.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/resources/log4j.properties" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/resources/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/WEB-INF/appengine-web.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/WEB-INF/appengine-web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/WEB-INF/logging.properties" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/WEB-INF/logging.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/WEB-INF/web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/common.css" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/common.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/crossdomain.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/crossdomain.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/donate.html" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/donate.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/index.html" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/FileAPI.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/FileAPI.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/FileAPI.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/FileAPI.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-all.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-all.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-all.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-all.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-shim.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-shim.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-shim.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload-shim.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-file-upload.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-img-crop.css" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-img-crop.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-img-crop.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/ng-img-crop.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/upload.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/src/main/webapp/js/upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/appengine-web.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/appengine-web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/classes/META-INF/jdoconfig.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/classes/META-INF/jdoconfig.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/classes/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/classes/META-INF/persistence.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/classes/log4j.properties" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/classes/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/logging.properties" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/logging.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/WEB-INF/web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/common.css" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/common.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/crossdomain.xml" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/crossdomain.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/donate.html" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/donate.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/index.html" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/FileAPI.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/FileAPI.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/FileAPI.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/FileAPI.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-all.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-all.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-all.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-all.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-shim.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-shim.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-shim.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload-shim.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-file-upload.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-img-crop.css" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-img-crop.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-img-crop.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/ng-img-crop.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/upload.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/demo/target/ng-file-upload-demo-server-0.0.1/js/upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/FileAPI.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/FileAPI.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/FileAPI.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/FileAPI.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-all.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-all.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-all.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-all.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-shim.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-shim.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload.min.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/dist/ng-file-upload.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/index.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/nuget/Package.nuspec" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/nuget/Package.nuspec" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/nuget/build.bat" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/nuget/build.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/nuget/nuget.sh" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/nuget/nuget.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/package.json" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/release.sh" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/release.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/FileAPI.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/FileAPI.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/data-url.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/data-url.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/drop.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/drop.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/exif.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/exif.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/model.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/model.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/resize.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/resize.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/select.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/select.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/shim-elem.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/shim-elem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/shim-filereader.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/shim-filereader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/shim-upload.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/shim-upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/upload.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/upload.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/src/validate.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/src/validate.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/test/.bowerrc" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/test/.bowerrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/test/bower.json" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/test/bower.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/test/index.html" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/test/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/ng-file-upload/test/spec/test.js" afterPath="$PROJECT_DIR$/node_modules/ng-file-upload/test/spec/test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/node_modules/body-parser/lib/types/urlencoded.js" afterPath="$PROJECT_DIR$/server/node_modules/body-parser/lib/types/urlencoded.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.js" afterPath="$PROJECT_DIR$/src/app/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/common/data/data-source.js" afterPath="$PROJECT_DIR$/src/app/common/data/data-source.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/heroes/filter-box.html" afterPath="$PROJECT_DIR$/src/app/heroes/filter-box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/heroes/heroes.js" afterPath="$PROJECT_DIR$/src/app/heroes/heroes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/common/services/notification-service.js" afterPath="$PROJECT_DIR$/src/app/common/services/notification-service.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/settings/settings.html" afterPath="$PROJECT_DIR$/src/app/settings/settings.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/settings/settings.js" afterPath="$PROJECT_DIR$/src/app/settings/settings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/font/animation.css" afterPath="$PROJECT_DIR$/src/css/font/animation.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/font/fontello-codes.css" afterPath="$PROJECT_DIR$/src/css/font/fontello-codes.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/font/fontello-embedded.css" afterPath="$PROJECT_DIR$/src/css/font/fontello-embedded.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/font/fontello-ie7-codes.css" afterPath="$PROJECT_DIR$/src/css/font/fontello-ie7-codes.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/font/fontello-ie7.css" afterPath="$PROJECT_DIR$/src/css/font/fontello-ie7.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/font/fontello.css" afterPath="$PROJECT_DIR$/src/css/font/fontello.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/forms.css" afterPath="$PROJECT_DIR$/src/css/forms.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/index.css" afterPath="$PROJECT_DIR$/src/css/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/layout.css" afterPath="$PROJECT_DIR$/src/css/layout.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/font/fontello.svg" afterPath="$PROJECT_DIR$/src/font/fontello.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/font/fontello.woff" afterPath="$PROJECT_DIR$/src/font/fontello.woff" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/meta/scripts.html" afterPath="$PROJECT_DIR$/src/meta/scripts.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vendor/ng-file-upload/ng-file-upload.js" afterPath="$PROJECT_DIR$/src/vendor/ng-file-upload/ng-file-upload.js" />
     </list>
     <ignored path="heroCounter.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,64 +138,54 @@
     <favorites_list name="heroCounter" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.5">
+    <splitter split-orientation="vertical" split-proportion="0.38549957">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="182">
+                  <caret line="123" column="18" selection-start-line="123" selection-start-column="18" selection-end-line="123" selection-end-column="18" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app/login/login.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="240">
+                  <caret line="15" column="64" selection-start-line="15" selection-start-column="64" selection-end-line="15" selection-end-column="64" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="data-source.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/common/data/data-source.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3088">
-                  <caret line="193" column="52" selection-start-line="193" selection-start-column="52" selection-end-line="193" selection-end-column="52" />
+                <state relative-caret-position="117">
+                  <caret line="209" column="39" selection-start-line="209" selection-start-column="27" selection-end-line="209" selection-end-column="39" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="heroes.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/app/heroes/heroes.js">
+          <file leaf-file-name="database.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/config/database.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="416">
-                  <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+                <state relative-caret-position="112">
+                  <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="settings.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="368">
-                  <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="filter-box.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/app/heroes/filter-box.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="336">
-                  <caret line="21" column="26" selection-start-line="17" selection-start-column="20" selection-end-line="21" selection-end-column="26" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/app/settings/settings.js">
+          <file leaf-file-name="scripts.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/meta/scripts.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="288">
-                  <caret line="18" column="100" selection-start-line="18" selection-start-column="100" selection-end-line="18" selection-end-column="100" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="authentication.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/server/authentication.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="464">
-                  <caret line="29" column="66" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="66" />
+                  <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
@@ -119,38 +194,52 @@
           <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/server.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="297">
-                  <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+                <state relative-caret-position="112">
+                  <caret line="839" column="4" selection-start-line="839" selection-start-column="4" selection-end-line="839" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/css/index.css">
+          <file leaf-file-name="uploader.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/node_modules/cloudinary/lib/uploader.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="192">
-                  <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+                <state relative-caret-position="174">
+                  <caret line="66" column="38" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="38" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="layout.css" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/css/layout.css">
+          <file leaf-file-name="urlencoded.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/node_modules/body-parser/lib/types/urlencoded.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="116">
-                  <caret line="201" column="24" selection-start-line="201" selection-start-column="24" selection-end-line="201" selection-end-column="24" />
-                  <folding />
+                <state relative-caret-position="0">
+                  <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="registration-link.ejs" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/server/mail_templates/registration-link.ejs">
+          <file leaf-file-name="cloudinary-utils.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/server/cloudinary-utils.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="176">
-                  <caret line="11" column="10" selection-start-line="0" selection-start-column="0" selection-end-line="365" selection-end-column="0" />
+                <state relative-caret-position="167">
+                  <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
+                  <folding>
+                    <element signature="e#0#42#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cloudinary.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/config/cloudinary.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="48">
+                  <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
                   <folding />
                 </state>
               </provider>
@@ -159,59 +248,59 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="settings.css" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/css/settings.css">
+        <leaf>
+          <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="182">
-                  <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+                <state relative-caret-position="233">
+                  <caret line="135" column="53" selection-start-line="135" selection-start-column="53" selection-end-line="135" selection-end-column="53" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="notifications.css" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/css/notifications.css">
+          <file leaf-file-name="settings.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/app/settings/settings.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="96">
-                  <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+                <state relative-caret-position="323">
+                  <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="angular-ui-notification.css" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/css/vendor/angular-ui-notification.css">
+          <file leaf-file-name="ng-img-crop.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/vendor/ng-img-crop/ng-img-crop.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="160">
-                  <caret line="64" column="1" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
+                <state relative-caret-position="64">
+                  <caret line="12" column="36" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Gruntfile.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Gruntfile.js">
+          <file leaf-file-name="avatar-service.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app/common/services/avatar-service.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="73">
-                  <caret line="88" column="43" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="43" />
+                <state relative-caret-position="441">
+                  <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="forms.css" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/css/forms.css">
+          <file leaf-file-name="notification-service.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app/common/services/notification-service.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="48">
-                  <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+                <state relative-caret-position="0">
+                  <caret line="0" column="29" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="heroes.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/app/heroes/heroes.html">
+          <file leaf-file-name="socket-factory.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app/common/services/socket-factory.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
                   <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -220,11 +309,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="data-source.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/app/common/data/data-source.js">
+          <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/app/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="144">
-                  <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+                <state relative-caret-position="336">
+                  <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
                   <folding />
                 </state>
               </provider>
@@ -237,9 +326,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="EJS" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -255,26 +344,32 @@
         <option value="$PROJECT_DIR$/src/css/controls/hc-events-timeline.css" />
         <option value="$PROJECT_DIR$/src/app/common/controls/hc-events-timeline/hc-events-timeline.js" />
         <option value="$PROJECT_DIR$/server/node_modules/passport/lib/passport/middleware/authenticate.js" />
-        <option value="$PROJECT_DIR$/src/app/common/services/notification-service.js" />
         <option value="$PROJECT_DIR$/.jshintrc" />
         <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/src/app/app.js" />
         <option value="$PROJECT_DIR$/src/app/activation/activation.html" />
         <option value="$PROJECT_DIR$/src/app/activation/activation.js" />
         <option value="$PROJECT_DIR$/server/mail_templates/activation-reminder.ejs" />
         <option value="$PROJECT_DIR$/server/mailer.js" />
         <option value="$PROJECT_DIR$/src/app/heroes/heroes.js" />
         <option value="$PROJECT_DIR$/src/css/index.css" />
-        <option value="$PROJECT_DIR$/src/app/common/data/data-source.js" />
-        <option value="$PROJECT_DIR$/src/app/settings/settings.js" />
         <option value="$PROJECT_DIR$/server/authentication.js" />
-        <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/src/app/heroes/filter-box.html" />
         <option value="$PROJECT_DIR$/src/css/forms.css" />
         <option value="$PROJECT_DIR$/src/css/font/fontello-codes.css" />
         <option value="$PROJECT_DIR$/src/css/settings.css" />
         <option value="$PROJECT_DIR$/src/css/layout.css" />
+        <option value="$PROJECT_DIR$/src/css/vendor/angular-ui-notification.css" />
+        <option value="$PROJECT_DIR$/src/app/common/services/notification-service.js" />
+        <option value="$PROJECT_DIR$/src/meta/scripts.html" />
+        <option value="$PROJECT_DIR$/src/app/app.js" />
+        <option value="$PROJECT_DIR$/src/app/common/services/avatar-service.js" />
+        <option value="$PROJECT_DIR$/src/app/common/data/data-source.js" />
+        <option value="$PROJECT_DIR$/server/config/cloudinary.js" />
         <option value="$PROJECT_DIR$/src/app/settings/settings.html" />
+        <option value="$PROJECT_DIR$/src/app/settings/settings.js" />
+        <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/server/node_modules/body-parser/lib/types/urlencoded.js" />
+        <option value="$PROJECT_DIR$/server/cloudinary-utils.js" />
       </list>
     </option>
   </component>
@@ -344,130 +439,14 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1036" />
+    <option name="x" value="1192" />
+    <option name="y" value="-1322" />
+    <option name="width" value="2118" />
+    <option name="height" value="1293" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-          <State>
-            <id>AngularJS</id>
-          </State>
-          <State>
-            <id>Assignment issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Bitwise operation issuesJavaScript</id>
-          </State>
-          <State>
-            <id>CSS</id>
-          </State>
-          <State>
-            <id>Code quality toolsJavaScript</id>
-          </State>
-          <State>
-            <id>Code style issuesCSS</id>
-          </State>
-          <State>
-            <id>Code style issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Control flow issuesJavaScript</id>
-          </State>
-          <State>
-            <id>DOM issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Data flow issuesJavaScript</id>
-          </State>
-          <State>
-            <id>EJS</id>
-          </State>
-          <State>
-            <id>Error handlingJavaScript</id>
-          </State>
-          <State>
-            <id>File Watchers</id>
-          </State>
-          <State>
-            <id>General</id>
-          </State>
-          <State>
-            <id>GeneralJavaScript</id>
-          </State>
-          <State>
-            <id>HTML</id>
-          </State>
-          <State>
-            <id>Internationalization issues</id>
-          </State>
-          <State>
-            <id>Invalid elementsCSS</id>
-          </State>
-          <State>
-            <id>JSON</id>
-          </State>
-          <State>
-            <id>JavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript function metricsJavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript validity issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Less</id>
-          </State>
-          <State>
-            <id>Naming conventionsJavaScript</id>
-          </State>
-          <State>
-            <id>Node.jsJavaScript</id>
-          </State>
-          <State>
-            <id>Potentially confusing code constructsJavaScript</id>
-          </State>
-          <State>
-            <id>Probable bugsCSS</id>
-          </State>
-          <State>
-            <id>Probable bugsJavaScript</id>
-          </State>
-          <State>
-            <id>RELAX NG</id>
-          </State>
-          <State>
-            <id>Spelling</id>
-          </State>
-          <State>
-            <id>TypeScript</id>
-          </State>
-          <State>
-            <id>Unit testingJavaScript</id>
-          </State>
-          <State>
-            <id>XML</id>
-          </State>
-          <State>
-            <id>XPath</id>
-          </State>
-          <State>
-            <id>XSLT</id>
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>MagicNumberJS</id>
-          </State>
-        </selected-state>
-      </profile-state>
+      <profile-state />
     </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -495,6 +474,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -523,7 +504,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="server" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -537,90 +518,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="server" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heroCounter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heroCounter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heroCounter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heroCounter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="settings" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heroCounter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heroCounter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="heroes" />
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AppData" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="nodejs_interpreter_path" value="C:\Program Files\nodejs\node" />
-    <property name="js.buildTools.grunt.grunt-cli.package" value="C:\Users\ZAN\AppData\Roaming\npm\node_modules\grunt-cli" />
+    <property name="js.buildTools.grunt.grunt-cli.package" value="C:\Users\pplos\AppData\Roaming\npm\node_modules\grunt-cli" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js.eslint.nodeInterpreter" value="project" />
@@ -628,8 +545,20 @@
     <property name="SearchEverywhereHistoryKey" value="token-activated&#9;FILE&#9;file://C:/webdev/heroCounter/src/token-activated.html&#10;showInfoNotification&#9;null&#9;null&#10;notificationService&#9;null&#9;null" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\webdev\heroCounter\src\vendor\ng-img-crop" />
+      <recent name="C:\webdev\heroCounter\src\vendor\ng-file-upload" />
+    </key>
+  </component>
   <component name="RunManager" selected="Node.js.server.js">
-    <configuration default="false" name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/server">
+    <configuration default="false" name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/nodejs/node" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/server">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
@@ -644,8 +573,14 @@
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
       <method />
     </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
-      <node-interpreter value="project" />
+      <node-interpreter value="C:/nodejs/node" />
       <envs />
       <force value="false" />
       <verbose value="false" />
@@ -680,8 +615,20 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Node.js.server.js" />
+    <configuration default="false" name="watch-build" type="js.build_tools.grunt" factoryName="Grunt.js">
+      <node-interpreter value="C:/nodejs/node" />
+      <gruntfile value="$PROJECT_DIR$/Gruntfile.js" />
+      <tasks>
+        <task value="watch-build" />
+      </tasks>
+      <envs />
+      <force value="false" />
+      <verbose value="false" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Grunt.js.watch-build" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.server.js" />
     </list>
     <recent_temporary>
       <list size="1">
@@ -722,11 +669,15 @@
       <workItem from="1461610999790" duration="574000" />
       <workItem from="1461666627989" duration="11926000" />
       <workItem from="1461780523062" duration="10499000" />
+      <workItem from="1462833738898" duration="625000" />
+      <workItem from="1463506453010" duration="1720000" />
+      <workItem from="1463508512545" duration="896000" />
+      <workItem from="1463509448213" duration="11244000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126675000" />
+    <option name="totallyTimeSpent" value="141160000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -738,26 +689,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1036" extended-state="6" />
-    <editor active="true" />
+    <frame x="1192" y="-1322" width="2118" height="1293" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22738387" sideWeight="0.42920354" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21868885" sideWeight="0.41202477" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32744783" sideWeight="0.4940476" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22738387" sideWeight="0.5707965" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21868885" sideWeight="0.58797526" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928178" sideWeight="0.5506635" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3448276" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21049458" sideWeight="0.5214521" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.49702382" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3938053" sideWeight="0.4951749" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39257294" sideWeight="0.4951749" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17237164" sideWeight="0.4893048" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.44933656" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891247" sideWeight="0.44933656" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21049458" sideWeight="0.5214521" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39933628" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39876217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34513274" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -777,120 +728,27 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>222</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/app/app.js</url>
-          <line>126</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/app/app.js</url>
-          <line>129</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/app/app.js</url>
-          <line>124</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/authentication.js</url>
-          <line>86</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/authentication.js</url>
-          <line>90</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/authentication.js</url>
-          <line>87</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/authentication.js</url>
-          <line>108</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/authentication.js</url>
-          <line>79</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>491</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>492</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>495</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>496</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>792</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>793</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>808</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>804</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>810</line>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>809</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>813</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>814</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>175</line>
+          <line>837</line>
           <properties />
-          <option name="timeStamp" value="58" />
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/server.js</url>
-          <line>174</line>
+          <url>file://$PROJECT_DIR$/server/cloudinary-utils.js</url>
+          <line>14</line>
           <properties />
-          <option name="timeStamp" value="59" />
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/node_modules/cloudinary/lib/uploader.js</url>
+          <line>66</line>
+          <properties />
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/node_modules/cloudinary/lib/uploader.js</url>
+          <line>65</line>
+          <properties />
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -901,7 +759,7 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="60" />
+      <option name="time" value="72" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
@@ -914,69 +772,10 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/css/controls/hc-events-timeline.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/heroes/heroes.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/mixins.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/heroes/heroes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="48" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="62" column="10" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/node_modules/passport/lib/passport/middleware/authenticate.js">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/authentication.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2125">
-          <caret line="125" column="46" selection-start-line="125" selection-start-column="41" selection-end-line="125" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -984,22 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/config/database.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1031,24 +814,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/meta/scripts.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/common/controls/hc-events-timeline/hc-events-timeline.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/login/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -1063,13 +832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/common/services/notification-service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -1123,14 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3696">
-          <caret line="231" column="0" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/mail_templates/activation-reminder.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5680">
@@ -1154,42 +908,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/settings/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="100" selection-start-line="18" selection-start-column="100" selection-end-line="18" selection-end-column="100" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/heroes/heroes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/heroes/heroes.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/common/data/data-source.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3088">
-          <caret line="193" column="52" selection-start-line="193" selection-start-column="52" selection-end-line="193" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/heroes/filter-box.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="21" column="26" selection-start-line="17" selection-start-column="20" selection-end-line="21" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -1216,25 +938,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="88" column="43" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/css/settings.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
+        <state relative-caret-position="478">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
@@ -1248,22 +954,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/forms.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/layout.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="201" column="24" selection-start-line="201" selection-start-column="24" selection-end-line="201" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/css/vendor/angular-ui-notification.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -1272,19 +962,201 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
+    <entry file="file://$PROJECT_DIR$/Gruntfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+        <state relative-caret-position="503">
+          <caret line="88" column="43" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/forms.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/heroes/heroes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vendor/slider/rzslider.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vendor/ng-file-upload/ng-file-upload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/heroes/filter-box.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="21" column="26" selection-start-line="17" selection-start-column="20" selection-end-line="21" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/layout.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="201" column="24" selection-start-line="201" selection-start-column="24" selection-end-line="201" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/common/services/socket-factory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/common/services/notification-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="29" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/meta/scripts.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vendor/ng-img-crop/ng-img-crop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="12" column="36" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/common/services/avatar-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/login/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="15" column="64" selection-start-line="15" selection-start-column="64" selection-end-line="15" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/config/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/config/cloudinary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/common/data/data-source.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="209" column="39" selection-start-line="209" selection-start-column="27" selection-end-line="209" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+        <state relative-caret-position="182">
+          <caret line="123" column="18" selection-start-line="123" selection-start-column="18" selection-end-line="123" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/settings/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/node_modules/body-parser/lib/types/urlencoded.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/node_modules/cloudinary/lib/uploader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="66" column="38" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="839" column="4" selection-start-line="839" selection-start-column="4" selection-end-line="839" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/cloudinary-utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

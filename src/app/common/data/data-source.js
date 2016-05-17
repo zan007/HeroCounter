@@ -16,7 +16,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				events: [],
 				usersToAccept: []
 			};			
-		}
+		};
 		initModel();
 
 		$rootScope.opened = false;
@@ -198,6 +198,19 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 						userId: user.id,
 						oldPassword: oldPassword,
 						newPassword: newPassword
+					}
+				}, function(data) {
+					$rootScope.model.personalData = data;
+
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			changeAvatar: function(userId, avatar) {
+				return call({ method: 'POST',
+					url: '/changeAvatar',
+					data: {
+						userId: userId,
+						avatar: avatar
 					}
 				}, function(data) {
 					$rootScope.model.personalData = data;

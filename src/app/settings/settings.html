@@ -124,12 +124,20 @@
             </div>
             <div class="additional-box col-xs-12 col-md-4">
                 <div class="avatar-box">
-                    <!-- <div class="drop-box drop-box-container" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
+                    <img-crop ng-show="loadedImg" image="loadedImg" result-image="croppedImg"
+                               area-type="circle" ngf-accept="'image/*'"
+                               result-image-size="250"
+                               class="drop-box-container" ng-cloak>
+                    </img-crop>
+
+                    <div class="drop-box drop-box-container" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
                         <span>Drop image or click to upload avatar</span>
                     </div>
+                    <div><img ng-src="{{croppedImg}}"/></div>
                     <div class="current-avatar" ng-cloak="" >
                          <img class="avatar-img" ng-src="{{model.personalData.avatar}}">
-                    </div> -->
+                    </div>
+                    <button class="btn" ng-click="uploadAvatar()">Accept avatar</button>
                 </div>
                 <div class="about-box">
 

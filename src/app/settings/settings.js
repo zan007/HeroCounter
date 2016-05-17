@@ -1,35 +1,29 @@
-angular.module('settings', ['dataSource']).
+angular.module('settings', ['dataSource', 'ngFileUpload']).
 
-controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource',
-    function($scope, $rootScope, dataSource) {
+controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService',
+    function($scope, $rootScope, dataSource, avatarService) {
 		if($rootScope.model.personalData.isAdministrator) {
 			dataSource.refreshUsersToAccept();
 		}
 		$rootScope.$on('dataSource.ready', function() {
 			$scope.model = $rootScope.model;
 		});
-		
+		$scope.croppedImg = '';
     	/*w modelu uzytkownicy do zaakceptowania, jak nie ma praw to pusta lista,
     	wyswietlanie komunikatu ze nie ma uzytkownikow do zaakceptowania jak pusta lista i uzytkownik typu administrator*/
-		$scope.changeAvatar = function(){
 
+		$scope.uploadAvatar = function(){
+			dataSource.changeAvatar($rootScope.model.personalData.id, $scope.croppedImg);
 		};
 
 		$scope.readFileImg = function(files){
-			$scope.uploadPhoto = null;
+			$scope.loadedImg = null;
+			$scope.success = null;
 
 			if (files && files.length) {
-
-			    var readImgCallback = function(err, img){
-					$scope.loading = false;
-					if(err) return console.log(err);
-
-			      	$scope.$apply(function(){
-			        	$scope.uploadPhoto = img;
-			      	});
-
-			      	console.log($scope.uploadPhoto);
-				}
+			    avatarService.readImageFile(files[0]).then(function(img){
+					$scope.loadedImg = img;
+				});
 			}
 	    };
 

@@ -421,12 +421,20 @@ return this}};h&&m(h);return g})}})})(window)})(window);
             </div>
             <div class="additional-box col-xs-12 col-md-4">
                 <div class="avatar-box">
-                    <!-- <div class="drop-box drop-box-container" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
+                    <img-crop ng-show="loadedImg" image="loadedImg" result-image="croppedImg"
+                               area-type="circle" ngf-accept="'image/*'"
+                               result-image-size="250"
+                               class="drop-box-container" ng-cloak>
+                    </img-crop>
+
+                    <div class="drop-box drop-box-container" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
                         <span>Drop image or click to upload avatar</span>
                     </div>
+                    <div><img ng-src="{{croppedImg}}"/></div>
                     <div class="current-avatar" ng-cloak="" >
                          <img class="avatar-img" ng-src="{{model.personalData.avatar}}">
-                    </div> -->
+                    </div>
+                    <button class="btn" ng-click="uploadAvatar()">Accept avatar</button>
                 </div>
                 <div class="about-box">
 
@@ -640,6 +648,8 @@ $script([
     '/vendor/socket-io/socket.io.js',
     '/vendor/angular-ui-notification/angular-ui-notification.min.js',
     '/vendor/slider/rzslider.min.js',
+    '/vendor/ng-file-upload/ng-file-upload.js',
+    '/vendor/ng-img-crop/ng-img-crop.js',
     '/app/activation/activation.js',
 '/app/app.js',
 '/app/common/controls/animations/appAnimations.js',
@@ -655,6 +665,7 @@ $script([
 '/app/common/filters/creatures-query-filter.js',
 '/app/common/filters/only-with-known-time-filter.js',
 '/app/common/filters/resp-time-filter.js',
+'/app/common/services/avatar-service.js',
 '/app/common/services/notification-service.js',
 '/app/common/services/socket-factory.js',
 '/app/common/services/user-auth-service.js',

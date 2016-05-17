@@ -19,7 +19,8 @@ var express = require('express'),
     _ = require('lodash'),
     bluebird = require('bluebird'),
     io,
-	bcrypt = require('bcrypt-nodejs');
+	bcrypt = require('bcrypt-nodejs'),
+	cloudinaryUtils = require('./cloudinary-utils'),
     favicon = require('serve-favicon');
 
 express.static.mime.define({
@@ -831,6 +832,22 @@ app.post('/changePassword', function(req, res, next) {
 	}
 });
 
+app.post('/changeAvatar', function(req, res, next){
+	if(req.body) {
+		var userId = req.body.userId,
+			avatar = req.body.avatar;
+
+		cloudinaryUtils.upload(avatar, function(error, result){
+			if(error.message) {
+				console.log(error.message);
+				res.status(500),send(error.message);
+			} else {
+				console.log('SUUUUKCES AVATARA', result);
+				res.status(200).send(result);
+			}
+		});
+	}
+});
 
 app.post('/applySettings', function(req, res, next) {
 	if(req.body) {

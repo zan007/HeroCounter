@@ -15,12 +15,14 @@ angular.module('heroCounter', [
 	'timer',
 	'userAuthService',
 	'socketFactory',
-	'notification-service',
+	'notificationService',
 	'utils.fastFilter',
 	'ngCookies',
 	'controls.hcPrettyTime',
 	'controls.hcEventsTimeline',
-	'controls.hcValidationPattern'
+	'controls.hcValidationPattern',
+	'avatarService',
+	'ngImgCrop'
 ])
 .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
    $httpProvider.interceptors.push(function($q, $location) {

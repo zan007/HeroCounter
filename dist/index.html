@@ -71,7 +71,9 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="row">
 				<div class="query-box text-center col-md-12">
 					<div class="input-holder">
-						<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						<div class="input-container">
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						</div>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
 							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
@@ -146,7 +148,9 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="row">
 				<div class="query-box text-center col-md-12">
 					<div class="input-holder">
-						<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						<div class="input-container">
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						</div>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
 							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
@@ -186,9 +190,17 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="auth-type">LOGIN</div>
 			<div class="header">LOG IN INTO YOUR ACCOUNT</div>
 			<form novalidate name="loginForm">
-					<div><input type="text" name="login" class="form-input" ng-model="login" placeholder="LOGIN" hc-validation-pattern="TEXT"/></div>
-					<div><input type="text" name="password" class="form-input" ng-model="password" placeholder="PASSWORD"/></div>
-					<button class="button" ng-click="logg(login, password)">LOGIN</button>
+					<div class="input-container">
+						<input type="text" name="login" class="form-input" ng-model="login" placeholder="LOGIN" ng-required="true" hc-validation-pattern="TEXT"/>
+						<div class="error-container" ng-messages="loginForm.login.$error" ng-show="loginForm.login.$dirty">
+							<span ng-message="hcValidationPattern.TEXT">Only text</span>
+							<span ng-message="required">Fill in the field.</span>
+						</div>
+					</div>
+					<div class="input-container">
+						<input type="text" name="password" class="form-input" ng-model="password" placeholder="PASSWORD"/>
+					</div>
+					<button class="button" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">LOGIN</button>
 
 			</form>
 		</div>
@@ -203,11 +215,21 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="auth-type">SIGNUP</div>
 			<div class="header">CREATE YOUR ACCOUNT</div>
 			<form name="signup-form">
-					<div><input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/></div>
-					<div><input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/></div>
-					<div><input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/></div>
-					<div><input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/></div>
-					<div><input class="form-input" ng-model="registerData.name" placeholder="NAME"/></div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.name" placeholder="NAME"/>
+					</div>
 					<button class="button" ng-click="register(registerData)">SIGNUP</button>
 			</form>
 		</div>
@@ -250,7 +272,9 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="row">
 				<div class="query-box text-center col-md-12">
 					<div class="input-holder">
-						<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						<div class="input-container">
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						</div>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
 							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
@@ -638,6 +662,7 @@ $script([
     '/vendor/angular/1.5.5/angular-touch.js',
     '/vendor/angular/1.5.5/angular-animate.js',
     '/vendor/angular/1.5.5/angular-route.js',
+    '/vendor/angular/1.5.5/angular-messages.js',
     '/vendor/angular/1.5.5/angular-cookies.js',
     '/vendor/angular/1.5.5/i18n/angular-locale_pl.js',
     '/vendor/timer/timer.min.js',

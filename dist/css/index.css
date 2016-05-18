@@ -616,6 +616,9 @@ body {
 .button.cancel {
   background-color: #d9534f;
 }
+.button:disabled {
+  background-color: #275481;
+}
 .button-group .button {
   margin-left: 10px;
 }
@@ -1019,6 +1022,13 @@ ul {
   margin-right: 10px;
   font-weight: 600;
 }
+.input-container {
+  margin: 0 auto 20px auto;
+}
+.error-container {
+  margin-top: 5px;
+  color: #d9534f;
+}
 .form-input {
   -webkit-appearance: none;
   -webkit-border-radius: 3px;
@@ -1030,24 +1040,28 @@ ul {
   width: 150px;
   text-align: left;
   padding-left: 20px;
-  margin-bottom: 20px;
+  padding-right: 20px;
   line-height: 30px;
   color: white;
+}
+.form-input::-webkit-input-placeholder {
+  color: #fff;
+}
+.form-input:-moz-placeholder {
+  color: #fff;
+}
+.form-input::-moz-placeholder {
+  color: #fff;
+}
+.form-input:-ms-input-placeholder {
+  color: #fff;
 }
 .form-input:focus {
   outline: 0;
 }
-::-webkit-input-placeholder {
-  color: white;
-}
-:-moz-placeholder {
-  color: white;
-}
-::-moz-placeholder {
-  color: white;
-}
-:-ms-input-placeholder {
-  color: white;
+.form-input.ng-dirty.ng-invalid {
+  background-color: #d9534f;
+  border: solid 1px red;
 }
 .tile-container {
   width: 100%;

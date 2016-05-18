@@ -81,6 +81,22 @@
   &:after { content: ''; display: table; clear: both; }
 }
 
+.placeholder(@rules) {
+
+    &::-webkit-input-placeholder {
+        @rules();
+    }
+    &:-moz-placeholder {
+        @rules();
+    }
+    &::-moz-placeholder {
+        @rules();
+    }
+    &:-ms-input-placeholder {
+        @rules();
+    }
+}
+
 .radial-gradient(@x, @y, @stop1, @stop2, @stop3, @stop1-color, @stop2-color, @stop3-color) {
 	background: @stop1-color; /* Old browsers */
     background: -moz-radial-gradient(center, ellipse cover,  @stop1-color @stop1, @stop2-color @stop2, @stop3-color @stop3); /* FF3.6+ */

@@ -51,6 +51,15 @@
 	font-weight: 600;
 }
 
+.input-container {
+	margin: 0 auto 20px auto;
+}
+
+.error-container {
+	margin-top: 5px;
+	color: #d9534f;
+}
+
 .form-input {
     -webkit-appearance: none;
     .border-radius(3px);
@@ -60,24 +69,20 @@
     width: 150px;
     text-align: left;
     padding-left: 20px;
-    margin-bottom: 20px;
+    padding-right: 20px;
     color: white;
     line-height: 30px;
     color: white;
+	.placeholder({
+	    color: #fff;
+	});
 
     &:focus{
 	    outline: 0;
 	}
-}
-::-webkit-input-placeholder {
-    color: white;
-}
-:-moz-placeholder {
-    color: white;
-}
-::-moz-placeholder {
-    color: white;
-}
-:-ms-input-placeholder {
-    color: white;
+
+	&.ng-dirty.ng-invalid {
+		background-color: #d9534f;
+		border: solid 1px red;
+	}
 }

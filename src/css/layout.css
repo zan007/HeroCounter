@@ -209,6 +209,10 @@ body {
     &.cancel {
         background-color: #d9534f;
     }
+
+    &:disabled {
+        background-color: #275481;
+    }
 }
 
 .button-group {

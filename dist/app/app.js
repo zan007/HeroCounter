@@ -1,6 +1,7 @@
 angular.module('heroCounter', [
 	'ui.router',
-	'ngAnimate', 
+	'ngAnimate',
+	'ngMessages',
 	'register',
 	'login',
 	'heroes',

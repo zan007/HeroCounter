@@ -71,9 +71,9 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="row">
 				<div class="query-box text-center col-md-12">
 					<div class="input-holder">
-						<div class="input-container">
+						<span class="input-container">
 							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
-						</div>
+						</span>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
 							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
@@ -148,9 +148,9 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="row">
 				<div class="query-box text-center col-md-12">
 					<div class="input-holder">
-						<div class="input-container">
+						<span class="input-container">
 							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
-						</div>
+						</span>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
 							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
@@ -272,9 +272,9 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 			<div class="row">
 				<div class="query-box text-center col-md-12">
 					<div class="input-holder">
-						<div class="input-container">
+						<span class="input-container">
 							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
-						</div>
+						</span>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
 							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
@@ -454,7 +454,6 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                     <div class="drop-box drop-box-container" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
                         <span>Drop image or click to upload avatar</span>
                     </div>
-                    <div><img ng-src="{{croppedImg}}"/></div>
                     <div class="current-avatar" ng-cloak="" >
                          <img class="avatar-img" ng-src="{{model.personalData.avatar}}">
                     </div>

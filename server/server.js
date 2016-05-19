@@ -71,11 +71,15 @@ app.use('/vendor', express.static(path.join(__dirname, srcDir, 'vendor')));
 app.use(favicon(path.join(__dirname, srcDir, 'favicon.ico')));
 
 app.use(cookieParser());
-app.use(bodyParser.json());
+var jsonParser = bodyParser.json({limit: '50mb'});
+var urlencodedParser =  bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit:50000});
+app.use(jsonParser);
+app.use(urlencodedParser);
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+
 var socketUserCounter = 0;
 
 var setEventHandlers = function() {
@@ -836,14 +840,67 @@ app.post('/changeAvatar', function(req, res, next){
 	if(req.body) {
 		var userId = req.body.userId,
 			avatar = req.body.avatar;
+		pool.getConnection(function(err, connection) {
+			if (req.user && req.user.id === userId) {
+				connection.query('select * from user where id = ?', userId, function (err, rows) {
+					if (err) cb(err);
 
-		cloudinaryUtils.upload(avatar, function(error, result){
-			if(error.message) {
-				console.log(error.message);
-				res.status(500),send(error.message);
+					if (rows[0].avatar !== null) {
+						cloudinaryUtils.delete(userId, function (error, result) {
+							if (error) {
+								console.log(error);
+								res.status(500).send(error);
+							} else {
+								console.log('SUUUUKCES usuniecia avatara', result);
+
+								async.waterfall([
+									function (cb) {
+
+
+										cloudinaryUtils.upload(avatar, userId, function (error, result) {
+											if (error) {
+												cb(error);
+
+											} else {
+												console.log('SUUUUKCES dodania avatara', result);
+
+
+												cb(null, result);
+											}
+										});
+
+
+									},
+									function (uploadedData, cb) {
+										var avatarLink = uploadedData.secure_url;
+										connection.query('update user set avatar = ? where id = ?', [avatarLink, userId], function (err, rows) {
+											if (err) cb(err);
+											connection.query('select * from user where id = ?', userId, function(err, rows) {
+												res.status(200).send(rows[0]);
+
+											});
+
+										});
+									}
+								], function (err, errorMessage) {
+									console.log('zwykly err');
+
+									if (!errorMessage) {
+										connection.release();
+										throw err;
+									} else {
+										console.log('errorMessage: ', errorMessage);
+										res.status(500).send({message: errorMessage});
+									}
+
+								});
+
+							}
+						});
+					}
+				});
 			} else {
-				console.log('SUUUUKCES AVATARA', result);
-				res.status(200).send(result);
+				res.status(401).send();
 			}
 		});
 	}

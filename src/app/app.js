@@ -26,7 +26,7 @@ angular.module('heroCounter', [
 	'ngImgCrop'
 ])
 .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
-   $httpProvider.interceptors.push(function($q, $location) {
+   $httpProvider.interceptors.push(function($q, $location, $window) {
 		return {
 			response: function(response) { 
 				// do something on success 
@@ -37,7 +37,8 @@ angular.module('heroCounter', [
 				console.log('error');
 				if(response.status === 401) {
 					console.log('401');
-					$location.url('/login');
+					$window.location.reload();
+
 				}
 				
 				return $q.reject(response);

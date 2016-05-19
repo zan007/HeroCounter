@@ -25,18 +25,28 @@ var decodeBase64Image = function(dataString){
 };
 
 module.exports = {
-	upload: function(imgData, callback) {
+	upload: function (imgData, imageId, callback) {
 		//var decodedImg = decodeBase64Image(imgData);
 
-		cloudinary.uploader.upload(imgData, function (result) {
+		cloudinary.v2.uploader.upload(imgData, {public_id: imageId}, function (error, result) {
 			console.log('Cloudinary photo uploaded result:');
 			console.log(result);
 			if (result) {
 				callback(null, result);
 			}
 			else {
-				callback('Error uploading to cloudinary');
+				console.log('error uploading', error);
+				callback('Error uploading');
 			}
 		});
+	},
+	delete: function (imageId, callback) {
+		cloudinary.uploader.destroy(imageId, function (result) {
+			if (result) {
+				callback(null, result);
+			} else {
+				callback('Error deleting old avatar');
+			}
+		}, {invalidate: true});
 	}
 };

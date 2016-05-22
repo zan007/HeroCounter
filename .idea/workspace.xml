@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="aa742d42-75f6-49b8-a5bf-8c88d0a812d2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/css/index.css" afterPath="$PROJECT_DIR$/dist/css/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/cloudinary-utils.js" afterPath="$PROJECT_DIR$/server/cloudinary-utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/database.js" afterPath="$PROJECT_DIR$/server/config/database.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.js" afterPath="$PROJECT_DIR$/src/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/heroes/filter-box.html" afterPath="$PROJECT_DIR$/src/app/heroes/filter-box.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/settings/settings.html" afterPath="$PROJECT_DIR$/src/app/settings/settings.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/settings.css" afterPath="$PROJECT_DIR$/src/css/settings.css" />
     </list>
     <ignored path="heroCounter.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,15 +24,18 @@
     <favorites_list name="heroCounter" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.57787484">
+    <splitter split-orientation="vertical" split-proportion="0.26726058">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="141">
-                  <caret line="134" column="26" selection-start-line="134" selection-start-column="26" selection-end-line="134" selection-end-column="26" />
-                  <folding />
+                <state relative-caret-position="2814">
+                  <caret line="153" column="38" selection-start-line="153" selection-start-column="38" selection-end-line="153" selection-end-column="38" />
+                  <folding>
+                    <marker date="1463867826616" expanded="true" signature="7345:9634" placeholder="..." />
+                    <marker date="1463867826616" expanded="true" signature="7386:9551" placeholder="..." />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -56,7 +53,7 @@
           <file leaf-file-name="data-source.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/common/data/data-source.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="328">
+                <state relative-caret-position="4515">
                   <caret line="215" column="57" selection-start-line="215" selection-start-column="57" selection-end-line="215" selection-end-column="57" />
                   <folding />
                 </state>
@@ -76,8 +73,8 @@
           <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server/server.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="213">
-                  <caret line="882" column="36" selection-start-line="882" selection-start-column="36" selection-end-line="882" selection-end-column="36" />
+                <state relative-caret-position="129">
+                  <caret line="878" column="78" selection-start-line="878" selection-start-column="78" selection-end-line="878" selection-end-column="78" />
                   <folding />
                 </state>
               </provider>
@@ -86,7 +83,7 @@
           <file leaf-file-name="urlencoded.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/node_modules/body-parser/lib/types/urlencoded.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="21">
+                <state relative-caret-position="756">
                   <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
@@ -98,7 +95,7 @@
           <file leaf-file-name="cloudinary-utils.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/cloudinary-utils.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="496">
+                <state relative-caret-position="945">
                   <caret line="47" column="24" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
@@ -124,8 +121,28 @@
           <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2814">
-                  <caret line="134" column="26" selection-start-line="134" selection-start-column="26" selection-end-line="134" selection-end-column="26" />
+                <state relative-caret-position="231">
+                  <caret line="148" column="89" selection-start-line="148" selection-start-column="89" selection-end-line="148" selection-end-column="89" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ng-img-crop.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/vendor/ng-img-crop/ng-img-crop.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-2289">
+                  <caret line="73" column="20" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="20" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="settings.css" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/css/settings.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="378">
+                  <caret line="96" column="13" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
                   <folding />
                 </state>
               </provider>
@@ -134,7 +151,7 @@
           <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/settings/settings.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
+                <state relative-caret-position="378">
                   <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
                   <folding />
                 </state>
@@ -171,7 +188,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/app.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="95">
@@ -216,7 +233,6 @@
         <option value="$PROJECT_DIR$/server/authentication.js" />
         <option value="$PROJECT_DIR$/src/css/forms.css" />
         <option value="$PROJECT_DIR$/src/css/font/fontello-codes.css" />
-        <option value="$PROJECT_DIR$/src/css/settings.css" />
         <option value="$PROJECT_DIR$/src/css/layout.css" />
         <option value="$PROJECT_DIR$/src/css/vendor/angular-ui-notification.css" />
         <option value="$PROJECT_DIR$/src/app/common/services/notification-service.js" />
@@ -229,10 +245,11 @@
         <option value="$PROJECT_DIR$/server/config/database.js" />
         <option value="$PROJECT_DIR$/.jshintrc" />
         <option value="$PROJECT_DIR$/src/app/heroes/filter-box.html" />
-        <option value="$PROJECT_DIR$/src/app/settings/settings.html" />
         <option value="$PROJECT_DIR$/server/cloudinary-utils.js" />
         <option value="$PROJECT_DIR$/src/app/app.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/src/app/settings/settings.html" />
+        <option value="$PROJECT_DIR$/src/css/settings.css" />
       </list>
     </option>
   </component>
@@ -303,10 +320,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1192" />
-    <option name="y" value="-1322" />
-    <option name="width" value="2118" />
-    <option name="height" value="1293" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1060" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -339,7 +356,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -392,6 +408,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -537,12 +554,13 @@
       <workItem from="1463506453010" duration="1720000" />
       <workItem from="1463508512545" duration="896000" />
       <workItem from="1463509448213" duration="11244000" />
-      <workItem from="1463684303777" duration="11519000" />
+      <workItem from="1463684303777" duration="11915000" />
+      <workItem from="1463860695817" duration="6436000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152679000" />
+    <option name="totallyTimeSpent" value="159511000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -554,16 +572,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1192" y="-1322" width="2118" height="1293" extended-state="6" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22162427" sideWeight="0.40756914" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24624464" sideWeight="0.40200445" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32744783" sideWeight="0.4940476" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22162427" sideWeight="0.59243083" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24624464" sideWeight="0.5979955" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928178" sideWeight="0.5506635" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21049458" sideWeight="0.5214521" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.49702382" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39257294" sideWeight="0.4951749" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25389755" sideWeight="0.4951749" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17237164" sideWeight="0.4893048" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891247" sideWeight="0.44933656" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21049458" sideWeight="0.5214521" order="3" side_tool="true" content_ui="tabs" />
@@ -599,67 +617,56 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>843</line>
-          <properties />
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>850</line>
-          <properties />
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>853</line>
-          <properties />
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>848</line>
-          <properties />
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>876</line>
-          <properties />
           <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>874</line>
-          <properties />
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>860</line>
-          <properties />
           <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>864</line>
-          <properties />
           <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>867</line>
-          <properties />
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>878</line>
-          <properties />
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/server.js</url>
           <line>902</line>
-          <properties />
           <option name="timeStamp" value="87" />
         </line-breakpoint>
       </breakpoints>
@@ -801,7 +808,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="464">
           <caret line="29" column="66" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="66" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -831,14 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/settings.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -930,7 +928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -962,7 +959,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -978,23 +974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vendor/ng-img-crop/ng-img-crop.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="134" column="26" selection-start-line="134" selection-start-column="26" selection-end-line="134" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1002,7 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
           <caret line="65" column="6" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1010,13 +988,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="1022" column="0" selection-start-line="1022" selection-start-column="0" selection-end-line="1022" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/common/data/data-source.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
+        <state relative-caret-position="4515">
           <caret line="215" column="57" selection-start-line="215" selection-start-column="57" selection-end-line="215" selection-end-column="57" />
           <folding />
         </state>
@@ -1024,7 +1001,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/node_modules/body-parser/lib/types/urlencoded.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
+        <state relative-caret-position="756">
           <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -1034,19 +1011,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/cloudinary-utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
+        <state relative-caret-position="945">
           <caret line="47" column="24" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="24" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/settings/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1058,10 +1027,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/settings/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="882" column="36" selection-start-line="882" selection-start-column="36" selection-end-line="882" selection-end-column="36" />
+        <state relative-caret-position="129">
+          <caret line="878" column="78" selection-start-line="878" selection-start-column="78" selection-end-line="878" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vendor/ng-img-crop/ng-img-crop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2289">
+          <caret line="73" column="20" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/settings/settings.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="148" column="89" selection-start-line="148" selection-start-column="89" selection-end-line="148" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/settings.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="96" column="13" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
           <folding />
         </state>
       </provider>

@@ -323,8 +323,10 @@ return this}};h&&m(h);return g})}})})(window)})(window);
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-md-8">
-                <header class="main-header">My Account</header>
-                <header class="sub-header">You can change your account settings here</header>
+                <div class="header-container">
+                    <header class="main-header">My Account</header>
+                    <header class="sub-header">You can change your account settings here</header>
+                </div>
                 <div class="row container-fluid">
                     <div class="main-box">
                         <section class="settings-section contact">
@@ -445,19 +447,39 @@ return this}};h&&m(h);return g})}})})(window)})(window);
             </div>
             <div class="additional-box col-xs-12 col-md-4">
                 <div class="avatar-box">
-                    <img-crop ng-show="loadedImg" image="loadedImg" result-image="croppedImg"
-                               area-type="circle" ngf-accept="'image/*'"
-                               result-image-size="250"
-                               class="drop-box-container" ng-cloak>
-                    </img-crop>
+                    <section class="settings-section contact">
+                        <header class="section-header row">
+                            <div class="col-xs-8">
+                                <h2>settings</h2>
+                                <h1>Avatar</h1>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="button" ng-click="editAvatar =! editAvatar" ng-class="{active: editAvatar}">
+                                    Change avatar
+                                </button>
+                            </div>
+                        </header>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-6 current-avatar" ng-cloak="" >
+                                <img class="avatar-img" ng-src="{{model.personalData.avatar}}">
+                            </div>
+                            <div class="col-xs-6">
+                                <img-crop ng-show="loadedImg" image="loadedImg" result-image="croppedImg"
+                                           area-type="circle" ngf-accept="'image/*'"
+                                           result-image-size="450" class="image-preview" ng-cloak>
+                                </img-crop>
 
-                    <div class="drop-box drop-box-container" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
-                        <span>Drop image or click to upload avatar</span>
-                    </div>
-                    <div class="current-avatar" ng-cloak="" >
-                         <img class="avatar-img" ng-src="{{model.personalData.avatar}}">
-                    </div>
-                    <button class="btn" ng-click="uploadAvatar()">Accept avatar</button>
+                                <div class="drop-box drop-box-container" ng-show="!loadedImg" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ng-cloak="">
+                                    <div class="label">Drop image or click to upload avatar</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row button-group" ng-show="editAvatar">
+                            <button class="button accept" ng-click="uploadAvatar()">Change avatar</button>
+                            <button class="button cancel" ng-click="uploadAvatar()">Cancel</button>
+                        </div>
+                    </section>
                 </div>
                 <div class="about-box">
 

@@ -898,7 +898,7 @@ ul {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  padding: 30px;
+  padding: 25px;
   margin-top: 20px;
   opacity: 0.9;
 }
@@ -910,6 +910,17 @@ ul {
   font-size: 16px;
   margin-bottom: 10px;
   text-transform: uppercase;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+}
+.settings .settings-section .section-header .description {
+  display: inline-block;
+  flex: 0 1 auto;
+  text-align: left;
+  margin-right: 10px;
 }
 .settings .settings-section .section-header h1 {
   font-size: 18px;
@@ -923,7 +934,8 @@ ul {
   margin-top: 10px;
 }
 .settings .settings-section .section-header button {
-  float: right;
+  margin-left: auto;
+  width: 120px;
 }
 .settings .settings-section .section-label {
   font-weight: bold;
@@ -934,16 +946,24 @@ ul {
   padding-left: 10px;
   color: white;
 }
-.settings .settings-section .property {
-  float: left;
-  min-height: 70px;
+.settings .settings-section .property-section {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  margin-top: 10px;
 }
-.settings .settings-section .property-switcher {
-  float: right;
+.settings .settings-section .property-section .property {
+  margin-right: 20px;
+}
+.settings .settings-section .property-section .property-switcher {
+  margin-left: auto;
   border-right: 3px dotted #234d78;
   padding-right: 10px;
+  min-width: 190px;
 }
-.settings .settings-section .property-switcher .form-checkbox {
+.settings .settings-section .property-section .property-switcher .form-checkbox {
   margin-left: 10px;
 }
 .settings .settings-section hr {
@@ -960,13 +980,34 @@ ul {
 .settings .additional-box .avatar-box {
   padding-bottom: 20px;
 }
-.settings .additional-box .image-preview canvas {
-  margin: 0px !important;
-}
 .settings .additional-box .drop-box-container {
   width: 100%;
-  height: 96px;
-  border: dotted 2px white;
+  height: 153px;
+  border: dashed 2px white;
+  color: white;
+}
+.settings .additional-box .drop-box-container .drop-box-label {
+  font-size: 17px;
+  text-align: center;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+.settings .additional-box .crop-area {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 10px;
 }
 .settings .additional-box .current-avatar {
   text-align: center;
@@ -975,6 +1016,14 @@ ul {
 .settings .additional-box .current-avatar img {
   width: 96px;
   border-radius: 50%;
+  margin-bottom: 10px;
+}
+.settings .additional-box .avatar-header {
+  font-size: 16px;
+  color: #b9d5ee;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
 }
 .settings .additional-box .about-box {
   padding: 10px;
@@ -1457,5 +1506,23 @@ rzslider .rz-ticks .tick .tick-value {
   position: absolute;
   top: -30px;
   transform: translate(-50%, 0);
+}
+/* line 1, ../../source/scss/ng-img-crop.scss */
+img-crop {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+/* line 7, ../../source/scss/ng-img-crop.scss */
+img-crop canvas {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  /* mobile webkit */
 }
 /*# sourceMappingURL=/css/index.css.map */

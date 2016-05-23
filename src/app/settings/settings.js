@@ -16,6 +16,12 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 			dataSource.changeAvatar($rootScope.model.personalData.id, $scope.croppedImg);
 		};
 
+		$scope.cancelUploadAvatar = function(){
+			$scope.croppedImg = null;
+			$scope.editAvatar = false;
+			$scope.loadedImg = null;
+		};
+		
 		$scope.readFileImg = function(files){
 			$scope.loadedImg = null;
 			$scope.success = null;

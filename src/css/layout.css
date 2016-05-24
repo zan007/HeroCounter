@@ -211,7 +211,7 @@ body {
     }
 
     &:disabled {
-        background-color: #275481;
+        background-color: #778FA7;
     }
 }
 

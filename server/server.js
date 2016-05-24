@@ -509,6 +509,19 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
     });
 };
 
+var getUser = function(id, cb){
+	pool.getConnection(function(err, connection){
+		connection.query('select * from user where id = ?', id, function(err, rows){
+			if (err) throw err;
+
+			if(rows.length === 1) {
+				return cb(null, rows[0]);
+			}
+
+		});
+	});
+};
+
 var getUsersToAccept = function(successCallback, errorCallback) {
 	pool.getConnection(function(err, connection){
 		var userToAcceptModel = ['id', 'email', 'name'];
@@ -800,6 +813,8 @@ app.post('/changeEmail', function(req, res, next) {
 					connection.release();
 
 				});
+			} else {
+				res.status(500).send();
 			}
 		});
 	}
@@ -833,6 +848,8 @@ app.post('/changePassword', function(req, res, next) {
 				res.status(500).send({message: 'wrong old password'});
 			}
 		});
+	} else {
+		res.status(500).send();
 	}
 });
 
@@ -909,18 +926,23 @@ app.post('/changeAvatar', function(req, res, next){
 app.post('/applySettings', function(req, res, next) {
 	if(req.body) {
 		var phoneNumber = req.body.phoneNumber,
+			phoneVisible = req.body.phoneVisible,
+			ggVisible = req.body.ggVisible,
 			ggNumber = req.body.ggNumber,
-			titanReminder = req.body.titanReminder,
+			name = req.body.name,
 			userId = req.body.userId;
 
 		pool.getConnection(function(err, connection){
 			if(req.user.id === userId) {
-				userSettings = [phoneNumber ? phoneNumber: null, ggNumber ? ggNumber: null, titanReminder, userId];
-				connection.query('update user set phoneNumber = ? ggNumber = ? titanReminder = ? where id = ?', userSettings, function (err, rows) {
+				var userSettings = [name, phoneNumber, phoneVisible, ggNumber, ggVisible, userId];
+				connection.query('update user set name = ?, phone = ?, phoneVisible = ?, gg = ?, ggVisible = ? where id = ?', userSettings, function (err, rows) {
 					if (err) throw err;
 
-					res.status(200).send(req.user);
-					connection.release();
+					getUser(userId, function(cb, user){
+						res.status(200).send(user);
+						connection.release();
+					});
+
 				});
 			} else {
 				res.status(500).send();

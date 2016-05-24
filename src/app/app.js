@@ -22,6 +22,8 @@ angular.module('heroCounter', [
 	'controls.hcPrettyTime',
 	'controls.hcEventsTimeline',
 	'controls.hcValidationPattern',
+	'controls.hcEqual',
+	'controls.hcNotEqual',
 	'avatarService',
 	'ngImgCrop'
 ])

@@ -9,70 +9,86 @@
                 <div class="row container-fluid">
                     <div class="main-box">
                         <section class="settings-section contact">
-                            <header class="section-header">
-                                <div class="description">
-                                    <h2>settings</h2>
-                                    <h1>Contact</h1>
-                                </div>
-                                <button class="button" ng-click="editContactSettings =! editContactSettings" ng-class="{active: editContactSettings}">
-                                    Edit settings
-                                </button>
-                            </header>
-                            <hr/>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <div class="row">
-                                        <div class="property col-xs-6">
-                                            <div class="section-label">Name</div>
-                                            <div class="section-value" ng-bind="model.personalData.name"></div>
-                                        </div>
+                            <form novalidate name="contactSettingsForm">
+                                <header class="section-header">
+                                    <div class="description">
+                                        <h2>settings</h2>
+                                        <h1>Contact</h1>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-10 col-lg-6">
-                                    <div class="property-section container-fluid row">
-                                        <div class="property">
-                                            <div class="section-label">Phone number</div>
-                                            <div class="section-value">888750279</div>
-                                        </div>
-                                        <div class="property-switcher" ng-show="editContactSettings">
-                                            <div class="section-label">Show phone number on profile</div>
-                                            <div class="form-checkbox">
-                                                <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="showNumberOnProfile"/>
-                                                <label for="common-checkbox-show-phone"></label>
-                                                <span class="checkbox-label"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-10 col-lg-6">
-                                    <div class="container-fluid row">
-                                        <div class="property-section">
-                                            <div class="property">
-                                                <div class="section-label">GG number</div>
-                                                <div class="section-value">2041651</div>
-                                            </div>
-                                            <div class="property-switcher" ng-show="editContactSettings">
-
-                                                <div class="section-label">Show GG on profile</div>
-                                                <div class="form-checkbox">
-                                                    <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="showGgOnProfile"/>
-                                                    <label for="common-checkbox-show-gg"></label>
-                                                    <span class="checkbox-label"></span>
+                                    <button class="button" ng-click="changeContactSettings()" ng-show="!editContactSettings"">
+                                        Edit settings
+                                    </button>
+                                </header>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="row">
+                                            <div class="property col-xs-6">
+                                                <div class="section-label">Name</div>
+                                                <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
+                                                <div class="input-container" ng-show="editContactSettings">
+                                                    <input type="text" name="name" class="form-input" ng-model="contactSettingsModel.name" placeholder="NEW NAME"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-10 col-lg-6">
+                                        <div class="property-section container-fluid row">
+                                            <div class="property">
+                                                <div class="section-label">Phone number</div>
+                                                <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
+                                                <div class="input-container" ng-show="editContactSettings">
+                                                    <input type="text" name="name" class="form-input" ng-model="contactSettingsModel.phone" placeholder="NEW PHONE"/>
+                                                </div>
+                                            </div>
+                                            <div class="property-switcher" >
+                                                <div class="section-label">Show phone number on profile</div>
+                                                <i class="icon-success" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
+                                                <i class="icon-error" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
+                                                <div class="form-checkbox" ng-show="editContactSettings">
+                                                    <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
+                                                    <label for="common-checkbox-show-phone"></label>
+                                                    <span class="checkbox-label"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-10 col-lg-6">
+                                        <div class="container-fluid row">
+                                            <div class="property-section">
+                                                <div class="property">
+                                                    <div class="section-label">GG number</div>
+                                                    <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
+                                                    <div class="input-container" ng-show="editContactSettings">
+                                                        <input type="text" name="name" class="form-input" ng-model="contactSettingsModel.gg" placeholder="NEW GG"/>
+                                                    </div>
 
-                            <div class="row" ng-show="editContactSettings">
-                                <div class="button-group col-xs-12">
-                                    <button class="button accept">Change</button>
-                                    <button class="button cancel">Cancel</button>
+                                                </div>
+                                                <div class="property-switcher">
+
+                                                    <div class="section-label">Show GG on profile</div>
+                                                    <i class="icon-success" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
+                                                    <i class="icon-error" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
+                                                    <div class="form-checkbox" ng-show="editContactSettings">
+                                                        <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
+                                                        <label for="common-checkbox-show-gg"></label>
+                                                        <span class="checkbox-label"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="row" ng-show="editContactSettings">
+                                    <div class="button-group col-xs-12">
+                                        <button class="button accept" ng-click="applyContactSettings()">Change</button>
+                                        <button class="button cancel" ng-click="cancelContactSettings()">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
                         </section>
                     </div>
                 </div>
@@ -85,7 +101,7 @@
                                         <h2>settings</h2>
                                         <h1>Email</h1>
                                     </span>
-                                    <button class="button" ng-click="showChangeEmailForm =! showChangeEmailForm">Change</button>
+                                    <button class="button" ng-click="showChangeEmailForm = true" ng-show="!showChangeEmailForm">Change</button>
                                 </header>
                                 <hr/>
                                 <div class="container-fluid row">
@@ -96,9 +112,11 @@
                                         </div>
                                         <form novalidate name="changeEmailForm" ng-if="showChangeEmailForm">
                                             <div class="input-container">
-                                                <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
+                                                <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
                                                 <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
                                                     <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                                                    <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
+                                                    <span ng-message="hcEqual">Typed email isn't your old email</span>
                                                     <span ng-message="required">Fill in the field.</span>
                                                 </div>
                                             </div>
@@ -106,13 +124,14 @@
                                                 <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
                                                 <div class="error-container" ng-messages="changeEmailForm.newEmail.$error" ng-show="changeEmailForm.newEmail.$dirty">
                                                     <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                                                    <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
                                                     <span ng-message="required">Fill in the field.</span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="button-group col-xs-12">
-                                                    <button class="button accept">Change</button>
-                                                    <button class="button cancel">Cancel</button>
+                                                    <button class="button accept" ng-click="changeEmail(emailModel)" ng-disabled="!changeEmailForm.$valid">Change</button>
+                                                    <button class="button cancel" ng-click="cancelChangeEmail()">Cancel</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -130,12 +149,32 @@
                                         <h2>settings</h2>
                                         <h1>Password</h1>
                                     </span>
-                                    <button class="button" ng-click="startChangePassword()">Change</button>
+                                    <button class="button" ng-click="showChangePasswordForm = true">Change</button>
                                 </header>
                                 <hr/>
                                 <div class="container-fluid row">
                                     <div class="property">
-
+                                        <form novalidate name="changePasswordForm" ng-if="showChangePasswordForm">
+                                            <div class="input-container">
+                                                <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="OLD PASSWORD" ng-required="true"/>
+                                                <div class="error-container" ng-messages="changePasswordForm.oldPassword.$error" ng-show="changePasswordForm.oldPassword.$dirty">
+                                                    <span ng-message="required">Fill in the field.</span>
+                                                </div>
+                                            </div>
+                                            <div class="input-container">
+                                                <input type="text" name="newPassword" class="form-input" ng-model="passwordModel.newPassword" placeholder="NEW PASSWORD" hc-not-equal="passwordModel.oldPassword" ng-required="true"/>
+                                                <div class="error-container" ng-messages="changePasswordForm.newPassword.$error" ng-show="changePasswordForm.newPassword.$dirty">
+                                                    <span ng-message="required">Fill in the field.</span>
+                                                    <span ng-message="hcNotEqual">New password can't be the same as old</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="button-group col-xs-12">
+                                                    <button class="button accept" ng-click="changePassword(passwordModel)" ng-disabled="!changePasswordForm.$valid">Change</button>
+                                                    <button class="button cancel" ng-click="cancelChangePassword()">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </form>
 
                                     </div>
                                 </div>
@@ -153,7 +192,7 @@
                                 <h1>Avatar</h1>
                             </span>
 
-                            <button class="button" ng-click="editAvatar =! editAvatar" ng-class="{active: editAvatar}">
+                            <button class="button" ng-click="editAvatar = true" ng-show="!editAvatar">
                                 Change avatar
                             </button>
 

@@ -2,6 +2,10 @@
     color: white;
     padding-top: 20px;
 
+    .form-checkbox {
+        height: 30px;
+    }
+
     .header-container {
         height: 50px;
     }
@@ -21,10 +25,25 @@
         padding: 25px;
         margin-top: 20px;
         opacity: 0.9;
+        min-height: 288px;
+    }
+
+    .button-group {
+        margin-top: 20px;
     }
 
     .settings-section {
         margin-bottom: 10px;
+
+        &.password, &.email {
+            .input-container {
+                text-align: center;
+            }
+
+            .form-input {
+                width: 200px;
+            }
+        }
 
         .section-header {
             color: white;

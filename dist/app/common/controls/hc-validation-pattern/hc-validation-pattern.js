@@ -1,7 +1,9 @@
 angular.module('controls.hcValidationPattern', [])
 
 .constant('validationPatterns', {
-	TEXT: /^[^\x22\x27\x26\x3C\x3E\x24\x60\u2013\u2014\u2018\u2019\u201C\u201D\u2022\u2026\u201A\u201E-]*$/
+	TEXT: /^[^\x22\x27\x26\x3C\x3E\x24\x60\u2013\u2014\u2018\u2019\u201C\u201D\u2022\u2026\u201A\u201E-]*$/,
+	EMAIL: /^([^.@]+)(\.[^.@]+)*@([^.@]+\.)+[^.@]{2,6}$/,
+	EMAIL_CHARS: /^[a-zA-Z0-9_\-\.\@]+$/
 })
 
 .directive('hcValidationPattern', ['validationPatterns', function(validationPatterns) {

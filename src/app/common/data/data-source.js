@@ -177,12 +177,12 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 					$rootScope.$broadcast('dataSource.ready');
 				});
 			},
-			changeEmail: function(user, newEmailAddress) {
+			changeEmail: function(user, oldEmailAddress, newEmailAddress) {
 				return call({ method: 'POST',
 					url: '/changeEmail',
 					data: {
 						userId: user.id,
-						oldEmail: user.email,
+						oldEmail: oldEmailAddress,
 						newEmail: newEmailAddress
 					}
 				}, function(data) {
@@ -213,6 +213,24 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 						avatar: avatar
 					}
 				}, function(data) {
+					$rootScope.model.personalData = data;
+
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			applyContactSettings: function(contactSettingsModel) {
+				return call({
+					method: 'POST',
+					url: '/applySettings',
+					data: {
+						phoneNumber: contactSettingsModel.phone,
+						phoneVisible: contactSettingsModel.phoneVisible,
+						ggNumber: contactSettingsModel.gg,
+						ggVisible: contactSettingsModel.ggVisible,
+						name: contactSettingsModel.name,
+						userId: contactSettingsModel.id
+					}
+				}, function (data) {
 					$rootScope.model.personalData = data;
 
 					$rootScope.$broadcast('dataSource.ready');

@@ -1,0 +1,37 @@
+.common-list {
+
+    .list-header {
+        color: #129fdd;
+        font-size: 16px;
+        text-transform: uppercase;
+        padding-bottom: 10px;
+        padding: 20px;
+        background-color: #204d7b;
+    }
+
+    .list-element {
+        height: 50px;
+        padding-left: 5px;
+        margin-top: 1px;
+        background-color: rgba(39, 84, 130, 0.9);
+    }
+
+    .list-element:nth-child(odd) {
+        background-color: rgba(39, 84, 130, 0.8);
+
+    }
+    .list-legend {
+        height: 50px;
+        text-transform: uppercase;
+        font-size: 15px;
+        padding-left: 5px;
+        background-color: #204d7b;
+        border: 3px dotted #234d78;
+    }
+
+    .col-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

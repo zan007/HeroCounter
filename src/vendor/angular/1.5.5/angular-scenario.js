@@ -1167,7 +1167,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		assert(function( div ) {
 			// Select is set to empty string on purpose
 			// This is to test IE's treatment of not explicitly
-			// setting a boolean content attribute,
+			// settings a boolean content attribute,
 			// since its presence should be enough
 			// http://bugs.jquery.com/ticket/12359
 			div.innerHTML = "<select msallowclip=''><option selected=''></option></select>";
@@ -5875,7 +5875,7 @@ function showHide( elements, show ) {
 
 jQuery.extend({
 	// Add in style property hooks for overriding the default
-	// behavior of getting and setting a style property
+	// behavior of getting and settings a style property
 	cssHooks: {
 		opacity: {
 			get: function( elem, computed ) {
@@ -5905,7 +5905,7 @@ jQuery.extend({
 	},
 
 	// Add in properties whose names you wish to fix before
-	// setting or getting the value
+	// settings or getting the value
 	cssProps: {
 		// normalize float css property
 		"float": "cssFloat"
@@ -5929,7 +5929,7 @@ jQuery.extend({
 		// followed by the unprefixed version
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
 
-		// Check if we're setting a value
+		// Check if we're settings a value
 		if ( value !== undefined ) {
 			type = typeof value;
 
@@ -6041,7 +6041,7 @@ jQuery.cssHooks.marginRight = addGetHookIf( support.reliableMarginRight,
 	function( elem, computed ) {
 		if ( computed ) {
 			// WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
-			// Work around by temporarily setting element display to inline-block
+			// Work around by temporarily settings element display to inline-block
 			return jQuery.swap( elem, { "display": "inline-block" },
 				curCSS, [ elem, "marginRight" ] );
 		}
@@ -6205,7 +6205,7 @@ Tween.propHooks = {
 };
 
 // Support: IE9
-// Panic based approach to setting things on disconnected nodes
+// Panic based approach to settings things on disconnected nodes
 
 Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
 	set: function( tween ) {
@@ -6672,7 +6672,7 @@ jQuery.speed = function( speed, easing, fn ) {
 jQuery.fn.extend({
 	fadeTo: function( speed, to, easing, callback ) {
 
-		// show any hidden elements after setting opacity to 0
+		// show any hidden elements after settings opacity to 0
 		return this.filter( isHidden ).css( "opacity", 0 ).show()
 
 			// animate to the value specified
@@ -7345,7 +7345,7 @@ jQuery.fn.extend({
 
 			hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
 
-			// If set returns undefined, fall back to normal setting
+			// If set returns undefined, fall back to normal settings
 			if ( !hooks || !("set" in hooks) || hooks.set( this, val, "value" ) === undefined ) {
 				this.value = val;
 			}
@@ -9143,7 +9143,7 @@ jQuery.fn.andSelf = jQuery.fn.addBack;
 // to call noConflict to hide this version of jQuery, it will work.
 
 // Note that for maximum portability, libraries that are not jQuery should
-// declare themselves as anonymous modules, and avoid setting a global if an
+// declare themselves as anonymous modules, and avoid settings a global if an
 // AMD loader is present. jQuery is a special case. For more information, see
 // https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
 
@@ -10928,7 +10928,7 @@ function bootstrap(element, modules, config) {
     }]);
 
     if (config.debugInfoEnabled) {
-      // Pushing so that this overrides `debugInfoEnabled` setting defined in user's `modules`.
+      // Pushing so that this overrides `debugInfoEnabled` settings defined in user's `modules`.
       modules.push(['$compileProvider', function($compileProvider) {
         $compileProvider.debugInfoEnabled(true);
       }]);
@@ -14387,7 +14387,7 @@ var $AnimateProvider = ['$provide', function($provide) {
    * Sets and/or returns the CSS class regular expression that is checked when performing
    * an animation. Upon bootstrap the classNameFilter value is not set at all and will
    * therefore enable $animate to attempt to perform an animation on any element that is triggered.
-   * When setting the `classNameFilter` value, animations will only be performed on elements
+   * When settings the `classNameFilter` value, animations will only be performed on elements
    * that successfully match the filter expression. This in turn can boost performance
    * for low-powered devices as well as applications containing a lot of structural operations.
    * @param {RegExp=} expression The className expression which will be checked against all animations
@@ -14545,7 +14545,7 @@ var $AnimateProvider = ['$provide', function($provide) {
        * $animate.enabled(element, false);
        * ```
        *
-       * @param {DOMElement=} element the element that will be considered for checking/setting the enabled state
+       * @param {DOMElement=} element the element that will be considered for checking/settings the enabled state
        * @param {boolean=} enabled whether or not the animations will be enabled for the element
        *
        * @return {boolean} whether or not animations are enabled
@@ -19710,8 +19710,8 @@ function $HttpProvider() {
    * XSRF token. Defaults value is `'X-XSRF-TOKEN'`.
    *
    * - **`defaults.headers`** - {Object} - Default headers for all $http requests.
-   * Refer to {@link ng.$http#setting-http-headers $http} for documentation on
-   * setting default headers.
+   * Refer to {@link ng.$http#settings-http-headers $http} for documentation on
+   * settings default headers.
    *     - **`defaults.headers.common`**
    *     - **`defaults.headers.post`**
    *     - **`defaults.headers.put`**
@@ -20934,7 +20934,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
         } catch (e) {
           // WebKit added support for the json responseType value on 09/03/2013
           // https://bugs.webkit.org/show_bug.cgi?id=73648. Versions of Safari prior to 7 are
-          // known to throw when setting the value "json" as the response type. Other older
+          // known to throw when settings the value "json" as the response type. Other older
           // browsers implementing the responseType
           //
           // The json response type can be ignored if not supported, because JSON payloads are
@@ -22113,7 +22113,7 @@ var locationPrototype = {
    * @param {string|Object.<string>|Object.<Array.<string>>} search New search params - string or
    * hash object.
    *
-   * When called with a single argument the method acts as a setter, setting the `search` component
+   * When called with a single argument the method acts as a setter, settings the `search` component
    * of `$location` to the specified value.
    *
    * If the argument is a hash object containing an array of values, these values will be encoded
@@ -30903,7 +30903,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
    * This method can be called to remove the 'ng-touched' class and set the form controls to their
    * untouched state (ng-untouched class).
    *
-   * Setting a form controls back to their untouched state is often useful when setting the form
+   * Setting a form controls back to their untouched state is often useful when settings the form
    * back to its pristine state.
    */
   form.$setUntouched = function() {
@@ -36121,7 +36121,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     // if scope model value and ngModel value are out of sync
     // TODO(perf): why not move this to the action fn?
     if (modelValue !== ctrl.$modelValue &&
-       // checks for NaN is needed to allow setting the model to NaN when there's an asyncValidator
+       // checks for NaN is needed to allow settings the model to NaN when there's an asyncValidator
        (ctrl.$modelValue === ctrl.$modelValue || modelValue === modelValue)
     ) {
       ctrl.$modelValue = ctrl.$$rawModelValue = modelValue;
@@ -36621,7 +36621,7 @@ function addSetValidityMethod(context) {
 
     // re-read the state as the set/unset methods could have
     // combined state in ctrl.$error[validationError] (used for forms),
-    // where setting/unsetting only increments/decrements the value,
+    // where settings/unsetting only increments/decrements the value,
     // and does not replace it.
     var combinedState;
     if (ctrl.$pending && ctrl.$pending[validationErrorKey]) {
@@ -40620,7 +40620,7 @@ angular.scenario.Application.prototype.navigateTo = function(url, loadFn, errorF
       }
     }).attr('src', url);
 
-    // for IE compatibility set the name *after* setting the frame url
+    // for IE compatibility set the name *after* settings the frame url
     frame[0].contentWindow.name = "NG_DEFER_BOOTSTRAP!";
   }
   self.context.find('> h2 a').attr('href', url).text(url);
@@ -41121,7 +41121,7 @@ angular.scenario.ObjectModel.Step = function(name) {
 };
 
 /**
- * Helper method for setting all error status related properties
+ * Helper method for settings all error status related properties
  *
  * @param {string} status
  * @param {string} error

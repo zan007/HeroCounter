@@ -2,7 +2,7 @@
  * Created by pplos on 17.05.2016.
  */
 var cloudinary = require('cloudinary'),
-	cloudinaryConfig = require('./config/cloudinary');
+	cloudinaryConfig = require('./../config/cloudinary');
 
 
 cloudinary.config({

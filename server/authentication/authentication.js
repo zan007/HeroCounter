@@ -1,10 +1,12 @@
-path = require('path');
-var bcrypt = require('bcrypt-nodejs');
-var crypto = require('crypto');
-var databaseConfig = require('./config/database');
-var mysql = require('mysql');
-var LocalStrategy = require('passport-local').Strategy;
-var mailer = require('./mailer');
+
+var bcrypt = require('bcrypt-nodejs'),
+	server = require('../server'),
+	pool = server.pool,
+	crypto = require('crypto'),
+	databaseConfig = require('./../config/database'),
+	mysql = require('mysql'),
+	LocalStrategy = require('passport-local').Strategy,
+	mailer = require('./../mailer');
 //var connection = mysql.createConnection(databaseConfig.details);
 
 if(process.argv[2] === 'remote') {
@@ -28,10 +30,6 @@ if(process.argv[2] === 'remote') {
 
 var generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-
-var validPassword = function(password) {
-	return bcrypt.compareSync(password, this.local.password);
 };
 
 var generateToken = function() {

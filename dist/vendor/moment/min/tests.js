@@ -36661,7 +36661,7 @@
 
     test('library deprecations', function (assert) {
         moment.lang('dude', {months: ['Movember']});
-        assert.equal(moment.locale(), 'dude', 'setting the lang sets the locale');
+        assert.equal(moment.locale(), 'dude', 'settings the lang sets the locale');
         assert.equal(moment.lang(), moment.locale());
         assert.equal(moment.langData(), moment.localeData(), 'langData is localeData');
     });
@@ -36931,11 +36931,11 @@
         assert.equal('en', mom.locale());
     });
 
-    test('setting a language on instance returns the original moment for chaining', function (assert) {
+    test('settings a language on instance returns the original moment for chaining', function (assert) {
         var mom = moment();
 
-        assert.equal(mom.lang('fr'), mom, 'setting the language (lang) returns the original moment for chaining');
-        assert.equal(mom.locale('it'), mom, 'setting the language (locale) returns the original moment for chaining');
+        assert.equal(mom.lang('fr'), mom, 'settings the language (lang) returns the original moment for chaining');
+        assert.equal(mom.locale('it'), mom, 'settings the language (locale) returns the original moment for chaining');
     });
 
     test('lang(key) changes the language of the instance', function (assert) {
@@ -37886,7 +37886,7 @@
         moment.relativeTimeThreshold('m', 45);
         var minuteThreshold = moment.relativeTimeThreshold('m');
 
-        assert.equal(minuteThreshold, 45, 'Can retrieve minute setting');
+        assert.equal(minuteThreshold, 45, 'Can retrieve minute settings');
     });
 
 }));
@@ -40115,22 +40115,22 @@
         var zone = moment();
 
         zone.zone(1);
-        assert.equal(zone.zone(), 60, 'setting the zone to 1 should imply hours and convert to 60');
+        assert.equal(zone.zone(), 60, 'settings the zone to 1 should imply hours and convert to 60');
 
         zone.zone(-1);
-        assert.equal(zone.zone(), -60, 'setting the zone to -1 should imply hours and convert to -60');
+        assert.equal(zone.zone(), -60, 'settings the zone to -1 should imply hours and convert to -60');
 
         zone.zone(15);
-        assert.equal(zone.zone(), 900, 'setting the zone to 15 should imply hours and convert to 900');
+        assert.equal(zone.zone(), 900, 'settings the zone to 15 should imply hours and convert to 900');
 
         zone.zone(-15);
-        assert.equal(zone.zone(), -900, 'setting the zone to -15 should imply hours and convert to -900');
+        assert.equal(zone.zone(), -900, 'settings the zone to -15 should imply hours and convert to -900');
 
         zone.zone(16);
-        assert.equal(zone.zone(), 16, 'setting the zone to 16 should imply minutes');
+        assert.equal(zone.zone(), 16, 'settings the zone to 16 should imply minutes');
 
         zone.zone(-16);
-        assert.equal(zone.zone(), -16, 'setting the zone to -16 should imply minutes');
+        assert.equal(zone.zone(), -16, 'settings the zone to -16 should imply minutes');
     });
 
     test('set zone with string', function (assert) {

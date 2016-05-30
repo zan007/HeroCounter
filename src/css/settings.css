@@ -19,13 +19,13 @@
         font-size: 16px;
     }
 
-    .main-box, .avatar-box, .about-box {
+    .main-box, .avatar-box, .token-box, .password-box, .email-box {
         background-color: rgba(39, 84, 130, 0.9);
         .border-radius(3px);
         padding: 25px;
         margin-top: 20px;
         opacity: 0.9;
-        min-height: 288px;
+        min-height: 335px;
     }
 
     .button-group {
@@ -167,13 +167,18 @@
             text-align: center;
         }
 
-        .about-box {
-            padding: 10px;
-            height: 200px;
-            background-color: rgba(39, 84, 130, 0.9);
-            .border-radius(3px);
-            margin-bottom: 20px;
-            opacity: 0.9;
+        .token-box {
+            .user-token {
+                font-size: 18px;
+                word-wrap: break-word;
+                margin-top: 20px;
+            }
         }
     }
+
+}
+
+.users-to-accept {
+    .border-radius(3px);
+    margin-top: 20px;
 }

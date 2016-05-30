@@ -34,7 +34,7 @@ angular.module('ngCookies', ['ng']).
      * @name $cookiesProvider#defaults
      * @description
      *
-     * Object containing default options to pass when setting cookies.
+     * Object containing default options to pass when settings cookies.
      *
      * The object may have following properties:
      *

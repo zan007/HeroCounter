@@ -790,7 +790,7 @@ function computeCssStyles($window, element, properties) {
         val = parseMaxTime(val);
       }
 
-      // by setting this to null in the event that the delay is not set or is set directly as 0
+      // by settings this to null in the event that the delay is not set or is set directly as 0
       // then we can still allow for negative values to be used later on and not mistake this
       // value for being greater than any other negative value.
       if (val === 0) {
@@ -1041,7 +1041,7 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
       // there may be a situation where a structural animation is combined together
       // with CSS classes that need to resolve before the animation is computed.
       // However this means that there is no explicit CSS code to block the animation
-      // from happening (by setting 0s none in the class name). If this is the case
+      // from happening (by settings 0s none in the class name). If this is the case
       // we need to apply the classes before the first rAF so we know to continue if
       // there actually is a detected transition or keyframe animation
       if (options.applyClassesEarly && addRemoveClassName.length) {

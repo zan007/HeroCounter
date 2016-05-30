@@ -1,3 +1,7 @@
 <div class="preety-time">
-	<span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
+    <span ng-show="fullDate">
+	    <span class="locale-date">{{localeDate}}</span>
+    </span>
+    <span ng-show="!fullDate"
+    <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
 </div>

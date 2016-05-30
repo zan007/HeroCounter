@@ -5,8 +5,16 @@
     </div> -->
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
     <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
+        <div class="user-details" ng-if="showLogout">
+            <img class="avatar" ng-src="{{model.personalData.avatar}}"/>
+            <div class="info">
+                <div class="name" ng-bind="model.personalData.name"></div>
+                <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+            </div>
+        </div>
+        <hr/>
         <ul>
-            <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">   
+            <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
                 <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
             </li>
         </ul>

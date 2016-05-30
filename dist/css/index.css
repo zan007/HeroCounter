@@ -259,7 +259,7 @@ input::-moz-focus-inner {
   padding: 0;
 }
 /**
- * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * Address Firefox 4+ settings `line-height` on `input` using `!important` in
  * the UA stylesheet.
  */
 input {
@@ -460,6 +460,15 @@ body {
   height: 100%;
   overflow-y: hidden;
 }
+.font-bold {
+  font-weight: bold;
+}
+.center-vertically {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
 .scrollable {
   overflow: auto;
 }
@@ -481,6 +490,7 @@ body {
   min-height: 600px;
   height: 100%;
   background-image: url("../img/main-background.png");
+  background-size: cover;
 }
 .nav,
 .pagination,
@@ -503,10 +513,67 @@ body {
   font-size: 13px;
   border-radius: 2.5px;
   opacity: 0.9;
+  padding-top: 40px;
+}
+.menu .avatar {
+  width: 70px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  text-align: center;
+  margin-left: 25px;
+  margin-right: 20px;
+  display: inline-block;
+}
+.menu .user-details {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  /*display: flex;
+        flex-direction: row;*/
+  height: 70px;
+}
+.menu .info {
+  height: 60px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+}
+.menu .info .name {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: white;
+}
+.menu .info .role {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #5682b2;
+}
+.menu hr {
+  margin-top: 40px;
+  border: solid 1px #224b77;
+  margin-left: 25px;
+  width: 30px;
 }
 .menu ul {
   padding-left: 10px;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 .menu ul .menu-element {
   padding: 0 15px;
@@ -630,6 +697,14 @@ body {
 .button-group .button {
   margin-left: 10px;
 }
+@media only screen and (max-width: 768px) {
+  .menu .user-details {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
 @media only screen and (max-width: 780px) {
   .icon-menu {
     position: absolute;
@@ -644,9 +719,8 @@ body {
     margin-top: 0px!important;
     opacity: 0;
     position: absolute!important;
-    width: 0px!important;
+    /*width: 0px!important;*/
     height: 100%;
-    padding: 0!important;
     -webkit-transition: all 1.5s ease-out 0.15s;
     -moz-transition: all 1.5s ease-out 0.15s;
     -o-transition: all 1.5s ease-out 0.15s;
@@ -658,7 +732,8 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 33%!important;
+    /*width: 33%!important;*/
+    width: 255px;
     height: 100%;
     opacity: 1;
     -webkit-transition: all 1.5s easy-in 0.15s;
@@ -904,7 +979,9 @@ ul {
 }
 .settings .main-box,
 .settings .avatar-box,
-.settings .about-box {
+.settings .token-box,
+.settings .password-box,
+.settings .email-box {
   background-color: rgba(39, 84, 130, 0.9);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -912,7 +989,7 @@ ul {
   padding: 25px;
   margin-top: 20px;
   opacity: 0.9;
-  min-height: 288px;
+  min-height: 335px;
 }
 .settings .button-group {
   margin-top: 20px;
@@ -1048,15 +1125,16 @@ ul {
   margin-bottom: 10px;
   text-align: center;
 }
-.settings .additional-box .about-box {
-  padding: 10px;
-  height: 200px;
-  background-color: rgba(39, 84, 130, 0.9);
+.settings .additional-box .token-box .user-token {
+  font-size: 18px;
+  word-wrap: break-word;
+  margin-top: 20px;
+}
+.users-to-accept {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  margin-bottom: 20px;
-  opacity: 0.9;
+  margin-top: 20px;
 }
 .form-checkbox {
   display: inline-block;
@@ -1151,6 +1229,36 @@ ul {
 .form-input.ng-dirty.ng-invalid {
   background-color: #d9534f;
   border: solid 1px red;
+}
+.common-list .list-header {
+  color: #129fdd;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  padding: 20px;
+  background-color: #204d7b;
+}
+.common-list .list-element {
+  height: 50px;
+  padding-left: 5px;
+  margin-top: 1px;
+  background-color: rgba(39, 84, 130, 0.9);
+}
+.common-list .list-element:nth-child(odd) {
+  background-color: rgba(39, 84, 130, 0.8);
+}
+.common-list .list-legend {
+  height: 50px;
+  text-transform: uppercase;
+  font-size: 15px;
+  padding-left: 5px;
+  background-color: #204d7b;
+  border: 3px dotted #234d78;
+}
+.common-list .col-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .tile-container {
   width: 100%;

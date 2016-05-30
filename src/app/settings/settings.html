@@ -1,5 +1,5 @@
-<div ng-controller="settingsCtrl" class="row settings">
-    <div class="container-fluid">
+<div ng-controller="settingsCtrl" class="row settings full-height">
+    <div class="container-fluid full-height">
         <div class="row">
             <div class="col-xs-12 col-md-8">
                 <div class="header-container">
@@ -27,7 +27,7 @@
                                                 <div class="section-label">Name</div>
                                                 <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
                                                 <div class="input-container" ng-show="editContactSettings">
-                                                    <input type="text" name="name" class="form-input" ng-model="contactSettingsModel.name" placeholder="NEW NAME"/>
+                                                    <input type="text" name="name" class="form-input" ng-model="model.personalData.name" placeholder="NEW NAME"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -40,7 +40,7 @@
                                                 <div class="section-label">Phone number</div>
                                                 <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
                                                 <div class="input-container" ng-show="editContactSettings">
-                                                    <input type="text" name="name" class="form-input" ng-model="contactSettingsModel.phone" placeholder="NEW PHONE"/>
+                                                    <input type="text" name="name" class="form-input" ng-model="model.personalData.phone" placeholder="NEW PHONE"/>
                                                 </div>
                                             </div>
                                             <div class="property-switcher" >
@@ -62,7 +62,7 @@
                                                     <div class="section-label">GG number</div>
                                                     <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
                                                     <div class="input-container" ng-show="editContactSettings">
-                                                        <input type="text" name="name" class="form-input" ng-model="contactSettingsModel.gg" placeholder="NEW GG"/>
+                                                        <input type="text" name="name" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG"/>
                                                     </div>
 
                                                 </div>
@@ -94,23 +94,23 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
-                        <div class="main-box">
+                        <div class="email-box">
                             <section class="settings-section email">
                                 <header class="section-header">
                                     <span class="description">
                                         <h2>settings</h2>
                                         <h1>Email</h1>
                                     </span>
-                                    <button class="button" ng-click="showChangeEmailForm = true" ng-show="!showChangeEmailForm">Change</button>
+                                    <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">Change</button>
                                 </header>
                                 <hr/>
                                 <div class="container-fluid row">
                                     <div class="property">
-                                        <div ng-show="!showChangeEmailForm">
+                                        <div ng-show="!editEmailSettings">
                                             <div class="section-label">Email address</div>
                                             <div class="section-value" ng-bind="model.personalData.email"></div>
                                         </div>
-                                        <form novalidate name="changeEmailForm" ng-if="showChangeEmailForm">
+                                        <form novalidate name="changeEmailForm" ng-if="editEmailSettings">
                                             <div class="input-container">
                                                 <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
                                                 <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
@@ -142,19 +142,19 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12">
-                        <div class="main-box">
+                        <div class="password-box">
                             <section class="settings-section password">
                                 <header class="section-header">
                                     <span class="description">
                                         <h2>settings</h2>
                                         <h1>Password</h1>
                                     </span>
-                                    <button class="button" ng-click="showChangePasswordForm = true">Change</button>
+                                    <button class="button" ng-click="editPasswordSettings = true" ng-show="!editPasswordSettings">Change</button>
                                 </header>
                                 <hr/>
                                 <div class="container-fluid row">
                                     <div class="property">
-                                        <form novalidate name="changePasswordForm" ng-if="showChangePasswordForm">
+                                        <form novalidate name="changePasswordForm" ng-if="editPasswordSettings">
                                             <div class="input-container">
                                                 <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="OLD PASSWORD" ng-required="true"/>
                                                 <div class="error-container" ng-messages="changePasswordForm.oldPassword.$error" ng-show="changePasswordForm.oldPassword.$dirty">
@@ -224,11 +224,47 @@
                         </div>
                     </section>
                 </div>
-                <div class="about-box">
-
+                <div class="token-box">
+                    <section class="settings-section contact">
+                        <header class="section-header">
+                            <span class="description">
+                                <h2>Token</h2>
+                                <h1>Your private token</h1>
+                            </span>
+                        </header>
+                        <hr/>
+                        <span>Here is your private token. If you want connect game with this application, copy and paste them to hero-counter margonem addon</span>
+                        <div class="user-token font-bold" ng-bind="model.personalData.userToken"></div>
+                    </section>
                 </div>
             </div>
 
+        </div>
+        <div class="row">
+            <div class="col-xs-12" ng-show="model.personalData.isAdministrator">
+                <div class="users-to-accept common-list">
+                    <div class="list-header">Users to accept</div>
+                    <div class="list-legend">
+                        <div class="col-xs-3 name">Name</div>
+                        <div class="col-xs-3 email">Email</div>
+                        <div class="col-xs-6 register-date">Register Date</div>
+
+                    </div>
+                    <div ng-repeat="userToAccept in model.usersToAccept" class="list-element">
+                        <div class="center-vertically col-xs-3">
+                            <div class="name" ng-bind="userToAccept.name"></div>
+                        </div>
+                        <div class="center-vertically col-xs-3">
+                            <div class="email" ng-bind="userToAccept.email">Email</div>
+                        </div>
+                        <div class="center-vertically col-xs-2">
+                            <div class="register-date" hc-pretty-time="userToAccept.tokenExpirationDate" full-date="true"></div>
+                        </div>
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-2"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 	<!--Users to accept
@@ -257,8 +293,8 @@
         </div>
     </div>
     <div>
-        <button class="btn" ng-click="showChangeEmailForm=!showChangeEmailForm">zmien email</button>
-        <div ng-show="showChangeEmailForm">
+        <button class="btn" ng-click="editEmailSettings=!editEmailSettings">zmien email</button>
+        <div ng-show="editEmailSettings">
             stary email <input type="text" ng-model="changeEmailForm.oldEmail"/>
             nowy email <input type="text" ng-model="changeEmailForm.newEmail"/>
             powtorz nowy email <input type="text" ng-model="changeEmailForm.repeatedEmail"/>

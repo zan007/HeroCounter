@@ -2,15 +2,38 @@ angular.module('settings', ['dataSource', 'ngFileUpload']).
 
 controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService', 'notificationService',
     function($scope, $rootScope, dataSource, avatarService, notificationService) {
-		if($rootScope.model.personalData.isAdministrator) {
+
+
+		var setDefaultSettingsValues = function(){
+			$scope.editPasswordSettings = null;
+			$scope.editContactSettings = null;
+			$scope.editEmailSettings = null;
+			$scope.editAvatar = null;
+			$scope.croppedImg = null;
+			$scope.loadedImg = null;
+			$scope.passwordModel = {};
+			$scope.emailModel = {};
+		};
+		var counter = 0;
+
+		$rootScope.$on('dataSource.ready', function() {
+			counter++;
+			$scope.model = $rootScope.model;
+			if(counter === 1 && $rootScope.model.personalData.isAdministrator) {
+				//dataSource.refreshUsersToAccept();
+			}
+			console.log('settings datasource ready',counter);
+			setDefaultSettingsValues();
+		});
+
+
+		if($rootScope.model.personalData && $rootScope.model.personalData.isAdministrator) {
 			dataSource.refreshUsersToAccept();
 		}
-		$rootScope.$on('dataSource.ready', function() {
-			$scope.model = $rootScope.model;
-		});
-		$scope.croppedImg = '';
-    	/*w modelu uzytkownicy do zaakceptowania, jak nie ma praw to pusta lista,
-    	wyswietlanie komunikatu ze nie ma uzytkownikow do zaakceptowania jak pusta lista i uzytkownik typu administrator*/
+
+
+		/*w modelu uzytkownicy do zaakceptowania, jak nie ma praw to pusta lista,
+		wyswietlanie komunikatu ze nie ma uzytkownikow do zaakceptowania jak pusta lista i uzytkownik typu administrator*/
 
 		var createSettingsCheckpoint = function(data){
 			var savedSettings = {
@@ -67,13 +90,13 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 
 
 		$scope.cancelChangeEmail = function(){
-			$scope.showChangeEmailForm = false;
+			$scope.editEmailSettings = false;
 		};
 
 		$scope.changeEmail = function(changeEmailForm){
 			var changeEmailPromise = dataSource.changeEmail($rootScope.model.personalData, changeEmailForm.oldEmail, changeEmailForm.newEmail);
 			changeEmailPromise.then(function(data){
-				$scope.showChangeEmailForm = false;
+				$scope.editEmailSettings = false;
 				notificationService.showSuccessNotification('Successfully change your email address to '+ data.email);
 			});
 		};
@@ -93,13 +116,13 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 			var changePasswordPromise = dataSource.changePassword($rootScope.model.personalData, changePasswordForm.oldPassword, changePasswordForm.newPassword);
 
 			changePasswordPromise.then(function(){
-				$scope.showChangePasswordForm = false;
+				$scope.editPasswordSettings = false;
 				notificationService.showSuccessNotification('Successfully change your password');
 			});
 		};
 		
 		$scope.cancelChangePassword = function(){
-			$scope.showChangePasswordForm = false;
+			$scope.editPasswordSettings = false;
 		};
 		
 		$scope.acceptUser = function(user){

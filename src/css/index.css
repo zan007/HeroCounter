@@ -9,6 +9,7 @@
 @import (less) "news.css";
 @import (less) "settings.css";
 @import (less) "forms.css";
+@import (less) "common-list.css";
 @import (less) "controls/hc-creature-tile.css";
 @import (less) "controls/hc-events-timeline.css";
 @import (less) "vendor/angular-ui-notification.css";

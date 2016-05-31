@@ -63,6 +63,12 @@
 	-o-transition: opacity @duration;  
 }
 
+.box-shadow (@string) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow:    @string;
+    box-shadow:         @string;
+}
+
 .inset-shadow (@x-axis, @y-axis, @blur, @spread, @alpha: 0.4) {
 	box-shadow: inset @x-axis @y-axis @blur @spread rgba(0,0,0,@alpha);
   	-webkit-box-shadow: inset @x-axis @y-axis @blur @spread rgba(0,0,0,@alpha);

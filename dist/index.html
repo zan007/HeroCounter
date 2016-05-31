@@ -581,8 +581,14 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                         <div class="center-vertically col-xs-2">
                             <div class="register-date" hc-pretty-time="userToAccept.tokenExpirationDate" full-date="true"></div>
                         </div>
-                        <div class="col-xs-2"></div>
-                        <div class="col-xs-2"></div>
+                        <div class="center-vertically col-xs-2">
+                            <i class="icon-success"></i>
+                            <span>Accept User</span>
+                        </div>
+                        <div class="center-vertically col-xs-2">
+                            <i class="icon-error"></i> 
+                            <span>Reject User</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -751,9 +757,10 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 </div></script>
   <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
     <span ng-show="fullDate">
-	    <span class="locale-date">{{localeDate}}</span>
+	    <span class="day">{{day}}</span> 
+	    <span class="month">{{month}}</span> 
+	    <span class="year">{{year}}</span> 
     </span>
-    <span ng-show="!fullDate"
     <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
 </div></script>
   <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">

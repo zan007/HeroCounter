@@ -1,4 +1,6 @@
 .common-list {
+    .box-shadow(-4px -5px 13px -1px rgba(0,0,0,0.2));
+    margin-bottom: 20px;
 
     .list-header {
         color: #129fdd;
@@ -14,6 +16,11 @@
         padding-left: 5px;
         margin-top: 1px;
         background-color: rgba(39, 84, 130, 0.9);
+
+        i {
+            font-size: 20px;
+            text-align: center;
+        }
     }
 
     .list-element:nth-child(odd) {
@@ -26,7 +33,7 @@
         font-size: 15px;
         padding-left: 5px;
         background-color: #204d7b;
-        border: 3px dotted #234d78;
+        color: #b9d5ee;
     }
 
     .col-wrapper {

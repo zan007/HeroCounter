@@ -14,7 +14,9 @@ angular.module('controls.hcPrettyTime', [])
                 $scope.hours = date.getHours();
                 $scope.minutes = date.getMinutes();
 				if($scope.fullDate) {
-					$scope.localeDate = date.toLocaleString();
+					$scope.day = date.getDay();
+                    $scope.month = date.getMonth();
+                    $scope.year = date.getFullYear();
 				}
             }
 

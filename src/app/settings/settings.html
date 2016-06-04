@@ -45,8 +45,8 @@
                                             </div>
                                             <div class="property-switcher" >
                                                 <div class="section-label">Show phone number on profile</div>
-                                                <i class="icon-success" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
-                                                <i class="icon-error" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
+                                                <i class="icon-ok" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
+                                                <i class="icon-cancel" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
                                                 <div class="form-checkbox" ng-show="editContactSettings">
                                                     <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                                                     <label for="common-checkbox-show-phone"></label>
@@ -69,8 +69,8 @@
                                                 <div class="property-switcher">
 
                                                     <div class="section-label">Show GG on profile</div>
-                                                    <i class="icon-success" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
-                                                    <i class="icon-error" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
+                                                    <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
+                                                    <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
                                                     <div class="form-checkbox" ng-show="editContactSettings">
                                                         <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                                                         <label for="common-checkbox-show-gg"></label>
@@ -201,7 +201,7 @@
                         <div class="container-fluid row">
                             <div class="col-xs-12 current-avatar" ng-class="{'col-xs-6': editAvatar}">
                                 <div class="avatar-header" ng-show="editAvatar">Current avatar</div>
-                                <img class="avatar-img" ng-src="{{model.personalData.avatar}}">
+                                <img class="avatar-img" ng-src="{{model.personalData.avatar || defaultAvatarLink}}">
                                 <div class="avatar-label" ng-bind="model.personalData.name"></div>
                             </div>
                             <div class="col-xs-6" ng-show="editAvatar">
@@ -239,38 +239,6 @@
                 </div>
             </div>
 
-        </div>
-        <div class="row">
-            <div class="col-xs-12" ng-show="model.personalData.isAdministrator">
-                <div class="users-to-accept common-list">
-                    <div class="list-header">Users to accept</div>
-                    <div class="list-legend">
-                        <div class="col-xs-3 name">Name</div>
-                        <div class="col-xs-3 email">Email</div>
-                        <div class="col-xs-6 register-date">Register Date</div>
-
-                    </div>
-                    <div ng-repeat="userToAccept in model.usersToAccept" class="list-element">
-                        <div class="center-vertically col-xs-3">
-                            <div class="name" ng-bind="userToAccept.name"></div>
-                        </div>
-                        <div class="center-vertically col-xs-3">
-                            <div class="email" ng-bind="userToAccept.email">Email</div>
-                        </div>
-                        <div class="center-vertically col-xs-2">
-                            <div class="register-date" hc-pretty-time="userToAccept.tokenExpirationDate" full-date="true"></div>
-                        </div>
-                        <div class="center-vertically col-xs-2">
-                            <i class="icon-success"></i>
-                            <span>Accept User</span>
-                        </div>
-                        <div class="center-vertically col-xs-2">
-                            <i class="icon-error"></i> 
-                            <span>Reject User</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 	<!--Users to accept

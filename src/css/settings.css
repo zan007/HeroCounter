@@ -21,7 +21,7 @@
 
     .main-box, .avatar-box, .token-box, .password-box, .email-box {
         background-color: rgba(39, 84, 130, 0.9);
-        .border-radius(3px);
+        .border-radius(5px);
         padding: 25px;
         margin-top: 20px;
         opacity: 0.9;
@@ -82,6 +82,7 @@
         .section-label {
             font-weight: bold;
             margin-bottom: 5px;
+	        min-height: 45px;
             color: #b9d5ee;
         }
 
@@ -102,7 +103,7 @@
                 margin-left: auto;
                 border-right: 3px dotted #234d78;
                 padding-right: 10px;
-                min-width: 190px;
+                min-width: 135px;
 
                 .form-checkbox {
                     margin-left: 10px;
@@ -155,7 +156,8 @@
 
             img {
                 width: 96px;
-                border-radius: 50%;
+                .border-radius(50%);
+                border: solid 1px #129fdd;
                 margin-bottom: 10px;
             }
         }
@@ -177,9 +179,4 @@
         }
     }
 
-}
-
-.users-to-accept {
-    .border-radius(3px);
-    margin-top: 20px;
 }

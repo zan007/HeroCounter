@@ -366,8 +366,8 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                                             </div>
                                             <div class="property-switcher" >
                                                 <div class="section-label">Show phone number on profile</div>
-                                                <i class="icon-success" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
-                                                <i class="icon-error" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
+                                                <i class="icon-ok" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
+                                                <i class="icon-cancel" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
                                                 <div class="form-checkbox" ng-show="editContactSettings">
                                                     <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                                                     <label for="common-checkbox-show-phone"></label>
@@ -390,8 +390,8 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                                                 <div class="property-switcher">
 
                                                     <div class="section-label">Show GG on profile</div>
-                                                    <i class="icon-success" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
-                                                    <i class="icon-error" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
+                                                    <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
+                                                    <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
                                                     <div class="form-checkbox" ng-show="editContactSettings">
                                                         <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                                                         <label for="common-checkbox-show-gg"></label>
@@ -522,7 +522,7 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                         <div class="container-fluid row">
                             <div class="col-xs-12 current-avatar" ng-class="{'col-xs-6': editAvatar}">
                                 <div class="avatar-header" ng-show="editAvatar">Current avatar</div>
-                                <img class="avatar-img" ng-src="{{model.personalData.avatar}}">
+                                <img class="avatar-img" ng-src="{{model.personalData.avatar || defaultAvatarLink}}">
                                 <div class="avatar-label" ng-bind="model.personalData.name"></div>
                             </div>
                             <div class="col-xs-6" ng-show="editAvatar">
@@ -560,38 +560,6 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                 </div>
             </div>
 
-        </div>
-        <div class="row">
-            <div class="col-xs-12" ng-show="model.personalData.isAdministrator">
-                <div class="users-to-accept common-list">
-                    <div class="list-header">Users to accept</div>
-                    <div class="list-legend">
-                        <div class="col-xs-3 name">Name</div>
-                        <div class="col-xs-3 email">Email</div>
-                        <div class="col-xs-6 register-date">Register Date</div>
-
-                    </div>
-                    <div ng-repeat="userToAccept in model.usersToAccept" class="list-element">
-                        <div class="center-vertically col-xs-3">
-                            <div class="name" ng-bind="userToAccept.name"></div>
-                        </div>
-                        <div class="center-vertically col-xs-3">
-                            <div class="email" ng-bind="userToAccept.email">Email</div>
-                        </div>
-                        <div class="center-vertically col-xs-2">
-                            <div class="register-date" hc-pretty-time="userToAccept.tokenExpirationDate" full-date="true"></div>
-                        </div>
-                        <div class="center-vertically col-xs-2">
-                            <i class="icon-success"></i>
-                            <span>Accept User</span>
-                        </div>
-                        <div class="center-vertically col-xs-2">
-                            <i class="icon-error"></i> 
-                            <span>Reject User</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 	<!--Users to accept
@@ -633,6 +601,74 @@ return this}};h&&m(h);return g})}})})(window)})(window);
     </div>-->
 
 
+</div>
+</script>
+  <script id="/user-manager" type="text/ng-template"><div ng-controller="userManagerCtrl" class="row user-manager">
+    <div class="container-fluid">
+        <div class="main-header">User manager</div>
+        <div class="sub-header">You can manage users here, accept, reject or delete</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="users-list">
+                    <div class="list-header">Users</div>
+                    <div class="list-legend">
+                        <div class="col-xs-1 role">Role</div>
+                        <div class="col-xs-4 name clickable" ng-click="setFilter('name')">
+                            Name
+                            <i ng-show="filterConfig.field === 'name'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                        <div class="col-xs-3 email clickable" ng-click="setFilter('email')">
+                            Email
+                            <i ng-show="filterConfig.field === 'email'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                        <div class="col-xs-4 register-date clickable" ng-click="setFilter('registerDate')">
+                            Register Date
+                            <i ng-show="filterConfig.field === 'registerDate'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                    </div>
+                    <div ng-repeat="user in model.users | orderBy:filterConfig.field:filterConfig.reverse" class="list-element container-fluid" ng-class="{'active': user.waitForAccept !== null, 'opened': activeUserId === user.id}" ng-click="openDetails(user)">
+                        <div class="row user-info">
+                            <div class="role center-vertically col-xs-1">
+                                <i ng-class="{'icon-admin': user.isAdministrator, 'icon-user': !user.isAdministrator, 'icon-lock': user.waitForAccept == null}"></i>
+                            </div>
+                            <div class="center-vertically col-xs-4">
+                                <img class="avatar" ng-src="{{user.avatar || defaultAvatarLink}}"/>
+                                <div class="name" ng-bind="user.name"></div>
+                            </div>
+                            <div class="center-vertically col-xs-3">
+                                <div class="email" ng-bind="user.email">Email</div>
+                            </div>
+                            <div class="center-vertically col-xs-4">
+                                <div class="register-date" hc-pretty-time="user.tokenExpirationDate" full-date="true"></div>
+                            </div>
+                        </div>
+                        <div ng-show="activeUserId === user.id" class="row user-details">
+                            <div class="center-vertically action" ng-show="user.waitForAccept">
+                                <button class="button accept" ng-click="acceptUser(user)">
+                                    Accept User
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="user.waitForAccept">
+                                <button class="button cancel" ng-click="rejectUser(user)">
+                                    Reject User
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="!user.isAdministrator && user.waitForAccept != null && user.waitForAccept !== 1">
+                                <button class="button" ng-click="setAdministrator(user)">
+                                    Set as administrator
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="user.isAdministrator">
+                                <button class="button cancel" ng-click="setCommonUser(user)">
+                                    Set as common user
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </script>
   <script id="/basic" type="text/ng-template"><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -771,7 +807,7 @@ return this}};h&&m(h);return g})}})})(window)})(window);
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
     <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
         <div class="user-details" ng-if="showLogout">
-            <img class="avatar" ng-src="{{model.personalData.avatar}}"/>
+            <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
             <div class="info">
                 <div class="name" ng-bind="model.personalData.name"></div>
                 <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
@@ -783,6 +819,14 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                 <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
             </li>
         </ul>
+        <div ng-if="model.personalData.isAdministrator">
+            <hr/>
+            <ul>
+                <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
+                    <span class="title">USER MANAGER</span>
+                </li>
+            </ul>
+        </div>
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
     </nav>
 
@@ -817,6 +861,7 @@ $script([
     '/vendor/ng-img-crop/ng-img-crop.js',
     '/app/activation/activation.js',
 '/app/app.js',
+'/app/common/constants.js',
 '/app/common/controls/animations/appAnimations.js',
 '/app/common/controls/hc-creature-tile/hc-creature-tile.js',
 '/app/common/controls/hc-equal/hc-equal.js',
@@ -845,7 +890,8 @@ $script([
 '/app/router.js',
 '/app/settings/settings.js',
 '/app/titans/event-titans.js',
-'/app/titans/titans.js'
+'/app/titans/titans.js',
+'/app/user-manager/user-manager.js'
 ], 'scripts');
 $script('/vendor/angular-ui-router/release/angular-ui-router.js', 'angular-ui-router');
 </script>

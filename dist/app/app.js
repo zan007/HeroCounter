@@ -9,10 +9,12 @@ angular.module('heroCounter', [
 	'activation',
 	'settings',
 	'eventHeroes',
+	'userManager',
 	'eventTitans',
 	'dataSource',
 	'ngTouch',
 	'ngEnter',
+	'constants',
 	'timer',
 	'userAuthService',
 	'socketFactory',
@@ -109,6 +111,14 @@ angular.module('heroCounter', [
 				newsVisible: false
 			}
 		})
+	    .state('userManager', {
+			url: '/user-manager',
+		   	templateUrl: '/user-manager',
+		   	authRequire: true,
+			params: {
+			   newsVisible: false
+			}
+	    })
 	    .state('activation', {
 			url: '/activation',
 			templateUrl: '/activation',
@@ -126,7 +136,7 @@ angular.module('heroCounter', [
 			}
 		});
 }])
-.run(function ($rootScope, userAuthService, $state) {
+.run(function ($rootScope, userAuthService, $state, adminRestrictedStates) {
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
 		
 		if(userAuthService.getIsLogged() !== undefined) {
@@ -141,6 +151,12 @@ angular.module('heroCounter', [
 					$state.go('login');
 				}
 			}
+		}
+
+		var isPersonalDataReady = $rootScope.model && $rootScope.model.personalData;
+		if(adminRestrictedStates[toState.name] && isPersonalDataReady && !$rootScope.model.personalData.isAdministrator) {
+
+			$state.go(fromState.name || 'login');
 		}
 	});
 
@@ -178,13 +194,18 @@ angular.module('heroCounter', [
 		}]
 
 })
-.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory',
-	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory) {
+
+.constant('adminRestrictedStates', {
+	'userManager': true
+})
+
+.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory', 'defaultAvatar',
+	function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory, defaultAvatar) {
 
 		userAuthService.init();
 		$rootScope.showLogout = false;
 		$scope.stateParams = $stateParams;
-
+		$scope.defaultAvatarLink = defaultAvatar.link;
 		$rootScope.$on('app-ready', function(data, next) {
 
 			$rootScope.states = appStates[userAuthService.getIsLogged()];
@@ -220,14 +241,14 @@ angular.module('heroCounter', [
 				socketFactory.disconnect();
 				$state.go($rootScope.states[0].reference);
 			});
-		}
+		};
 
 		var createSocketEventHandlers = function() {
 			socketFactory.getSocket().then(function(socket) {
 
 				socket.on('hello', function() {
 	    			console.log('udalo sie hello');
-	    		})
+	    		});
 
 	    		socket.on('creaturesUpdated', function(data) {
 		    		console.log('zupdatowana lista ', data);

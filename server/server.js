@@ -22,6 +22,7 @@ var express = require('express'),
     favicon = require('serve-favicon');
 
 express.static.mime.define({
+	'application/vnd.ms-fontobject': ['eot'],
     'application/x-font-woff': ['woff'],
     'application/font-woff': ['woff']
 });
@@ -130,24 +131,14 @@ app.get('/init', function(req, res, next) {
         },
         creatures: creatureService.recalcCreatureRespTime,
         events: eventService.getEvents,
-		usersToAccept: userService.getUsersToAccept/*function(next) {
-            console.log('getEvents');
-            getEvents(currentTimestamp, eventOffset, function(data, data2){
-                console.log('data ',data, 'data2', data2);
-                next(null, data2);
-            });*/
-            //console.log(next);
-            /*console.log('init, events ', events);
-            return events;*/
-            //next(null, events);
-        //}
+		users: userService.getUsers
     },
     function(err, results){
         
         model.personalData = results.personalData;
         model.creatures = results.creatures;
         model.events = results.events;
-		model.usersToAccept = results.usersToAccept;
+		model.users = results.users;
 
         console.log('powinien byc emit');
         io.sockets.emit('hello', {hello: true});

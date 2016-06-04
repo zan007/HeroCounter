@@ -32,9 +32,10 @@ body {
 }
 
 .center-vertically {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    .flex-display();
+    .flex-direction(row);
+    .justify-content(center);
+    .align-items(center);
     height: 100%;
 }
 
@@ -90,6 +91,7 @@ body {
     .avatar {
         width: 70px;
         .border-radius(50%);
+        border: solid 1px #129fdd;
         text-align: center;
         margin-left: 25px;
         margin-right: 20px;
@@ -304,12 +306,12 @@ body {
         position: absolute!important;
         /*width: 0px!important;*/
         height: 100%;
-
-        .transition(all 1.5s ease-out .15s);
+        display: none!important;
+        .transition(all 0.5s ease-out .15s);
         display: block;
 
         &.opened {
-            display: block;
+            display: block!important;
             position: absolute;
             left: 0;
             top: 0;

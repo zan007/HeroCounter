@@ -1,7 +1,7 @@
-angular.module('settings', ['dataSource', 'ngFileUpload']).
+angular.module('settings', ['dataSource', 'ngFileUpload', 'ngImgCrop']).
 
-controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService', 'notificationService',
-    function($scope, $rootScope, dataSource, avatarService, notificationService) {
+controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService', 'notificationService', 'defaultAvatar',
+    function($scope, $rootScope, dataSource, avatarService, notificationService, defaultAvatar) {
 
 
 		var setDefaultSettingsValues = function(){
@@ -15,6 +15,7 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 			$scope.emailModel = {};
 		};
 		var counter = 0;
+		$scope.defaultAvatarLink = defaultAvatar.link;
 
 		$rootScope.$on('dataSource.ready', function() {
 			counter++;
@@ -25,11 +26,6 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 			console.log('settings datasource ready',counter);
 			setDefaultSettingsValues();
 		});
-
-
-		if($rootScope.model.personalData && $rootScope.model.personalData.isAdministrator) {
-			dataSource.refreshUsersToAccept();
-		}
 
 
 		/*w modelu uzytkownicy do zaakceptowania, jak nie ma praw to pusta lista,
@@ -124,16 +120,6 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		$scope.cancelChangePassword = function(){
 			$scope.editPasswordSettings = false;
 		};
-		
-		$scope.acceptUser = function(user){
-			dataSource.acceptUserActivation(user);
-		};
 
-		$scope.rejectUser = function(user){
-			dataSource.rejectUserActivation(user);
-		};
-
-
-		
     }
 ]);

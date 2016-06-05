@@ -115,75 +115,6 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 	</div>
 </div>
 </script>
-  <script id="/filter-box" type="text/ng-template"><div class="col-md-6">
-	<div class="filter-box">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<header class="filter-header">LEVEL RANGE</header>
-					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<header class="filter-header">TIME TO RESP IN HOURS</header>
-					<rzslider rz-slider-model="timeSlider.value"></rzslider>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
-						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
-						<label for="common-checkbox-known-time"></label>
-						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-md-6">
-	<div class="query-container">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="query-box text-center col-md-12">
-					<div class="input-holder">
-						<span class="input-container">
-							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
-						</span>
-						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
-							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
-							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="query-box">
-					<div class="container-fluid">
-						<div class="row">
-							<header class="col-md-12">Creature Types</header>
-						</div>
-						<div class="row">
-							<div class="col-md-12 text-center">
-								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
-									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
-									<label for="common-checkbox1"></label>
-									<span class="checkbox-label">Titans</span>
-								</div>
-								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
-									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
-									<label for="common-checkbox2"></label>
-									<span class="checkbox-label">Heroes</span>
-								 </div>
-							 </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div></script>
   <script id="/" type="text/ng-template"><div class="row full-height">
 	<div ng-controller="loginCtrl" class="col-xs-12 full-height">
 		<div class="info-box">
@@ -330,176 +261,176 @@ return this}};h&&m(h);return g})}})})(window)})(window);
                 <div class="row container-fluid">
                     <div class="main-box">
                         <section class="settings-section contact">
-                            <form novalidate name="contactSettingsForm">
-                                <header class="section-header">
-                                    <div class="description">
-                                        <h2>settings</h2>
-                                        <h1>Contact</h1>
-                                    </div>
-                                    <button class="button" ng-click="changeContactSettings()" ng-show="!editContactSettings"">
-                                        Edit settings
-                                    </button>
-                                </header>
-                                <hr/>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-6">
-                                        <div class="row">
-                                            <div class="property col-xs-6">
-                                                <div class="section-label">Name</div>
-                                                <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
-                                                <div class="input-container" ng-show="editContactSettings">
-                                                    <input type="text" name="name" class="form-input" ng-model="model.personalData.name" placeholder="NEW NAME"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-10 col-lg-6">
-                                        <div class="property-section container-fluid row">
-                                            <div class="property">
-                                                <div class="section-label">Phone number</div>
-                                                <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
-                                                <div class="input-container" ng-show="editContactSettings">
-                                                    <input type="text" name="name" class="form-input" ng-model="model.personalData.phone" placeholder="NEW PHONE"/>
-                                                </div>
-                                            </div>
-                                            <div class="property-switcher" >
-                                                <div class="section-label">Show phone number on profile</div>
-                                                <i class="icon-ok" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
-                                                <i class="icon-cancel" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
-                                                <div class="form-checkbox" ng-show="editContactSettings">
-                                                    <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
-                                                    <label for="common-checkbox-show-phone"></label>
-                                                    <span class="checkbox-label"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-md-10 col-lg-6">
-                                        <div class="container-fluid row">
-                                            <div class="property-section">
-                                                <div class="property">
-                                                    <div class="section-label">GG number</div>
-                                                    <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
-                                                    <div class="input-container" ng-show="editContactSettings">
-                                                        <input type="text" name="name" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG"/>
-                                                    </div>
+    <form novalidate name="contactSettingsForm">
+        <header class="section-header">
+            <div class="description">
+                <h2>settings</h2>
+                <h1>Contact</h1>
+            </div>
+            <button class="button" ng-click="changeContactSettings()" ng-show="!editContactSettings"">
+            Edit settings
+            </button>
+        </header>
+        <hr/>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="row">
+                    <div class="property col-xs-6">
+                        <div class="section-label">Name</div>
+                        <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
+                        <div class="input-container" ng-show="editContactSettings">
+                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" placeholder="NEW NAME"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-10 col-lg-6">
+                <div class="property-section container-fluid row">
+                    <div class="property">
+                        <div class="section-label">Phone number</div>
+                        <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
+                        <div class="input-container" ng-show="editContactSettings">
+                            <input type="text" name="name" class="form-input" ng-model="model.personalData.phone" placeholder="NEW PHONE"/>
+                        </div>
+                    </div>
+                    <div class="property-switcher" >
+                        <div class="section-label">Show phone number on profile</div>
+                        <i class="icon-ok" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
+                        <i class="icon-cancel" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
+                        <div class="form-checkbox" ng-show="editContactSettings">
+                            <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
+                            <label for="common-checkbox-show-phone"></label>
+                            <span class="checkbox-label"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-10 col-lg-6">
+                <div class="container-fluid row">
+                    <div class="property-section">
+                        <div class="property">
+                            <div class="section-label">GG number</div>
+                            <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
+                            <div class="input-container" ng-show="editContactSettings">
+                                <input type="text" name="name" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG"/>
+                            </div>
 
-                                                </div>
-                                                <div class="property-switcher">
+                        </div>
+                        <div class="property-switcher">
 
-                                                    <div class="section-label">Show GG on profile</div>
-                                                    <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
-                                                    <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
-                                                    <div class="form-checkbox" ng-show="editContactSettings">
-                                                        <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
-                                                        <label for="common-checkbox-show-gg"></label>
-                                                        <span class="checkbox-label"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="section-label">Show GG on profile</div>
+                            <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
+                            <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
+                            <div class="form-checkbox" ng-show="editContactSettings">
+                                <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
+                                <label for="common-checkbox-show-gg"></label>
+                                <span class="checkbox-label"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                <div class="row" ng-show="editContactSettings">
-                                    <div class="button-group col-xs-12">
-                                        <button class="button accept" ng-click="applyContactSettings()">Change</button>
-                                        <button class="button cancel" ng-click="cancelContactSettings()">Cancel</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </section>
+        <div class="row" ng-show="editContactSettings">
+            <div class="button-group col-xs-12">
+                <button class="button accept" ng-click="applyContactSettings()">Change</button>
+                <button class="button cancel" ng-click="cancelContactSettings()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</section>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <div class="email-box">
                             <section class="settings-section email">
-                                <header class="section-header">
-                                    <span class="description">
-                                        <h2>settings</h2>
-                                        <h1>Email</h1>
-                                    </span>
-                                    <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">Change</button>
-                                </header>
-                                <hr/>
-                                <div class="container-fluid row">
-                                    <div class="property">
-                                        <div ng-show="!editEmailSettings">
-                                            <div class="section-label">Email address</div>
-                                            <div class="section-value" ng-bind="model.personalData.email"></div>
-                                        </div>
-                                        <form novalidate name="changeEmailForm" ng-if="editEmailSettings">
-                                            <div class="input-container">
-                                                <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
-                                                <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
-                                                    <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
-                                                    <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
-                                                    <span ng-message="hcEqual">Typed email isn't your old email</span>
-                                                    <span ng-message="required">Fill in the field.</span>
-                                                </div>
-                                            </div>
-                                            <div class="input-container">
-                                                <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
-                                                <div class="error-container" ng-messages="changeEmailForm.newEmail.$error" ng-show="changeEmailForm.newEmail.$dirty">
-                                                    <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
-                                                    <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
-                                                    <span ng-message="required">Fill in the field.</span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="button-group col-xs-12">
-                                                    <button class="button accept" ng-click="changeEmail(emailModel)" ng-disabled="!changeEmailForm.$valid">Change</button>
-                                                    <button class="button cancel" ng-click="cancelChangeEmail()">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+    <header class="section-header">
+        <span class="description">
+            <h2>settings</h2>
+            <h1>Email</h1>
+        </span>
+        <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">Change</button>
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="property">
+            <div ng-show="!editEmailSettings">
+                <div class="section-label">Email address</div>
+                <div class="section-value" ng-bind="model.personalData.email"></div>
+            </div>
+            <form novalidate name="changeEmailForm" ng-if="editEmailSettings">
+                <div class="input-container">
+                    <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
+                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
+                        <span ng-message="hcEqual">Typed email isn't your old email</span>
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <div class="error-container" ng-messages="changeEmailForm.newEmail.$error" ng-show="changeEmailForm.newEmail.$dirty">
+                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-group col-xs-12">
+                        <button class="button accept" ng-click="changeEmail(emailModel)" ng-disabled="!changeEmailForm.$valid">Change</button>
+                        <button class="button cancel" ng-click="cancelChangeEmail()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-                                </div>
-                            </section>
+    </div>
+</section>
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12">
                         <div class="password-box">
                             <section class="settings-section password">
-                                <header class="section-header">
-                                    <span class="description">
-                                        <h2>settings</h2>
-                                        <h1>Password</h1>
-                                    </span>
-                                    <button class="button" ng-click="editPasswordSettings = true" ng-show="!editPasswordSettings">Change</button>
-                                </header>
-                                <hr/>
-                                <div class="container-fluid row">
-                                    <div class="property">
-                                        <form novalidate name="changePasswordForm" ng-if="editPasswordSettings">
-                                            <div class="input-container">
-                                                <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="OLD PASSWORD" ng-required="true"/>
-                                                <div class="error-container" ng-messages="changePasswordForm.oldPassword.$error" ng-show="changePasswordForm.oldPassword.$dirty">
-                                                    <span ng-message="required">Fill in the field.</span>
-                                                </div>
-                                            </div>
-                                            <div class="input-container">
-                                                <input type="text" name="newPassword" class="form-input" ng-model="passwordModel.newPassword" placeholder="NEW PASSWORD" hc-not-equal="passwordModel.oldPassword" ng-required="true"/>
-                                                <div class="error-container" ng-messages="changePasswordForm.newPassword.$error" ng-show="changePasswordForm.newPassword.$dirty">
-                                                    <span ng-message="required">Fill in the field.</span>
-                                                    <span ng-message="hcNotEqual">New password can't be the same as old</span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="button-group col-xs-12">
-                                                    <button class="button accept" ng-click="changePassword(passwordModel)" ng-disabled="!changePasswordForm.$valid">Change</button>
-                                                    <button class="button cancel" ng-click="cancelChangePassword()">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </form>
+    <header class="section-header">
+        <span class="description">
+            <h2>settings</h2>
+            <h1>Password</h1>
+        </span>
+        <button class="button" ng-click="editPasswordSettings = true" ng-show="!editPasswordSettings">Change</button>
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="property">
+            <form novalidate name="changePasswordForm" ng-if="editPasswordSettings">
+                <div class="input-container">
+                    <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="OLD PASSWORD" ng-required="true"/>
+                    <div class="error-container" ng-messages="changePasswordForm.oldPassword.$error" ng-show="changePasswordForm.oldPassword.$dirty">
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="newPassword" class="form-input" ng-model="passwordModel.newPassword" placeholder="NEW PASSWORD" hc-not-equal="passwordModel.oldPassword" ng-required="true"/>
+                    <div class="error-container" ng-messages="changePasswordForm.newPassword.$error" ng-show="changePasswordForm.newPassword.$dirty">
+                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="hcNotEqual">New password can't be the same as old</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-group col-xs-12">
+                        <button class="button accept" ng-click="changePassword(passwordModel)" ng-disabled="!changePasswordForm.$valid">Change</button>
+                        <button class="button cancel" ng-click="cancelChangePassword()">Cancel</button>
+                    </div>
+                </div>
+            </form>
 
-                                    </div>
-                                </div>
-                            </section>
+        </div>
+    </div>
+</section>
                         </div>
                     </div>
                 </div>
@@ -507,100 +438,61 @@ return this}};h&&m(h);return g})}})})(window)})(window);
             <div class="additional-box col-xs-12 col-md-4">
                 <div class="avatar-box">
                     <section class="settings-section contact">
-                        <header class="section-header">
+    <header class="section-header">
                             <span class="description">
                                 <h2>settings</h2>
                                 <h1>Avatar</h1>
                             </span>
 
-                            <button class="button" ng-click="editAvatar = true" ng-show="!editAvatar">
-                                Change avatar
-                            </button>
+        <button class="button" ng-click="editAvatar = true" ng-show="!editAvatar">
+            Change avatar
+        </button>
 
-                        </header>
-                        <hr/>
-                        <div class="container-fluid row">
-                            <div class="col-xs-12 current-avatar" ng-class="{'col-xs-6': editAvatar}">
-                                <div class="avatar-header" ng-show="editAvatar">Current avatar</div>
-                                <img class="avatar-img" ng-src="{{model.personalData.avatar || defaultAvatarLink}}">
-                                <div class="avatar-label" ng-bind="model.personalData.name"></div>
-                            </div>
-                            <div class="col-xs-6" ng-show="editAvatar">
-                                <div class="avatar-header" ng-show="loadedImg">New avatar</div>
-                                <div class="crop-area" ng-show="loadedImg">
-                                    <img-crop image="loadedImg" result-image="croppedImg"
-                                               area-type="circle" ngf-accept="'image/*'"
-                                               result-image-size="450" class="image-preview">
-                                    </img-crop>
-                                </div>
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="col-xs-12 current-avatar" ng-class="{'col-xs-6': editAvatar}">
+            <div class="avatar-header" ng-show="editAvatar">Current avatar</div>
+            <img class="avatar-img" ng-src="{{model.personalData.avatar || defaultAvatarLink}}">
+            <div class="avatar-label" ng-bind="model.personalData.name"></div>
+        </div>
+        <div class="col-xs-6" ng-show="editAvatar">
+            <div class="avatar-header" ng-show="loadedImg">New avatar</div>
+            <div class="crop-area" ng-show="loadedImg">
+                <img-crop image="loadedImg" result-image="croppedImg"
+                          area-type="circle" ngf-accept="'image/*'"
+                          result-image-size="450" class="image-preview">
+                </img-crop>
+            </div>
 
-                                <div class="drop-box drop-box-container" ng-show="!loadedImg" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*">
-                                    <div class="drop-box-label">Drop image or click to upload avatar</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row button-group" ng-show="editAvatar">
-                            <button class="button accept" ng-click="uploadAvatar()">Change avatar</button>
-                            <button class="button cancel" ng-click="cancelUploadAvatar()">Cancel</button>
-                        </div>
-                    </section>
+            <div class="drop-box drop-box-container" ng-show="!loadedImg" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*">
+                <div class="drop-box-label">Drop image or click to upload avatar</div>
+            </div>
+        </div>
+    </div>
+    <div class="row button-group" ng-show="editAvatar">
+        <button class="button accept" ng-click="uploadAvatar()">Change avatar</button>
+        <button class="button cancel" ng-click="cancelUploadAvatar()">Cancel</button>
+    </div>
+</section>
                 </div>
                 <div class="token-box">
                     <section class="settings-section contact">
-                        <header class="section-header">
-                            <span class="description">
-                                <h2>Token</h2>
-                                <h1>Your private token</h1>
-                            </span>
-                        </header>
-                        <hr/>
-                        <span>Here is your private token. If you want connect game with this application, copy and paste them to hero-counter margonem addon</span>
-                        <div class="user-token font-bold" ng-bind="model.personalData.userToken"></div>
-                    </section>
+    <header class="section-header">
+        <span class="description">
+            <h2>Token</h2>
+            <h1>Your private token</h1>
+        </span>
+    </header>
+    <hr/>
+    <span>Here is your private token. If you want connect game with this application, copy and paste them to hero-counter margonem addon</span>
+    <div class="user-token font-bold" ng-bind="model.personalData.userToken"></div>
+</section>
                 </div>
             </div>
 
         </div>
     </div>
-	<!--Users to accept
-    <div ng-repeat="user in model.usersToAccept">
-        user: <span ng-bind="user"></span>
-        <span><button class="btn" ng-click="acceptUser(user)">Accept</button></span>
-        <span><button class="btn" ng-click="rejectUser(user)">Reject</button></span>
-    </div>
-
-    <div>
-        numer gg <input type="text" ng-model="settingsModel.ggNumber"/>
-    </div>
-    <div>
-        Pokazuj adres email <input type="checkbox" ng-model="settingsModel.showEmail"/>
-    </div>
-    <div>
-        numer telefonu <input type="number" ng-model="settingsModel.phoneNumber"/>
-    </div>
-    <div>
-        <button class="btn" ng-click="showChangePasswordForm=!showChangePasswordForm">zmien hasło</button>
-        <div ng-show="showChangePasswordForm">
-            stare haslo <input type="text" ng-model="changePasswordForm.oldPassword"/>
-            nowe haslo <input type="text" ng-model="changePasswordForm.newPassword"/>
-            powtorz nowe haslo <input type="text" ng-model="changePasswordForm.repeatedNewPassword"/>
-            <button class="btn" ng-click="changePassword(changePasswordForm)">wyslij</button>
-        </div>
-    </div>
-    <div>
-        <button class="btn" ng-click="editEmailSettings=!editEmailSettings">zmien email</button>
-        <div ng-show="editEmailSettings">
-            stary email <input type="text" ng-model="changeEmailForm.oldEmail"/>
-            nowy email <input type="text" ng-model="changeEmailForm.newEmail"/>
-            powtorz nowy email <input type="text" ng-model="changeEmailForm.repeatedEmail"/>
-            <button class="btn" ng-click="changeEmail(changeEmailForm)">wyslij</button>
-        </div>
-    </div>
-    <div>
-        informuj poprzez email o nadchodzacych tytanach <input type="checkbox" ng-model="settingsModel.sendTitanReminder"/>
-    </div>-->
-
-
 </div>
 </script>
   <script id="/user-manager" type="text/ng-template"><div ng-controller="userManagerCtrl" class="row user-manager">
@@ -727,6 +619,31 @@ return this}};h&&m(h);return g})}})})(window)})(window);
         </div>
 </div>
 </script>
+  <script id="/menu" type="text/ng-template"><nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
+    <div class="user-details" ng-if="showLogout">
+        <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
+        <div class="info">
+            <div class="name" ng-bind="model.personalData.name"></div>
+            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+        </div>
+    </div>
+    <hr/>
+    <ul>
+        <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
+            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+        </li>
+    </ul>
+    <div ng-if="model.personalData.isAdministrator">
+        <hr/>
+        <ul>
+            <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
+                <span class="title">USER MANAGER</span>
+                <i class="icon icon-circle"></i>
+            </li>
+        </ul>
+    </div>
+    <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+</nav></script>
   <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
 	<div class="tile-container container-fluid">
 		<div class="row">
@@ -800,35 +717,32 @@ return this}};h&&m(h);return g})}})})(window)})(window);
     <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
 </div></script>
   <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
-    <!-- <div class="header">
-        <button class="menu-toggle" ng-click="$root.opened=!$root.opened"><i class="icon-menu"></i>
-        </button>
-    </div> -->
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
     <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
-        <div class="user-details" ng-if="showLogout">
-            <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
-            <div class="info">
-                <div class="name" ng-bind="model.personalData.name"></div>
-                <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
-            </div>
+    <div class="user-details" ng-if="showLogout">
+        <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
+        <div class="info">
+            <div class="name" ng-bind="model.personalData.name"></div>
+            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
         </div>
+    </div>
+    <hr/>
+    <ul>
+        <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
+            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+        </li>
+    </ul>
+    <div ng-if="model.personalData.isAdministrator">
         <hr/>
         <ul>
-            <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
-                <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+            <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
+                <span class="title">USER MANAGER</span>
+                <i class="icon icon-circle"></i>
             </li>
         </ul>
-        <div ng-if="model.personalData.isAdministrator">
-            <hr/>
-            <ul>
-                <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
-                    <span class="title">USER MANAGER</span>
-                </li>
-            </ul>
-        </div>
-        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
-    </nav>
+    </div>
+    <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+</nav>
 
     <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
         <div ui-view class="enter-animation container-fluid full-height scrollable"></div>

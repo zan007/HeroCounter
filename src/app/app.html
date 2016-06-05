@@ -1,33 +1,6 @@
 <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
-    <!-- <div class="header">
-        <button class="menu-toggle" ng-click="$root.opened=!$root.opened"><i class="icon-menu"></i>
-        </button>
-    </div> -->
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
-    <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
-        <div class="user-details" ng-if="showLogout">
-            <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
-            <div class="info">
-                <div class="name" ng-bind="model.personalData.name"></div>
-                <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
-            </div>
-        </div>
-        <hr/>
-        <ul>
-            <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
-                <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
-            </li>
-        </ul>
-        <div ng-if="model.personalData.isAdministrator">
-            <hr/>
-            <ul>
-                <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
-                    <span class="title">USER MANAGER</span>
-                </li>
-            </ul>
-        </div>
-        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
-    </nav>
+    <%include src="menu/menu.html"%>
 
     <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
         <div ui-view class="enter-animation container-fluid full-height scrollable"></div>

@@ -85,6 +85,7 @@ var authenticationService = require('./authentication/authentication-service');
 var userService = require('./user/user-service');
 var creatureService = require('./creature/creature-service');
 var eventService = require('./event/event-service');
+var userProfileService = require('./user/user-profile-service');
 var settingsService = require('./settings/settings-service');
 
 var socketUserCounter = 0;

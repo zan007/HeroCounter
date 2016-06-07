@@ -261,6 +261,17 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 
 					$rootScope.$broadcast('dataSource.ready');
 				});
+			},
+			getUserProfile: function(userId) {
+				return call({
+					method: 'POST',
+					url: '/getUserProfile',
+					data: {
+						userId: userId
+					}
+				}, function(data){
+
+				});
 			}
 		};
 	}

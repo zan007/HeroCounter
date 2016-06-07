@@ -5,6 +5,7 @@ angular.module('heroCounter', [
 	'register',
 	'login',
 	'heroes',
+	'profile',
 	'titans',
 	'activation',
 	'settings',
@@ -127,6 +128,14 @@ angular.module('heroCounter', [
 				newsVisible: false
 			}
 		})
+	   .state('profile', {
+		   url: '/profile',
+		   templateUrl: '/profile',
+		   authRequire: false,
+		   params: {
+			   newsVisible: true
+		   }
+	   })
 		.state('basic', {
 			url: '/basic',
 			templateUrl: '/basic',

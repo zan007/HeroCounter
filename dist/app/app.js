@@ -93,7 +93,8 @@ angular.module('heroCounter', [
 			templateUrl: '/',
 			authRequire: false,
 			params: {
-				newsVisible: false
+				newsVisible: false,
+				destinationState: ''
 			}
 		})
 		.state('register', {
@@ -129,9 +130,9 @@ angular.module('heroCounter', [
 			}
 		})
 	   .state('profile', {
-		   url: '/profile',
+		   url: '/profile?userId',
 		   templateUrl: '/profile',
-		   authRequire: false,
+		   authRequire: true,
 		   params: {
 			   newsVisible: true
 		   }
@@ -157,7 +158,7 @@ angular.module('heroCounter', [
 				
 				if(isAuthenticationRequired){
 					event.preventDefault();
-					$state.go('login');
+					$state.go('login', {destinationState: toState.name});
 				}
 			}
 		}

@@ -13,7 +13,7 @@ controller('userManagerCtrl', ['$scope', '$rootScope', 'dataSource', 'notificati
 
 		$rootScope.$on('dataSource.ready', function() {
 			$scope.users = $rootScope.model.users;
-			if($scope.users.length > 0){
+			if($scope.users && $scope.users.length > 0){
 				$scope.activeUserId = $scope.users[0].id;
 			}
 		});

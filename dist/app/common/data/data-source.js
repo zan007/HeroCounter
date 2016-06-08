@@ -264,9 +264,9 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 			},
 			getUserProfile: function(userId) {
 				return call({
-					method: 'POST',
+					method: 'GET',
 					url: '/getUserProfile',
-					data: {
+					params: {
 						userId: userId
 					}
 				}, function(data){

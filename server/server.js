@@ -126,13 +126,12 @@ app.get('/init', function(req, res, next) {
     console.log('eventOffset', eventOffset.valueOf());
     async.series({
         personalData: function(callback){
-            var user = req.user;
+           	var user = req.user;
             console.log(user);
             callback(null, user);
         },
         creatures: creatureService.recalcCreatureRespTime,
-        events: eventService.getEvents,
-		users: userService.getUsers
+        events: eventService.getEvents
     },
     function(err, results){
         

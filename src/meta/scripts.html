@@ -4,7 +4,6 @@ $script([
     '/vendor/jquery/1.10.2/jquery.js',
     '/vendor/angular/1.5.5/angular-touch.js',
     '/vendor/angular/1.5.5/angular-animate.js',
-    '/vendor/angular/1.5.5/angular-route.js',
     '/vendor/angular/1.5.5/angular-messages.js',
     '/vendor/angular/1.5.5/angular-cookies.js',
     '/vendor/angular/1.5.5/i18n/angular-locale_pl.js',
@@ -17,9 +16,11 @@ $script([
     '/vendor/angular-ui-notification/angular-ui-notification.min.js',
     '/vendor/slider/rzslider.min.js',
     '/vendor/ng-file-upload/ng-file-upload.js',
-    '/vendor/ng-img-crop/ng-img-crop.js',
-    <%= scriptsFiles %>
+    '/vendor/ng-img-crop/ng-img-crop.js'
 ], 'scripts');
+$script([
+<%= scriptsFiles %>
+], 'app');
 $script('/vendor/angular-ui-router/release/angular-ui-router.js', 'angular-ui-router');
 </script>
 

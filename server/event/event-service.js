@@ -263,37 +263,6 @@ app.post('/registerEvent', function(req, res) {
 									}
 								});
 							},
-							/*function(cb) {
-							 if(guest) {
-							 connection.query('select id from hero where guestUserId = ? and heroName = ?', [userId, nick], function (err, rows) {
-							 if (err) cb(err);
-
-							 if (rows.length === 1) {
-							 var heroId = rows[0].id;
-
-							 cb();
-							 } else {
-							 console.log('unknown hero');
-							 connection.release();
-							 cb({}, 'unknown hero');
-							 }
-							 });
-							 } else {
-							 connection.query('select id from hero where mainUserId = ? and heroName = ?', [userId, nick], function (err, rows) {
-							 if (err) cb(err);
-
-							 if (rows.length === 1) {
-							 var heroId = rows[0].id;
-
-							 cb();
-							 } else {
-							 console.log('unknown hero');
-							 connection.release();
-							 cb({}, 'unknown hero');
-							 }
-							 });
-							 }
-							 },*/
 							function(cb) {
 								battleFields = {
 									creatureId: creatureId,

@@ -34,10 +34,12 @@
       console.log('angular ready');
       $script.ready('scripts', function(){
         console.log('scripts ready');
-        $script.ready('angular-ui-router', function(){
-          console.log('angular ui ready');
-          angular.bootstrap(document, ['heroCounter']);  
-        });
+          $script.ready('app', function() {
+              $script.ready('angular-ui-router', function () {
+                  console.log('angular ui ready');
+                  angular.bootstrap(document, ['heroCounter']);
+              });
+          });
       });
       
     });

@@ -1,10 +1,11 @@
 var nodemailer = require('nodemailer');
 var express = require('express');
+var mailConfig = require('./config/mail'),
 var fs = require('fs');
 var ejs = require('ejs');
 var path = require('path');
 
-var transporter = nodemailer.createTransport('smtps://hero.counter.app%40gmail.com:nodejsherocounterapp@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://' + mailConfig.address + ':' + mailConfig.pwd + '@smtp.gmail.com');
 
 exports.sendRegisterLink = function(token, user, req) {
 	

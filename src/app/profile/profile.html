@@ -1,3 +1,62 @@
 <div ng-controller="profileCtrl" class="row profile full-height">
-    <div>{{userProfileModel}}</div>
+    <div class="container-fluid full-height">
+        <div class="row">
+            <div class="col-md-12 col-lg-5">
+                <div class="avatar-box center-vertically">
+                    <div class="avatar">
+                        <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
+                        <div class="name" ng-bind="userProfileModel.name"></div>
+                        <div class="role">{{userProfileModel.isAdministrator ? 'Administrator': 'User'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-7">
+                <div class="about-box">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Profile</h2>
+                            <h1>Contact</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="property-section">
+                                <div class="property">
+                                    <div class="section-label">GG number</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.ggVisible"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.ggVisible">User not allowed to display them</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="property-section">
+                                <div class="property">
+                                    <div class="section-label">Phone number</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phoneVisible"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.phoneVisible">User not allowed to display them</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="user-heroes">
+                <header>Main heroes</header>
+                <div class="col-xs-4" ng-repeat="mainHero in userProfileModel.mainHeroes">
+                    <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="user-heroes">
+                <header>Guest heroes</header>
+                <div  class="col-xs-4" ng-repeat="guestHero in userProfileModel.guestHeroes">
+                    <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

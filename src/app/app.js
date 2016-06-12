@@ -27,6 +27,7 @@ angular.module('heroCounter', [
 	'controls.hcValidationPattern',
 	'controls.hcEqual',
 	'controls.hcNotEqual',
+	'controls.hcUserHeroTile',
 	'avatarService',
 	'ngImgCrop'
 ])

@@ -722,6 +722,34 @@ body {
 .button:disabled {
   background-color: #778FA7;
 }
+.section-header {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+}
+.section-header .description {
+  display: inline-block;
+  flex: 0 1 auto;
+  text-align: left;
+  margin-right: 10px;
+}
+.section-header h1 {
+  font-size: 18px;
+  color: white;
+  margin-top: 0;
+}
+.section-header h2 {
+  color: #129fdd;
+  font-size: 14px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
 .button-group .button {
   margin-left: 10px;
 }
@@ -1037,34 +1065,6 @@ ul {
 .settings .settings-section.email .form-input {
   width: 200px;
 }
-.settings .settings-section .section-header {
-  color: white;
-  font-size: 16px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: -ms-flex;
-  display: flex;
-}
-.settings .settings-section .section-header .description {
-  display: inline-block;
-  flex: 0 1 auto;
-  text-align: left;
-  margin-right: 10px;
-}
-.settings .settings-section .section-header h1 {
-  font-size: 18px;
-  color: white;
-  margin-top: 0;
-}
-.settings .settings-section .section-header h2 {
-  color: #129fdd;
-  font-size: 14px;
-  margin-bottom: 0;
-  margin-top: 10px;
-}
 .settings .settings-section .section-header button {
   margin-left: auto;
   width: 120px;
@@ -1101,12 +1101,6 @@ ul {
 }
 .settings .settings-section hr {
   border-top: dotted 3px #234d78;
-}
-.settings .settings-section .property {
-  font-weight: bold;
-  margin-bottom: 5px;
-  min-height: 45px;
-  color: #b9d5ee;
 }
 .settings .additional-box {
   margin-top: 50px;
@@ -1166,6 +1160,81 @@ ul {
   font-size: 18px;
   word-wrap: break-word;
   margin-top: 20px;
+}
+.profile .avatar-box,
+.profile .about-box {
+  background-color: rgba(39, 84, 130, 0.9);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 25px;
+  margin-top: 20px;
+  opacity: 0.9;
+  min-height: 335px;
+  -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+}
+.profile .avatar-box .avatar {
+  font-size: 16px;
+  text-align: center;
+  color: white;
+}
+.profile .avatar-box .avatar img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: solid 1px #129fdd;
+  margin-bottom: 20px;
+}
+.profile .property-section {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  margin-top: 10px;
+}
+.profile .property-section .property {
+  margin-right: 20px;
+}
+.profile .property-section .section-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  min-height: 45px;
+  color: #b9d5ee;
+}
+.profile .property-section .section-value {
+  padding-left: 10px;
+  color: white;
+}
+.profile hr {
+  border-top: dotted 3px #234d78;
+}
+.profile .user-heroes header {
+  font-size: 18px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  margin-left: 15px;
+}
+.profile .user-heroes .user-hero-tile {
+  background-color: rgba(39, 84, 130, 0.9);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 25px;
+  opacity: 0.9;
+  min-height: 250px;
+  -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: white;
 }
 .form-checkbox {
   display: inline-block;
@@ -1567,6 +1636,39 @@ ul {
 }
 .hc-events-timeline .right-element i {
   left: -10px;
+}
+.user-hero-tile .background {
+  fill-opacity: 0;
+}
+.user-hero-tile .component {
+  fill: #fff;
+}
+.user-hero-tile .arcs {
+  fill: #f00;
+}
+.user-hero-tile .inner-arc {
+  fill: #4e8fff;
+}
+.user-hero-tile .outer-arc {
+  fill: #129fdd;
+}
+.user-hero-tile .radial-svg {
+  display: block;
+  margin: 0 auto;
+}
+.user-hero-tile .radial-svg {
+  width: 150px;
+  margin-top: 30px;
+}
+.user-hero-tile .summary-battles {
+  position: absolute;
+  bottom: 80px;
+  width: 140px;
+}
+.user-hero-tile .hero-name,
+.user-hero-tile .hero-lvl {
+  font-size: 16px;
+  line-height: 25px;
 }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

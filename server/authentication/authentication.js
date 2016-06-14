@@ -20,7 +20,7 @@ if(process.argv[2] === 'remote') {
     console.log('remote');
 } else {
     pool = mysql.createPool({
-      connectionLimit: 50,
+      connectionLimit: 5,
       host: databaseConfig.homeDetails.host,
       user: databaseConfig.homeDetails.user,
       password: databaseConfig.homeDetails.password,

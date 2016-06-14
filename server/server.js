@@ -46,7 +46,7 @@ if(process.argv[2] === 'remote') {
     console.log('remote');
 } else {
     pool = mysql.createPool({
-        connectionLimit: 50,
+        connectionLimit: 14,
         host: databaseConfig.homeDetails.host,
         user: databaseConfig.homeDetails.user,
         password: databaseConfig.homeDetails.password,
@@ -74,6 +74,37 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+var setEventHandlers = function() {
+	io.sockets.on('connection', function(socket){
+		socketUserCounter++;
+		console.log('a user connected ', socketUserCounter);
+
+		socket.on('disconnect', function(){
+			socketUserCounter--;
+			socket.disconnect(true);
+			pool.getConnection(function(err, connection){
+				connection.destroy();
+			});
+			console.log('user disconnected ', socketUserCounter);
+		});
+	});
+};
+
+var runServer = function(err) {
+	if (err)
+		throw err;
+
+	//data = generatedData;
+	server = app.listen(process.env.PORT || 8000);
+	//io = require('socket.io').listen(server);
+	io = require('socket.io').listen(server);
+	setEventHandlers();
+
+	console.log('Listening on port: ' + appConfig.listenPort);
+}
+
+runServer(null);
+
 module.exports = {
 	srcDir: srcDir,
 	pool: pool,
@@ -90,33 +121,7 @@ var settingsService = require('./settings/settings-service');
 
 var socketUserCounter = 0;
 
-var setEventHandlers = function() {
-	io.sockets.on('connection', function(socket){
-		socketUserCounter++;
-		console.log('a user connected ', socketUserCounter);
 
-		socket.on('disconnect', function(){
-			socketUserCounter--;
-			socket.disconnect(true);
-			console.log('user disconnected ', socketUserCounter);
-		});
-	});
-};
-
-var runServer = function(err) {
-    if (err)
-        throw err;
-
-    //data = generatedData;
-    server = app.listen(process.env.PORT || 8000);
-    //io = require('socket.io').listen(server);
-    io = require('socket.io').listen(server);
-	setEventHandlers();
-    
-    console.log('Listening on port: ' + appConfig.listenPort);
-}
-
-runServer(null);
 
 
 app.get('/init', function(req, res, next) {

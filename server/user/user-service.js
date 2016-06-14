@@ -8,8 +8,11 @@ var getUser = function(id, cb){
 		connection.query('select * from user where id = ?', id, function(err, rows){
 			if (err) throw err;
 
+			connection.release();
 			if(rows.length === 1) {
 				return cb(null, rows[0]);
+			} else {
+				return cb(err);
 			}
 
 		});
@@ -23,10 +26,12 @@ var getUsers = function(cb) {
 				cb(err);
 			}
 
+			connection.release();
 			for(var i = 0, len = rows.length; i < len; i++){
 				var currentUser = rows[i];
 				currentUser.tokenExpirationDate = currentUser.tokenExpirationDate - 7200000;
 			}
+
 			return cb(null, rows);
 		});
 

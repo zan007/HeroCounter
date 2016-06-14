@@ -652,18 +652,40 @@ return this}};h&&m(h);return g})}})})(window)})(window);
             </div>
         </div>
         <div class="row">
-            <div class="user-heroes">
-                <header>Main heroes</header>
-                <div class="col-xs-4" ng-repeat="mainHero in userProfileModel.mainHeroes">
-                    <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+            <div class="col-xs-12">
+                <div class="user-heroes">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Main</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <div class="row user-charts">
+                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
+                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                        </div>
+                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
+                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="user-heroes">
-                <header>Guest heroes</header>
-                <div  class="col-xs-4" ng-repeat="guestHero in userProfileModel.guestHeroes">
-                    <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+            <div class="col-xs-12">
+                <div class="user-heroes">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Guest</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row user-charts">
+                        <div ng-repeat="guestHero in userProfileModel.guestHeroes">
+                            <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -771,11 +793,18 @@ return this}};h&&m(h);return g})}})})(window)})(window);
      </div>
 </div></script>
   <script id="hc-user-hero-tile" type="text/ng-template"><div class="user-hero-tile">
-    <div class="hero-name">Name: {{hero.heroName}}</div>
-    <div class="hero-lvl">Lvl: {{hero.lvl}}</div>
     <g class="radial-chart">
-        <div class="summary-battles">{{battleCount}}</div>
+        <div class="summary-battles">
+            <div class="indicator">
+                <span class="count">{{battleCount}}</span><span class="summary-count">/ {{stats.summaryBattles}}</span>
+            </div>
+            <div>battles</div>
+        </div>
     </g>
+    <div class="description">
+        <div class="hero-name">{{hero.heroName}}</div>
+        <div class="hero-lvl">Lvl: {{hero.lvl}}</div>
+    </div>
 </div></script>
   <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
     <span ng-show="fullDate">
@@ -835,7 +864,6 @@ $script([
     '/vendor/moment/min/moment.min.js',
     '/vendor/moment/min/locales.min.js',
     '/vendor/humanize-duration/humanize-duration.js',
-    '/vendor/bootstrap/bootstrap.min.js',
     '/vendor/socket-io/socket.io.js',
     '/vendor/angular-ui-notification/angular-ui-notification.min.js',
     '/vendor/slider/rzslider.min.js',
@@ -874,7 +902,6 @@ $script([
 '/app/login/login.js',
 '/app/profile/profile.js',
 '/app/register/register.js',
-'/app/router.js',
 '/app/settings/settings.js',
 '/app/titans/event-titans.js',
 '/app/titans/titans.js',
@@ -889,10 +916,13 @@ $script('/vendor/angular-ui-router/release/angular-ui-router.js', 'angular-ui-ro
       console.log('angular ready');
       $script.ready('scripts', function(){
         console.log('scripts ready');
-          $script.ready('app', function() {
-              $script.ready('angular-ui-router', function () {
-                  console.log('angular ui ready');
+
+          $script.ready('angular-ui-router', function () {
+              console.log('angular ui ready');
+              $script.ready('app', function() {
+                  console.log('app ready');
                   angular.bootstrap(document, ['heroCounter']);
+                  //angular.bootstrap(document, ['heroCounter']);
               });
           });
       });

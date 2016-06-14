@@ -24,9 +24,10 @@ app.post('/applySettings', function(req, res) {
 						res.status(200).send(user);
 						connection.release();
 					});
-
+					connection.release();
 				});
 			} else {
+				connection.release();
 				res.status(500).send();
 			}
 		});
@@ -50,6 +51,7 @@ app.post('/changeEmail', function(req, res) {
 
 				});
 			} else {
+				connection.release();
 				res.status(500).send();
 			}
 		});
@@ -112,6 +114,7 @@ app.post('/changeAvatar', function(req, res){
 										throw err;
 									} else {
 										console.log('errorMessage: ', errorMessage);
+										connection.release();
 										res.status(500).send({message: errorMessage});
 									}
 
@@ -122,6 +125,7 @@ app.post('/changeAvatar', function(req, res){
 					}
 				});
 			} else {
+				connection.release();
 				res.status(401).send();
 			}
 		});

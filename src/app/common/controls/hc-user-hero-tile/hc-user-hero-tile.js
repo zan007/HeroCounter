@@ -10,7 +10,7 @@ angular.module('controls.hcUserHeroTile', ['dataSource'])
 		templateUrl: 'hc-user-hero-tile',
 		link: function($scope, $elem) {
 
-			function radialProgress(parent) {
+			function radialProgress(parent, max) {
 				var d3 = window.d3;
 				var s = {
 					duration: 1000,
@@ -20,7 +20,7 @@ angular.module('controls.hcUserHeroTile', ['dataSource'])
 					diameter: 0,
 					bound: {
 						min: 0,
-						max: $scope.stats.summaryBattles
+						max: max > 0 ? max: 100
 					},
 					goal: {
 						outer: 3.14,
@@ -84,8 +84,8 @@ angular.module('controls.hcUserHeroTile', ['dataSource'])
 						s.margin.bottom;
 					s.height = s.width;
 					var halfw = s.width / 2,
-						_80w = 0.90 * halfw,
-						_20w = 0.10 * halfw;
+						_80w = 0.95 * halfw,
+						_20w = 0.05 * halfw;
 					s.arc.outer.outerRadius(halfw);
 					s.arc.outer.innerRadius(_80w);
 					s.arc.inner.outerRadius(_80w);
@@ -158,7 +158,7 @@ angular.module('controls.hcUserHeroTile', ['dataSource'])
 					}
 				}
 
-				radialProgress($scope.radialChartElem[0]).diameter(150).data([{ type: "outer", value:  $scope.battleCount}]).render();
+				radialProgress($scope.radialChartElem[0], $scope.stats.summaryBattles).diameter(150).data([{ type: "outer", value:  $scope.battleCount}]).render();
 			});
 
 

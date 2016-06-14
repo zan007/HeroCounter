@@ -9,15 +9,11 @@ var recalcCreatureRespTime = function(callback) {
 	var today = moment().valueOf();
 	var creatures = [];
 	pool.getConnection(function(err, connection) {
-		connection.query({
-			sql: 'select * from creature',
-			timeout: 1000
-		}, function(err, rows) {
+		connection.query('select * from creature', function(err, rows) {
 			if (err) throw err;
 
-			var currentCreature = '';
 			for (var i = 0; i < rows.length; i++) {
-				currentCreature = rows[i];
+				var currentCreature = rows[i];
 
 				//var msDate  = moment(rows[i].defeatedDate).valueOf();
 

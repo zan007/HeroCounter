@@ -238,14 +238,17 @@ app.get('/getUserProfile', function(req, res) {
 					}
 				},
 				function (profileModel, cb) {
+					connection.release();
 					res.status(200).send(profileModel);
 				}
 			], function (err, errMessage) {
+				connection.release();
 				res.status(500).send();
 				throw err;
 			});
 		});
 	} else {
+		connection.release();
 		res.status(404).send('not Found');
 	}
 });

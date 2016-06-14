@@ -57,6 +57,7 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 							for(var j = 0, len = rows.length; j < len; j++){
 								group.push(rows[j]);
 							}
+
 							wcb();
 						});
 					},
@@ -151,6 +152,7 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 					throw(err);
 				}
 			});
+			connection.release();
 		} else {
 			console.log('dupa', currentHeroName);
 			connection.query('insert into hero set ?', {heroName: currentHeroName}, function (err, rows) {
@@ -178,12 +180,14 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 							cb(err);
 						}
 					});
+					connection.release();
 				} else if(userId !== null && guest === false) {
 					connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err){
 						if(err) {
 							cb(err);
 						}
 					});
+					connection.release();
 				}
 			});
 		}
@@ -323,12 +327,14 @@ app.post('/registerEvent', function(req, res) {
 									throw err;
 								} else {
 									console.log('errorMessage: ', errorMessage);
+									connection.release();
 									res.status(500).send({message: errorMessage});
 								}
 							});
 						});
 					});
 				} else {
+					connection.release();
 					res.status(500).send({message: 'unknown token'});
 				}
 			});

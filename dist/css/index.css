@@ -1214,6 +1214,9 @@ ul {
 .profile hr {
   border-top: dotted 3px #234d78;
 }
+.profile .user-heroes {
+  margin-top: 20px;
+}
 .profile .user-heroes header {
   font-size: 18px;
   color: white;
@@ -1223,18 +1226,33 @@ ul {
   margin-left: 15px;
 }
 .profile .user-heroes .user-hero-tile {
+  text-align: center;
+  color: white;
+  width: 400px;
   background-color: rgba(39, 84, 130, 0.9);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 25px;
-  opacity: 0.9;
-  min-height: 250px;
   -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin: 20px 20px;
+  padding: 20px;
+}
+.profile .user-heroes .user-charts {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-flex-flow: row wrap;
+  -moz-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 .form-checkbox {
   display: inline-block;
@@ -1637,11 +1655,18 @@ ul {
 .hc-events-timeline .right-element i {
   left: -10px;
 }
+.user-hero-tile {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+}
 .user-hero-tile .background {
   fill-opacity: 0;
 }
 .user-hero-tile .component {
-  fill: #fff;
+  fill: rgba(39, 84, 130, 0.5);
 }
 .user-hero-tile .arcs {
   fill: #f00;
@@ -1653,22 +1678,64 @@ ul {
   fill: #129fdd;
 }
 .user-hero-tile .radial-svg {
-  display: block;
-  margin: 0 auto;
-}
-.user-hero-tile .radial-svg {
   width: 150px;
-  margin-top: 30px;
+}
+.user-hero-tile .radial-chart {
+  position: relative;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
+}
+.user-hero-tile .description {
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin: auto 0;
 }
 .user-hero-tile .summary-battles {
   position: absolute;
-  bottom: 80px;
-  width: 140px;
+  height: 100%;
+  width: 150px;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+}
+.user-hero-tile .summary-battles .indicator {
+  height: 47px;
+  color: #129fdd;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  margin: 0 auto;
+}
+.user-hero-tile .summary-battles .indicator .count {
+  font-size: 44px;
+}
+.user-hero-tile .summary-battles .indicator .summary-count {
+  font-size: 30px;
+  letter-spacing: -4px;
 }
 .user-hero-tile .hero-name,
 .user-hero-tile .hero-lvl {
   font-size: 16px;
   line-height: 25px;
+}
+.user-hero-tile .hero-name {
+  color: #129fdd;
 }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

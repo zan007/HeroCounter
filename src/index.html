@@ -35,10 +35,13 @@
       console.log('angular ready');
       $script.ready('scripts', function(){
         console.log('scripts ready');
-          $script.ready('app', function() {
-              $script.ready('angular-ui-router', function () {
-                  console.log('angular ui ready');
+
+          $script.ready('angular-ui-router', function () {
+              console.log('angular ui ready');
+              $script.ready('app', function() {
+                  console.log('app ready');
                   angular.bootstrap(document, ['heroCounter']);
+                  //angular.bootstrap(document, ['heroCounter']);
               });
           });
       });

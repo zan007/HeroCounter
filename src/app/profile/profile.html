@@ -43,18 +43,40 @@
             </div>
         </div>
         <div class="row">
-            <div class="user-heroes">
-                <header>Main heroes</header>
-                <div class="col-xs-4" ng-repeat="mainHero in userProfileModel.mainHeroes">
-                    <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+            <div class="col-xs-12">
+                <div class="user-heroes">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Main</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <div class="row user-charts">
+                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
+                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                        </div>
+                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
+                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="user-heroes">
-                <header>Guest heroes</header>
-                <div  class="col-xs-4" ng-repeat="guestHero in userProfileModel.guestHeroes">
-                    <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+            <div class="col-xs-12">
+                <div class="user-heroes">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Guest</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row user-charts">
+                        <div ng-repeat="guestHero in userProfileModel.guestHeroes">
+                            <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

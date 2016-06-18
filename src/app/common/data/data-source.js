@@ -14,9 +14,9 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				creatures: [],
 				personalData: {},
 				events: [],
-				usersToAccept: []
+				users: []
 			};			
-		}
+		};
 		initModel();
 
 		$rootScope.opened = false;
@@ -73,7 +73,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 								$rootScope.model.creatures = data.creatures;
 							   	$rootScope.model.personalData = data.personalData;
 							   	$rootScope.model.events = data.events;
-							   	$rootScope.model.usersToAccept = data.usersToAccept;
+							   	$rootScope.model.users = data.users;
 					
 								$rootScope.$broadcast('dataSource.ready');
 							});
@@ -132,15 +132,15 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 								$rootScope.$broadcast('dataSource.ready');
 							});
 			},
-			refreshUsersToAccept: function() {
+			getUsers: function() {
 				return call({
 					method: 'POST',
-					url: '/getUsersToAccept',
+					url: '/getUsers',
 					data: {
-						userId: $rootScope.model.personalData.id
+						userToken: $rootScope.model.personalData.userToken
 					}
 				}, function (data) {
-					$rootScope.model.usersToAccept = data;
+					$rootScope.model.users = data;
 					$rootScope.$broadcast('dataSource.ready');
 				});
 			},
@@ -151,7 +151,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 						token: token
 					}
 				}, function(data) {
-					$rootScope.model.usersToAccept = data;
+					$rootScope.model.users = data;
 					$rootScope.$broadcast('dataSource.ready');
 				});
 			},
@@ -159,10 +159,35 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				return call({ method: 'POST',
 					url: '/acceptUserActivation',
 					data: {
-						userId: user.userId
+						userToken: $rootScope.model.personalData.userToken,
+						userId: user.id
 					}
 				}, function(data) {
-					$rootScope.model.usersToAccept = data;
+					$rootScope.model.users = data;
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			setAdministrator: function(user) {
+				return call({ method: 'POST',
+					url: '/setAdministrator',
+					data: {
+						userToken: $rootScope.model.personalData.userToken,
+						userId: user.id
+					}
+				}, function(data) {
+					$rootScope.model.users = data;
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			setCommonUser: function(user) {
+				return call({ method: 'POST',
+					url: '/setCommonUser',
+					data: {
+						userToken: $rootScope.model.personalData.userToken,
+						userId: user.id
+					}
+				}, function(data) {
+					$rootScope.model.users = data;
 					$rootScope.$broadcast('dataSource.ready');
 				});
 			},
@@ -170,19 +195,20 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				return call({ method: 'POST',
 					url: '/rejectUserActivation',
 					data: {
-						userId: user.userId
+						userToken: $rootScope.model.personalData.userToken,
+						userId: user.id
 					}
 				}, function(data) {
-					$rootScope.model.usersToAccept = data;
+					$rootScope.model.users = data;
 					$rootScope.$broadcast('dataSource.ready');
 				});
 			},
-			changeEmail: function(user, newEmailAddress) {
+			changeEmail: function(user, oldEmailAddress, newEmailAddress) {
 				return call({ method: 'POST',
 					url: '/changeEmail',
 					data: {
 						userId: user.id,
-						oldEmail: user.email,
+						oldEmail: oldEmailAddress,
 						newEmail: newEmailAddress
 					}
 				}, function(data) {
@@ -203,6 +229,48 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 					$rootScope.model.personalData = data;
 
 					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			changeAvatar: function(userId, avatar) {
+				return call({ method: 'POST',
+					url: '/changeAvatar',
+					data: {
+						userId: userId,
+						avatar: avatar
+					}
+				}, function(data) {
+					$rootScope.model.personalData = data;
+
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			applyContactSettings: function(contactSettingsModel) {
+				return call({
+					method: 'POST',
+					url: '/applySettings',
+					data: {
+						phoneNumber: contactSettingsModel.phone,
+						phoneVisible: contactSettingsModel.phoneVisible,
+						ggNumber: contactSettingsModel.gg,
+						ggVisible: contactSettingsModel.ggVisible,
+						name: contactSettingsModel.name,
+						userId: contactSettingsModel.id
+					}
+				}, function (data) {
+					$rootScope.model.personalData = data;
+
+					$rootScope.$broadcast('dataSource.ready');
+				});
+			},
+			getUserProfile: function(userId) {
+				return call({
+					method: 'GET',
+					url: '/getUserProfile',
+					params: {
+						userId: userId
+					}
+				}, function(data){
+
 				});
 			}
 		};

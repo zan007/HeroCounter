@@ -3892,7 +3892,7 @@ var $AnimateProvider = ['$provide', function($provide) {
    * Sets and/or returns the CSS class regular expression that is checked when performing
    * an animation. Upon bootstrap the classNameFilter value is not set at all and will
    * therefore enable $animate to attempt to perform an animation on any element.
-   * When setting the classNameFilter value, animations will only be performed on elements
+   * When settings the classNameFilter value, animations will only be performed on elements
    * that successfully match the filter expression. This in turn can boost performance
    * for low-powered devices as well as applications containing a lot of structural operations.
    * @param {RegExp=} expression The className expression which will be checked against all animations
@@ -10569,7 +10569,7 @@ function $ParseProvider() {
    *
    *
    * @param {boolean=} value New value.
-   * @returns {boolean|self} Returns the current setting when used as getter and self if used as
+   * @returns {boolean|self} Returns the current settings when used as getter and self if used as
    *                         setter.
    */
   this.unwrapPromises = function(value) {
@@ -10594,10 +10594,10 @@ function $ParseProvider() {
    *
    * The default is set to `true`.
    *
-   * This setting applies only if `$parseProvider.unwrapPromises` setting is set to true as well.
+   * This settings applies only if `$parseProvider.unwrapPromises` settings is set to true as well.
    *
    * @param {boolean=} value New value.
-   * @returns {boolean|self} Returns the current setting when used as getter and self if used as
+   * @returns {boolean|self} Returns the current settings when used as getter and self if used as
    *                         setter.
    */
  this.logPromiseWarnings = function(value) {
@@ -13591,8 +13591,8 @@ var originUrl = urlResolve(window.location.href, true);
  *
  * IE7 does not normalize the URL when assigned to an anchor node.  (Apparently, it does, if one
  * uses the inner HTML approach to assign the URL as part of an HTML snippet -
- * http://stackoverflow.com/a/472729)  However, setting img[src] does normalize the URL.
- * Unfortunately, setting img[src] to something like "javascript:foo" on IE throws an exception.
+ * http://stackoverflow.com/a/472729)  However, settings img[src] does normalize the URL.
+ * Unfortunately, settings img[src] to something like "javascript:foo" on IE throws an exception.
  * Since the primary usage for normalizing URLs is to sanitize such URLs, we can't use that
  * method and IE < 8 is unsupported.
  *

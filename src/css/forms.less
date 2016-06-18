@@ -1,0 +1,88 @@
+.form-checkbox {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	height: 20px;
+
+	label {
+	    width: 20px;
+	    height: 20px;
+	    cursor: pointer;
+	    position: absolute;
+	    top: 50%;
+	    .translateY(-50%);
+	    left: 0;
+	    background: #5682b2;
+	    .border-radius(4px);
+	  
+	    &:after {
+	      content: '';
+	      width: 9px;
+	      height: 5px;
+	      position: absolute;
+	      top: 6px;
+	      left: 6px;
+	      border: 3px solid white;
+	      border-top: none;
+	      border-right: none;
+	      opacity: 0;
+	      .rotate(-45deg);
+	    }
+	    &:hover::after {
+	      opacity: 0.3;
+	    }
+  	}
+	input[type=checkbox] {
+	    visibility: hidden;
+	    margin-left: 5px;
+	    margin-right: 5px;
+
+	    &:checked + label:after {
+	      opacity: 1;
+	    }    
+	}
+
+}
+
+.checkbox-label {
+	color: #537faf;
+	font-size: 12px;
+	margin-right: 10px;
+	font-weight: 600;
+}
+
+.input-container {
+	margin: 0 auto 20px auto;
+}
+
+.error-container {
+	margin-top: 5px;
+	color: #d9534f;
+}
+
+.form-input {
+    -webkit-appearance: none;
+    .border-radius(3px);
+    border: 0;
+    background-color: #3b6897;
+    height: 30px;
+    width: 150px;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    line-height: 30px;
+    color: white;
+	.placeholder({
+	    color: #fff;
+	});
+
+    &:focus{
+	    outline: 0;
+	}
+
+	&.ng-dirty.ng-invalid {
+		background-color: #d9534f;
+		border: solid 1px red;
+	}
+}

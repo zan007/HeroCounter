@@ -14,4 +14,4 @@ module.exports = {
 		password: '',
 		database: 'herocounter'
 	}
-}
+};

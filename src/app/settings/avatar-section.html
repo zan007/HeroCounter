@@ -1,0 +1,38 @@
+<section class="settings-section contact">
+    <header class="section-header">
+                            <span class="description">
+                                <h2>settings</h2>
+                                <h1>Avatar</h1>
+                            </span>
+
+        <button class="button" ng-click="editAvatar = true" ng-show="!editAvatar">
+            Change avatar
+        </button>
+
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="col-xs-12 current-avatar" ng-class="{'col-xs-6': editAvatar}">
+            <div class="avatar-header" ng-show="editAvatar">Current avatar</div>
+            <img class="avatar-img" ng-src="{{model.personalData.avatar || defaultAvatarLink}}">
+            <div class="avatar-label" ng-bind="model.personalData.name"></div>
+        </div>
+        <div class="col-xs-6" ng-show="editAvatar">
+            <div class="avatar-header" ng-show="loadedImg">New avatar</div>
+            <div class="crop-area" ng-show="loadedImg">
+                <img-crop image="loadedImg" result-image="croppedImg"
+                          area-type="circle" ngf-accept="'image/*'"
+                          result-image-size="450" class="image-preview">
+                </img-crop>
+            </div>
+
+            <div class="drop-box drop-box-container" ng-show="!loadedImg" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*">
+                <div class="drop-box-label">Drop image or click to upload avatar</div>
+            </div>
+        </div>
+    </div>
+    <div class="row button-group" ng-show="editAvatar">
+        <button class="button accept" ng-click="uploadAvatar()">Change avatar</button>
+        <button class="button cancel" ng-click="cancelUploadAvatar()">Cancel</button>
+    </div>
+</section>

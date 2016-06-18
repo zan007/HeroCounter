@@ -1,0 +1,67 @@
+<div ng-controller="userManagerCtrl" class="row user-manager">
+    <div class="container-fluid">
+        <div class="main-header">User manager</div>
+        <div class="sub-header">You can manage users here, accept, reject or delete</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="users-list">
+                    <div class="list-header">Users</div>
+                    <div class="list-legend">
+                        <div class="col-xs-1 role">Role</div>
+                        <div class="col-xs-4 name clickable" ng-click="setFilter('name')">
+                            Name
+                            <i ng-show="filterConfig.field === 'name'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                        <div class="col-xs-3 email clickable" ng-click="setFilter('email')">
+                            Email
+                            <i ng-show="filterConfig.field === 'email'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                        <div class="col-xs-4 register-date clickable" ng-click="setFilter('registerDate')">
+                            Register Date
+                            <i ng-show="filterConfig.field === 'registerDate'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                    </div>
+                    <div ng-repeat="user in model.users | orderBy:filterConfig.field:filterConfig.reverse" class="list-element container-fluid" ng-class="{'active': user.waitForAccept !== null, 'opened': activeUserId === user.id}" ng-click="openDetails(user)">
+                        <div class="row user-info">
+                            <div class="role center-vertically col-xs-1">
+                                <i ng-class="{'icon-admin': user.isAdministrator, 'icon-user': !user.isAdministrator, 'icon-lock': user.waitForAccept == null}"></i>
+                            </div>
+                            <div class="center-vertically col-xs-4">
+                                <img class="avatar" ng-src="{{user.avatar || defaultAvatarLink}}"/>
+                                <div class="name" ng-bind="user.name"></div>
+                            </div>
+                            <div class="center-vertically col-xs-3">
+                                <div class="email" ng-bind="user.email">Email</div>
+                            </div>
+                            <div class="center-vertically col-xs-4">
+                                <div class="register-date" hc-pretty-time="user.tokenExpirationDate" full-date="true"></div>
+                            </div>
+                        </div>
+                        <div ng-show="activeUserId === user.id" class="row user-details">
+                            <div class="center-vertically action" ng-show="user.waitForAccept">
+                                <button class="button accept" ng-click="acceptUser(user)">
+                                    Accept User
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="user.waitForAccept">
+                                <button class="button cancel" ng-click="rejectUser(user)">
+                                    Reject User
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="!user.isAdministrator && user.waitForAccept != null && user.waitForAccept !== 1">
+                                <button class="button" ng-click="setAdministrator(user)">
+                                    Set as administrator
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="user.isAdministrator">
+                                <button class="button cancel" ng-click="setCommonUser(user)">
+                                    Set as common user
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

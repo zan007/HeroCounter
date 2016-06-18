@@ -1,0 +1,44 @@
+<section class="settings-section email">
+    <header class="section-header">
+        <span class="description">
+            <h2>settings</h2>
+            <h1>Email</h1>
+        </span>
+        <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">Change</button>
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="property">
+            <div ng-show="!editEmailSettings">
+                <div class="section-label">Email address</div>
+                <div class="section-value" ng-bind="model.personalData.email"></div>
+            </div>
+            <form novalidate name="changeEmailForm" ng-if="editEmailSettings">
+                <div class="input-container">
+                    <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
+                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
+                        <span ng-message="hcEqual">Typed email isn't your old email</span>
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <div class="error-container" ng-messages="changeEmailForm.newEmail.$error" ng-show="changeEmailForm.newEmail.$dirty">
+                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-group col-xs-12">
+                        <button class="button accept" ng-click="changeEmail(emailModel)" ng-disabled="!changeEmailForm.$valid">Change</button>
+                        <button class="button cancel" ng-click="cancelChangeEmail()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>

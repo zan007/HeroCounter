@@ -1474,7 +1474,7 @@ function bootstrap(element, modules, config) {
     }]);
 
     if (config.debugInfoEnabled) {
-      // Pushing so that this overrides `debugInfoEnabled` setting defined in user's `modules`.
+      // Pushing so that this overrides `debugInfoEnabled` settings defined in user's `modules`.
       modules.push(['$compileProvider', function($compileProvider) {
         $compileProvider.debugInfoEnabled(true);
       }]);
@@ -4514,7 +4514,7 @@ var $AnimateProvider = ['$provide', function($provide) {
    * Sets and/or returns the CSS class regular expression that is checked when performing
    * an animation. Upon bootstrap the classNameFilter value is not set at all and will
    * therefore enable $animate to attempt to perform an animation on any element.
-   * When setting the classNameFilter value, animations will only be performed on elements
+   * When settings the classNameFilter value, animations will only be performed on elements
    * that successfully match the filter expression. This in turn can boost performance
    * for low-powered devices as well as applications containing a lot of structural operations.
    * @param {RegExp=} expression The className expression which will be checked against all animations
@@ -8553,8 +8553,8 @@ function $HttpProvider() {
    * XSRF token. Defaults value is `'X-XSRF-TOKEN'`.
    *
    * - **`defaults.headers`** - {Object} - Default headers for all $http requests.
-   * Refer to {@link ng.$http#setting-http-headers $http} for documentation on
-   * setting default headers.
+   * Refer to {@link ng.$http#settings-http-headers $http} for documentation on
+   * settings default headers.
    *     - **`defaults.headers.common`**
    *     - **`defaults.headers.post`**
    *     - **`defaults.headers.put`**
@@ -9644,7 +9644,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
         } catch (e) {
           // WebKit added support for the json responseType value on 09/03/2013
           // https://bugs.webkit.org/show_bug.cgi?id=73648. Versions of Safari prior to 7 are
-          // known to throw when setting the value "json" as the response type. Other older
+          // known to throw when settings the value "json" as the response type. Other older
           // browsers implementing the responseType
           //
           // The json response type can be ignored if not supported, because JSON payloads are
@@ -10764,7 +10764,7 @@ var locationPrototype = {
    * @param {string|Object.<string>|Object.<Array.<string>>} search New search params - string or
    * hash object.
    *
-   * When called with a single argument the method acts as a setter, setting the `search` component
+   * When called with a single argument the method acts as a setter, settings the `search` component
    * of `$location` to the specified value.
    *
    * If the argument is a hash object containing an array of values, these values will be encoded
@@ -16014,8 +16014,8 @@ var originUrl = urlResolve(window.location.href, true);
  *
  * IE7 does not normalize the URL when assigned to an anchor node.  (Apparently, it does, if one
  * uses the inner HTML approach to assign the URL as part of an HTML snippet -
- * http://stackoverflow.com/a/472729)  However, setting img[src] does normalize the URL.
- * Unfortunately, setting img[src] to something like "javascript:foo" on IE throws an exception.
+ * http://stackoverflow.com/a/472729)  However, settings img[src] does normalize the URL.
+ * Unfortunately, settings img[src] to something like "javascript:foo" on IE throws an exception.
  * Since the primary usage for normalizing URLs is to sanitize such URLs, we can't use that
  * method and IE < 8 is unsupported.
  *
@@ -18076,7 +18076,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
    * This method can be called to remove the 'ng-touched' class and set the form controls to their
    * untouched state (ng-untouched class).
    *
-   * Setting a form controls back to their untouched state is often useful when setting the form
+   * Setting a form controls back to their untouched state is often useful when settings the form
    * back to its pristine state.
    */
   form.$setUntouched = function () {
@@ -21363,7 +21363,7 @@ function addSetValidityMethod(context) {
 
     // re-read the state as the set/unset methods could have
     // combined state in ctrl.$error[validationError] (used for forms),
-    // where setting/unsetting only increments/decrements the value,
+    // where settings/unsetting only increments/decrements the value,
     // and does not replace it.
     var combinedState;
     if (ctrl.$pending && ctrl.$pending[validationErrorKey]) {

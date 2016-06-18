@@ -1,0 +1,106 @@
+.user-manager {
+    color: white;
+
+    .main-header {
+        font-size: 22px;
+        text-transform: uppercase;
+        margin-top: 20px;
+    }
+
+    .sub-header {
+        font-size: 16px;
+    }
+
+    .users-list {
+        .box-shadow(-4px -5px 13px -1px rgba(0,0,0,0.2));
+        margin-bottom: 20px;
+        margin-top: 20px;
+
+        .list-header {
+            color: #129fdd;
+            font-size: 16px;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            padding: 20px;
+            background-color: #204d7b;
+            .border-radius(5px 5px 0 0);
+        }
+
+        .list-element {
+            margin-bottom: 1px;
+            background-color: rgba(39, 84, 130, 0.9);
+
+            &.active {
+                cursor: pointer;
+            }
+
+             &.opened {
+                cursor: default;
+              }
+
+            .user-info {
+                height: 80px;
+            }
+
+            .user-details{
+                height: 65px;
+                .flex-display();
+
+                .action {
+                    .flex(1 1 0);
+                    .flex-direction(column);
+                    .justify-content(center);
+                }
+            }
+
+            .role {
+                font-size: 20px;
+                color: #b9d5ee;
+            }
+
+            .center-vertically {
+                .flex-display();
+                .flex-direction(row);
+                .justify-content(flex-start);
+                .align-items(center);
+                height: 100%;
+            }
+
+            &:last-child {
+                .border-radius(0 0 5px 5px);
+            }
+
+            .avatar {
+                .border-radius(50%);
+                border: solid 1px #129fdd;
+                width: 45px;
+                margin-right: 10px;
+            }
+
+            .name {
+                display: inline-block;
+            }
+        }
+
+        .list-element:nth-child(odd) {
+            background-color: rgba(39, 84, 130, 0.8);
+
+        }
+
+        .list-legend {
+            height: 50px;
+            text-transform: uppercase;
+            font-size: 15px;
+            padding-left: 5px;
+            background-color: #204d7b;
+            color: #b9d5ee;
+            margin-bottom: 1px;
+        }
+
+        .col-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}

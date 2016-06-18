@@ -1,19 +1,8 @@
-<div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
-    <!-- <div class="header">
-        <button class="menu-toggle" ng-click="$root.opened=!$root.opened"><i class="icon-menu"></i>
-        </button>
-    </div> -->
+<div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-cloak="" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
-    <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
-        <ul>
-            <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">   
-                <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
-            </li>
-        </ul>
-        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
-    </nav>
+    <%include src="menu/menu.html"%>
 
-    <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
+    <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
         <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
     </div>
     <div class="news container-fluid scrollable col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">

@@ -1,0 +1,153 @@
+.settings {
+    color: white;
+    padding-top: 20px;
+
+    .form-checkbox {
+        height: 30px;
+    }
+
+    .header-container {
+        height: 50px;
+    }
+
+    .main-header {
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+
+    .sub-header {
+        font-size: 16px;
+    }
+
+    .main-box, .avatar-box, .token-box, .password-box, .email-box {
+        background-color: rgba(39, 84, 130, 0.9);
+        .border-radius(5px);
+        padding: 25px;
+        margin-top: 20px;
+        opacity: 0.9;
+        min-height: 335px;
+        .box-shadow(-4px -5px 13px -1px rgba(0,0,0,0.2));
+    }
+
+    .button-group {
+        margin-top: 20px;
+    }
+
+    .settings-section {
+        margin-bottom: 10px;
+
+        &.password, &.email {
+            .input-container {
+                text-align: center;
+            }
+
+            .form-input {
+                width: 200px;
+            }
+        }
+
+        .section-header {
+
+            button {
+                margin-left: auto;
+                width: 120px;
+            }
+        }
+
+        .section-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+	        min-height: 45px;
+            color: #b9d5ee;
+        }
+
+        .section-value {
+            padding-left: 10px;
+            color: white;
+        }
+
+        .property-section {
+            .flex-display;
+            margin-top: 10px;
+
+            .property {
+                margin-right: 20px;
+            }
+
+            .property-switcher {
+                margin-left: auto;
+                border-right: 3px dotted #234d78;
+                padding-right: 10px;
+                min-width: 135px;
+
+                .form-checkbox {
+                    margin-left: 10px;
+                }
+
+            }
+        }
+
+        hr {
+            border-top: dotted 3px #234d78;
+        }
+    }
+
+    .additional-box {
+        margin-top: 50px;
+
+        .avatar-box {
+            padding-bottom: 20px;
+        }
+
+        .drop-box-container {
+            width: 100%;
+            height: 153px;
+            border: dashed 2px white;
+            color: white;
+
+            .drop-box-label {
+                font-size: 17px;
+                text-align: center;
+                .flex-display;
+                .justify-content(center);
+                .flex-direction(column);
+                height: 100%;
+            }
+        }
+
+        .crop-area {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        .current-avatar {
+            text-align: center;
+            margin-bottom: 10px;
+
+            img {
+                width: 96px;
+                .border-radius(50%);
+                border: solid 1px #129fdd;
+                margin-bottom: 10px;
+            }
+        }
+
+        .avatar-header {
+            font-size: 16px;
+            color: #b9d5ee;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .token-box {
+            .user-token {
+                font-size: 18px;
+                word-wrap: break-word;
+                margin-top: 20px;
+            }
+        }
+    }
+
+}

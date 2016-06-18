@@ -1,0 +1,83 @@
+.profile {
+  .avatar-box, .about-box {
+	background-color: rgba(39, 84, 130, 0.9);
+	.border-radius(5px);
+	padding: 25px;
+	margin-top: 20px;
+	opacity: 0.9;
+	min-height: 335px;
+	.box-shadow(-4px -5px 13px -1px rgba(0,0,0,0.2));
+  }
+
+  .avatar-box {
+	.avatar {
+	  font-size: 16px;
+	  text-align: center;
+	  color: white;
+
+	  img {
+		width: 150px;
+		height: 150px;
+		display: block;
+		.border-radius(50%);
+		border: solid 1px #129fdd;
+		margin-bottom: 20px;
+	  }
+	}
+  }
+
+  .property-section {
+	.flex-display;
+	margin-top: 10px;
+
+	.property {
+	  margin-right: 20px;
+	}
+
+	.section-label {
+	  font-weight: bold;
+	  margin-bottom: 5px;
+	  min-height: 45px;
+	  color: #b9d5ee;
+	}
+
+	.section-value {
+	  padding-left: 10px;
+	  color: white;
+	}
+  }
+
+  hr {
+	border-top: dotted 3px #234d78;
+  }
+
+  .user-heroes {
+	margin-top: 20px;
+
+	header {
+	  font-size: 18px;
+	  color: white;
+	  margin-top: 20px;
+	  margin-bottom: 20px;
+	  text-transform: uppercase;
+	  margin-left: 15px;
+	}
+
+	.user-hero-tile {
+	  text-align: center;
+	  color: white;
+	  width: 400px;
+	  background-color: rgba(39, 84, 130, 0.9);
+	  .box-shadow(-4px -5px 13px -1px rgba(0, 0, 0, 0.2));
+	  .border-radius(5px);
+	  margin: 20px 20px;
+	  padding: 20px;
+	}
+
+	.user-charts {
+	  .flex-display();
+	  .justify-content(flex-start);
+	  .flex-flow(row wrap);
+	}
+  }
+}

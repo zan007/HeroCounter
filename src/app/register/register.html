@@ -4,11 +4,21 @@
 			<div class="auth-type">SIGNUP</div>
 			<div class="header">CREATE YOUR ACCOUNT</div>
 			<form name="signup-form">
-					<div><input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/></div>
-					<div><input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/></div>
-					<div><input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/></div>
-					<div><input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/></div>
-					<div><input class="form-input" ng-model="registerData.name" placeholder="NAME"/></div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.name" placeholder="NAME"/>
+					</div>
 					<button class="button" ng-click="register(registerData)">SIGNUP</button>
 			</form>
 		</div>

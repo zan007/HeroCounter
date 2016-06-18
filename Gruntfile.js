@@ -37,11 +37,11 @@ module.exports = function (grunt) {
         spawn: false
       },
       build: {
-        files: ['src/*.*', 'src/app/**', 'src/css/**/*.css', 'src/css/*.less', 'src/meta/**'],
+        files: ['src/*.*', 'src/app/**', 'src/css/**/*.less', 'src/css/*.less', 'src/meta/**'],
         tasks: ['clean:app', 'copy:app', 'less:build', 'htmlrender:build']
       },
       release: {
-        files: ['src/*.*', 'src/app/**', 'src/css/*.css', 'src/css/*.less', 'src/meta/**'],
+        files: ['src/*.*', 'src/app/**', 'src/css/*.less', 'src/css/*.less', 'src/meta/**'],
         tasks: ['clean:app', 'uglify:app', 'less:release', 'htmlrender:release']
       }
     },

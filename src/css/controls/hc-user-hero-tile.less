@@ -1,0 +1,67 @@
+.user-hero-tile {
+  .flex-display();
+
+  .background {
+	fill-opacity: 0;
+  }
+  .component {
+	fill: rgba(39,84,130,0.5);
+  }
+  .arcs {
+	fill: #f00;
+  }
+  .inner-arc {
+	fill: #4e8fff;
+  }
+  .outer-arc {
+	fill: #129fdd;
+  }
+
+  .radial-svg {
+	width: 150px;
+  }
+
+  .radial-chart {
+	position: relative;
+	.justify-content(flex-start);
+  }
+
+  .description {
+	.flex(1 1 auto);
+	margin: auto 0;
+  }
+
+  .summary-battles {
+	position: absolute;
+	height: 100%;
+	width: 150px;
+	.flex-direction(column);
+	.flex-display();
+	.justify-content(center);
+
+	.indicator {
+	  height: 47px;
+	  color: #129fdd;
+	  .flex-display();
+	  margin: 0 auto;
+
+	  .count {
+		font-size: 44px;
+	  }
+
+	  .summary-count {
+		font-size: 30px;
+		letter-spacing: -4px;
+	  }
+	}
+  }
+
+  .hero-name, .hero-lvl {
+	font-size: 16px;
+	line-height: 25px;
+  }
+
+  .hero-name {
+	color: #129fdd;
+  }
+}

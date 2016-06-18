@@ -77,33 +77,9 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 					battleCallback();
 					if (err) throw err;
 				});
-				/*connection.query('select * from place where id = ?', currentBattle.placeId, function(err, rows) {
-				 if(err) throw err;
-
-				 place = rows[0];
-				 });
-				 connection.query('select * from creature where id = ?', currentBattle.creatureId, function(err, rows) {
-				 if(err) throw err;
-
-				 creature = rows[0];
-				 });
-				 connection.query('select hero.* from hero left join heroBattle on heroBattle.heroId = hero.id and herobattle.id = ?', currentBattle.id, function(err, rows) {
-				 if(err) throw err;
-
-				 for(var j = 0, len = rows.length; i < len; i++){
-				 group.push(rows[i]);
-				 }
-				 });
-				 events[i] = {
-				 id: currentBattle.id,
-				 place: place,
-				 creature: creature,
-				 battleDate: battleDate,
-				 group: group
-				 }*/
-
 			}, function(err, result) {
 				console.log('po battleCallback', events, result);
+				connection.release();
 				var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
 
 				cb(null, sortedEvents);

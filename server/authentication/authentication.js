@@ -8,8 +8,8 @@ var bcrypt = require('bcrypt-nodejs'),
 	LocalStrategy = require('passport-local').Strategy,
 	mailer = require('./../mailer');
 //var connection = mysql.createConnection(databaseConfig.details);
-
-if(process.argv[2] === 'remote') {
+console.log('duuuuuuuuuupa', pool);
+/*if(process.argv[2] === 'remote') {
     pool = mysql.createPool({
       connectionLimit: 50,
       host: databaseConfig.details.host,
@@ -26,7 +26,7 @@ if(process.argv[2] === 'remote') {
       password: databaseConfig.homeDetails.password,
       database: databaseConfig.homeDetails.database
     });
-}
+}*/
 
 var generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

@@ -10,7 +10,6 @@ var express = require('express'),
     async = require('async'),
     gen = require('./gen'),
     mysql = require('mysql'),
-    authentication = require('./authentication/authentication'),
     passport = require('passport'),
     flash    = require('connect-flash'),
     moment = require('moment'),
@@ -54,8 +53,9 @@ if(process.argv[2] === 'remote') {
         multipleStatements: true
     });
 }
-
-require('./authentication/authentication')(passport);
+pool.on('enqueue', function () {
+	console.log('Waiting for available connection slot');
+});
 
 app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
 app.use('/css', express.static(path.join(__dirname, srcDir, 'css')));
@@ -83,7 +83,7 @@ var setEventHandlers = function() {
 			socketUserCounter--;
 			socket.disconnect(true);
 			pool.getConnection(function(err, connection){
-				connection.destroy();
+				connection.release();
 			});
 			console.log('user disconnected ', socketUserCounter);
 		});
@@ -118,7 +118,8 @@ var creatureService = require('./creature/creature-service');
 var eventService = require('./event/event-service');
 var userProfileService = require('./user/user-profile-service');
 var settingsService = require('./settings/settings-service');
-
+var authentication = require('./authentication/authentication');
+require('./authentication/authentication')(passport);
 var socketUserCounter = 0;
 
 

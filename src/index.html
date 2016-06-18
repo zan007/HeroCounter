@@ -7,16 +7,16 @@
   <link rel="stylesheet" type="text/css" href="<%=stylesPath%>">
   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
 
-  <%include src="meta/loader.html"%>  
+  <%include src="meta/loader.html"%>
+  <%include src="meta/<%=scriptsPath%>"%>
+  <%include src="app/app.html"%>
 </head>
 <body>
+    <%include src="app/splash/splash.html"%>
   <%template id="/heroes" src="app/heroes/heroes.html"%>
   <%template id="/" src="app/login/login.html"%>
   <%template id="/register" src="app/register/register.html"%>
   <%template id="/heroes" src="app/heroes/heroes.html"%>
-  <%template id="/event-heroes" src="app/heroes/event-heroes.html"%>
-  <%template id="/event-titans" src="app/titans/event-titans.html"%>
-  <%template id="/titans" src="app/titans/titans.html"%>
   <%template id="/settings" src="app/settings/settings.html"%>
   <%template id="/user-manager" src="app/user-manager/user-manager.html"%>
   <%template id="/basic" src="app/basic.html"%>
@@ -27,26 +27,5 @@
   <%template id="hc-events-timeline" src="app/common/controls/hc-events-timeline/hc-events-timeline.html"%>
   <%template id="hc-user-hero-tile" src="app/common/controls/hc-user-hero-tile/hc-user-hero-tile.html"%>
   <%template id="hc-pretty-time" src="app/common/controls/hc-pretty-time/hc-pretty-time.html"%>
-  <%include src="app/app.html"%>  
-  
-  <%include src="meta/<%=scriptsPath%>"%>
-  <script>
-    $script.ready('angular', function() {
-      console.log('angular ready');
-      $script.ready('scripts', function(){
-        console.log('scripts ready');
-
-          $script.ready('angular-ui-router', function () {
-              console.log('angular ui ready');
-              $script.ready('app', function() {
-                  console.log('app ready');
-                  angular.bootstrap(document, ['heroCounter']);
-                  //angular.bootstrap(document, ['heroCounter']);
-              });
-          });
-      });
-      
-    });
-  </script>
 </body>
 </html>

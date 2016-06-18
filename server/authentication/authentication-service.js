@@ -75,6 +75,7 @@ app.post('/changePassword', function(req, res) {
 
 						});
 					} else {
+						connection.release();
 						res.status(500).send();
 					}
 				});

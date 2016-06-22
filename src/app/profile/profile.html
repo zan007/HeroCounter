@@ -43,6 +43,19 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <div class="favorites-creatures">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Favourite</h2>
+                            <h1>Creatures</h1>
+                        </div>
+                    </header>
+                    <div hc-stripe-chart="userProfileModel"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-12">
                 <div class="user-heroes">
                     <header class="section-header">
@@ -53,11 +66,9 @@
                     </header>
                     <div class="row user-charts">
                         <div ng-repeat="mainHero in userProfileModel.mainHeroes">
-                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                           <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
                         </div>
-                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
-                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
-                        </div>
+
                     </div>
                 </div>
             </div>

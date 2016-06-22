@@ -67,6 +67,7 @@ $script.ready('vendors', function() {
 '/app/common/controls/hc-events-timeline/hc-events-timeline.js',
 '/app/common/controls/hc-not-equal/hc-not-equal.js',
 '/app/common/controls/hc-pretty-time/hc-pretty-time.js',
+'/app/common/controls/hc-stripe-chart/hc-stripe-chart.js',
 '/app/common/controls/hc-user-hero-tile/hc-user-hero-tile.js',
 '/app/common/controls/hc-validation-pattern/hc-validation-pattern.js',
 '/app/common/controls/ng-enter/ng-enter.js',
@@ -141,7 +142,7 @@ $script.ready('app', function() {
 
 </head>
 <body>
-    <div class="splash-screen" ng-cloak="">
+  <div class="splash-screen" ng-cloak="">
     <div class="splash-container">
         <div class="splash"></div>
     </div>
@@ -760,6 +761,19 @@ $script.ready('app', function() {
             </div>
         </div>
         <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <div class="favorites-creatures">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Favourite</h2>
+                            <h1>Creatures</h1>
+                        </div>
+                    </header>
+                    <div hc-stripe-chart="userProfileModel"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-12">
                 <div class="user-heroes">
                     <header class="section-header">
@@ -770,11 +784,9 @@ $script.ready('app', function() {
                     </header>
                     <div class="row user-charts">
                         <div ng-repeat="mainHero in userProfileModel.mainHeroes">
-                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                           <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
                         </div>
-                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
-                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -914,7 +926,13 @@ $script.ready('app', function() {
     <div class="description">
         <div class="hero-name">{{hero.heroName}}</div>
         <div class="hero-lvl">Lvl: {{hero.lvl}}</div>
+        <hr>
+        <div class="summary-percent" ng-bind="summaryPercent"></div>
+        <div class="percent-description">of all battles on this hero group</div>
     </div>
+</div></script>
+  <script id="hc-stripe-chart" type="text/ng-template"><div class="hc-stripe-chart">
+
 </div></script>
   <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
     <span ng-show="fullDate">

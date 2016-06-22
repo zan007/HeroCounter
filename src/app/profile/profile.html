@@ -1,27 +1,21 @@
 <div ng-controller="profileCtrl" class="row profile full-height">
     <div class="container-fluid full-height">
         <div class="row">
-            <div class="col-md-12 col-lg-6">
+            <div class="col-md-12 col-lg-5">
                 <div class="avatar-box center-vertically">
-                    <div ng-class="{'multiple-avatars': userProfileModel.guestUser}">
-                        <div class="avatar">
-                            <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
-                            <div class="guest-avatar" ng-click="goToUserProfile(userProfileModel.guestUser.id)" ng-if="userProfileModel.guestUser">
-                                <img ng-src="{{userProfileModel.guestUser.avatar}}"/>
-                                <div class="name" ng-bind="userProfileModel.guestUser.name"></div>
-                            </div>
-                            <div class="name" ng-bind="userProfileModel.name"></div>
-                            <div class="role">{{userProfileModel.isAdministrator ? '_(administrator)': '_(user)'}}</div>
-                        </div>
+                    <div class="avatar">
+                        <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
+                        <div class="name" ng-bind="userProfileModel.name"></div>
+                        <div class="role">{{userProfileModel.isAdministrator ? 'Administrator': 'User'}}</div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-6">
+            <div class="col-md-12 col-lg-7">
                 <div class="about-box">
                     <header class="section-header">
                         <div class="description">
-                            <h2>_(profile)</h2>
-                            <h1>_(settings.contact)</h1>
+                            <h2>Profile</h2>
+                            <h1>Contact</h1>
                         </div>
                     </header>
                     <hr/>
@@ -29,18 +23,18 @@
                         <div class="col-xs-6">
                             <div class="property-section">
                                 <div class="property">
-                                    <div class="section-label">_(settings.contact.gg)</div>
-                                    <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.gg"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.gg">_(profile.contact.numberNotAllowed)</div>
+                                    <div class="section-label">GG number</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.ggVisible"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.ggVisible">User not allowed to display them</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="property-section">
                                 <div class="property">
-                                    <div class="section-label">_(settings.contact.phone)</div>
-                                    <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phone"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.phone">_(profile.contact.numberNotAllowed)</div>
+                                    <div class="section-label">Phone number</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phoneVisible"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.phoneVisible">User not allowed to display them</div>
                                 </div>
                             </div>
                         </div>
@@ -49,55 +43,50 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-lg-6">
+            <div class="col-xs-12 col-md-8">
                 <div class="favorites-creatures">
                     <header class="section-header">
                         <div class="description">
-                            <h2>_(profile.favorite.creatures)</h2>
-                            <h1>_(profile.creatures)</h1>
+                            <h2>Favourite</h2>
+                            <h1>Creatures</h1>
                         </div>
                     </header>
-                    <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount" tooltip-label="_(profile.stripeChart.tooltip)"></div>
+                    <div hc-stripe-chart="userProfileModel"></div>
                 </div>
             </div>
-            <div class="col-xs-12 col-lg-6">
-                <div class="favorite-time">
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-heroes">
                     <header class="section-header">
                         <div class="description">
-                            <h2>_(profile.favorite.timeOfDay)</h2>
-                            <h1>_(profile.timeOfDay)</h1>
+                            <h2>Main</h2>
+                            <h1>Heroes</h1>
                         </div>
                     </header>
-                    <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="user-heroes">
-                <header class="section-header">
-                    <div class="description">
-                        <h2>_(profile.main)</h2>
-                        <h1>_(profile.main.heroes)</h1>
-                    </div>
-                </header>
-                <div class="user-charts">
-                    <div ng-repeat="mainHero in userProfileModel.mainHeroes" class="col-md-12 col-lg-6">
-                        <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                    <div class="row user-charts">
+                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
+                           <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="user-heroes">
-                <header class="section-header">
-                    <div class="description">
-                        <h2>_(profile.guest)</h2>
-                        <h1>_(profile.guest.heroes)</h1>
-                    </div>
-                </header>
-                <div class="user-charts">
-                    <div ng-repeat="guestHero in userProfileModel.guestHeroes" class="col-md-12 col-lg-6">
-                        <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+            <div class="col-xs-12">
+                <div class="user-heroes">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Guest</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row user-charts">
+                        <div ng-repeat="guestHero in userProfileModel.guestHeroes">
+                            <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+                        </div>
                     </div>
                 </div>
             </div>

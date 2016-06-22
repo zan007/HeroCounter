@@ -13,14 +13,9 @@
 @import (less) "forms.less";
 @import (less) "user-manager.less";
 @import (less) "controls/hc-creature-tile.less";
-@import (less) "controls/hc-creature-battle-tile.less";
 @import (less) "controls/hc-events-timeline.less";
 @import (less) "controls/hc-user-hero-tile.less";
 @import (less) "controls/hc-stripe-chart.less";
-@import (less) "controls/hc-pie-chart.less";
-@import (less) "controls/hc-time-picker.less";
-@import (less) "controls/hc-top-chart.less";
 @import (less) "vendor/angular-ui-notification.css";
 @import (less) "vendor/rzslider.min.css";
 @import (less) "vendor/ng-img-crop.css";
-@import (less) "vendor/pikaday.css";

@@ -26,6 +26,7 @@ $script.ready('angular', function() {
 		'controls.hcEqual',
 		'controls.hcNotEqual',
 		'controls.hcUserHeroTile',
+		'controls.hcStripeChart',
 		'avatarService',
 		'ngImgCrop'
 	])

@@ -1313,7 +1313,7 @@ ul {
   padding: 25px;
   margin-top: 20px;
   opacity: 0.9;
-  min-height: 335px;
+  min-height: 270px;
   -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
@@ -1356,6 +1356,18 @@ ul {
 }
 .profile hr {
   border-top: dotted 3px #234d78;
+}
+.profile .favorites-creatures {
+  height: 350px;
+  background-color: rgba(39, 84, 130, 0.9);
+  padding: 25px 10px 0 25px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.profile .favorites-creatures .hc-stripe-chart {
+  height: 250px;
 }
 .profile .user-heroes {
   margin-top: 20px;
@@ -1837,6 +1849,20 @@ ul {
   flex: 1 1 auto;
   margin: auto 0;
 }
+.user-hero-tile .description hr {
+  border: solid 1px white;
+  opacity: 0.1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 90%;
+}
+.user-hero-tile .description .percent-description {
+  font-size: 16px;
+}
+.user-hero-tile .description .summary-percent {
+  color: #129fdd;
+  font-size: 30px;
+}
 .user-hero-tile .summary-battles {
   position: absolute;
   height: 100%;
@@ -1879,6 +1905,43 @@ ul {
 }
 .user-hero-tile .hero-name {
   color: #129fdd;
+}
+.hc-stripe-chart path.line {
+  fill: none;
+  stroke: #12aaeb;
+  stroke-width: 3;
+}
+.hc-stripe-chart path.area {
+  fill: none;
+}
+.hc-stripe-chart .axis {
+  shape-rendering: crispEdges;
+}
+.hc-stripe-chart .x.axis path {
+  display: none;
+}
+.hc-stripe-chart .x.axis line.y {
+  stroke-width: 1px;
+  stroke-opacity: 0.6;
+  stroke-dasharray: 5,5;
+}
+.hc-stripe-chart .y.axis path,
+.hc-stripe-chart .y.axis line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 1px;
+  stroke-opacity: 0.06;
+  stroke-dasharray: 5,5;
+}
+.hc-stripe-chart .chart-circle {
+  stroke: #008cdd;
+  stroke-width: 3px;
+  fill: rgba(39, 84, 130, 0.9);
+  r: 8px;
+}
+.hc-stripe-chart .x.axis,
+.hc-stripe-chart .y.axis {
+  fill: #4276aa;
 }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

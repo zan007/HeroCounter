@@ -769,42 +769,37 @@ $script.ready('app', function() {
                             <h1>Creatures</h1>
                         </div>
                     </header>
-                    <div hc-stripe-chart="userProfileModel"></div>
+                    <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount"></div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12">
-                <div class="user-heroes">
-                    <header class="section-header">
-                        <div class="description">
-                            <h2>Main</h2>
-                            <h1>Heroes</h1>
-                        </div>
-                    </header>
-                    <div class="row user-charts">
-                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
-                           <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
-                        </div>
-
+            <div class="user-heroes">
+                <header class="section-header">
+                    <div class="description">
+                        <h2>Main</h2>
+                        <h1>Heroes</h1>
                     </div>
+                </header>
+                <div class="user-charts">
+                    <div ng-repeat="mainHero in userProfileModel.mainHeroes" class="col-md-12 col-lg-6">
+                        <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                    </div>
+
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12">
-                <div class="user-heroes">
-                    <header class="section-header">
-                        <div class="description">
-                            <h2>Guest</h2>
-                            <h1>Heroes</h1>
-                        </div>
-                    </header>
-                    <hr/>
-                    <div class="row user-charts">
-                        <div ng-repeat="guestHero in userProfileModel.guestHeroes">
-                            <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
-                        </div>
+            <div class="user-heroes">
+                <header class="section-header">
+                    <div class="description">
+                        <h2>Guest</h2>
+                        <h1>Heroes</h1>
+                    </div>
+                </header>
+                <div class="user-charts">
+                    <div ng-repeat="guestHero in userProfileModel.guestHeroes" class="col-md-12 col-lg-6">
+                        <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
                     </div>
                 </div>
             </div>
@@ -932,7 +927,6 @@ $script.ready('app', function() {
     </div>
 </div></script>
   <script id="hc-stripe-chart" type="text/ng-template"><div class="hc-stripe-chart">
-
 </div></script>
   <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
     <span ng-show="fullDate">

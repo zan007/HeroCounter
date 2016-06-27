@@ -2,18 +2,22 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 .directive('hcStripeChart', ['$rootScope', 'dataSource', '$window', function($rootScope, dataSource, $window) {
 	return {
 		scope: {
-			data: '=hcStripeChart'
+			data: '=hcStripeChart',
+			nameField: '@',
+			valueField: '@'
 		},
 		restriction: 'E',
 		replace: 'true',
 		templateUrl: 'hc-stripe-chart',
 		link: function($scope, $elem) {
-			var data = [{"end_time":"Renegat","value":25.00},{"end_time":"Kocha","value":0.00},{"end_time":"Zoons","value":25.00}, {"end_time":"Orlica","value":125.00}];
-			var stripeChart = function(element, width, height) {
+
+			var stripeChart = function(element, data, width, height) {
 				var d3 = window.d3;
 				var component = {};
+				var nameField = $scope.nameField;
+				var valueField = $scope.valueField;
 
-				var m = [30, 120, 50, 80],
+				var m = [10, 70, 90, 20],
 					w = width - m[1] - m[3],
 					h = height - m[0] - m[2];
 
@@ -25,36 +29,61 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 				var area = d3.svg.area()
 					.interpolate("ordinal")
 					.x(function (d) {
-						return x(d.end_time);
+						return x(d[nameField]);
 					})
 					.y0(h)
 					.y1(function (d) {
-						return y(d.value);
+						return y(d[valueField]);
 					});
 
 				var line = d3.svg.line()
 					.interpolate("linear")
 					.x(function (d) {
-						return x(d.end_time);
+						return x(d[nameField]);
 					})
 					.y(function (d) {
-						return y(d.value);
+						return y(d[valueField]);
 					});
 
 				data.forEach(function (d) {
-					d.end_time = d.end_time;
-					d.value = +d.value;
+					d[nameField] = d[nameField];
+					d[valueField] =+ d[valueField];
 				});
 
 				var total = 0
 				for (var i = 0, len = data.length; i < len; i++) {
-					total += data[i].value;
+					total += data[i].valueField;
 				}
 
-				x.domain(data.map(function(d) { return d.end_time; }));
+				x.domain(data.map(function(d) { return d[nameField]; }));
 				y.domain([0, d3.max(data, function (d) {
-					return d.value;
+					return d[valueField];
 				})]).nice();
+
+				function wrap(text, width) {
+					text.each(function() {
+						var text = d3.select(this),
+							words = text.text().split(/\s+/).reverse(),
+							word,
+							line = [],
+							lineNumber = 0,
+							lineHeight = 1.1, // ems
+							y = text.attr("y"),
+							dy = parseFloat(text.attr("dy")),
+							tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+						while (word = words.pop()) {
+							line.push(word);
+							tspan.text(line.join(" "));
+							if (tspan.node().getComputedTextLength() > width) {
+								line.pop();
+								tspan.text(line.join(" "));
+								line = [word];
+								tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+							}
+						}
+					});
+				}
+
 				component.render = function() {
 					if(d3.select('svg')){
 						d3.select('svg').remove();
@@ -72,8 +101,11 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 
 					svg.append("svg:g")
 						.attr("class", "x axis")
-						.attr("transform", "translate(1," + (h + 15) + ")")
-						.call(xAxis);
+						.attr("transform", "translate(40," + (h + 25) + ")")
+						.call(xAxis)
+						.selectAll("text")
+						.call(wrap, x.rangeBand())
+						.attr("transform", "rotate(65)");
 
 					svg.append("svg:g")
 						.attr("class", "y axis")
@@ -122,25 +154,33 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 						.enter().append("circle")
 							.attr('class', 'chart-circle')
 						.attr('cx', function (d) {
-							return x(d.end_time);
+							return x(d[nameField]);
 						})
 						.attr('cy', function (d) {
-							return y(d.value);
+							return y(d[valueField]);
 						});
 
-				}
+				};
 				return component;
-			}
+			};
+
 			angular.element($window).bind('resize', function() {
 				console.log('resize');
 				var width = $elem.prop('offsetWidth');
 				var height = $elem.prop('offsetHeight');
-				stripeChart($elem[0], width, height).render();
+				//stripeChart($elem[0], $scope.data, width, height).render();
 			});
-
+			console.log($scope.data);
 			var width = $elem.prop('offsetWidth');
 			var height = $elem.prop('offsetHeight');
-			stripeChart($elem[0], width, height).render();
+			/*chartData = prepareData();
+			stripeChart($elem[0], chartData, width, height).render();*/
+
+			$scope.$watch('data', function(newVal, oldVal){
+				if(newVal !== oldVal){
+					stripeChart($elem[0], $scope.data, width, height).render();
+				}
+			});
 		}
 	};
 }]);

@@ -23,11 +23,11 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 
 				var x = d3.scale.ordinal().rangePoints([0, w]),
 					y = d3.scale.linear().range([h, 0]),
-					xAxis = d3.svg.axis().scale(x).orient("bottom"),
-					yAxis = d3.svg.axis().scale(y).ticks(2).orient("right");
+					xAxis = d3.svg.axis().scale(x).orient('bottom'),
+					yAxis = d3.svg.axis().scale(y).ticks(2).orient('right');
 
 				var area = d3.svg.area()
-					.interpolate("ordinal")
+					.interpolate('ordinal')
 					.x(function (d) {
 						return x(d[nameField]);
 					})
@@ -37,7 +37,7 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 					});
 
 				var line = d3.svg.line()
-					.interpolate("linear")
+					.interpolate('linear')
 					.x(function (d) {
 						return x(d[nameField]);
 					})
@@ -50,7 +50,7 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 					d[valueField] =+ d[valueField];
 				});
 
-				var total = 0
+				var total = 0;
 				for (var i = 0, len = data.length; i < len; i++) {
 					total += data[i].valueField;
 				}
@@ -68,17 +68,17 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 							line = [],
 							lineNumber = 0,
 							lineHeight = 1.1, // ems
-							y = text.attr("y"),
-							dy = parseFloat(text.attr("dy")),
-							tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+							y = text.attr('y'),
+							dy = parseFloat(text.attr('dy')),
+							tspan = text.text(null).append('tspan').attr('x', 0).attr('y', y).attr('dy', dy + 'em');
 						while (word = words.pop()) {
 							line.push(word);
-							tspan.text(line.join(" "));
+							tspan.text(line.join(' '));
 							if (tspan.node().getComputedTextLength() > width) {
 								line.pop();
-								tspan.text(line.join(" "));
+								tspan.text(line.join(' '));
 								line = [word];
-								tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+								tspan = text.append('tspan').attr('x', 0).attr('y', y).attr('dy', ++lineNumber * lineHeight + dy + 'em').text(word);
 							}
 						}
 					});
@@ -89,69 +89,69 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 						d3.select('svg').remove();
 					}
 
-					var svg = d3.select(element).append("svg:svg")
-						.attr("width", w + m[1] + m[3])
-						.attr("height", h + m[0] + m[2])
-						.append("svg:g")
-						.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+					var svg = d3.select(element).append('svg:svg')
+						.attr('width', w + m[1] + m[3])
+						.attr('height', h + m[0] + m[2])
+						.append('svg:g')
+						.attr('transform', 'translate(' + m[3] + ',' + m[0] + ')');
 
-					svg.append("svg:path")
-						.attr("class", "area")
-						.attr("d", area(data));
+					svg.append('svg:path')
+						.attr('class', 'area')
+						.attr('d', area(data));
 
-					svg.append("svg:g")
-						.attr("class", "x axis")
-						.attr("transform", "translate(40," + (h + 25) + ")")
+					svg.append('svg:g')
+						.attr('class', 'x axis')
+						.attr('transform', 'translate(40,' + (h + 25) + ')')
 						.call(xAxis)
-						.selectAll("text")
+						.selectAll('text')
 						.call(wrap, x.rangeBand())
-						.attr("transform", "rotate(65)");
+						.attr('transform', 'rotate(65)');
 
-					svg.append("svg:g")
-						.attr("class", "y axis")
-						.attr("transform", "translate(" + (w + 15) + ",0)")
+					svg.append('svg:g')
+						.attr('class', 'y axis')
+						.attr('transform', 'translate(' + (w + 15) + ',0)')
 						.call(yAxis);
 
-					svg.selectAll("line.y")
+					svg.selectAll('line.y')
 						.data(y.ticks(2))
-						.enter().append("line")
-						.attr("x1", 0)
-						.attr("x2", w)
-						.attr("y1", y)
-						.attr("y2", y)
-						.style("stroke", "#000000")
-						.style("stroke-dasharray", "5,5")
-						.style("stroke-opacity", 0.1);
+						.enter().append('line')
+						.attr('x1', 0)
+						.attr('x2', w)
+						.attr('y1', y)
+						.attr('y2', y)
+						.style('stroke', '#000000')
+						.style('stroke-dasharray', '5,5')
+						.style('stroke-opacity', 0.1);
 
-					svg.append("svg:path")
-						.attr("class", "line")
-						.attr("d", line(data));
+					svg.append('svg:path')
+						.attr('class', 'line')
+						.attr('d', line(data));
 
-					/*svg.append("svg:text")
-						.attr("x", 80)
-						.attr("y", -10)
-						.attr("text-anchor", "end")
-						.style("stroke", "#444")
-						.style("fill", "#000")
-						.style("stroke-width", .2)
-						.style("font-size", "12px")
-						.style("font-weight", "bold");
+					/*svg.append('svg:text')
+						.attr('x', 80)
+						.attr('y', -10)
+						.attr('text-anchor', 'end')
+						.style('stroke', '#444')
+						.style('fill', '#000')
+						.style('stroke-width', .2)
+						.style('font-size', '12px')
+						.style('font-weight', 'bold');
 
-					svg.append("svg:text")
-						.attr("x", w)
-						.attr("y", -10)
-						.attr("text-anchor", "end")
-						.text('$' + total.toFixed(2) + " total")
-						.style("stroke", "#008cdd")
-						.style("fill", "#008cdd")
-						.style("stroke-width", .2)
-						.style("font-size", "12px")
-						.style("font-weight", "bold");*/
+					svg.append('svg:text')
+						.attr('x', w)
+						.attr('y', -10)
+						.attr('text-anchor', 'end')
+						.text('$' + total.toFixed(2) + ' total')
+						.style('stroke', '#008cdd')
+						.style('fill', '#008cdd')
+						.style('stroke-width', .2)
+						.style('font-size', '12px')
+						.style('font-weight', 'bold');*/
 
 
-						svg.selectAll("circle")
+						svg.selectAll('circle')
 						.data(data)
-						.enter().append("circle")
+						.enter().append('circle')
 							.attr('class', 'chart-circle')
 						.attr('cx', function (d) {
 							return x(d[nameField]);
@@ -168,7 +168,7 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 				console.log('resize');
 				var width = $elem.prop('offsetWidth');
 				var height = $elem.prop('offsetHeight');
-				//stripeChart($elem[0], $scope.data, width, height).render();
+				stripeChart($elem[0], $scope.data, width, height).render();
 			});
 			console.log($scope.data);
 			var width = $elem.prop('offsetWidth');

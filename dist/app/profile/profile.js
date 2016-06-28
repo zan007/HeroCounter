@@ -3,6 +3,8 @@ angular.module('profile', ['dataSource'])
 	console.log('profileCtrl');
 	$scope.defaultAvatarLink = defaultAvatar.link;
 	$scope.userProfileModel = {};
+	$scope.stripeChartData = [];
+	$scope.pieChartData = [];
 
 	function compareBattleCount(a, b) {
 		if (a.creatureBattleCount > b.creatureBattleCount)
@@ -11,7 +13,28 @@ angular.module('profile', ['dataSource'])
 			return 1;
 		return 0;
 	}
-
+	var preparePieChartData = function(){
+		var guestDateMap = $scope.userProfileModel.guestHeroStats.dateMap,
+			mainDateMap = $scope.userProfileModel.mainHeroStats.dateMap,
+			chartData = [
+				{
+					value: guestDateMap.morning + mainDateMap.morning+20,
+					label: 'morning'
+				},{
+					value: guestDateMap.afternoon + mainDateMap.afternoon+40,
+					label: 'afternoon'
+				},{
+					value: guestDateMap.evening + mainDateMap.evening+60,
+					label: 'evening'
+				},{
+					value: guestDateMap.night + mainDateMap.night+80,
+					label: 'night'
+				}
+			];
+		console.log(chartData, 'piechartdata');
+		return chartData;
+	};
+	
 	var prepareStripeChartData = function(){
 		var chartData = [];
 		var sortedData = [];
@@ -51,7 +74,7 @@ angular.module('profile', ['dataSource'])
 		dataSource.getUserProfile($stateParams.userId).then(function (data) {
 			$scope.userProfileModel = data;
 			$scope.stripeChartData = prepareStripeChartData();
-
+			$scope.pieChartData = preparePieChartData();
 		});
 	}
 }]);

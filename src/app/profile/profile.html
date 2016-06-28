@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-md-8">
+            <div class="col-xs-12 col-lg-7">
                 <div class="favorites-creatures">
                     <header class="section-header">
                         <div class="description">
@@ -52,6 +52,17 @@
                         </div>
                     </header>
                     <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-5">
+                <div class="favorite-time">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Favourite</h2>
+                            <h1>Time of the day</h1>
+                        </div>
+                    </header>
+                    <div hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
                 </div>
             </div>
         </div>

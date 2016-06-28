@@ -16,6 +16,7 @@
 @import (less) "controls/hc-events-timeline.less";
 @import (less) "controls/hc-user-hero-tile.less";
 @import (less) "controls/hc-stripe-chart.less";
+@import (less) "controls/hc-pie-chart.less";
 @import (less) "vendor/angular-ui-notification.css";
 @import (less) "vendor/rzslider.min.css";
 @import (less) "vendor/ng-img-crop.css";

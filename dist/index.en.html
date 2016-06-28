@@ -66,6 +66,7 @@ $script.ready('vendors', function() {
 '/app/common/controls/hc-equal/hc-equal.js',
 '/app/common/controls/hc-events-timeline/hc-events-timeline.js',
 '/app/common/controls/hc-not-equal/hc-not-equal.js',
+'/app/common/controls/hc-pie-chart/hc-pie-chart.js',
 '/app/common/controls/hc-pretty-time/hc-pretty-time.js',
 '/app/common/controls/hc-stripe-chart/hc-stripe-chart.js',
 '/app/common/controls/hc-user-hero-tile/hc-user-hero-tile.js',
@@ -761,7 +762,7 @@ $script.ready('app', function() {
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-md-8">
+            <div class="col-xs-12 col-lg-7">
                 <div class="favorites-creatures">
                     <header class="section-header">
                         <div class="description">
@@ -770,6 +771,17 @@ $script.ready('app', function() {
                         </div>
                     </header>
                     <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-5">
+                <div class="favorite-time">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Favourite</h2>
+                            <h1>Time of the day</h1>
+                        </div>
+                    </header>
+                    <div hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
                 </div>
             </div>
         </div>
@@ -935,6 +947,8 @@ $script.ready('app', function() {
 	    <span class="year">{{year}}</span> 
     </span>
     <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
+</div></script>
+  <script id="hc-pie-chart" type="text/ng-template"><div class="hc-pie-chart">
 </div></script>
 </body>
 </html>

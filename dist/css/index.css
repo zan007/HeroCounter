@@ -1357,7 +1357,8 @@ ul {
 .profile hr {
   border-top: dotted 3px #234d78;
 }
-.profile .favorites-creatures {
+.profile .favorites-creatures,
+.profile .favorite-time {
   height: 350px;
   background-color: rgba(39, 84, 130, 0.9);
   padding: 25px 10px 0 25px;
@@ -1365,6 +1366,17 @@ ul {
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin-top: 20px;
+}
+.profile .favorite-time .hc-pie-chart {
+  height: 230px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+}
+.profile .favorite-time .hc-pie-chart svg {
+  margin: auto;
 }
 .profile .favorites-creatures .hc-stripe-chart {
   height: 250px;
@@ -1383,6 +1395,7 @@ ul {
 .profile .user-heroes .user-hero-tile {
   text-align: center;
   color: white;
+  margin-bottom: 20px;
   background-color: rgba(39, 84, 130, 0.9);
   -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
@@ -1390,7 +1403,6 @@ ul {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  height: 100%;
   padding: 20px;
 }
 .profile .user-heroes .user-charts {
@@ -1942,6 +1954,50 @@ ul {
 .hc-stripe-chart .x.axis,
 .hc-stripe-chart .y.axis {
   fill: #4276aa;
+}
+.hc-pie-chart {
+  /*.stop-left {
+	stop-color: #f1ab62;
+  }
+
+  .stop-center-left {
+	stop-color: #f1ab62;
+  }
+
+  .stop-right {
+	stop-color: #efa250;
+  }
+
+  .stop-center-right {
+	stop-color: #efa250;
+  }
+
+  .filled {
+	fill: url(#mainGradient);
+  }*/
+}
+.hc-pie-chart .inner-circle {
+  fill: #275482;
+}
+.hc-pie-chart .slice {
+  stroke: #275482;
+  stroke-width: 1;
+}
+.hc-pie-chart .slice:first-child {
+  fill: #d2d7da;
+}
+.hc-pie-chart .slice:nth-child(2) {
+  fill: #efa250;
+}
+.hc-pie-chart .slice:nth-child(3) {
+  fill: #3498db;
+}
+.hc-pie-chart .slice:nth-child(4) {
+  fill: #b3bdbf;
+}
+.hc-pie-chart .chart-label {
+  font-size: 1em;
+  stroke: none;
 }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

@@ -51,13 +51,26 @@
 	border-top: dotted 3px #234d78;
   }
 
-  .favorites-creatures {
+  .favorites-creatures, .favorite-time {
 	height: 350px;
 	background-color: rgba(39, 84, 130, 0.9);
 	padding: 25px 10px 0 25px;
 	.border-radius(5px);
 	margin-top: 20px;
+  }
 
+  .favorite-time {
+	.hc-pie-chart {
+	  height: 230px;
+	  .flex-display();
+
+	  svg {
+		margin: auto;
+	  }
+	}
+  }
+
+  .favorites-creatures {
 	.hc-stripe-chart {
 	  height: 250px;
 	}
@@ -78,10 +91,10 @@
 	.user-hero-tile {
 	  text-align: center;
 	  color: white;
+	  margin-bottom: 20px;
 	  background-color: rgba(39, 84, 130, 0.9);
 	  .box-shadow(-4px -5px 13px -1px rgba(0, 0, 0, 0.2));
 	  .border-radius(5px);
-	  height: 100%;
 	  padding: 20px;
 	}
 

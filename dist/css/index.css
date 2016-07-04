@@ -1367,6 +1367,11 @@ ul {
   border-radius: 5px;
   margin-top: 20px;
 }
+.profile .favorite-time {
+  -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+}
 .profile .favorite-time .hc-pie-chart {
   height: 230px;
   display: -webkit-flex;
@@ -1377,6 +1382,11 @@ ul {
 }
 .profile .favorite-time .hc-pie-chart svg {
   margin: auto;
+}
+.profile .favorites-creatures {
+  -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
 }
 .profile .favorites-creatures .hc-stripe-chart {
   height: 250px;
@@ -1978,9 +1988,9 @@ ul {
 }
 .hc-pie-chart .main-circle {
   border-radius: 50%;
-  -webkit-box-shadow: -7px 6px 30px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -7px 6px 30px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: -7px 6px 30px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -4px 6px 53px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -4px 6px 53px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: -4px 6px 53px -6px rgba(0, 0, 0, 0.75);
 }
 .hc-pie-chart .inner-circle {
   fill: #275482;

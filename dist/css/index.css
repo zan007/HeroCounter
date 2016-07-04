@@ -1976,24 +1976,29 @@ ul {
 	fill: url(#mainGradient);
   }*/
 }
+.hc-pie-chart .main-circle {
+  border-radius: 50%;
+  -webkit-box-shadow: -7px 6px 30px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -7px 6px 30px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: -7px 6px 30px 0px rgba(0, 0, 0, 0.75);
+}
 .hc-pie-chart .inner-circle {
   fill: #275482;
 }
 .hc-pie-chart .slice {
   stroke: #275482;
-  stroke-width: 1;
 }
 .hc-pie-chart .slice:first-child {
-  fill: #d2d7da;
+  fill: #64b4e5;
 }
 .hc-pie-chart .slice:nth-child(2) {
-  fill: #efa250;
+  fill: #295a78;
 }
 .hc-pie-chart .slice:nth-child(3) {
-  fill: #3498db;
+  fill: #2e6490;
 }
 .hc-pie-chart .slice:nth-child(4) {
-  fill: #b3bdbf;
+  fill: #3c83c5;
 }
 .hc-pie-chart .chart-label {
   font-size: 1em;

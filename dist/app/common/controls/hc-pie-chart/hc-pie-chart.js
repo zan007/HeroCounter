@@ -27,7 +27,8 @@ angular.module('controls.hcPieChart', ['dataSource'])
 
 				component.render = function() {
 					var circle = d3.select(element)
-						.append('svg:svg');
+						.append('svg:svg')
+						.attr('class', 'main-circle');
 
 					var vis = circle
 						.data([data])

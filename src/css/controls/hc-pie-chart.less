@@ -1,4 +1,9 @@
 .hc-pie-chart {
+  
+  .main-circle {
+    border-radius: 50%;
+    .box-shadow(-7px 6px 30px 0px rgba(0,0,0,0.75));
+  }
 
   .inner-circle {
 	fill: rgb(39, 84, 130);
@@ -6,29 +11,28 @@
 
   .slice {
 	stroke: rgb(39, 84, 130);
-	stroke-width: 1;
   }
 
   .slice:first-child {
-	fill: #d2d7da;
+	fill: #64b4e5;
   }
 
   .slice:nth-child(2) {
-	fill: #efa250;
+	fill: #295a78;
 
   }
 
   .slice:nth-child(3) {
-	fill: #3498db;
+	fill: #2e6490;
   }
 
   .slice:nth-child(4) {
-	fill: #b3bdbf;
+	fill: #3c83c5;
   }
 
   .chart-label {
-	font-size: 1em;
-	stroke: none;
+    font-size: 1em;
+    stroke: none;
   }
   /*.stop-left {
 	stop-color: #f1ab62;

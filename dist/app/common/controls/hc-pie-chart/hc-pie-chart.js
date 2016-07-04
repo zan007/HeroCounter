@@ -32,8 +32,8 @@ angular.module('controls.hcPieChart', ['dataSource'])
 
 					var vis = circle
 						.data([data])
-						.attr('width', w+5)
-						.attr('height', h+5)
+						.attr('width', w)
+						.attr('height', h)
 						.append('svg:g')
 						.attr('transform', 'translate(' + r + ',' + r + ')');
 
@@ -41,33 +41,17 @@ angular.module('controls.hcPieChart', ['dataSource'])
 						return d[valueField];
 					});
 
-					/*var svgDefs = circle.append('defs');
-					var mainGradient = svgDefs.append('linearGradient')
-						.attr('id', 'mainGradient');
-					// Create the stops of the main gradient. Each stop will be assigned
-					// a class to style the stop using CSS.
-					mainGradient.append('stop')
-						.attr('class', 'stop-left')
-						.attr('offset', '0');
-					mainGradient.append('stop')
-						.attr('class', 'stop-center-left')
-						.attr('offset', '50%');
-					mainGradient.append('stop')
-						.attr('class', 'stop-center-right')
-						.attr('offset', '50%');
-					mainGradient.append('stop')
-						.attr('class', 'stop-right')
-						.attr('offset', '100%');*/
-
 					// declare an arc generator function
 					var arc = d3.svg.arc().outerRadius(r);
 
 					// select paths, use arc generator to draw
+
 					var arcs = vis.selectAll('g.slice')
 						.data(pie)
 						.enter()
 						.append('svg:g')
 						.attr('class', 'slice');
+
 
 					arcs.append('svg:path')
 
@@ -75,25 +59,9 @@ angular.module('controls.hcPieChart', ['dataSource'])
 							return arc(d);
 						});
 
-					circle.append('svg')
-						.append('circle')
-						//.classed('filled', true)
-						.attr("cx", w/2)
-						.attr("cy", w/2)
-						.attr('fill', '#fff')
-						.attr("r", w/6);
-
-					circle.append('svg')
-						.append('circle')
-						.attr('class', 'inner-circle')
-						.attr('fill', '#fff')
-						.attr("cx", w/2)
-						.attr("cy", w/2)
-						.attr("r", w/6-2);
-
 					// add the text
 					arcs.append('svg:text').attr('transform', function (d) {
-						d.innerRadius = w/4;
+						d.innerRadius = w/7;
 						d.outerRadius = r;
 
 						return 'translate(' + arc.centroid(d) + ')rotate(' + angle(d) + ')';
@@ -109,6 +77,7 @@ angular.module('controls.hcPieChart', ['dataSource'])
 						var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
 						return a > 90 ? a - 180 : a;
 					}
+
 				};
 
 				return component;

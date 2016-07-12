@@ -128,7 +128,7 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 					throw(err);
 				}
 			});
-			connection.release();
+			/*connection.release();*/
 		} else {
 			console.log('dupa', currentHeroName);
 			connection.query('insert into hero set ?', {heroName: currentHeroName}, function (err, rows) {
@@ -172,6 +172,7 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 };
 
 app.post('/registerEvent', function(req, res) {
+	console.log('reeeegister event');
 	if(req.body){
 		var token = req.body.token,
 			nick = req.body.nick,
@@ -182,6 +183,7 @@ app.post('/registerEvent', function(req, res) {
 			timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
 
 		pool.getConnection(function(err, connection) {
+
 			connection.query('select id from user where userToken = ?', token, function(err, rows) {
 				if (err) {
 					throw err;
@@ -209,7 +211,7 @@ app.post('/registerEvent', function(req, res) {
 										cb(err);
 									}
 
-									if(rows.length === 1) {
+									if(rows && rows.length === 1) {
 										placeId = rows[0].id;
 										cb();
 									} else {
@@ -272,7 +274,7 @@ app.post('/registerEvent', function(req, res) {
 									if (err) cb(err);
 
 									console.log('success!');
-									connection.release();
+									/*connection.release();*/
 									creatureService.recalcCreatureRespTime(function(empty, data) {
 										/*console.log('recalc defeat', data);*/
 										var output = {
@@ -315,6 +317,8 @@ app.post('/registerEvent', function(req, res) {
 				}
 			});
 		});
+	} else {
+		res.status(404).send();
 	}
 });
 

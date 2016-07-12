@@ -177,6 +177,7 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 			stripeChart($elem[0], chartData, width, height).render();*/
 
 			$scope.$watch('data', function(newVal, oldVal){
+				console.log('data w pie chart', newVal, oldVal);
 				if(newVal !== oldVal){
 					stripeChart($elem[0], $scope.data, width, height).render();
 				}

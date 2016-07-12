@@ -1,4 +1,5 @@
 var express = require('express'),
+	cors = require('./config/cors'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -56,7 +57,7 @@ if(process.argv[2] === 'remote') {
 pool.on('enqueue', function () {
 	console.log('Waiting for available connection slot');
 });
-
+app.use(cors());
 app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
 app.use('/css', express.static(path.join(__dirname, srcDir, 'css')));
 app.use('/img', express.static(path.join(__dirname, srcDir, 'img')));

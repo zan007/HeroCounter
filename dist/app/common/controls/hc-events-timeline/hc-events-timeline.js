@@ -1,6 +1,6 @@
 angular.module('controls.hcEventsTimeline', ['dataSource'])
 
-.directive('hcEventsTimeline', ['$rootScope', 'dataSource', function($rootScope, dataSource) {
+.directive('hcEventsTimeline', ['$state', function($state) {
 	return {
 		scope: {
 			events: '=hcEventsTimeline',
@@ -8,6 +8,7 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 		},
 		replace: true,
 		restriction: 'E',
+		templateUrl: 'hc-events-timeline',
 		link: function($scope) {
 			/*$rootScope.$on('dataSource.ready', function() {
 				$scope.eventDate = new Date($scope.events.battleDate);
@@ -23,9 +24,9 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 				} else if (currentYearMonth === eventYearMonth && currentDate.getDate() - 1 === eventDate.getDate()) {
 					return 'yesterday';
 				} else {
-					return eventDate.getDate() + "." + (eventDate.getMonth() + 1);
+					return eventDate.getDate() + '.' + (eventDate.getMonth() + 1);
 				}
-			}
+			};
 			
 			$scope.showDayLabel = function(event, index) {
 				if(index === 0) {
@@ -35,11 +36,16 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 						var currentEventDay = new Date(event.battleDate).getDay();
 						var prevEventDay = new Date($scope.events[index - 1].battleDate).getDay();
 
-						return currentEventDay != prevEventDay;
+						return currentEventDay !== prevEventDay;
 					
 				}
-			}
-		},
-		templateUrl: 'hc-events-timeline'
-	}
+			};
+
+			$scope.goToUserProfile = function(id) {
+				if(id){
+					$state.go('profile', {userId: id});
+				}
+			};
+		}
+	};
 }]);

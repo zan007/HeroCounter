@@ -28,6 +28,7 @@ $script.ready('angular', function() {
 		'controls.hcUserHeroTile',
 		'controls.hcStripeChart',
 		'controls.hcPieChart',
+		'controls.hcTimePicker',
 		'avatarService',
 		'ngImgCrop'
 	])
@@ -112,7 +113,8 @@ $script.ready('angular', function() {
 					templateUrl: '/profile',
 					authRequire: true,
 					params: {
-						newsVisible: true
+						newsVisible: true,
+						userId: ''
 					}
 				})
 				.state('basic', {

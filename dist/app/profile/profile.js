@@ -13,21 +13,38 @@ angular.module('profile', ['dataSource'])
 			return 1;
 		return 0;
 	}
+
+	var evaluatePieChartData = function(){
+		var hasData = false;
+		var guestDateMap = $scope.userProfileModel.guestHeroStats.dateMap;
+		var mainDateMap = $scope.userProfileModel.mainHeroStats.dateMap;
+
+		var summaryMorning = guestDateMap.morning + mainDateMap.morning;
+		var summaryafternoon = guestDateMap.afternoon + mainDateMap.afternoon;
+		var summaryEvening = guestDateMap.evening + mainDateMap.evening;
+		var summaryNight = guestDateMap.night + mainDateMap.night;
+		if(summaryMorning > 0 || summaryafternoon > 0 || summaryEvening > 0 || summaryNight > 0){
+			hasData = true;
+		}
+
+		return hasData;
+	}
+
 	var preparePieChartData = function(){
 		var guestDateMap = $scope.userProfileModel.guestHeroStats.dateMap,
 			mainDateMap = $scope.userProfileModel.mainHeroStats.dateMap,
 			chartData = [
 				{
-					value: guestDateMap.morning + mainDateMap.morning+20,
+					value: guestDateMap.morning + mainDateMap.morning,
 					label: 'morning'
 				},{
-					value: guestDateMap.afternoon + mainDateMap.afternoon+40,
+					value: guestDateMap.afternoon + mainDateMap.afternoon,
 					label: 'afternoon'
 				},{
-					value: guestDateMap.evening + mainDateMap.evening+60,
+					value: guestDateMap.evening + mainDateMap.evening,
 					label: 'evening'
 				},{
-					value: guestDateMap.night + mainDateMap.night+80,
+					value: guestDateMap.night + mainDateMap.night,
 					label: 'night'
 				}
 			];
@@ -74,7 +91,9 @@ angular.module('profile', ['dataSource'])
 		dataSource.getUserProfile($stateParams.userId).then(function (data) {
 			$scope.userProfileModel = data;
 			$scope.stripeChartData = prepareStripeChartData();
-			$scope.pieChartData = preparePieChartData();
+			if(evaluatePieChartData()){
+				$scope.pieChartData = preparePieChartData();
+			}
 		});
 	}
 }]);

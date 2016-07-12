@@ -9,6 +9,18 @@
         padding-top: 180px;
     }
 
+  	.empty-container {
+	  color: #fff;
+	  .flex-display();
+	  .justify-content(center);
+	  .flex-direction(column);
+	  text-align: center;
+	  i {
+		text-align: center;
+		font-size: 30px;
+	  }
+	}
+
 	.left-element, .right-element {
 		position: relative;
 		padding-top: 10px;
@@ -42,6 +54,11 @@
 		.details {
 			color: #b9d5ee;
 			font-size: 12px;
+
+		  .active {
+			color: #fcf8e3;
+			cursor: pointer;
+		  }
 		}
 
 		.day-label {

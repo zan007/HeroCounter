@@ -27,6 +27,7 @@
 	.tile-header {
 		font-size: 14px;
 		color: white;
+	  	min-height: 80px;
 		padding: 30px 65px 10px 30px;
 	}
 
@@ -34,17 +35,27 @@
 		color: #1792cd;
 		font-size: 12px;
 		padding: 0 0 0 35px;
+	  	min-height: 35px;
+	}
+
+  	.additional-actions {
+	  	height: 130px;
+		background-color: rgba(31,69,109,0.7);
+	  	.box-shadow(inset 0px 8px 34px -17px rgba(4,26,55,0.72));
 	}
 
 	.tile-content {
-		margin-bottom: 40px;
 		text-align: center;
+	  	.flex-display();
+	  	.flex-direction(row);
+	  	.justify-content(space-around);
+	  	.flex-wrap(wrap);
 
 		.tile-section {
 			margin-top: 30px;
-			display: inline-block;
+			/*display: inline-block;*/
 			height: 60px;
-			/*width: 75px;*/
+			width: 75px;
 			border-right: 3px dotted #234d78;
 			text-align: center;
 
@@ -57,7 +68,7 @@
 			white-space: normal;
 			color: #96abc0;
 			font-size: 11px;
-			padding-left: 5px;
+			word-wrap: break-word;
 			text-align: center;
 			display: inline-block;
 			vertical-align: top;

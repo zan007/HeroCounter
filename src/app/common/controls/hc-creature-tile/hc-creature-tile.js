@@ -7,11 +7,17 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
         },
         replace: true,
         restriction: 'E',
+		templateUrl: 'hc-creature-tile',
         link: function($scope) {
+			$scope.showAdditionalActions = false;
+
             $scope.startCountdown = function(creature) {
                 dataSource.defeatCreature(creature);
-            }
-        },
-        templateUrl: 'hc-creature-tile'
-    }    
+            };
+
+			$scope.toggleAdditionalActions = function(){
+				$scope.showAdditionalActions = !$scope.showAdditionalActions;
+			};
+        }
+    };
 }]);

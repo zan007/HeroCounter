@@ -95,6 +95,12 @@
 			"css": "down",
 			"code": 59406,
 			"src": "fontawesome"
+		},
+		{
+			"uid": "gruasbs60jlu9us53csv9q7nnwy4d990",
+			"css": "address",
+			"code": 59407,
+			"src": "typicons"
 		}
 	]
 }

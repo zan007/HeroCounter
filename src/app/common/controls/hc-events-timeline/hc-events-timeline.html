@@ -1,4 +1,4 @@
- <div class="row hc-events-timeline">
+ <div class="row hc-events-timeline full-height">
     <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
         <div class="day-label" ng-if="showDayLabel(event, $index)">
             <div class="value" ng-bind="getDayName(event.battleDate)"></div>
@@ -13,11 +13,17 @@
             <div class="creature" ng-bind="event.creature.name"></div>
             <div class="details">
                 <span>was defeated by: </span>
-                <span ng-repeat="member in event.group">
+                <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">
                     <span>{{member.heroName}}</span>
                     <span ng-show="!$last">,</span>
                 </span>
             </div>
+         </div>
+     </div>
+     <div class="col-xs-12 empty-container full-height" ng-if="events.length === 0">
+         <i class="icon-address"></i>
+         <div class="info">
+             No events yet. Please wait for uploading information from your friends about fights
          </div>
      </div>
 </div>

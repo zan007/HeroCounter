@@ -8,97 +8,26 @@ var server = require('../server'),
 	dateUtils = require('../utils/date-utils'),
 	creatureService = require('../creature/creature-service');
 
-var getReports = function(cb, fromTimestamp, toTimestamp) {
-	var reports = [];
 
-	pool.getConnection(function(err, connection) {
-		connection.query('select * from report where reportDate >= ? and reportDate <= ?', [fromTimestamp, toTimestamp], function(err, rows) {
-			if(err) throw err;
-
-
-			//for(var i = 0, len = rows.length; i < len; i++) {
-			async.forEachLimit(rows, 1, function(currentReport, reportCallback){
-
-				var creature = '',
-					reportDate = currentReport.reportDate,
-					reporter = '';
-
-				async.waterfall([
-
-					function(wcb) {
-						connection.query('select * from creature where id = ?', currentReport.creatureId, function(err, rows) {
-							if(err) wcb(err);
-
-							creature = rows[0];
-							wcb();
-						});
-					},
-					function(wcb) {
-						connection.query('select * from user where id = ?', currentReport.userId, function(err, rows) {
-							if(err) wcb(err);
-
-							if(rows && rows.length === 1){
-								reporter = {
-									id: rows[0].id,
-									avatar: rows[0].avatar,
-									name: rows[0].name
-								};
-							} else {
-								wcb(err);
-							}
-
-							wcb();
-						});
-					},
-					function(wcb) {
-						reports.push({
-							id: currentReport.id,
-							creature: creature,
-							reportDate: reportDate,
-							reporter: reporter,
-							type: 'REPORT'
-						});
-
-						wcb();
-					}
-				], function (err) {
-
-					reportCallback();
-					if (err) throw err;
-				});
-			}, function(err, result) {
-
-				connection.release();
-				cb(null, reports);
-				//connection.release();
-				//var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
-
-				//cb(null, sortedEvents);
-			});
-		});
-	});
-};
 var getEvents = function(cb, fromTimestamp, toTimestamp) {
 	var events = [];
-
-	if(!fromTimestamp && !toTimestamp){
-		toTimestamp = new Date().getTime();
-		fromTimestamp = moment(fromTimestamp).subtract('d', 3).valueOf();
-	}
-
+	console.log('getEfents w srodku ',fromTimestamp, toTimestamp);
 	pool.getConnection(function(err, connection) {
-
+		if(!fromTimestamp && !toTimestamp){
+			toTimestamp = new Date().getTime();
+			fromTimestamp = moment(fromTimestamp).subtract('d', 10).valueOf();
+		}
 		var fromDatetime = dateUtils.timestampToSqlDatetime(fromTimestamp);
 		var toDatetime = dateUtils.timestampToSqlDatetime(toTimestamp);
-
+		console.log('from ',fromDatetime,' to: ',toDatetime);
 
 		connection.query('select * from battle where battleDate >= ? and battleDate <= ?', [fromDatetime, toDatetime], function(err, rows) {
 			if(err) throw err;
 
-
+			console.log('query events');
 			//for(var i = 0, len = rows.length; i < len; i++) {
 			async.forEachLimit(rows, 1, function(currentBattle, battleCallback){
-
+				console.log('foreach ', currentBattle);
 				var place = '',
 					creature = '',
 					battleDate = currentBattle.battleDate,
@@ -106,16 +35,12 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 
 				async.waterfall([
 					function(wcb) {
-						if(currentBattle.placeId) {
-							connection.query('select * from place where id = ?', currentBattle.placeId, function (err, rows) {
-								if (err) wcb(err);
+						connection.query('select * from place where id = ?', currentBattle.placeId, function(err, rows) {
+							if(err) wcb(err);
 
-								place = rows[0];
-								wcb();
-							});
-						} else {
+							place = rows[0];
 							wcb();
-						}
+						});
 					},
 					function(wcb) {
 						connection.query('select * from creature where id = ?', currentBattle.creatureId, function(err, rows) {
@@ -126,7 +51,7 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 						});
 					},
 					function(wcb) {
-						connection.query('select hero.* from hero left join heroBattle on heroBattle.heroId = hero.id where heroBattle.battleId = ?', currentBattle.id, function(err, rows) {
+						connection.query('select hero.* from hero left join heroBattle on heroBattle.heroId = hero.id and herobattle.id = ?', currentBattle.id, function(err, rows) {
 							if(err) wcb(err);
 
 							for(var j = 0, len = rows.length; j < len; j++){
@@ -142,50 +67,34 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 							place: place,
 							creature: creature,
 							battleDate: battleDate,
-							group: group,
-							type: 'BATTLE'
+							group: group
 						});
 
 						wcb();
 					}
 				], function (err) {
-
+					console.log('przed battleCallback', events);
 					battleCallback();
 					if (err) throw err;
 				});
 			}, function(err, result) {
-
+				console.log('po battleCallback', events, result);
 				connection.release();
-				getReports(function(err, reports){
-					var allEvents = reports.concat(events);
-					var sortedEvents = allEvents.sort(function(a, b){
-						var aSortField = a.type === 'BATTLE' ? a.battleDate: a.reportDate;
-						var bSortField = b.type === 'BATTLE' ? b.battleDate: b.reportDate;
+				var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
 
-						return  bSortField - aSortField;
-					});
-					//var sortedEvents = _.orderBy(allEvents, ['battleDate', 'reportDate'], ['desc', 'desc']);
-					cb(null, sortedEvents);
-				}, fromDatetime, toDatetime);
-				//connection.release();
-				//var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
-
-				//cb(null, sortedEvents);
+				cb(null, sortedEvents);
 			});
 		});
-
 	});
 };
 
-app.post('/getEvents', function(req, res) {
+app.get('/getEvents', function(req, res) {
 	if(req.body) {
-		var fromTimestamp = req.body.fromTimestamp;
-		var toTimestamp = req.body.toTimestamp;
+		var fromTimestamp = req.body.from;
+		var toTimestamp = req.body.to;
+		var events = getEvents(fromTimestamp, toTimestamp);
 
-		getEvents(function (cb, events) {
-			res.send(events);
-		}, fromTimestamp, toTimestamp);
-
+		res.send(events);
 	}
 });
 
@@ -193,11 +102,11 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 	connection.query('select id from hero where heroName = ?', currentHeroName, function(err, rows) {
 		if (err) cb(err);
 
-
+		console.log('for hero');
 		var currentHeroId = '';
 		if(rows.length === 1) {
 			currentHeroId = rows[0].id;
-
+			console.log('znalazlem currentheroid', currentHeroId);
 			//update creature set defeatedDate = ? where id = ?
 			if(userId !== null && guest === true){
 				connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
@@ -213,7 +122,7 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 				heroId: currentHeroId,
 				battleId: battleId
 			};
-
+			console.log('herobattle', heroBattleFields);
 			connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
 				if(err) {
 					throw(err);
@@ -221,20 +130,20 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 			});
 			/*connection.release();*/
 		} else {
-
+			console.log('dupa', currentHeroName);
 			connection.query('insert into hero set ?', {heroName: currentHeroName}, function (err, rows) {
 				if (err) {
 					cb(err);
 				}
 
-
+				console.log('insert into hero new', rows);
 				currentHeroId = rows.insertId;
-
+				console.log('currentHeroId', currentHeroId);
 				var heroBattleFields = {
 					heroId: currentHeroId,
 					battleId: battleId
 				};
-
+				console.log('herobattle', heroBattleFields);
 				connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
 					if(err){
 						throw(err);
@@ -262,24 +171,8 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 	});
 };
 
-var checkEventDuplicate = function(creature, date, duplicateExistCb, duplicateNotExistCb) {
-	var dateFrom = moment(date).subtract(1, 'minutes');
-
-	pool.getConnection(function(err, connection){
-		connection.query('select * from battle where battleDate between ? and ? and creatureId = ?', [dateUtils.timestampToSqlDatetime(dateFrom.valueOf()), dateUtils.timestampToSqlDatetime(moment(date).valueOf()), creature.id], function(err, rows){
-			if(rows.length > 0) {
-				connection.release();
-				duplicateExistCb();
-			} else {
-				connection.release();
-				duplicateNotExistCb();
-			}
-		});
-	});
-};
-
 app.post('/registerEvent', function(req, res) {
-
+	console.log('reeeegister event');
 	if(req.body){
 		var token = req.body.token,
 			nick = req.body.nick,
@@ -303,7 +196,7 @@ app.post('/registerEvent', function(req, res) {
 					var battleId = '';
 					var battleFields = '';
 
-
+					console.log('select user', timestamp);
 					connection.beginTransaction(function(err) {
 						if (err) {
 							return connection.rollback(function() {
@@ -312,18 +205,6 @@ app.post('/registerEvent', function(req, res) {
 						}
 
 						async.waterfall([
-							function(cb){
-								var creatureService = require('../creature/creature-service');
-								creatureService.getCreatureByName(creature, function(creatureObj){
-									checkEventDuplicate(creatureObj, timestamp, function(){
-										cb({}, 'duplicate');
-									}, function(){
-										cb();
-									});
-								},function(){
-									cb({}, 'creature not found');
-								});
-							},
 							function(cb) {
 								connection.query('select id from place where name = ?', place, function(err, rows) {
 									if (err) {
@@ -360,7 +241,7 @@ app.post('/registerEvent', function(req, res) {
 											cb();
 										});
 									} else {
-										cb({}, 'unknown creature', 42);
+										cb({}, 'unknown creature');
 									}
 								});
 							},
@@ -391,13 +272,15 @@ app.post('/registerEvent', function(req, res) {
 								}
 								connection.commit(function(err) {
 									if (err) cb(err);
-									var creatureService = require('../creature/creature-service');
 
+									console.log('success!');
+									/*connection.release();*/
 									creatureService.recalcCreatureRespTime(function(empty, data) {
+										/*console.log('recalc defeat', data);*/
 										var output = {
 											creatures: data
 										};
-
+										console.log('recalc defeat');
 
 										io.emit('creaturesUpdated', output);
 
@@ -407,33 +290,30 @@ app.post('/registerEvent', function(req, res) {
 										}, timestamp, timestamp);
 
 										res.status(200).send(output);
-									}, creatureId);
+									});
 
 
 								});
 
 							}
-						], function (err, errorMessage, errCode) {
-
+						], function (err, errorMessage) {
+							console.log('zwykly err');
 							return connection.rollback(function() {
-
+								console.log('rollback');
 								if(!errorMessage) {
 									connection.release();
 									throw err;
 								} else {
-
+									console.log('errorMessage: ', errorMessage);
 									connection.release();
-									res.status(500).send({
-										message: errorMessage,
-										code: errCode
-									});
+									res.status(500).send({message: errorMessage});
 								}
 							});
 						});
 					});
 				} else {
 					connection.release();
-					res.status(401).send({message: 'unknown token'});
+					res.status(500).send({message: 'unknown token'});
 				}
 			});
 		});

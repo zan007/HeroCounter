@@ -24,8 +24,8 @@
                             <div class="property-section">
                                 <div class="property">
                                     <div class="section-label">GG number</div>
-                                    <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.ggVisible"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.ggVisible">User not allowed to display them</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.gg"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.gg">User not allowed to display them</div>
                                 </div>
                             </div>
                         </div>
@@ -33,8 +33,8 @@
                             <div class="property-section">
                                 <div class="property">
                                     <div class="section-label">Phone number</div>
-                                    <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phoneVisible"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.phoneVisible">User not allowed to display them</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phone"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.phone">User not allowed to display them</div>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                             <h1>Time of the day</h1>
                         </div>
                     </header>
-                    <div hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
+                    <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
                 </div>
             </div>
         </div>

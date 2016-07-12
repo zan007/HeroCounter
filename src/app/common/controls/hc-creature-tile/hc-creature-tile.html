@@ -1,65 +1,55 @@
 <div class="col-md-6">
 	<div class="tile-container container-fluid">
 		<div class="row">
-			<div class="creature-avatar" ng-click="goToCreatureProfile(creature.id)">
+			<div class="creature-avatar">
 				<img ng-src="{{creature.image}}"/>
 			</div>
 			<div class="tile-header" ng-bind="creature.name"></div>
 			<div class="tile-subtitle">
-                <div ng-show="creature.timeToResp" hc-countdown="creature.timeToResp"></div>
-				<!-- <timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer> -->
-                <div ng-show="!creature.timeToResp">_(creatureTile.unknownTime)</div>
-                <div class="last-seen-date">_(creatureTile.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" day-description="true" ng-show="creature.lastSeenDate"></span></div>
+				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+				<div ng-show="!creature.timeToResp">Czas nieznany</div>
 			</div>
-			<div class="tile-content row container-fluid">
-                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
-                    <div class="value" hc-pretty-day-hour="creature.minRespTime"></div>
-                    <div class="tile-label">_(creatureTile.minRespTime)</div>
+			<div class="tile-content ">
+                <section class="tile-section">
+                    <div class="value" ng-bind="creature.minRespTime"></div>
+                    <div class="label">Min czas respu</div>
                 </section>
-                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
-                    <div class="value" hc-pretty-day-hour="creature.maxRespTime"></div>
-                    <div class="tile-label">_(creatureTile.maxRespTime)</div>
+                <section class="tile-section">
+                    <div class="value" ng-bind="creature.maxRespTime"></div>
+                    <div class="label">Max czas respu</div>
                 </section>
-                <section class="tile-section col-xs-4 col-lg-4 col-md-12">
+                <section class="tile-section">
                     <div class="value" ng-bind="creature.defeatCounter"></div>
-                    <div class="tile-label">_(creatureTile.defeatedCount)</div>
+                    <div class="label">Pokonany</div>
                 </section>
+
+				<!-- <p class="label">Minimalny czas respu</p>
+				<p class="value" ng-bind="creature.minRespTime"></p>
+				<p class="label">Maksymalny czas respu</p>
+				<p class="value" ng-bind="creature.maxRespTime"></p>
+				<p class="label">Czas do respu</p>
+				<p class="value" ng-show="creature.timeToResp"><timer interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer></p> -->
+
 			</div>
             <div class="additional-actions" ng-show="showAdditionalActions">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xs-12 col-md-12 col-lg-7">
-                            <div class="center-vertically potential-label">
-                                _(creatureTile.potentialTime)
-                            </div>
-                            <div hc-time-picker="reportedTime"></div>
+                        <div class="col-xs-12 col-lg-7">
+                            <div class="row no-gutters" hc-time-picker="reportedTime"></div>
                         </div>
-                        <div class="col-xs-12 col-md-12 col-lg-5">
-                            <div class="center-vertically potential-label">
-                                _(creatureTile.potentialDate)
-                            </div>
-                            <div class="center-vertically date-picker">
-                                <input class="form-input" pikaday="reportedDate" ng-model="reportedDate">
+                        <div class="col-xs-12 col-lg-5">
+                            <div class="row report">
+                                <button class="button">Raportuj</button>
                             </div>
                         </div>
                     </div>
-                    <div class="row center-vertically">
-                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">_(creatureTile.action.report)</button>
-                    </div>
-                    <div class="row center-vertically">
-                        <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
-                    </div>
                 </div>
-                <div class="overlay" ng-show="showLoadingIndicator">
-                    <div class="splash-container">
-                        <div class="splash"></div>
-                    </div>
-                </div>
-            </div>
 
+                <button class="button form-button" ng-click="toggleAdditionalActions()">Schowaj</button>
+            </div>
 			<div class="action-buttons" ng-hide="showAdditionalActions">
-				<!--<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>-->
-				<div class="tile-button" ng-click="toggleAdditionalActions()">_(creatureTile.report)</div>
+				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
+				<div class="tile-button" ng-click="toggleAdditionalActions()">Podobno ubita</div>
 			</div>
 		</div>
 	</div>

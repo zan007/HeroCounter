@@ -1,5 +1,5 @@
 {
-	"name": "1310bfe87c3ca4a776626c48d61d7a37",
+	"name": "144ca9cec54d382d07be7c0c1f722302",
 	"css_prefix_text": "icon-",
 	"css_use_suffix": false,
 	"hinting": true,
@@ -97,16 +97,10 @@
 			"src": "fontawesome"
 		},
 		{
-			"uid": "62bc6fe2a82e4864e2b94d4c0985ee0c",
-			"css": "up-small",
+			"uid": "gruasbs60jlu9us53csv9q7nnwy4d990",
+			"css": "address",
 			"code": 59407,
 			"src": "typicons"
-		},
-		{
-			"uid": "8f25d96c5665c84e4403538eef14ec2c",
-			"css": "info-circled",
-			"code": 61573,
-			"src": "mfglabs"
 		}
 	]
 }

@@ -856,6 +856,7 @@ body {
   border: 0;
   width: 150px;
   height: 30px;
+  font-size: 16px;
   background-color: #129fdd;
   color: white;
   margin-top: 10px;
@@ -1674,22 +1675,47 @@ ul {
 .tile-container .tile-header {
   font-size: 14px;
   color: white;
+  min-height: 80px;
   padding: 30px 65px 10px 30px;
 }
 .tile-container .tile-subtitle {
   color: #1792cd;
   font-size: 12px;
   padding: 0 0 0 35px;
+  min-height: 35px;
+}
+.tile-container .additional-actions {
+  height: 130px;
+  background-color: rgba(31, 69, 109, 0.7);
+  -webkit-box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
+  -moz-box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
+  box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
 }
 .tile-container .tile-content {
-  margin-bottom: 40px;
   text-align: center;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  justify-content: space-around;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .tile-container .tile-content .tile-section {
   margin-top: 30px;
-  display: inline-block;
+  /*display: inline-block;*/
   height: 60px;
-  /*width: 75px;*/
+  width: 75px;
   border-right: 3px dotted #234d78;
   text-align: center;
 }
@@ -1700,7 +1726,7 @@ ul {
   white-space: normal;
   color: #96abc0;
   font-size: 11px;
-  padding-left: 5px;
+  word-wrap: break-word;
   text-align: center;
   display: inline-block;
   vertical-align: top;
@@ -1749,6 +1775,27 @@ ul {
 .hc-events-timeline .left-element.event-with-label + .right-element.event-with-label {
   padding-top: 180px;
 }
+.hc-events-timeline .empty-container {
+  color: #fff;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: center;
+}
+.hc-events-timeline .empty-container i {
+  text-align: center;
+  font-size: 30px;
+}
 .hc-events-timeline .left-element,
 .hc-events-timeline .right-element {
   position: relative;
@@ -1784,6 +1831,11 @@ ul {
 .hc-events-timeline .right-element .details {
   color: #b9d5ee;
   font-size: 12px;
+}
+.hc-events-timeline .left-element .details .active,
+.hc-events-timeline .right-element .details .active {
+  color: #fcf8e3;
+  cursor: pointer;
 }
 .hc-events-timeline .left-element .day-label,
 .hc-events-timeline .right-element .day-label {
@@ -2013,6 +2065,78 @@ ul {
 .hc-pie-chart .chart-label {
   font-size: 1em;
   stroke: none;
+}
+.hc-time-picker {
+  height: 100px;
+}
+.hc-time-picker .separator {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+}
+.hc-time-picker .column {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  text-align: center;
+}
+.hc-time-picker .hour,
+.hc-time-picker .minutes {
+  font-size: 20px;
+  color: #fff;
+}
+.hc-time-picker .form-input {
+  width: auto;
+  padding: 0px;
+  text-align: center;
+}
+.hc-time-picker .report {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+}
+.hc-time-picker .separator {
+  color: #fff;
+  font-size: 30px;
+}
+.hc-time-picker .indicator {
+  height: 30px;
+  font-size: 13px;
+  color: #fff;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+}
+.hc-time-picker .indicator .icon {
+  margin: auto;
 }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

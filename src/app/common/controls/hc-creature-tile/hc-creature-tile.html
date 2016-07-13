@@ -35,17 +35,27 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12 col-lg-7">
+                            <div class="center-vertically">
+                                potencjalna godzina
+                            </div>
                             <div class="row no-gutters" hc-time-picker="reportedTime"></div>
                         </div>
                         <div class="col-xs-12 col-lg-5">
-                            <div class="row report">
-                                <button class="button">Raportuj</button>
+                            <div class="center-vertically">
+                                Potencjalna data
+                            </div>
+                            <div class="center-vertically date-picker">
+                                <input class="form-input" pikaday="reportedDate" ng-model="reportedDate">
                             </div>
                         </div>
                     </div>
+                    <div class="row center-vertically">
+                        <button class="button" ng-click="reportBattle()">Raportuj</button>
+                    </div>
+                    <div class="row center-vertically">
+                        <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
+                    </div>
                 </div>
-
-                <button class="button form-button" ng-click="toggleAdditionalActions()">Schowaj</button>
             </div>
 			<div class="action-buttons" ng-hide="showAdditionalActions">
 				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>

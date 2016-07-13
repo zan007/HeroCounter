@@ -20,6 +20,7 @@ $script.ready('angular', function() {
 		'notificationService',
 		'utils.fastFilter',
 		'ngCookies',
+		'pikaday',
 		'controls.hcPrettyTime',
 		'controls.hcEventsTimeline',
 		'controls.hcValidationPattern',

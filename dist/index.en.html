@@ -53,6 +53,8 @@ $script.ready('angular', function() {
         '/vendor/slider/rzslider.min.js',
         '/vendor/ng-file-upload/ng-file-upload.js',
         '/vendor/ng-img-crop/ng-img-crop.js',
+        '/vendor/pikaday-angular/pikaday.js',
+        '/vendor/pikaday-angular/pikaday-angular.js',
         '/vendor/d3/d3.js'
     ], 'vendors');
 });
@@ -895,17 +897,27 @@ $script.ready('app', function() {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12 col-lg-7">
+                            <div class="center-vertically">
+                                potencjalna godzina
+                            </div>
                             <div class="row no-gutters" hc-time-picker="reportedTime"></div>
                         </div>
                         <div class="col-xs-12 col-lg-5">
-                            <div class="row report">
-                                <button class="button">Raportuj</button>
+                            <div class="center-vertically">
+                                Potencjalna data
+                            </div>
+                            <div class="center-vertically date-picker">
+                                <input class="form-input" pikaday="reportedDate" ng-model="reportedDate">
                             </div>
                         </div>
                     </div>
+                    <div class="row center-vertically">
+                        <button class="button" ng-click="reportBattle()">Raportuj</button>
+                    </div>
+                    <div class="row center-vertically">
+                        <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
+                    </div>
                 </div>
-
-                <button class="button form-button" ng-click="toggleAdditionalActions()">Schowaj</button>
             </div>
 			<div class="action-buttons" ng-hide="showAdditionalActions">
 				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
@@ -977,11 +989,11 @@ $script.ready('app', function() {
         <div class="col-xs-5 full-height column">
 
                 <div class="indicator" ng-click="incrementHour()">
-                    <i class="icon icon-ok"></i>
+                    <i class="icon icon-up"></i>
                 </div>
                 <input type="text" hc-validation-pattern="NUMBER" class="form-input hour" ng-model="hour"></input>
                 <div class="indicator" ng-click="decrementHour()">
-                    <i class="icon icon-ok"></i>
+                    <i class="icon icon-down"></i>
                 </div>
 
         </div>
@@ -991,11 +1003,11 @@ $script.ready('app', function() {
         <div class="col-xs-5 full-height column">
 
                 <div class="indicator" ng-click="incrementMinutes()">
-                    <i class="icon icon-ok"></i>
+                    <i class="icon icon-up"></i>
                 </div>
                 <input type="text" hc-validation-pattern="NUMBER" class="form-input minutes" ng-model="minutes"></input>
                 <div class="indicator" ng-click="decrementMinutes()">
-                    <i class="icon icon-ok"></i>
+                    <i class="icon icon-down"></i>
                 </div>
 
         </div>

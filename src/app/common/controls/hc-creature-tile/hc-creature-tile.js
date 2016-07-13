@@ -17,7 +17,12 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 
 			$scope.toggleAdditionalActions = function(){
 				$scope.showAdditionalActions = !$scope.showAdditionalActions;
+				$scope.reportedDate = moment().format('YYYY[-]mm[-]DD');
+				$scope.reportedTime = moment().valueOf();
+				console.log($scope.reportedTime);
 			};
+
+
         }
     };
 }]);

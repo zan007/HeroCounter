@@ -39,9 +39,39 @@
 	}
 
   	.additional-actions {
-	  	height: 130px;
+	  	color: white;
+	  	font-size: 12px;
+	  	padding-bottom: 10px;
+	  	padding-top: 10px;
 		background-color: rgba(31,69,109,0.7);
 	  	.box-shadow(inset 0px 8px 34px -17px rgba(4,26,55,0.72));
+
+	  .up-button {
+		width: 40px;
+		height: 40px;
+		margin-top: 20px;
+		.border-radius(50%);
+		border: solid 2px white;
+		.flex-display();
+		cursor: pointer;
+
+		.icon{
+		  margin: auto;
+		  font-size: 20px;
+		  color: white;
+
+		}
+	  }
+
+	  .date-picker {
+		.flex-display();
+		.justify-content(center);
+		height: 100px;
+
+		.form-input {
+		  text-align: center;
+		}
+	  }
 	}
 
 	.tile-content {
@@ -53,6 +83,7 @@
 
 		.tile-section {
 			margin-top: 30px;
+		  	margin-bottom: 20px;
 			/*display: inline-block;*/
 			height: 60px;
 			width: 75px;

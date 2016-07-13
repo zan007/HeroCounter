@@ -487,8 +487,8 @@ th {
 }
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?94127261');
-  src: url('../font/fontello.eot?94127261#iefix') format('embedded-opentype'), url('../font/fontello.woff2?94127261') format('woff2'), url('../font/fontello.woff?94127261') format('woff'), url('../font/fontello.ttf?94127261') format('truetype'), url('../font/fontello.svg?94127261#fontello') format('svg');
+  src: url('../font/fontello.eot?10272879');
+  src: url('../font/fontello.eot?10272879#iefix') format('embedded-opentype'), url('../font/fontello.woff2?10272879') format('woff2'), url('../font/fontello.woff?10272879') format('woff'), url('../font/fontello.ttf?10272879') format('truetype'), url('../font/fontello.svg?10272879#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -498,7 +498,7 @@ th {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?94127261#fontello') format('svg');
+    src: url('../font/fontello.svg?10272879#fontello') format('svg');
   }
 }
 */
@@ -590,6 +590,10 @@ th {
   content: '\e80e';
 }
 /* '' */
+.icon-up-small:before {
+  content: '\e80f';
+}
+/* '' */
 @font-face {
   font-family: 'brandon-blk';
   src: url('../font/brandon_med-webfont.eot'), url('../font/brandon_med-webfont.eot?#iefix') format('embedded-opentype'), url('../font/brandon_med-webfont.woff') format('woff'), url('../font/brandon_med-webfont.ttf') format('truetype'), url('../font/brandon_med-webfont.svg#svgFontName') format('svg');
@@ -1685,11 +1689,49 @@ ul {
   min-height: 35px;
 }
 .tile-container .additional-actions {
-  height: 130px;
+  color: white;
+  font-size: 12px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   background-color: rgba(31, 69, 109, 0.7);
   -webkit-box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
   -moz-box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
   box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
+}
+.tile-container .additional-actions .up-button {
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: solid 2px white;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  cursor: pointer;
+}
+.tile-container .additional-actions .up-button .icon {
+  margin: auto;
+  font-size: 20px;
+  color: white;
+}
+.tile-container .additional-actions .date-picker {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  height: 100px;
+}
+.tile-container .additional-actions .date-picker .form-input {
+  text-align: center;
 }
 .tile-container .tile-content {
   text-align: center;
@@ -1713,6 +1755,7 @@ ul {
 }
 .tile-container .tile-content .tile-section {
   margin-top: 30px;
+  margin-bottom: 20px;
   /*display: inline-block;*/
   height: 60px;
   width: 75px;
@@ -2098,7 +2141,7 @@ ul {
 }
 .hc-time-picker .hour,
 .hc-time-picker .minutes {
-  font-size: 20px;
+  font-size: 15px;
   color: #fff;
 }
 .hc-time-picker .form-input {
@@ -2347,5 +2390,202 @@ img-crop canvas {
   outline: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   /* mobile webkit */
+}
+@charset "UTF-8";
+/*!
+ * Pikaday
+ * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
+ */
+.pika-single {
+  z-index: 9999;
+  display: block;
+  position: relative;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-bottom-color: #bbb;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/*
+clear child float (pika-lendar), using the famous micro clearfix hack
+http://nicolasgallagher.com/micro-clearfix-hack/
+*/
+.pika-single:before,
+.pika-single:after {
+  content: " ";
+  display: table;
+}
+.pika-single:after {
+  clear: both;
+}
+.pika-single {
+  *zoom: 1;
+}
+.pika-single.is-hidden {
+  display: none;
+}
+.pika-single.is-bound {
+  position: absolute;
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.5);
+}
+.pika-lendar {
+  float: left;
+  width: 240px;
+  margin: 8px;
+}
+.pika-title {
+  position: relative;
+  text-align: center;
+}
+.pika-label {
+  display: inline-block;
+  *display: inline;
+  position: relative;
+  z-index: 9999;
+  overflow: hidden;
+  margin: 0;
+  padding: 5px 3px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold;
+  background-color: #fff;
+}
+.pika-title select {
+  cursor: pointer;
+  position: absolute;
+  z-index: 9998;
+  margin: 0;
+  left: 0;
+  top: 5px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.pika-prev,
+.pika-next {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  border: 0;
+  padding: 0;
+  width: 20px;
+  height: 30px;
+  /* hide text using text-indent trick, using width value (it's enough) */
+  text-indent: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75% 75%;
+  opacity: .5;
+  *position: absolute;
+  *top: 0;
+}
+.pika-prev:hover,
+.pika-next:hover {
+  opacity: 1;
+}
+.pika-prev,
+.is-rtl .pika-next {
+  float: left;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==');
+  *left: 0;
+}
+.pika-next,
+.is-rtl .pika-prev {
+  float: right;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=');
+  *right: 0;
+}
+.pika-prev.is-disabled,
+.pika-next.is-disabled {
+  cursor: default;
+  opacity: .2;
+}
+.pika-select {
+  display: inline-block;
+  *display: inline;
+}
+.pika-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+}
+.pika-table th,
+.pika-table td {
+  width: 14.285714285714286%;
+  padding: 0;
+}
+.pika-table th {
+  color: #999;
+  font-size: 12px;
+  line-height: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+.pika-button {
+  cursor: pointer;
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  padding: 5px;
+  color: #666;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+  background: #f5f5f5;
+}
+.pika-week {
+  font-size: 11px;
+  color: #999;
+}
+.is-today .pika-button {
+  color: #33aaff;
+  font-weight: bold;
+}
+.is-selected .pika-button {
+  color: #fff;
+  font-weight: bold;
+  background: #33aaff;
+  box-shadow: inset 0 1px 3px #178fe5;
+  border-radius: 3px;
+}
+.is-inrange .pika-button {
+  background: #D5E9F7;
+}
+.is-startrange .pika-button {
+  color: #fff;
+  background: #6CB31D;
+  box-shadow: none;
+  border-radius: 3px;
+}
+.is-endrange .pika-button {
+  color: #fff;
+  background: #33aaff;
+  box-shadow: none;
+  border-radius: 3px;
+}
+.is-disabled .pika-button {
+  pointer-events: none;
+  cursor: default;
+  color: #999;
+  opacity: .3;
+}
+.pika-button:hover {
+  color: #fff;
+  background: #ff8000;
+  box-shadow: none;
+  border-radius: 3px;
+}
+/* styling for abbr */
+.pika-table abbr {
+  border-bottom: none;
+  cursor: help;
 }
 /*# sourceMappingURL=/css/index.css.map */

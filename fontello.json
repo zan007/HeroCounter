@@ -1,5 +1,5 @@
 {
-	"name": "144ca9cec54d382d07be7c0c1f722302",
+	"name": "fa37d9d63966273d3ea618259800f05a",
 	"css_prefix_text": "icon-",
 	"css_use_suffix": false,
 	"hinting": true,
@@ -97,8 +97,8 @@
 			"src": "fontawesome"
 		},
 		{
-			"uid": "gruasbs60jlu9us53csv9q7nnwy4d990",
-			"css": "address",
+			"uid": "62bc6fe2a82e4864e2b94d4c0985ee0c",
+			"css": "up-small",
 			"code": 59407,
 			"src": "typicons"
 		}

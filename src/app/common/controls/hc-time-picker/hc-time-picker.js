@@ -9,10 +9,13 @@ angular.module('controls.hcTimePicker', ['dataSource'])
 			restriction: 'E',
 			templateUrl: 'hc-time-picker',
 			link: function($scope) {
-				var date = new Date();
+				var date = moment($scope.time);
 
-				$scope.hour = date.getHours();
-				$scope.minutes = date.getMinutes();
+				$scope.$watch('time', function(newVal){
+					date = moment(newVal);
+					$scope.hour = date.hours();
+					$scope.minutes = date.minutes();
+				});
 
 				$scope.incrementHour = function(){
 					$scope.hour++;

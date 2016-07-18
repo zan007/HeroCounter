@@ -35,12 +35,16 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 
 				async.waterfall([
 					function(wcb) {
-						connection.query('select * from place where id = ?', currentBattle.placeId, function(err, rows) {
-							if(err) wcb(err);
+						if(currentBattle.placeId) {
+							connection.query('select * from place where id = ?', currentBattle.placeId, function (err, rows) {
+								if (err) wcb(err);
 
-							place = rows[0];
+								place = rows[0];
+								wcb();
+							});
+						} else {
 							wcb();
-						});
+						}
 					},
 					function(wcb) {
 						connection.query('select * from creature where id = ?', currentBattle.creatureId, function(err, rows) {
@@ -51,7 +55,7 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 						});
 					},
 					function(wcb) {
-						connection.query('select hero.* from hero left join heroBattle on heroBattle.heroId = hero.id and herobattle.id = ?', currentBattle.id, function(err, rows) {
+						connection.query('select hero.* from hero left join heroBattle on heroBattle.heroId = hero.id where heroBattle.battleId = ?', currentBattle.id, function(err, rows) {
 							if(err) wcb(err);
 
 							for(var j = 0, len = rows.length; j < len; j++){

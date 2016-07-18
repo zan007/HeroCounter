@@ -1,7 +1,7 @@
-angular.module('dataSource', [])
+angular.module('dataSource', []).
 
-.factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService', 'locales',
-	function($http, $q, $rootScope, $location, notificationService, locales) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService',
+	function($http, $q, $rootScope, $location, notificationService) {
 	   
 /*		var model = {
 			creatures: [],
@@ -23,45 +23,22 @@ angular.module('dataSource', [])
 	
 		var call = function(httpData, responseFn) {
 			$rootScope.$broadcast('dataSource.start');
-
 			var promise = $http(httpData).then(function(response) {
 				var result;
 				if (responseFn) {
 					result = responseFn(response.data, response.status, response.headers);
 				}
 				$rootScope.$broadcast('dataSource.stop');
-
 				return result || response.data;
-
 			}).then(null, function(reason) {
 				console.log(reason);
-				if(reason.data.code){
-					notificationService.showErrorNotification(locales.errorCodes[reason.data.code], reason.data.persistence);
-				} else {
-					notificationService.showErrorNotification('', reason.data.persistence);
-				}
-
+				notificationService.showErrorNotification(reason.data.message, reason.data.persistence);
 				$rootScope.$broadcast('dataSource.error');
 				return $q.reject(reason);
 			});
-
 			return promise;
-
-
 		};
 
-		var updateCreatures = function(creatures) {
-			for(var i = 0, len = creatures.length; i < len; i++){
-				for(var j = 0, length = $rootScope.model.creatures.length; j < length; j++) {
-					if ($rootScope.model.creatures[j].name === creatures[i].name) {
-						$rootScope.model.creatures[j] = creatures[i];
-						break;
-					}
-				}
-			}
-			//angular.extend($rootScope.model.creatures, creatures, $rootScope.model.creatures);
-			$rootScope.$broadcast('dataSource.ready');
-		};
 		/*$http.get('init').then(function(response) {
 			var data = response.data;
 
@@ -82,18 +59,16 @@ angular.module('dataSource', [])
 								 	creatureName: creature.name 
 								 }
 							}, function(data) {
-								//updateCreatures(data.creatures);
 								//$rootScope.model.creatures = data.creatures;
 								//$rootScope.$broadcast('dataSource.ready');
 							});
 			},
-			reportDefeat: function(creature, date, reporterToken) {
+			reportDefeat: function(creature, date) {
 				return call({ method: 'POST',
 					url: '/reportDefeat',
 					data: {
 						creature: creature,
-						date: date,
-						reporterToken: reporterToken
+						date: date
 					}
 				}, function(data) {
 					console.log('report defeat', data);
@@ -115,21 +90,6 @@ angular.module('dataSource', [])
 					
 								$rootScope.$broadcast('dataSource.ready');
 							});
-			},
-			setLanguage: function(lang){
-				return call({
-					method: 'POST',
-					url: '/setLanguage',
-					data: {
-						lang: lang
-					}
-				});
-			},
-			getLanguage: function(){
-				return call({
-					method: 'GET',
-					url: '/getLanguage'
-				});
 			},
 			register: function(registerData) {
 				return call({ method: 'POST',
@@ -322,57 +282,8 @@ angular.module('dataSource', [])
 					params: {
 						userId: userId
 					}
-				});
-			},
-			getEvents: function(fromTimestamp, toTimestamp) {
-				return call({
-					method: 'POST',
-					url: '/getEvents',
-					data: {
-						fromTimestamp: fromTimestamp,
-						toTimestamp: toTimestamp
-					}
-				}, function(data){
-					$rootScope.model.events = $rootScope.model.events.concat(data);
-					$rootScope.$broadcast('dataSource.ready');
-					console.log('nowe eventy ', data);
-				});
-			},
-			updateCreatures: updateCreatures,
-			addEvent: function(event) {
-				var addIndex = 0;
-				for(var i = 0, len = $rootScope.model.events.length; i < len; i++){
-					var currentEvent = $rootScope.model.events[i];
-					var eventToAddTimestamp = moment(event.battleDate || event.reportDate).valueOf();
-					var currentEventTimestamp = moment(currentEvent.battleDate || currentEvent.reportDate).valueOf();
-
-					if(currentEventTimestamp <= eventToAddTimestamp) {
-						addIndex = i;
-						break;
-					}
-				}
-				$rootScope.model.events.splice(addIndex, 0, event);
-				/*$rootScope.model.events.unshift(event);*/
-				$rootScope.$broadcast('dataSource.ready');
-			},
-			getCreatureProfile: function(creatureId) {
-				return call({
-					method: 'GET',
-					url: '/creatureProfile',
-					params: {
-						creatureId: creatureId
-					}
 				}, function(data){
 
-				});
-			},
-			getCreatureAnalyze: function (creatureId) {
-				return call({
-					method: 'GET',
-					url: '/creatureAnalyze',
-					params: {
-						creatureId: creatureId
-					}
 				});
 			}
 		};

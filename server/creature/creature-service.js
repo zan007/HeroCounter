@@ -1,12 +1,9 @@
 var path = require('path'),
 	server = require('../server'),
 	io = server.io,
-	_ = require('lodash'),
 	eventService = require('../event/event-service'),
-	userService = require('../user/user-service'),
 	dateUtils = require('../utils/date-utils'),
 	pool = server.pool,
-	async = require('async'),
 	moment = require('moment'),
 	app = server.app,
 	io = server.io;
@@ -18,46 +15,62 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 		if(!creatureId) {
 			connection.query('select * from creature', function (err, rows) {
 				if (err) throw err;
+
 				for (var i = 0; i < rows.length; i++) {
 					var currentCreature = rows[i];
 
+					//var msDate  = moment(rows[i].defeatedDate).valueOf();
 
+					//var minRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime);
 					var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
-
+					//console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
 					if (moment(maxRespDate).isBefore(today)) {
 						console.log('stare');
 						currentCreature.timeToResp = null;
 					} else {
+						/* console.log(maxRespDate > today);
+						 console.log('oooo ' + moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+						 console.log('today format ' + moment(today).format('DD/MM/YYYY HH:mm:ss'));
+						 console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
 
 						var dateDifference = moment(maxRespDate).diff(moment(today));
-
+						//  console.log(moment(dateDifference).valueOf());
 						currentCreature.timeToResp = dateDifference;
 					}
+					//console.log(currentCreature, 'ddoodododod');
 					creatures.push(currentCreature);
 				}
 				connection.release();
 				callback(null, creatures);
 			});
 		} else {
-			connection.query('select * from creature where id = ?', creatureId, function (err, rows) {
+			connection.query('select * from creature where id = ?',creatureId, function (err, rows) {
 				if (err) throw err;
 
 				if (rows.length === 1) {
 
 					var currentCreature = rows[0];
+
+					//var msDate  = moment(rows[i].defeatedDate).valueOf();
+
+					//var minRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime);
 					var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
-
+					//console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
 					if (moment(maxRespDate).isBefore(today)) {
-
+						console.log('stare');
 						currentCreature.timeToResp = null;
 					} else {
+						/* console.log(maxRespDate > today);
+						 console.log('oooo ' + moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+						 console.log('today format ' + moment(today).format('DD/MM/YYYY HH:mm:ss'));
+						 console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
 
 						var dateDifference = moment(maxRespDate).diff(moment(today));
-
+						//  console.log(moment(dateDifference).valueOf());
 						currentCreature.timeToResp = dateDifference;
 					}
+					//console.log(currentCreature, 'ddoodododod');
 					creatures.push(currentCreature);
-
 				} else {
 					callback('unknown creature');
 				}
@@ -72,7 +85,7 @@ var checkDefeatDuplicate = function(creature, date, duplicateExistCb, duplicateN
 	var dateFrom = moment(date).subtract(1, 'minutes');
 
 	pool.getConnection(function(err, connection){
-		connection.query('select * from report where reportDate between ? and ? and creatureId = ?', [dateUtils.timestampToSqlDatetime(dateFrom.valueOf()), dateUtils.timestampToSqlDatetime(moment(date).valueOf()), creature.id], function(err, rows){
+		connection.query('select * from battle where battleDate between ? and ? and creatureId = ?', [dateUtils.timestampToSqlDatetime(dateFrom.valueOf()), dateUtils.timestampToSqlDatetime(moment(date).valueOf()), creature.id], function(err, rows){
 			if(rows.length > 0) {
 				connection.release();
 				duplicateExistCb();
@@ -105,163 +118,91 @@ app.get('/creatures', function(req, res){
 	});
 });
 
-/*app.post('/defeat', function(req, res){
+app.post('/defeat', function(req, res){
 	var today = moment().format('YYYY-MM-DD HH:mm:ss');
 	if(req.body && req.body.creatureName) {
 		var creatureName = req.body.creatureName;
 		var defeatedCreature = '';
-		async.waterfall([
-			function(wcb){
-				pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err){
-					if(err){
-						wcb(err);
-					}
 
-					wcb();
-				});
-			},
-			function(wcb){
-				pool.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, result){
-					if(err){
-						wcb(err);
-					}
+		pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err){
+			if(err){
+				throw(err);
+			}
+		});
+		pool.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, result){
+			if(err){
+				throw(err);
+			}
 
-					wcb(null, result.insertId);
-				});
-			},
-			function(defeatedCreature, wcb){
-				recalcCreatureRespTime(function(empty, data) {
-					/!*console.log('recalc defeat', data);*!/
-					var creaturesToSend = [];
-					_.find(data, function(obj) {
-						if(obj.name === creatureName){
-							creaturesToSend.push(obj);
-						}
-					});
+			defeatedCreature = result.insertId;
+		});
+		recalcCreatureRespTime(function(empty, data) {
+			/*console.log('recalc defeat', data);*/
+			var output = {
+				creatures: data
+			};
+			console.log('recalc defeat');
 
-					var output = {
-						creatures: creaturesToSend
-					};
+			io.emit('creaturesUpdated', output);
 
-
-					eventService.getEvents(function(cb, data){
-
-						io.emit('eventsUpdated', data[0]);
-					}, today, today);
-
-					io.emit('creaturesUpdated', output);
-
-					//res.send(output);
-				}, defeatedCreature.id);
-			}], function (err) {
-				if(err) {
-					res.status(404).send();
-				}
-			});
+			res.send(output);
+		}, defeatedCreature.id);
 	} else {
 		res.status(404).send('not Found');
 	}
-});*/
+});
 
 app.post('/reportDefeat', function(req, res){
 	var reportDate = req.body.date;
 	var creature = req.body.creature;
-	var reporterToken = req.body.reporterToken;
 
 	if(reportDate && creature){
 		checkDefeatDuplicate(creature, reportDate, function(){
-			res.status(404).send({
-				message: 'duplicate',
-				code: 41
-			});
+			res.status(200).send({message: 'duplicate'});
 		}, function(){
 			pool.getConnection(function(err, connection) {
 
-				async.waterfall([
-					function(wcb){
-						userService.getUserByToken(reporterToken, function(err, user){
-							wcb(null, user.id);
-						});
-					},
-					function(userId, wcb){
-						var battleSet = {
-							creatureId: creature.id,
-							reportDate: moment(reportDate).format('YYYY-MM-DD HH:mm:ss'),
-							userId: userId
-						};
+				var battleSet = {
+					creatureId: creature.id,
+					battleDate: moment(reportDate).format('YYYY-MM-DD HH:mm:ss'),
+					placeId: null
+				};
 
-						connection.query('insert into report set ?', battleSet, function (err, rows) {
-							if(err) {
-								throw(err);
-							}
-
-							wcb();
-						});
-					},
-					function(wcb){
-						connection.query('update creature set lastSeenDate = ? where id = ?', [dateUtils.timestampToSqlDatetime(reportDate), creature.id], function(err) {
-							if(err) {
-								throw(err);
-							}
-
-							wcb();
-						});
-
-					}
-				], function(err){
-					//koniec
-
+				connection.query('insert into battle set ?', battleSet, function (err) {
 					if(err) {
-						res.status(404).send();
+						throw(err);
 					}
-
-					connection.release();
-
-					recalcCreatureRespTime(function(empty, data) {
-						/*console.log('recalc defeat', data);*/
-						if(empty) {
-							res.status(500).send({
-								message: empty,
-								code: 42
-							});
-						}
-						var output = {
-							creatures: data
-						};
-
-
-						io.emit('creaturesUpdated', output);
-
-						eventService.getEvents(function(cb, data){
-
-							io.emit('eventsUpdated', data[0]);
-						}, reportDate, reportDate);
-
-						res.status(200).send();
-					}, creature.id);
 				});
+
+				connection.query('update creature set lastSeenDate = ? where id = ?', [dateUtils.timestampToSqlDatetime(reportDate), creature.id], function(err) {
+					if(err) {
+						throw(err);
+					}
+				});
+
+				connection.release();
+
+				recalcCreatureRespTime(function(empty, data) {
+					/*console.log('recalc defeat', data);*/
+					var output = {
+						creatures: data
+					};
+					console.log('recalc defeat');
+
+					io.emit('creaturesUpdated', output);
+
+					eventService.getEvents(function(cb, data){
+						console.log('getEvents po dodaniu', data);
+						io.emit('eventsUpdated', data[0]);
+					}, reportDate, reportDate);
+
+					res.status(200).send();
+				}, creature.id);
 			});
 		});
 	}
 });
 
-var getCreatureByName = function(name, foundCb, notFoundCb){
-	pool.getConnection(function(err, connection){
-		connection.query('select * from creature where name = ?', name, function(err, rows){
-			if(err){
-				connection.release();
-				notFoundCb();
-			}
-
-			if(rows.length === 1){
-				connection.release();
-				foundCb(rows[0]);
-			}
-		});
-	});
-};
-
 module.exports = {
-	recalcCreatureRespTime: recalcCreatureRespTime,
-	getCreatureByName: getCreatureByName
+	recalcCreatureRespTime: recalcCreatureRespTime
 };

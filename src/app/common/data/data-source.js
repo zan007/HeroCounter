@@ -63,6 +63,19 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 								//$rootScope.$broadcast('dataSource.ready');
 							});
 			},
+			reportDefeat: function(creature, date) {
+				return call({ method: 'POST',
+					url: '/reportDefeat',
+					data: {
+						creature: creature,
+						date: date
+					}
+				}, function(data) {
+					console.log('report defeat', data);
+					//$rootScope.model.creatures = data.creatures;
+					//$rootScope.$broadcast('dataSource.ready');
+				});
+			},
 			init: function(){
 				return call({method: 'GET',
 							url: '/init',

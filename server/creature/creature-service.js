@@ -2,8 +2,10 @@ var path = require('path'),
 	server = require('../server'),
 	io = server.io,
 	eventService = require('../event/event-service'),
+	userService = require('../user/user-service'),
 	dateUtils = require('../utils/date-utils'),
 	pool = server.pool,
+	async = require('async'),
 	moment = require('moment'),
 	app = server.app,
 	io = server.io;
@@ -155,6 +157,7 @@ app.post('/defeat', function(req, res){
 app.post('/reportDefeat', function(req, res){
 	var reportDate = req.body.date;
 	var creature = req.body.creature;
+	var reporterToken = req.body.reporterToken;
 
 	if(reportDate && creature){
 		checkDefeatDuplicate(creature, reportDate, function(){
@@ -162,42 +165,66 @@ app.post('/reportDefeat', function(req, res){
 		}, function(){
 			pool.getConnection(function(err, connection) {
 
-				var battleSet = {
-					creatureId: creature.id,
-					battleDate: moment(reportDate).format('YYYY-MM-DD HH:mm:ss'),
-					placeId: null
-				};
+				async.waterfall([
+					function(wcb){
+						userService.getUserByToken(reporterToken, function(err, user){
+							wcb(null, user.id);
+						});
+					},
+					function(userId, wcb){
+						var battleSet = {
+							creatureId: creature.id,
+							reportDate: moment(reportDate).format('YYYY-MM-DD HH:mm:ss'),
+							userId: userId
+						};
 
-				connection.query('insert into battle set ?', battleSet, function (err) {
-					if(err) {
-						throw(err);
+						connection.query('insert into report set ?', battleSet, function (err, rows) {
+							if(err) {
+								throw(err);
+							}
+
+							wcb();
+						});
+					},
+					function(wcb){
+						connection.query('update creature set lastSeenDate = ? where id = ?', [dateUtils.timestampToSqlDatetime(reportDate), creature.id], function(err) {
+							if(err) {
+								throw(err);
+							}
+
+							wcb();
+						});
+
 					}
+				], function(){
+					//koniec
+					connection.release();
+
+					recalcCreatureRespTime(function(empty, data) {
+						/*console.log('recalc defeat', data);*/
+						var output = {
+							creatures: data
+						};
+						console.log('recalc defeat');
+
+						io.emit('creaturesUpdated', output);
+
+						eventService.getEvents(function(cb, data){
+							console.log('getEvents po dodaniu', data);
+							io.emit('eventsUpdated', data[0]);
+						}, reportDate, reportDate);
+
+						res.status(200).send();
+					}, creature.id);
 				});
 
-				connection.query('update creature set lastSeenDate = ? where id = ?', [dateUtils.timestampToSqlDatetime(reportDate), creature.id], function(err) {
-					if(err) {
-						throw(err);
-					}
-				});
 
-				connection.release();
 
-				recalcCreatureRespTime(function(empty, data) {
-					/*console.log('recalc defeat', data);*/
-					var output = {
-						creatures: data
-					};
-					console.log('recalc defeat');
 
-					io.emit('creaturesUpdated', output);
 
-					eventService.getEvents(function(cb, data){
-						console.log('getEvents po dodaniu', data);
-						io.emit('eventsUpdated', data[0]);
-					}, reportDate, reportDate);
 
-					res.status(200).send();
-				}, creature.id);
+
+
 			});
 		});
 	}

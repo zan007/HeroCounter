@@ -8,6 +8,75 @@ var server = require('../server'),
 	dateUtils = require('../utils/date-utils'),
 	creatureService = require('../creature/creature-service');
 
+var getReports = function(cb, fromTimestamp, toTimestamp) {
+	var reports = [];
+
+	pool.getConnection(function(err, connection) {
+		connection.query('select * from report where reportDate >= ? and reportDate <= ?', [fromTimestamp, toTimestamp], function(err, rows) {
+			if(err) throw err;
+
+			console.log('query events');
+			//for(var i = 0, len = rows.length; i < len; i++) {
+			async.forEachLimit(rows, 1, function(currentReport, reportCallback){
+				console.log('foreach ', currentReport);
+				var creature = '',
+					reportDate = currentReport.battleDate,
+					reporter = '';
+
+				async.waterfall([
+
+					function(wcb) {
+						connection.query('select * from creature where id = ?', currentReport.creatureId, function(err, rows) {
+							if(err) wcb(err);
+
+							creature = rows[0];
+							wcb();
+						});
+					},
+					function(wcb) {
+						connection.query('select * from user where id = ?', currentReport.userId, function(err, rows) {
+							if(err) wcb(err);
+
+							if(rows && rows.length === 1){
+								reporter = {
+									id: rows[0].id,
+									avatar: rows[0].avatar,
+									name: rows[0].name
+								};
+							} else {
+								wcb(err);
+							}
+
+							wcb();
+						});
+					},
+					function(wcb) {
+						reports.push({
+							id: currentReport.id,
+							creature: creature,
+							reportDate: reportDate,
+							reporter: reporter
+						});
+
+						wcb();
+					}
+				], function (err) {
+					console.log('przed reportCallback', reports);
+					reportCallback();
+					if (err) throw err;
+				});
+			}, function(err, result) {
+				console.log('po reportCallback', reports, result);
+				connection.release();
+				cb(null, reports);
+				//connection.release();
+				//var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
+
+				//cb(null, sortedEvents);
+			});
+		});
+	});
+};
 
 var getEvents = function(cb, fromTimestamp, toTimestamp) {
 	var events = [];
@@ -71,7 +140,8 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 							place: place,
 							creature: creature,
 							battleDate: battleDate,
-							group: group
+							group: group,
+							type: 'BATTLE'
 						});
 
 						wcb();
@@ -84,11 +154,19 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 			}, function(err, result) {
 				console.log('po battleCallback', events, result);
 				connection.release();
-				var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
+				getReports(function(err, reports){
+					var allEvents = reports.concat(events);
 
-				cb(null, sortedEvents);
+					var sortedEvents = _.orderBy(allEvents, ['battleDate', 'reportDate'], ['desc']);
+					cb(null, sortedEvents);
+				}, fromDatetime, toDatetime);
+				//connection.release();
+				//var sortedEvents = _.orderBy(events, ['battleDate'], ['desc']);
+
+				//cb(null, sortedEvents);
 			});
 		});
+
 	});
 };
 

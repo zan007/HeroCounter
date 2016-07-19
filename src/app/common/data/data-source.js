@@ -63,12 +63,13 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 								//$rootScope.$broadcast('dataSource.ready');
 							});
 			},
-			reportDefeat: function(creature, date) {
+			reportDefeat: function(creature, date, reporterToken) {
 				return call({ method: 'POST',
 					url: '/reportDefeat',
 					data: {
 						creature: creature,
-						date: date
+						date: date,
+						reporterToken: reporterToken
 					}
 				}, function(data) {
 					console.log('report defeat', data);
@@ -285,6 +286,14 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				}, function(data){
 
 				});
+			},
+			updateCreatures: function(creatures) {
+				$rootScope.model.creatures = angular.extend(creatures, $rootScope.model.creatures);
+				$rootScope.$broadcast('dataSource.ready');
+			},
+			updateEvents: function(event) {
+				$rootScope.model.events.unshift(event);
+				$rootScope.$broadcast('dataSource.ready');
 			}
 		};
 	}

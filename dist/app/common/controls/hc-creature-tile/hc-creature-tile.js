@@ -1,6 +1,6 @@
 angular.module('controls.hcCreatureTile', ['dataSource'])
 
-.directive('hcCreatureTile', ['dataSource', function (dataSource) {
+.directive('hcCreatureTile', ['dataSource', '$rootScope', function (dataSource, $rootScope) {
 	return {
 		scope: {
 			creature: '=hcCreatureTile'
@@ -11,6 +11,7 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 		link: function ($scope) {
 			$scope.showAdditionalActions = false;
 			var reportDateTime = '';
+			$scope.reportedDate = moment().format('YYYY-MM-DD');
 
 			$scope.startCountdown = function (creature) {
 				dataSource.defeatCreature(creature);
@@ -19,7 +20,7 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 			$scope.toggleAdditionalActions = function () {
 				$scope.showAdditionalActions = !$scope.showAdditionalActions;
 
-				$scope.reportedDate = moment().format('YYYY[-]mm[-]DD');
+				$scope.reportedDate = moment().format('YYYY-MM-DD');
 				$scope.reportedTime = moment().valueOf();
 				console.log($scope.reportedTime, moment().valueOf());
 			};
@@ -38,8 +39,9 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 					'millisecond': momentTime.get('millisecond')
 				});
 
-				dataSource.reportDefeat(creature, formattedDate.valueOf()).then(function (data) {
+				dataSource.reportDefeat(creature, formattedDate.valueOf(), $rootScope.model.personalData.userToken).then(function (data) {
 					console.log('sukces raport ', data);
+					$scope.showAdditionalActions = false;
 				}, function (data) {
 					console.log('error raport ', data);
 				});

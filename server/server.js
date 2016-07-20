@@ -169,13 +169,13 @@ function isLoggedIn(req, res, next) {
         return next();
     }
    /* res.status(401);*/
-    res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+    res.sendfile(path.join(__dirname, srcDir, 'index.pl.html'));
 }
 
 app.get('/', isLoggedIn, function(req, res, next) {
     console.log('poczatek');
     res.status(200);
-    res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+    res.sendfile(path.join(__dirname, srcDir, 'index.pl.html'));
 });
 
 app.get('/isLoggedIn', function(req, res) {

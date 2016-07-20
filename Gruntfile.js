@@ -1,8 +1,10 @@
 var fs = require('fs'),
   path = require('path'),
+  i18nTask = require('./i18n'),
   _ = require('lodash-node');
 
 module.exports = function (grunt) {
+  i18nTask(grunt);
 
   var getScriptsFiles = function(paths) {
     var files = grunt.file.expand({cwd: 'src'}, paths),
@@ -23,12 +25,12 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-fontello');
 
 
-  grunt.registerTask('build', ['clean:all', 'copy:app', 'less:build', 'copy:assets', 'htmlrender:build']);
+  grunt.registerTask('build', ['clean:all', 'copy:app', 'less:build', 'copy:assets', 'htmlrender:build', 'i18n:build']);
   grunt.registerTask('release', ['clean:all', 'less:release', 'uglify:app', 'copy:assets', 'htmlrender:release']);
   grunt.registerTask('watch-build', ['build', 'watch:build']);
   grunt.registerTask('watch-release', ['release', 'watch:release']);
   grunt.registerTask('fonts', ['fontello:build']);
-
+    
   grunt.initConfig({
     timestamp: new Date().getTime(),
     watch: {
@@ -37,12 +39,28 @@ module.exports = function (grunt) {
         spawn: false
       },
       build: {
-        files: ['src/*.*', 'src/app/**', 'src/css/**/*.less', 'src/css/*.less', 'src/meta/**'],
+        files: ['src/*.*', 'src/i18n/*.json', 'src/app/**', 'src/css/**/*.less', 'src/css/*.less', 'src/meta/**'],
         tasks: ['clean:app', 'copy:app', 'less:build', 'htmlrender:build']
       },
       release: {
         files: ['src/*.*', 'src/app/**', 'src/css/*.less', 'src/css/*.less', 'src/meta/**'],
         tasks: ['clean:app', 'uglify:app', 'less:release', 'htmlrender:release']
+      }
+    },
+    i18n: {
+      build: {
+        options: {
+          src: ['src/i18n/*.json'],
+          locales: ['pl']//, 'en']
+        },
+      
+        files: [{
+          dest: 'dist',
+          src : ['*.html'],
+          expand: true,
+          cwd: 'temp'
+        }]
+      
       }
     },
     htmlrender: {
@@ -59,7 +77,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: 'src',
             src: ['*.html'],
-            dest: 'dist',
+            dest: 'temp',
             ext: '.html'
         }]
       },
@@ -76,7 +94,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: 'src',
             src: ['*.html'],
-            dest: 'dist',
+            dest: 'temp',
             ext: '.html'
         }]
       }
@@ -91,7 +109,7 @@ module.exports = function (grunt) {
       }
     },    
     clean: {
-      all: ['dist/**'],
+      all: ['dist/**', 'temp'],
       app: ['dist/app/**', 'dist/css/**']
     },
     uglify: {

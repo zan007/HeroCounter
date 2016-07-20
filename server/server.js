@@ -118,7 +118,6 @@ var userService = require('./user/user-service');
 var creatureService = require('./creature/creature-service');
 var eventService = require('./event/event-service');
 var userProfileService = require('./user/user-profile-service');
-var creatureProfileService = require('./creature/creature-profile-service');
 var settingsService = require('./settings/settings-service');
 var authentication = require('./authentication/authentication');
 require('./authentication/authentication')(passport);
@@ -129,11 +128,12 @@ var socketUserCounter = 0;
 
 app.get('/init', function(req, res, next) {
     var model = {};
+    var currentTimestamp = new Date().getTime();
+    var eventOffset = moment(currentTimestamp).add('d', 2).valueOf();
+    console.log('eventOffset', eventOffset.valueOf());
     async.series({
         personalData: function(callback){
            	var user = req.user;
-			//user.lang = req.session.lang;
-
             console.log(user);
             callback(null, user);
         },
@@ -169,16 +169,13 @@ function isLoggedIn(req, res, next) {
         return next();
     }
    /* res.status(401);*/
-	var lang = req.session.lang ? req.session.lang : 'pl';
-    res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
+    res.sendfile(path.join(__dirname, srcDir, 'index.pl.html'));
 }
 
 app.get('/', isLoggedIn, function(req, res, next) {
-    console.log('poczatek ');
+    console.log('poczatek');
     res.status(200);
-	var lang = req.session.lang ? req.session.lang : 'pl';
-
-    res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
+    res.sendfile(path.join(__dirname, srcDir, 'index.pl.html'));
 });
 
 app.get('/isLoggedIn', function(req, res) {

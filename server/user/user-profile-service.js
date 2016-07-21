@@ -114,6 +114,7 @@ app.get('/getUserProfile', function(req, res) {
 							for (var i = 0, len = rows.length; i < len; i++) {
 								var currentHero = rows[i];
 								profileModel.mainHeroes.push(currentHero);
+
 								profileModel.mainHeroStats.battles.push({
 									'heroId': currentHero.id,
 									'battleCount': 0
@@ -137,7 +138,12 @@ app.get('/getUserProfile', function(req, res) {
 						if (rows && rows.length > 0) {
 							for (var i = 0, len = rows.length; i < len; i++) {
 								var currentHero = rows[i];
+								var guestUserId = rows[i].mainUserId ? rows[i].mainUserId : null;
 								profileModel.guestHeroes.push(currentHero);
+
+								profileModel.guestUser = {
+									id: guestUserId
+								};
 								profileModel.guestHeroStats.battles.push({
 									'heroId': currentHero.id,
 									'battleCount': 0
@@ -148,6 +154,26 @@ app.get('/getUserProfile', function(req, res) {
 						cb(null, profileModel);
 					});
 
+				},
+				function(profileModel, cb){
+					if(profileModel.guestUser && profileModel.guestUser.id) {
+						userService.getUser(profileModel.guestUser.id, function (err, user) {
+							if (err) {
+								cb(err);
+							}
+							profileModel.guestUser = _.merge({
+								name: user.name,
+								avatar: user.avatar,
+								isAdministrator: user.isAdministrator
+							}, profileModel.guestUser);
+
+
+							cb(null, profileModel);
+						});
+					} else {
+						profileModel.guestUser = null;
+						cb(null, profileModel);
+					}
 				},
 				function (profileModel, cb) {
 					profileModel.mainHeroStats.places = [];
@@ -189,7 +215,7 @@ app.get('/getUserProfile', function(req, res) {
 										battleRows = battleRows.concat(rows);
 										profileModel.mainHeroStats.battles.forEach(function(battle){
 											if(battle.heroId === mainHeroIds[iCopy]){
-												battle.battleCount = battleRows.length;
+												battle.battleCount = rows.length;
 											}
 										});
 
@@ -230,7 +256,7 @@ app.get('/getUserProfile', function(req, res) {
 										battleRows = battleRows.concat(rows);
 										profileModel.guestHeroStats.battles.forEach(function(battle){
 											if(battle.heroId === guestHeroIds[iCopy]){
-												battle.battleCount = battleRows.length;
+												battle.battleCount = rows.length;
 											}
 										});
 									}
@@ -259,7 +285,6 @@ app.get('/getUserProfile', function(req, res) {
 			});
 		});
 	} else {
-		connection.release();
 		res.status(404).send('not Found');
 	}
 });

@@ -20,7 +20,7 @@ var getReports = function(cb, fromTimestamp, toTimestamp) {
 			async.forEachLimit(rows, 1, function(currentReport, reportCallback){
 				console.log('foreach ', currentReport);
 				var creature = '',
-					reportDate = currentReport.battleDate,
+					reportDate = currentReport.reportDate,
 					reporter = '';
 
 				async.waterfall([
@@ -55,7 +55,8 @@ var getReports = function(cb, fromTimestamp, toTimestamp) {
 							id: currentReport.id,
 							creature: creature,
 							reportDate: reportDate,
-							reporter: reporter
+							reporter: reporter,
+							type: 'REPORT'
 						});
 
 						wcb();
@@ -156,8 +157,13 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 				connection.release();
 				getReports(function(err, reports){
 					var allEvents = reports.concat(events);
+					var sortedEvents = allEvents.sort(function(a, b){
+						var aSortField = a.type === 'BATTLE' ? a.battleDate: a.reportDate;
+						var bSortField = b.type === 'BATTLE' ? b.battleDate: b.reportDate;
 
-					var sortedEvents = _.orderBy(allEvents, ['battleDate', 'reportDate'], ['desc']);
+						return  bSortField - aSortField;
+					});
+					//var sortedEvents = _.orderBy(allEvents, ['battleDate', 'reportDate'], ['desc', 'desc']);
 					cb(null, sortedEvents);
 				}, fromDatetime, toDatetime);
 				//connection.release();
@@ -354,7 +360,7 @@ app.post('/registerEvent', function(req, res) {
 								}
 								connection.commit(function(err) {
 									if (err) cb(err);
-
+									var creatureService = require('../creature/creature-service');
 									console.log('success!');
 									/*connection.release();*/
 									creatureService.recalcCreatureRespTime(function(empty, data) {

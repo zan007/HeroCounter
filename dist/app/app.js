@@ -201,7 +201,7 @@ $script.ready('angular', function() {
 
 					socket.on('eventsUpdated', function (data) {
 						console.log('nowy event', data);
-						dataSource.updateEvents(data);
+						dataSource.addEvent(data);
 
 						notificationService.showInfoNotification('Events list updated');
 

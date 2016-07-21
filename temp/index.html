@@ -722,16 +722,22 @@ $script.ready('app', function() {
   <script id="/profile" type="text/ng-template"><div ng-controller="profileCtrl" class="row profile full-height">
     <div class="container-fluid full-height">
         <div class="row">
-            <div class="col-md-12 col-lg-5">
+            <div class="col-md-12 col-lg-6">
                 <div class="avatar-box center-vertically">
-                    <div class="avatar">
-                        <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
-                        <div class="name" ng-bind="userProfileModel.name"></div>
-                        <div class="role">{{userProfileModel.isAdministrator ? 'Administrator': 'User'}}</div>
+                    <div ng-class="{'multiple-avatars': userProfileModel.guestUser}">
+                        <div class="avatar">
+                            <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
+                            <div class="guest-avatar" ng-click="goToUserProfile(userProfileModel.guestUser.id)" ng-if="userProfileModel.guestUser">
+                                <img ng-src="{{userProfileModel.guestUser.avatar}}"/>
+                                <div class="name" ng-bind="userProfileModel.guestUser.name"></div>
+                            </div>
+                            <div class="name" ng-bind="userProfileModel.name"></div>
+                            <div class="role">{{userProfileModel.isAdministrator ? 'Administrator': 'User'}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-7">
+            <div class="col-md-12 col-lg-6">
                 <div class="about-box">
                     <header class="section-header">
                         <div class="description">
@@ -764,7 +770,7 @@ $script.ready('app', function() {
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-lg-7">
+            <div class="col-xs-12 col-lg-6">
                 <div class="favorites-creatures">
                     <header class="section-header">
                         <div class="description">
@@ -775,7 +781,7 @@ $script.ready('app', function() {
                     <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount"></div>
                 </div>
             </div>
-            <div class="col-xs-12 col-lg-5">
+            <div class="col-xs-12 col-lg-6">
                 <div class="favorite-time">
                     <header class="section-header">
                         <div class="description">
@@ -928,18 +934,22 @@ $script.ready('app', function() {
   <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline full-height">
     <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
         <div class="day-label" ng-if="showDayLabel(event, $index)">
-            <div class="value" ng-bind="getDayName(event.battleDate)"></div>
+            <div class="value" ng-bind="event.type === 'BATTLE' ? getDayName(event.battleDate) : getDayName(event.reportDate)"></div>
         </div>
-        <div class="event-info">
-            <div hc-pretty-time="event.battleDate"></div>
-            <div>
-                <i class="icon-circle"></i>
-                <div class="person" ng-bind="event.group[0].heroName"></div>
+        <div class="event-info" ng-class="{report: event.type === 'REPORT'}">
+            <div class="header">
+                <div hc-pretty-time="event.battleDate || event.reportDate"></div>
+                <div>
+                    <i class="icon-circle"></i>
+                    <div class="person" ng-if="event.type === 'BATTLE'" ng-bind="event.group[0].heroName"></div>
+                    <div class="person active" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-bind="event.reporter.name"></div>
+                </div>
             </div>
+            <img class="avatar" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-src="{{event.reporter.avatar}}"/>
 
             <div class="creature" ng-bind="event.creature.name"></div>
             <div class="details">
-                <span>was defeated by: </span>
+                <span ng-if="event.type === 'BATTLE'">was defeated by: </span>
                 <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">
                     <span>{{member.heroName}}</span>
                     <span ng-show="!$last">,</span>

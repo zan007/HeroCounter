@@ -14,7 +14,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 }), function(req, res){
 	console.log('rejestracja poprawnie');
 	req.logOut();
-	res.sendfile(path.join(server.dirName, server.srcDir, 'index.html'));
+	res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
 });
 
 app.post('/login', function(req, res, next) {
@@ -36,7 +36,7 @@ app.post('/login', function(req, res, next) {
 			}
 
 			console.log('logowanie poprawnie ');
-			res.sendfile(path.join(server.dirName, server.srcDir, 'index.html'));
+			res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
 		});
 	})(req, res, next);
 });

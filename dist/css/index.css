@@ -1323,20 +1323,50 @@ ul {
   -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
 }
+.profile .avatar-box {
+  padding: 0;
+}
+.profile .avatar-box .multiple-avatars {
+  width: 150px;
+  margin-right: 60px;
+}
 .profile .avatar-box .avatar {
   font-size: 16px;
-  text-align: center;
   color: white;
+  position: relative;
 }
 .profile .avatar-box .avatar img {
   width: 150px;
   height: 150px;
-  display: block;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   border: solid 1px #129fdd;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+.profile .avatar-box .avatar .name,
+.profile .avatar-box .avatar .role {
+  width: 150px;
+  text-align: center;
+}
+.profile .avatar-box .avatar .guest-avatar {
+  position: absolute;
+  width: 90px;
+  right: -60px;
+  top: -20px;
+  z-index: -1;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+.profile .avatar-box .avatar .guest-avatar img {
+  width: 90px;
+  height: 90px;
+  display: block;
+}
+.profile .avatar-box .avatar .guest-avatar .name {
+  padding-left: 35px;
+  width: 100%;
+  text-align: left;
 }
 .profile .property-section {
   display: -webkit-flex;
@@ -1592,6 +1622,10 @@ ul {
   -moz-justify-content: center;
   -ms-justify-content: center;
   justify-content: center;
+  background-color: rgba(31, 69, 109, 0.7);
+  -webkit-box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
+  -moz-box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
+  box-shadow: inset 0px 8px 34px -17px rgba(4, 26, 55, 0.72);
 }
 .user-manager .users-list .list-element .role {
   font-size: 20px;
@@ -1818,6 +1852,24 @@ ul {
 .hc-events-timeline .left-element.event-with-label + .right-element.event-with-label {
   padding-top: 180px;
 }
+.hc-events-timeline .event-info .header {
+  display: inline-block;
+  vertical-align: middle;
+}
+.hc-events-timeline .event-info .avatar {
+  width: 40px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: solid 1px #129fdd;
+  text-align: center;
+  margin: auto 0 auto 25px;
+  cursor: pointer;
+}
+.hc-events-timeline .right-element .avatar {
+  float: left;
+  margin: auto 25px auto 0;
+}
 .hc-events-timeline .empty-container {
   color: #fff;
   display: -webkit-flex;
@@ -1862,6 +1914,10 @@ ul {
   color: #12aeef;
   font-size: 12px;
   text-transform: uppercase;
+}
+.hc-events-timeline .left-element .person.active,
+.hc-events-timeline .right-element .person.active {
+  cursor: pointer;
 }
 .hc-events-timeline .left-element .creature,
 .hc-events-timeline .right-element .creature {

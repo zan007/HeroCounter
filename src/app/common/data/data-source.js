@@ -291,8 +291,20 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				$rootScope.model.creatures = angular.extend(creatures, $rootScope.model.creatures);
 				$rootScope.$broadcast('dataSource.ready');
 			},
-			updateEvents: function(event) {
-				$rootScope.model.events.unshift(event);
+			addEvent: function(event) {
+				var addIndex = 0;
+				for(var i = 0, len = $rootScope.model.events.length; i < len; i++){
+					var currentEvent = $rootScope.model.events[i];
+					var eventToAddTimestamp = moment(event.battleDate || event.reportDate).valueOf();
+					var currentEventTimestamp = moment(currentEvent.battleDate || currentEvent.reportDate).valueOf();
+
+					if(currentEventTimestamp <= eventToAddTimestamp) {
+						addIndex = i;
+						break;
+					}
+				}
+				$rootScope.model.events.splice(addIndex, 0, event);
+				/*$rootScope.model.events.unshift(event);*/
 				$rootScope.$broadcast('dataSource.ready');
 			}
 		};

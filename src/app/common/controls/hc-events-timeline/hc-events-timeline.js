@@ -33,8 +33,8 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 					return true;
 				} else {
 					
-						var currentEventDay = new Date(event.battleDate).getDay();
-						var prevEventDay = new Date($scope.events[index - 1].battleDate).getDay();
+						var currentEventDay = new Date(event.battleDate || event.reportDate).getDay();
+						var prevEventDay = new Date($scope.events[index - 1].battleDate || $scope.events[index - 1].reportDate).getDay();
 
 						return currentEventDay !== prevEventDay;
 					

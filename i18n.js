@@ -20,6 +20,7 @@ module.exports = function(grunt) {
     });
     
     var render = function(html, lang) {
+		console.log('I18N');
       return html.replace(i18nRegExp, function(all, code) {
         var translation = locales[lang][code];
         

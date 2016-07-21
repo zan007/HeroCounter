@@ -217,14 +217,6 @@ app.post('/reportDefeat', function(req, res){
 						res.status(200).send();
 					}, creature.id);
 				});
-
-
-
-
-
-
-
-
 			});
 		});
 	}

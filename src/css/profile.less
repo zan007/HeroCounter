@@ -10,20 +10,55 @@
   }
 
   .avatar-box {
+	padding: 0;
+
+	.multiple-avatars {
+	  width: 150px;
+	  margin-right: 60px;
+	}
+
 	.avatar {
 	  font-size: 16px;
-	  text-align: center;
+
 	  color: white;
+	  position: relative;
 
 	  img {
 		width: 150px;
 		height: 150px;
-		display: block;
 		.border-radius(50%);
 		border: solid 1px #129fdd;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
+	  }
+
+	  .name, .role {
+		width: 150px;
+		text-align: center;
+	  }
+
+	  .guest-avatar {
+		position: absolute;
+		width: 90px;
+		right: -60px;
+		top: -20px;
+		z-index: -1;
+		word-wrap: break-word;
+		cursor: pointer;
+
+		img {
+		  width: 90px;
+		  height: 90px;
+		  display: block;
+		}
+		.name {
+		  padding-left: 35px;
+		  width: 100%;
+		  text-align: left;
+		}
 	  }
 	}
+
+
   }
 
   .property-section {

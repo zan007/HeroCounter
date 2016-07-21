@@ -1,10 +1,16 @@
 angular.module('profile', ['dataSource'])
-.controller('profileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', 'defaultAvatar', function($scope, $rootScope, dataSource, $location, $stateParams, defaultAvatar){
+.controller('profileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', 'defaultAvatar', '$state', function($scope, $rootScope, dataSource, $location, $stateParams, defaultAvatar, $state){
 	console.log('profileCtrl');
 	$scope.defaultAvatarLink = defaultAvatar.link;
 	$scope.userProfileModel = {};
 	$scope.stripeChartData = [];
 	$scope.pieChartData = [];
+
+	$scope.goToUserProfile = function(id) {
+		if(id){
+			$state.go('profile', {userId: id});
+		}
+	};
 
 	function compareBattleCount(a, b) {
 		if (a.creatureBattleCount > b.creatureBattleCount)
@@ -56,32 +62,30 @@ angular.module('profile', ['dataSource'])
 		var chartData = [];
 		var sortedData = [];
 		var topCount = 0;
-		if($scope.userProfileModel) {
-			chartData = $scope.userProfileModel.mainHeroStats.creatures.concat($scope.userProfileModel.guestHeroStats.creatures);
-			for(var i = 0, len = chartData.length; i < len; i++){
-				$rootScope.model.creatures.map(function(currentCreature){
-					if(currentCreature.id === chartData[i].creatureId){
-						chartData[i].name = currentCreature.name;
-					}
-				});
-			}
 
-			topCount = chartData.length >= 5 ? 5 : chartData.length;
-			console.log(topCount, 'asas');
-			sortedData = chartData.sort(compareBattleCount);
-
-			/*for(var j = 0, len = topCount; j < len; j++){
-
-				Math.max.apply(null, chartData.map(function(o){
-					dataToReturn.push(o);
-					chartData = chartData.filter(function(obj) {
-						return chartData.indexOf(obj) === -1;
-					});
-					return o.creatureBattleCount;
-				}));
-			}*/
+		chartData = $scope.userProfileModel.mainHeroStats.creatures.concat($scope.userProfileModel.guestHeroStats.creatures);
+		for(var i = 0, len = chartData.length; i < len; i++){
+			$rootScope.model.creatures.map(function(currentCreature){
+				if(currentCreature.id === chartData[i].creatureId){
+					chartData[i].name = currentCreature.name;
+				}
+			});
 		}
-		console.log(sortedData);
+
+		topCount = chartData.length >= 5 ? 5 : chartData.length;
+		console.log(topCount, 'asas');
+		sortedData = chartData.sort(compareBattleCount);
+
+		/*for(var j = 0, len = topCount; j < len; j++){
+
+			Math.max.apply(null, chartData.map(function(o){
+				dataToReturn.push(o);
+				chartData = chartData.filter(function(obj) {
+					return chartData.indexOf(obj) === -1;
+				});
+				return o.creatureBattleCount;
+			}));
+		}*/
 
 
 		return sortedData.length > topCount ? sortedData.splice(topCount, chartData.length - topCount) : sortedData;
@@ -96,4 +100,5 @@ angular.module('profile', ['dataSource'])
 			}
 		});
 	}
+
 }]);

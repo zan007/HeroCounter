@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('build', ['clean:all', 'copy:app', 'less:build', 'copy:assets', 'htmlrender:build', 'i18n:build']);
-  grunt.registerTask('release', ['clean:all', 'less:release', 'uglify:app', 'copy:assets', 'htmlrender:release']);
+  grunt.registerTask('release', ['clean:all', 'less:release', 'uglify:app', 'copy:assets', 'htmlrender:release', 'i18n:build']);
   grunt.registerTask('watch-build', ['build', 'watch:build']);
   grunt.registerTask('watch-release', ['release', 'watch:release']);
   grunt.registerTask('fonts', ['fontello:build']);
@@ -40,10 +40,10 @@ module.exports = function (grunt) {
       },
       build: {
         files: ['src/*.*', 'src/i18n/*.json', 'src/app/**', 'src/css/**/*.less', 'src/css/*.less', 'src/meta/**'],
-        tasks: ['clean:app', 'copy:app', 'less:build', 'htmlrender:build']
+        tasks: ['clean:app', 'copy:app', 'less:build', 'htmlrender:build', 'i18n:build']
       },
       release: {
-        files: ['src/*.*', 'src/app/**', 'src/css/*.less', 'src/css/*.less', 'src/meta/**'],
+        files: ['src/*.*', 'src/i18n/*.json', 'src/app/**', 'src/css/*.less', 'src/css/*.less', 'src/meta/**'],
         tasks: ['clean:app', 'uglify:app', 'less:release', 'htmlrender:release']
       }
     },

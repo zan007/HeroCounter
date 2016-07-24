@@ -1,4 +1,4 @@
- <div class="row hc-events-timeline full-height">
+ <div class="row hc-events-timeline scrollable full-height">
     <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
         <div class="day-label" ng-if="showDayLabel(event, $index)">
             <div class="value" ng-bind="event.type === 'BATTLE' ? getDayName(event.battleDate) : getDayName(event.reportDate)"></div>
@@ -23,6 +23,9 @@
                 </span>
             </div>
          </div>
+     </div>
+     <div class="col-xs-12 splash-container" ng-show="showLoadingIndicator">
+         <div class="splash"></div>
      </div>
      <div class="col-xs-12 empty-container full-height" ng-if="events.length === 0">
          <i class="icon-address"></i>

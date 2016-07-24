@@ -20,6 +20,7 @@ $script.ready('angular', function() {
 		'notificationService',
 		'utils.fastFilter',
 		'ngCookies',
+		'hcLocales',
 		'pikaday',
 		'controls.hcPrettyTime',
 		'controls.hcEventsTimeline',
@@ -178,9 +179,12 @@ $script.ready('angular', function() {
 		'userManager': true
 	})
 
-	.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory', 'defaultAvatar',
-		function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory, defaultAvatar) {
+	.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory', 'defaultAvatar', '$window',
+		function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory, defaultAvatar, $window) {
 
+		$window.onScroll = function(){
+			console.log('scroll');
+		};
 			userAuthService.init();
 			$rootScope.showLogout = false;
 			$scope.stateParams = $stateParams;

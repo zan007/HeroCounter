@@ -16,33 +16,15 @@ app.post('/applySettings', function(req, res) {
 
 		pool.getConnection(function(err, connection){
 			if(req.user.id === userId) {
-				async.waterfall([
-					function (cb) {
-						connection.query('select * from user where name = ? and id != ?', [name, userId], function(err, rows){
-							if(rows.length > 0) {
-								cb({}, 'name already exist', 32);
-							} else {
-								cb();
-							}
-						});
-					},
-					function(cb) {
-						var userSettings = [name, phoneNumber, phoneVisible, ggNumber, ggVisible, userId];
-						connection.query('update user set name = ?, phone = ?, phoneVisible = ?, gg = ?, ggVisible = ? where id = ?', userSettings, function (err) {
-							if (err) cb(err);
+				var userSettings = [name, phoneNumber, phoneVisible, ggNumber, ggVisible, userId];
+				connection.query('update user set name = ?, phone = ?, phoneVisible = ?, gg = ?, ggVisible = ? where id = ?', userSettings, function (err) {
+					if (err) throw err;
 
-							userService.getUser(userId, function (cb, user) {
-								res.status(200).send(user);
-								connection.release();
-							});
-						});
-					}], function (err, errMessage, errCode) {
+					userService.getUser(userId, function(cb, user){
+						res.status(200).send(user);
 						connection.release();
-						res.status(500).send({
-							message: errMessage,
-							code: errCode
-						});
 					});
+				});
 			} else {
 				connection.release();
 				res.status(500).send();

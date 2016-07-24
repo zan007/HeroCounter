@@ -56,7 +56,13 @@
                         <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
                     </div>
                 </div>
+                <div class="overlay" ng-show="showLoadingIndicator">
+                    <div class="splash-container">
+                        <div class="splash"></div>
+                    </div>
+                </div>
             </div>
+
 			<div class="action-buttons" ng-hide="showAdditionalActions">
 				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
 				<div class="tile-button" ng-click="toggleAdditionalActions()">Podobno ubita</div>

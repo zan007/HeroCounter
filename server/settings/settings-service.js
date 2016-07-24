@@ -24,7 +24,6 @@ app.post('/applySettings', function(req, res) {
 						res.status(200).send(user);
 						connection.release();
 					});
-					connection.release();
 				});
 			} else {
 				connection.release();

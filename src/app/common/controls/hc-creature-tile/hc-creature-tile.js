@@ -28,7 +28,7 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 			$scope.reportDefeat = function (creature, time, date) {
 				var momentDate = moment(date);
 				var momentTime = moment(time);
-
+				$scope.showLoadingIndicator = true;
 				var formattedDate = moment().set({
 					'year': momentDate.get('year'),
 					'month': momentDate.get('month'),
@@ -42,6 +42,7 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 				dataSource.reportDefeat(creature, formattedDate.valueOf(), $rootScope.model.personalData.userToken).then(function (data) {
 					console.log('sukces raport ', data);
 					$scope.showAdditionalActions = false;
+					$scope.showLoadingIndicator = false;
 				}, function (data) {
 					console.log('error raport ', data);
 				});

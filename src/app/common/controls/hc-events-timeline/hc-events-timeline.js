@@ -1,6 +1,6 @@
 angular.module('controls.hcEventsTimeline', ['dataSource'])
 
-.directive('hcEventsTimeline', ['$state', function($state) {
+.directive('hcEventsTimeline', ['$state', 'dataSource', 'locales', '$rootScope', function($state, dataSource, locales, $rootScope) {
 	return {
 		scope: {
 			events: '=hcEventsTimeline',
@@ -9,11 +9,18 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 		replace: true,
 		restriction: 'E',
 		templateUrl: 'hc-events-timeline',
-		link: function($scope) {
+		link: function($scope, $elem) {
+			console.log(locales.daysOfWeek.monday);
 			/*$rootScope.$on('dataSource.ready', function() {
 				$scope.eventDate = new Date($scope.events.battleDate);
 				console.log($scope.events);
 			});*/
+
+			$scope.showLoadingIndicator = true;
+			$rootScope.$on('dataSource.ready', function(){
+				$scope.showLoadingIndicator = false;
+			});
+
 			$scope.getDayName = function(date) {
 				var currentDate = new Date();
 				var eventDate = new Date(date);
@@ -46,6 +53,23 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 					$state.go('profile', {userId: id});
 				}
 			};
+
+			$scope.loadMoreEvents = function() {
+				if($scope.events && $scope.events.length > 0) {
+					$scope.showLoadingIndicator = true;
+					var lastEventDate = $scope.events[$scope.events.length - 1].battleDate || $scope.events[$scope.events.length - 1].reportDate;
+					dataSource.getEvents(moment(lastEventDate).subtract(1, 'days').valueOf(), moment(lastEventDate).subtract(1, 's').valueOf()).then(function(){
+						$scope.showLoadingIndicator = false;
+					});
+				}
+			};
+
+			$elem.bind('scroll', function() {
+				var element = $elem[0];
+				if (element.scrollTop + element.offsetHeight >= element.scrollHeight) {
+					$scope.loadMoreEvents();
+				}
+			});
 		}
 	};
 }]);

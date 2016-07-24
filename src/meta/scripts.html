@@ -1,8 +1,10 @@
 <script charset="utf-8">
-$script('/vendor/angular/1.5.5/angular.js', 'angular');
+$script('/vendor/jquery/1.10.2/jquery.js', 'jquery');
+$script.ready('jquery', function() {
+    $script('/vendor/angular/1.5.5/angular.js', 'angular');
+});
 $script.ready('angular', function() {
     $script([
-        '/vendor/jquery/1.10.2/jquery.js',
         '/vendor/angular/1.5.5/angular-touch.js',
         '/vendor/angular/1.5.5/angular-animate.js',
         '/vendor/angular/1.5.5/angular-messages.js',

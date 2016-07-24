@@ -81,12 +81,13 @@ var getReports = function(cb, fromTimestamp, toTimestamp) {
 
 var getEvents = function(cb, fromTimestamp, toTimestamp) {
 	var events = [];
-	console.log('getEfents w srodku ',fromTimestamp, toTimestamp);
+	if(!fromTimestamp && !toTimestamp){
+		toTimestamp = new Date().getTime();
+		fromTimestamp = moment(fromTimestamp).subtract('d', 3).valueOf();
+	}
+	console.log('getEfents w srodku ',toTimestamp, fromTimestamp);
 	pool.getConnection(function(err, connection) {
-		if(!fromTimestamp && !toTimestamp){
-			toTimestamp = new Date().getTime();
-			fromTimestamp = moment(fromTimestamp).subtract('d', 10).valueOf();
-		}
+
 		var fromDatetime = dateUtils.timestampToSqlDatetime(fromTimestamp);
 		var toDatetime = dateUtils.timestampToSqlDatetime(toTimestamp);
 		console.log('from ',fromDatetime,' to: ',toDatetime);
@@ -176,13 +177,15 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 	});
 };
 
-app.get('/getEvents', function(req, res) {
+app.post('/getEvents', function(req, res) {
 	if(req.body) {
-		var fromTimestamp = req.body.from;
-		var toTimestamp = req.body.to;
-		var events = getEvents(fromTimestamp, toTimestamp);
+		var fromTimestamp = req.body.fromTimestamp;
+		var toTimestamp = req.body.toTimestamp;
 
-		res.send(events);
+		getEvents(function (cb, events) {
+			res.send(events);
+		}, fromTimestamp, toTimestamp);
+
 	}
 });
 

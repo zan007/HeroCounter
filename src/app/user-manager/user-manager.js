@@ -9,13 +9,11 @@ controller('userManagerCtrl', ['$scope', '$rootScope', 'dataSource', 'notificati
 			reverse: false
 		};
 
-		$scope.reverse =
-
 		$rootScope.$on('dataSource.ready', function() {
 			$scope.users = $rootScope.model.users;
-			if($scope.users && $scope.users.length > 0){
+			/*if($scope.users && $scope.users.length > 0){
 				$scope.activeUserId = $scope.users[0].id;
-			}
+			}*/
 		});
 
 		if($rootScope.model.personalData && $rootScope.model.personalData.isAdministrator) {
@@ -38,31 +36,39 @@ controller('userManagerCtrl', ['$scope', '$rootScope', 'dataSource', 'notificati
 
 		$scope.acceptUser = function(user){
 			var acceptUserPromise = dataSource.acceptUserActivation(user);
+			$scope.showUserDetailsOverlay = true;
 			acceptUserPromise.then(function(){
+				$scope.showUserDetailsOverlay = false;
 				notificationService.showSuccessNotification('user ' + user.name + ' successfully accepted');
 			});
 		};
 
 		$scope.rejectUser = function(user){
+			$scope.showUserDetailsOverlay = true;
 			var rejectUserPromise = dataSource.rejectUserActivation(user);
 
 			rejectUserPromise.then(function(){
+				$scope.showUserDetailsOverlay = false;
 				notificationService.showSuccessNotification('user ' + user.name + ' successfully rejected');
 			});
 
 		};
 
 		$scope.setAdministrator= function(user){
+			$scope.showUserDetailsOverlay = true;
 			var setAdministratorPromise =  dataSource.setAdministrator(user);
 
 			setAdministratorPromise.then(function(){
+				$scope.showUserDetailsOverlay = false;
 				notificationService.showSuccessNotification('user ' + user.name + ' was successfully grant to administrator');
 			});
 		};
 
 		$scope.setCommonUser= function(user){
+			$scope.showUserDetailsOverlay = true;
 			var setCommonUserPromise = dataSource.setCommonUser(user);
 			setCommonUserPromise.then(function(){
+				$scope.showUserDetailsOverlay = false;
 				notificationService.showSuccessNotification('user ' + user.name + ' was successfully grant to standard user');
 			});
 		};

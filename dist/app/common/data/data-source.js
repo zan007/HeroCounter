@@ -1,7 +1,7 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService',
-	function($http, $q, $rootScope, $location, notificationService) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService', '$timeout',
+	function($http, $q, $rootScope, $location, notificationService, $timeout) {
 	   
 /*		var model = {
 			creatures: [],
@@ -29,14 +29,19 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 					result = responseFn(response.data, response.status, response.headers);
 				}
 				$rootScope.$broadcast('dataSource.stop');
+
 				return result || response.data;
+
 			}).then(null, function(reason) {
 				console.log(reason);
 				notificationService.showErrorNotification(reason.data.message, reason.data.persistence);
 				$rootScope.$broadcast('dataSource.error');
 				return $q.reject(reason);
 			});
-			return promise;
+			return $timeout(function(){
+				return promise;
+			}, 5000);
+
 		};
 
 		/*$http.get('init').then(function(response) {
@@ -285,6 +290,20 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 					}
 				}, function(data){
 
+				});
+			},
+			getEvents: function(fromTimestamp, toTimestamp) {
+				return call({
+					method: 'POST',
+					url: '/getEvents',
+					data: {
+						fromTimestamp: fromTimestamp,
+						toTimestamp: toTimestamp
+					}
+				}, function(data){
+					$rootScope.model.events = $rootScope.model.events.concat(data);
+					$rootScope.$broadcast('dataSource.ready');
+					console.log('nowe eventy');
 				});
 			},
 			updateCreatures: function(creatures) {

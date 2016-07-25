@@ -1,7 +1,7 @@
 angular.module('dataSource', []).
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService', '$timeout',
-	function($http, $q, $rootScope, $location, notificationService, $timeout) {
+factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService',
+	function($http, $q, $rootScope, $location, notificationService) {
 	   
 /*		var model = {
 			creatures: [],
@@ -38,12 +38,24 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				$rootScope.$broadcast('dataSource.error');
 				return $q.reject(reason);
 			});
-			return $timeout(function(){
-				return promise;
-			}, 5000);
+
+			return promise;
+
 
 		};
 
+		var updateCreatures = function(creatures) {
+			for(var i = 0, len = creatures.length; i < len; i++){
+				for(var j = 0, length = $rootScope.model.creatures.length; j < length; j++) {
+					if ($rootScope.model.creatures[j].name === creatures[i].name) {
+						$rootScope.model.creatures[j] = creatures[i];
+						break;
+					}
+				}
+			}
+			//angular.extend($rootScope.model.creatures, creatures, $rootScope.model.creatures);
+			$rootScope.$broadcast('dataSource.ready');
+		};
 		/*$http.get('init').then(function(response) {
 			var data = response.data;
 
@@ -64,6 +76,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 								 	creatureName: creature.name 
 								 }
 							}, function(data) {
+								//updateCreatures(data.creatures);
 								//$rootScope.model.creatures = data.creatures;
 								//$rootScope.$broadcast('dataSource.ready');
 							});
@@ -306,10 +319,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 					console.log('nowe eventy');
 				});
 			},
-			updateCreatures: function(creatures) {
-				$rootScope.model.creatures = angular.extend(creatures, $rootScope.model.creatures);
-				$rootScope.$broadcast('dataSource.ready');
-			},
+			updateCreatures: updateCreatures,
 			addEvent: function(event) {
 				var addIndex = 0;
 				for(var i = 0, len = $rootScope.model.events.length; i < len; i++){

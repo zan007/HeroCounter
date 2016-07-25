@@ -8,15 +8,15 @@ angular.module('controls.hcPrettyTime', [])
         },
         replace: true,
         restriction: 'E',
+		templateUrl: 'hc-pretty-time',
         link: function($scope) {
             var convertDate = function() {
-                var date = new Date($scope.date);
-                $scope.hours = date.getHours();
-                $scope.minutes = date.getMinutes();
+                $scope.hours = moment($scope.date).hour();
+                $scope.minutes = moment($scope.date).minute();
 				if($scope.fullDate) {
-					$scope.day = date.getDay();
-                    $scope.month = date.getMonth();
-                    $scope.year = date.getFullYear();
+					$scope.day = moment($scope.date).date();
+                    $scope.month = moment($scope.date).month() + 1;
+                    $scope.year = moment($scope.date).year();
 				}
             }
 
@@ -24,7 +24,6 @@ angular.module('controls.hcPrettyTime', [])
                 console.log('newDate', newDate, 'olddate', oldDate);
                 convertDate();
             }, true);
-        },
-        templateUrl: 'hc-pretty-time'
-    }    
+        }
+    };
 });

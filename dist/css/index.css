@@ -1745,6 +1745,11 @@ ul {
   padding: 0 0 0 35px;
   min-height: 35px;
 }
+.tile-container .tile-subtitle .last-seen-date {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #b9d5ee;
+}
 .tile-container .additional-actions {
   color: white;
   font-size: 12px;

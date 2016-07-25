@@ -7,7 +7,7 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 
 		$rootScope.$on('dataSource.ready', function() {
 			$scope.creatures = $rootScope.model.creatures;
-			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+			$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
 		});
 		
 		if($rootScope.model.creatures && $rootScope.model.creatures.length > 0) {
@@ -86,6 +86,12 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 				$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
 				$cookieStore.put('lvlRange.minValue', lvlRange.minValue); 
 				$cookieStore.put('lvlRange.maxValue', lvlRange.maxValue);
+		}, true);
+
+		$scope.$watch('timeSlider', function(timeSlider) {
+			$scope.filter.hoursToResp = timeSlider.value;
+			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+			$cookieStore.put('hoursToResp', timeSlider.value);
 		}, true);
 
 		$scope.$watch('creatures', function(creatures) {

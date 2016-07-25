@@ -6,7 +6,7 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 			creature: '=hcCreatureTile'
 		},
 		replace: true,
-		restriction: 'E',
+		restriction: 'A',
 		templateUrl: 'hc-creature-tile',
 		link: function ($scope) {
 			$scope.showAdditionalActions = false;
@@ -47,6 +47,10 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 					console.log('error raport ', data);
 				});
 			};
+
+			$scope.$watch('creature', function(newVal, oldVal){
+				$scope.creature = newVal;
+			},true);
 		}
 	};
 }]);

@@ -6,5 +6,8 @@
     "thursday": "thursday",
     "friday": "friday",
     "saturday": "saturday",
-    "sunday": "sunday"
+    "sunday": "sunday",
+    "creature.lastSeenDate": "Przeciwnik był widziany: ",
+  "creature.report": "Zaraportuj pogłoskę o walce",
+  "creature.report.action": "Raportuj"
 }

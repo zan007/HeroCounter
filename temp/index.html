@@ -242,7 +242,9 @@ $script.ready('app', function() {
 		</div>
 		<div class="row">
 			<button class="form-button" ng-click="sendRequest()">send</button>
-			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+			<div ng-repeat="creature in filteredCreatures">
+                <div hc-creature-tile="creature"></div>
+            </div>
 		</div>
 	</div>
 </div>
@@ -374,7 +376,9 @@ $script.ready('app', function() {
 		</div>
 		<div class="row">
 			<button class="form-button" ng-click="sendRequest()">send</button>
-			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+			<div ng-repeat="creature in filteredCreatures">
+                <div hc-creature-tile="creature"></div>
+            </div>
 		</div>
 	</div>
 </div>
@@ -907,6 +911,7 @@ $script.ready('app', function() {
 			<div class="tile-header" ng-bind="creature.name"></div>
 			<div class="tile-subtitle">
 				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+                <div class="last-seen-date">_(creature.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" ng-show="creature.lastSeenDate"></span></div>
 				<div ng-show="!creature.timeToResp">Czas nieznany</div>
 			</div>
 			<div class="tile-content ">
@@ -950,7 +955,7 @@ $script.ready('app', function() {
                         </div>
                     </div>
                     <div class="row center-vertically">
-                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">Raportuj</button>
+                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">_(creature.report.action)</button>
                     </div>
                     <div class="row center-vertically">
                         <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
@@ -964,8 +969,8 @@ $script.ready('app', function() {
             </div>
 
 			<div class="action-buttons" ng-hide="showAdditionalActions">
-				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
-				<div class="tile-button" ng-click="toggleAdditionalActions()">Podobno ubita</div>
+				<!--<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>-->
+				<div class="tile-button" ng-click="toggleAdditionalActions()">_(creature.report)</div>
 			</div>
 		</div>
 	</div>
@@ -1025,14 +1030,14 @@ $script.ready('app', function() {
 </div></script>
   <script id="hc-stripe-chart" type="text/ng-template"><div class="hc-stripe-chart">
 </div></script>
-  <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
+  <script id="hc-pretty-time" type="text/ng-template"><span class="preety-time">
     <span ng-show="fullDate">
 	    <span class="day">{{day}}</span> 
 	    <span class="month">{{month}}</span> 
 	    <span class="year">{{year}}</span> 
     </span>
     <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
-</div></script>
+</span></script>
   <script id="hc-pie-chart" type="text/ng-template"><div class="hc-pie-chart">
 </div></script>
   <script id="hc-time-picker" type="text/ng-template"><div class="hc-time-picker">

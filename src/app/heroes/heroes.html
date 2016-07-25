@@ -5,7 +5,9 @@
 		</div>
 		<div class="row">
 			<button class="form-button" ng-click="sendRequest()">send</button>
-			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+			<div ng-repeat="creature in filteredCreatures">
+                <div hc-creature-tile="creature"></div>
+            </div>
 		</div>
 	</div>
 </div>

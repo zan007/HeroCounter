@@ -7,6 +7,7 @@
 			<div class="tile-header" ng-bind="creature.name"></div>
 			<div class="tile-subtitle">
 				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+                <div class="last-seen-date">_(creature.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" ng-show="creature.lastSeenDate"></span></div>
 				<div ng-show="!creature.timeToResp">Czas nieznany</div>
 			</div>
 			<div class="tile-content ">
@@ -50,7 +51,7 @@
                         </div>
                     </div>
                     <div class="row center-vertically">
-                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">Raportuj</button>
+                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">_(creature.report.action)</button>
                     </div>
                     <div class="row center-vertically">
                         <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
@@ -64,8 +65,8 @@
             </div>
 
 			<div class="action-buttons" ng-hide="showAdditionalActions">
-				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
-				<div class="tile-button" ng-click="toggleAdditionalActions()">Podobno ubita</div>
+				<!--<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>-->
+				<div class="tile-button" ng-click="toggleAdditionalActions()">_(creature.report)</div>
 			</div>
 		</div>
 	</div>

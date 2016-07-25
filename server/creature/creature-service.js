@@ -1,6 +1,7 @@
 var path = require('path'),
 	server = require('../server'),
 	io = server.io,
+	_ = require('lodash'),
 	eventService = require('../event/event-service'),
 	userService = require('../user/user-service'),
 	dateUtils = require('../utils/date-utils'),
@@ -125,8 +126,55 @@ app.post('/defeat', function(req, res){
 	if(req.body && req.body.creatureName) {
 		var creatureName = req.body.creatureName;
 		var defeatedCreature = '';
+		async.waterfall([
+			function(wcb){
+				pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err){
+					if(err){
+						wcb(err);
+					}
 
-		pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err){
+					wcb();
+				});
+			},
+			function(wcb){
+				pool.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, result){
+					if(err){
+						wcb(err);
+					}
+
+					wcb(null, result.insertId);
+				});
+			},
+			function(defeatedCreature, wcb){
+				recalcCreatureRespTime(function(empty, data) {
+					/*console.log('recalc defeat', data);*/
+					var creaturesToSend = [];
+					_.find(data, function(obj) {
+						if(obj.name === creatureName){
+							creaturesToSend.push(obj);
+						}
+					});
+
+					var output = {
+						creatures: creaturesToSend
+					};
+					console.log('recalc defeat');
+
+					eventService.getEvents(function(cb, data){
+						console.log('getEvents po dodaniu', data);
+						io.emit('eventsUpdated', data[0]);
+					}, today, today);
+
+					io.emit('creaturesUpdated', output);
+
+					//res.send(output);
+				}, defeatedCreature.id);
+			}], function (err) {
+				if(err) {
+					res.status(404).send();
+				}
+			});
+		/*pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err){
 			if(err){
 				throw(err);
 			}
@@ -139,16 +187,23 @@ app.post('/defeat', function(req, res){
 			defeatedCreature = result.insertId;
 		});
 		recalcCreatureRespTime(function(empty, data) {
-			/*console.log('recalc defeat', data);*/
+			/!*console.log('recalc defeat', data);*!/
+			var creaturesToSend = [];
+			_.find(data, function(obj) {
+				if(obj.name === creatureName){
+					creaturesToSend.push(obj);
+				}
+			});
+
 			var output = {
-				creatures: data
+				creatures: creaturesToSend
 			};
 			console.log('recalc defeat');
 
 			io.emit('creaturesUpdated', output);
 
 			res.send(output);
-		}, defeatedCreature.id);
+		}, defeatedCreature.id);*/
 	} else {
 		res.status(404).send('not Found');
 	}
@@ -196,8 +251,13 @@ app.post('/reportDefeat', function(req, res){
 						});
 
 					}
-				], function(){
+				], function(err){
 					//koniec
+
+					if(err) {
+						res.status(404).send();
+					}
+
 					connection.release();
 
 					recalcCreatureRespTime(function(empty, data) {

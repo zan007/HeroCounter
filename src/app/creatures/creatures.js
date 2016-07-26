@@ -8,6 +8,10 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 		$rootScope.$on('dataSource.ready', function() {
 			$scope.creatures = $rootScope.model.creatures;
 			$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
+
+			$timeout(function () {
+		        $scope.$broadcast('rzSliderForceRender');
+		    });
 		});
 		
 		if($rootScope.model.creatures && $rootScope.model.creatures.length > 0) {
@@ -65,32 +69,32 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 	   	$scope.$watch('creatureType', function(creatureType) {
 			$cookieStore.put('creatureType', creatureType); 
 			$scope.filter.creatureType = creatureType;
-			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+			$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
 		}, true);
 		
 		$scope.$watch('queryInput', function(queryInput) {
 			$scope.filter.queryInput =  queryInput;
 			if ($scope.filter.queryInput != null || $scope.filter.queryInput != undefined) {
-				$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+				$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
 			}
 		});
 
 		$scope.$watch('onlyWithKnownTime', function(onlyWithKnownTime) {
 			$scope.filter.onlyWithKnownTime = onlyWithKnownTime;
-			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+			$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
 			$cookieStore.put('onlyWithKnownTime', onlyWithKnownTime); 
 		});
 		
 		$scope.$watch('lvlRangeSlider', function(lvlRange) {
 				$scope.filter.lvlRange = lvlRange;
-				$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+				$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter, $scope.onlyWithKnownTime);
 				$cookieStore.put('lvlRange.minValue', lvlRange.minValue); 
 				$cookieStore.put('lvlRange.maxValue', lvlRange.maxValue);
 		}, true);
 
 		$scope.$watch('timeSlider', function(timeSlider) {
 			$scope.filter.hoursToResp = timeSlider.value;
-			$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
+			$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
 			$cookieStore.put('hoursToResp', timeSlider.value);
 		}, true);
 

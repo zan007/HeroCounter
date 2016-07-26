@@ -3,6 +3,7 @@
 	width: 100%;
 	background-color: #26527e;
 	.background-alpha(#26527e, 0.9);
+	.box-shadow(-4px -5px 13px -1px rgba(0, 0, 0, 0.2));
 	min-height: 160px;
 	display: inline-block;
 	/*margin-right: 10px;*/
@@ -21,6 +22,7 @@
 
 	rzslider {
 		margin-top: 13px;
+		z-index: 2;
 	}
 
 	.rz-pointer {
@@ -69,8 +71,16 @@
 			background-color: #12aaeb;
 		}
 	}
-}
+	.time-to-resp {
+		position: relative;
 
+		.common-overlay {
+			z-index: 3;
+			background-color: #26527e;
+		}
+	}
+}
+	
 .query-container {
 	min-height: 160px;
 	width: 100%;
@@ -84,6 +94,7 @@
 		.border-radius(5px);
 		background-color: #26527e;
 		.background-alpha(#26527e, 0.9);
+		.box-shadow(-4px -5px 13px -1px rgba(0, 0, 0, 0.2));
 		float: left;
 		padding: 10px;
 		margin-bottom: 10px;
@@ -121,7 +132,8 @@
 
 				i {
 					color: white;
-					background-color: #3b6897
+					background-color: #3b6897;
+					font-size: 14px;
 				}
 			}
 		}

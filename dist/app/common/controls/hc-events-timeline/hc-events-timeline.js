@@ -16,7 +16,6 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 				console.log($scope.events);
 			});*/
 
-			$scope.showLoadingIndicator = true;
 			$rootScope.$on('dataSource.ready', function(){
 				$scope.showLoadingIndicator = false;
 			});

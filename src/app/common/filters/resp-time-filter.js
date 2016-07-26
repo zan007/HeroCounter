@@ -1,8 +1,8 @@
 angular.module('respTimeFilter',[])
 
 .filter('respTimeFilter',function(){
-	return function(input, hoursToResp){
-		if (!input)
+	return function(input, hoursToResp, enabled){
+		if (!input || !enabled)
             return input;
 
 		var output = [];

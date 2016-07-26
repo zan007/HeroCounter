@@ -8,7 +8,7 @@ angular.module('filters.creaturesFilter', [
 ])
 
 .factory('creaturesFilter', ['$rootScope', 'fastFilter', function($rootScope, fastFilter) {
-    return fastFilter.create("onlyWithKnownTimeFilter:onlyWithKnownTime | creatureTypeFilter:creatureType | creatureLvlFilter:lvlRange | creaturesQueryFilter:queryInput | respTimeFilter:hoursToResp", {
+    return fastFilter.create("onlyWithKnownTimeFilter:onlyWithKnownTime | creatureTypeFilter:creatureType | creatureLvlFilter:lvlRange | creaturesQueryFilter:queryInput | respTimeFilter:hoursToResp:onlyWithKnownTime", {
         creatureType: {
         	titan: true,
         	hero: true

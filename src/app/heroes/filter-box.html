@@ -7,11 +7,13 @@
 					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
 				</div>
 			</div>
-			<div class="row">
+
+			<div class="row time-to-resp">
 				<div class="col-md-12">
 					<header class="filter-header">TIME TO RESP IN HOURS</header>
 					<rzslider rz-slider-model="timeSlider.value"></rzslider>
 				</div>
+				<div class="common-overlay" ng-show="!onlyWithKnownTime"></div>
 			</div>
 			<div class="row">
 				<div class="col-md-12 text-center">
@@ -34,9 +36,9 @@
 						<span class="input-container">
 							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
 						</span>
-						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}" ng-click="queryInput = ''">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
-							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0"></i>
 						</span>
 					</div>
 				</div>

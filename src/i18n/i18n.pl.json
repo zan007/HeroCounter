@@ -1,5 +1,8 @@
 {
 	"test": "testasdasd",
+    "today": "dziś",
+    "yesterday": "wczoraj",
+
     "monday": "monday",
     "tuesday": "tuesday",
     "wednesday": "wednesday",
@@ -7,7 +10,27 @@
     "friday": "friday",
     "saturday": "saturday",
     "sunday": "sunday",
+
+    "january": "stycznia",
+    "february": "lutego",
+    "march": "marca",
+    "april": "kwietnia",
+    "may": "maja",
+    "june": "czerwca",
+    "july": "lipca",
+    "august": "sierpnia",
+    "september": "września",
+    "october": "października",
+    "november": "listopada",
+    "december": "grudnia",
+
     "creature.lastSeenDate": "Przeciwnik był widziany: ",
-  "creature.report": "Zaraportuj pogłoskę o walce",
-  "creature.report.action": "Raportuj"
+    "creature.report": "Zaraportuj pogłoskę o walce",
+    "creature.report.action": "Raportuj",
+    "creature.countdown.days": "Dni",
+    "creature.countdown.hours": "godzin",
+    "creature.countdown.minutes": "minut",
+    "creature.countdown.seconds": "sekund",
+
+    "user": "użytkownik"
 }

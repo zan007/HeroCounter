@@ -15,6 +15,7 @@ $script.ready('angular', function() {
 		'ngEnter',
 		'constants',
 		'timer',
+		'timeUtils',
 		'userAuthService',
 		'socketFactory',
 		'notificationService',

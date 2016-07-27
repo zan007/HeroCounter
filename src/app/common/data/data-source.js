@@ -316,7 +316,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				}, function(data){
 					$rootScope.model.events = $rootScope.model.events.concat(data);
 					$rootScope.$broadcast('dataSource.ready');
-					console.log('nowe eventy');
+					console.log('nowe eventy ', data);
 				});
 			},
 			updateCreatures: updateCreatures,

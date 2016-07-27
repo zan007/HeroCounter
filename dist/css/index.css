@@ -1569,7 +1569,6 @@ ul {
   border: 0;
   background-color: #3b6897;
   height: 30px;
-  width: 150px;
   text-align: left;
   padding-left: 20px;
   padding-right: 20px;
@@ -2039,7 +2038,7 @@ ul {
   z-index: 7;
 }
 .hc-events-timeline .right-element {
-  padding-top: 100px;
+  padding-top: 150px;
   padding-left: 25px;
   text-align: left;
   border-left: solid 3px #1d4975;
@@ -2049,6 +2048,16 @@ ul {
 }
 .hc-events-timeline .right-element i {
   left: -10px;
+}
+@media only screen and (max-width: 1280px) {
+  .hc-events-timeline .right-element {
+    padding-top: 200px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .hc-events-timeline .right-element {
+    padding-top: 250px;
+  }
 }
 .user-hero-tile {
   display: -webkit-flex;

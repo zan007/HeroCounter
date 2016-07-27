@@ -35,7 +35,7 @@ controller('heroesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creatu
 								data: { 
 									token: 'bcf3e0ce2f2986c9d7a5e651446de927654161635ab77a4e5c137cc0765f6751746ea326620c88f37674ebe1914ff37a',
 								 	nick: 'Nirun',
-								 	creature: 'Dziewicza Orlica',
+								 	creature: 'Renegat Baulus',
 								 	group: ['Nirun Briendus', 'Szopen'],
 								 	place: 'Mroczny przesmyk',
 									guest: true

@@ -1,6 +1,6 @@
 angular.module('controls.hcEventsTimeline', ['dataSource'])
 
-.directive('hcEventsTimeline', ['$state', 'dataSource', 'locales', '$rootScope', function($state, dataSource, locales, $rootScope) {
+.directive('hcEventsTimeline', ['$state', 'dataSource', 'locales', '$rootScope', 'timeUtils', 'locales', function($state, dataSource, locales, $rootScope, timeUtils, locales) {
 	return {
 		scope: {
 			events: '=hcEventsTimeline',
@@ -21,16 +21,12 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 			});
 
 			$scope.getDayName = function(date) {
-				var currentDate = new Date();
-				var eventDate = new Date(date);
-				var currentYearMonth = (currentDate.getMonth() + 1) + " " +currentDate.getYear();
-				var eventYearMonth = (eventDate.getMonth() + 1) + " " +eventDate.getYear();
-				if(currentYearMonth === eventYearMonth && currentDate.getDate() === eventDate.getDate()) {
-					return 'today';
-				} else if (currentYearMonth === eventYearMonth && currentDate.getDate() - 1 === eventDate.getDate()) {
-					return 'yesterday';
+				if(timeUtils.isToday(date)) {
+					return locales.today;
+				} else if(timeUtils.isYestarday(date)){
+					return locales.yesterday;
 				} else {
-					return eventDate.getDate() + '.' + (eventDate.getMonth() + 1);
+					return moment(date).format('DD MM');
 				}
 			};
 			
@@ -39,10 +35,10 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 					return true;
 				} else {
 					
-						var currentEventDay = new Date(event.battleDate || event.reportDate).getDay();
-						var prevEventDay = new Date($scope.events[index - 1].battleDate || $scope.events[index - 1].reportDate).getDay();
+					var currentEventDay = new Date(event.battleDate || event.reportDate).getDay();
+					var prevEventDay = new Date($scope.events[index - 1].battleDate || $scope.events[index - 1].reportDate).getDay();
 
-						return currentEventDay !== prevEventDay;
+					return currentEventDay !== prevEventDay;
 					
 				}
 			};
@@ -53,11 +49,21 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 				}
 			};
 
-			$scope.loadMoreEvents = function() {
+			$scope.loadMoreEvents = function(daysBack) {
 				if($scope.events && $scope.events.length > 0) {
 					$scope.showLoadingIndicator = true;
+					var baseMoreEventsCounter = daysBack || 1;
 					var lastEventDate = $scope.events[$scope.events.length - 1].battleDate || $scope.events[$scope.events.length - 1].reportDate;
-					dataSource.getEvents(moment(lastEventDate).subtract(1, 'days').valueOf(), moment(lastEventDate).subtract(1, 's').valueOf()).then(function(){
+					dataSource.getEvents(moment(lastEventDate).subtract(baseMoreEventsCounter, 'days').valueOf(), moment(lastEventDate).subtract(1, 's').valueOf()).then(function(data){
+						if(data.length === 0){
+							if(baseMoreEventsCounter < 4) {
+								$scope.loadMoreEvents(baseMoreEventsCounter + 1);
+
+								baseMoreEventsCounter++;
+							}
+						} else {
+							baseMoreEventsCounter = 1;
+						}
 						$scope.showLoadingIndicator = false;
 					});
 				}

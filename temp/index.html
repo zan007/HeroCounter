@@ -90,6 +90,7 @@ $script.ready('vendors', function() {
 '/app/common/services/socket-factory.js',
 '/app/common/services/user-auth-service.js',
 '/app/common/utils/fast-filter.js',
+'/app/common/utils/time-utils.js',
 '/app/heroes/heroes.js',
 '/app/hide-menu.js',
 '/app/login/login.js',
@@ -120,7 +121,25 @@ $script.ready('app', function() {
                 friday: '_(friday)',
                 saturday: '_(saturday)',
                 sunday: '_(sunday)'
-            }
+            },
+
+            months: [
+                '_(january)',
+                '_(february)',
+                '_(march)',
+                '_(april)',
+                '_(may)',
+                '_(june)',
+                '_(july)',
+                '_(august)',
+                '_(september)',
+                '_(october)',
+                '_(november)',
+                '_(december)'
+            ],
+
+            yesterday: '_(yesterday)',
+            today: '_(today)'
         });
 </script>
   <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-cloak="" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
@@ -918,7 +937,7 @@ $script.ready('app', function() {
                 <div ng-show="creature.timeToResp" hc-countdown="creature.timeToResp"></div>
 				<!-- <timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer> -->
                 <div ng-show="!creature.timeToResp">Czas nieznany</div>
-                <div class="last-seen-date">_(creature.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" ng-show="creature.lastSeenDate"></span></div>
+                <div class="last-seen-date">_(creature.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" day-description="true" ng-show="creature.lastSeenDate"></span></div>
 			</div>
 			<div class="tile-content ">
                 <section class="tile-section">
@@ -992,7 +1011,7 @@ $script.ready('app', function() {
                 <div>
                     <i class="icon-circle"></i>
                     <div class="person" ng-if="event.type === 'BATTLE'" ng-bind="event.group[0].heroName"></div>
-                    <div class="person active" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-bind="event.reporter.name"></div>
+                    <div class="person active" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)">_(user): {{event.reporter.name}}</div>
                 </div>
             </div>
             <img class="avatar" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-src="{{event.reporter.avatar}}"/>
@@ -1038,9 +1057,14 @@ $script.ready('app', function() {
 </div></script>
   <script id="hc-pretty-time" type="text/ng-template"><span class="preety-time">
     <span ng-show="fullDate">
-	    <span class="day">{{day}}</span> 
-	    <span class="month">{{month}}</span> 
-	    <span class="year">{{year}}</span> 
+        <span ng-show="!isNear">
+            <span class="day">{{day}}</span>
+            <span class="month" ng-bind="months[month]"></span>
+            <span class="year" ng-show="month === 0 || month === 11" ng-bind="year"></span>
+        </span>
+        <span ng-show="isNear">
+            <span ng-bind="nearText"></span>
+        </span>
     </span>
     <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
 </span></script>
@@ -1076,7 +1100,7 @@ $script.ready('app', function() {
     </form>
 </div></script>
   <script id="hc-countdown" type="text/ng-template"><div class="hc-countdown">
-	dzien: {{days}} godz: {{hours}} min: {{minutes}} sek: {{seconds}}
+	{{days}} _(creature.countdown.days) {{hours}} _(creature.countdown.hours) {{minutes}} _(creature.countdown.minutes) {{seconds}} _(creature.countdown.seconds)
 </div></script>
 </body>
 </html>

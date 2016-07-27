@@ -46,9 +46,9 @@ $script.ready('angular', function() {
         '/vendor/angular/1.5.5/angular-cookies.js',
         '/vendor/angular-ui-router/release/angular-ui-router.js',
         '/vendor/angular/1.5.5/i18n/angular-locale_pl.js',
-        '/vendor/timer/timer.min.js',
         '/vendor/moment/min/moment.min.js',
         '/vendor/moment/min/locales.min.js',
+        '/vendor/angular-timer/angular-timer.js',
         '/vendor/humanize-duration/humanize-duration.js',
         '/vendor/socket-io/socket.io.js',
         '/vendor/angular-ui-notification/angular-ui-notification.min.js',
@@ -66,6 +66,7 @@ $script.ready('vendors', function() {
 '/app/app.js',
 '/app/common/constants.js',
 '/app/common/controls/animations/appAnimations.js',
+'/app/common/controls/hc-countdown/hc-countdown.js',
 '/app/common/controls/hc-creature-tile/hc-creature-tile.js',
 '/app/common/controls/hc-equal/hc-equal.js',
 '/app/common/controls/hc-events-timeline/hc-events-timeline.js',
@@ -914,7 +915,8 @@ $script.ready('app', function() {
 			</div>
 			<div class="tile-header" ng-bind="creature.name"></div>
 			<div class="tile-subtitle">
-				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+                <div ng-show="creature.timeToResp" hc-countdown="creature.timeToResp"></div>
+				<!-- <timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer> -->
                 <div ng-show="!creature.timeToResp">Czas nieznany</div>
                 <div class="last-seen-date">_(creature.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" ng-show="creature.lastSeenDate"></span></div>
 			</div>
@@ -1072,6 +1074,9 @@ $script.ready('app', function() {
 
         </div>
     </form>
+</div></script>
+  <script id="hc-countdown" type="text/ng-template"><div class="hc-countdown">
+	dzien: {{days}} godz: {{hours}} min: {{minutes}} sek: {{seconds}}
 </div></script>
 </body>
 </html>

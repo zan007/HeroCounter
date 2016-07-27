@@ -1,6 +1,6 @@
 angular.module('controls.hcCreatureTile', ['dataSource'])
 
-.directive('hcCreatureTile', ['dataSource', '$rootScope', function (dataSource, $rootScope) {
+.directive('hcCreatureTile', ['dataSource', '$rootScope', '$timeout', function (dataSource, $rootScope, $timeout) {
 	return {
 		scope: {
 			creature: '=hcCreatureTile'
@@ -12,6 +12,7 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 			$scope.showAdditionalActions = false;
 			var reportDateTime = '';
 			$scope.reportedDate = moment().format('YYYY-MM-DD');
+
 
 			$scope.startCountdown = function (creature) {
 				dataSource.defeatCreature(creature);
@@ -48,9 +49,35 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 				});
 			};
 
+			var countTimeToResp = function(creature) {
+					var today = moment().valueOf();
+					var maxRespDate = moment(creature.defeatedDate).add('h', creature.maxRespTime);
+					//console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+					if (moment(maxRespDate).isBefore(today)) {
+						console.log('stare');
+						creature.timeToResp = null;
+					} else {
+						/* console.log(maxRespDate > today);
+						 console.log('oooo ' + moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+						 console.log('today format ' + moment(today).format('DD/MM/YYYY HH:mm:ss'));
+						 console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
+
+						var dateDifference = moment(maxRespDate).diff(moment(today));
+						//  console.log(moment(dateDifference).valueOf());
+						creature.timeToResp = dateDifference;
+						$scope.$broadcast('timer-start');
+					}
+
+
+					return creature;
+			};
+
+			$scope.creature = countTimeToResp($scope.creature);
+
 			$scope.$watch('creature', function(newVal, oldVal){
 				$scope.creature = newVal;
-			},true);
+				$scope.creature = countTimeToResp($scope.creature);
+			});
 		}
 	};
 }]);

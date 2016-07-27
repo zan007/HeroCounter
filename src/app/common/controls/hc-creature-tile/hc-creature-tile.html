@@ -6,7 +6,8 @@
 			</div>
 			<div class="tile-header" ng-bind="creature.name"></div>
 			<div class="tile-subtitle">
-				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+                <div ng-show="creature.timeToResp" hc-countdown="creature.timeToResp"></div>
+				<!-- <timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer> -->
                 <div ng-show="!creature.timeToResp">Czas nieznany</div>
                 <div class="last-seen-date">_(creature.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" ng-show="creature.lastSeenDate"></span></div>
 			</div>

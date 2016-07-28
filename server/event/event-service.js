@@ -364,10 +364,8 @@ app.post('/registerEvent', function(req, res) {
 								connection.commit(function(err) {
 									if (err) cb(err);
 									var creatureService = require('../creature/creature-service');
-									console.log('success!');
-									/*connection.release();*/
+
 									creatureService.recalcCreatureRespTime(function(empty, data) {
-										/*console.log('recalc defeat', data);*/
 										var output = {
 											creatures: data
 										};
@@ -381,7 +379,7 @@ app.post('/registerEvent', function(req, res) {
 										}, timestamp, timestamp);
 
 										res.status(200).send(output);
-									});
+									}, creatureId);
 
 
 								});

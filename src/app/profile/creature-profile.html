@@ -5,42 +5,42 @@
                 <div class="creature-info-tile">
                     <header class="section-header">
                         <div class="description">
-                            <h2>_(creatureProfile.creature)</h2>
-                            <h1>_(creatureProfile.information)</h1>
+                            <h2>Creature</h2>
+                            <h1>Information</h1>
                         </div>
                     </header>
                     <hr/>
                     <div class="row">
                         <div class="col-xs-4 center-vertically">
-                            <img ng-src="{{creatureProfileModel.creature.image}}"/>
+                            <img src="http://i.imgur.com/gNa78Ql.gif"/>
                         </div>
                         <div class="col-xs-8">
                             <div class="row">
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">_(creatureProfile.name)</div>
-                                        <div class="section-value" ng-bind="creatureProfileModel.creature.name"></div>
+                                        <div class="section-label">Nazwa:</div>
+                                        <div class="section-value">Renegat Baulus</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-12">
 
                                     <div class="property-section">
-                                        <div class="section-label">_(creatureProfile.minRespTime)</div>
-                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.minRespTime" full-names="true"></div>
+                                        <div class="section-label">Minimalny czas respu:</div>
+                                        <div class="section-value">3 dni</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">_(creatureProfile.lvl)</div>
-                                        <div class="section-value" ng-bind="creatureProfileModel.creature.lvl"></div>
+                                        <div class="section-label">Lvl:</div>
+                                        <div class="section-value">101</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">_(creatureProfile.maxRespTime)</div>
-                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.maxRespTime" full-names="true"></div>
+                                        <div class="section-label">Maxymalny czas respu</div>
+                                        <div class="section-value">5 dni</div>
                                     </div>
                                 </div>
                             </div>
@@ -49,56 +49,30 @@
                 </div>
             </div>
         </div>
-       <!-- <div class="row">
+        <div class="row">
             <div class="col-xs-12">
                 <div class="probability-info-tile">
                     <header class="section-header">
                         <div class="description">
-                            <h2>_(creatureBattleTile.probability)</h2>
-                            <h1>_(creatureBattleTile.occurrence)</h1>
+                            <h2>Prawdopodobieństwo</h2>
+                            <h1>Występowania</h1>
                         </div>
                     </header>
                     <hr/>
-                    <div class="row">
-                        <div hc-stripe-chart="survivalChartData" name-field="time" value-field="probability" step-line="true" tooltip-label="_(creatureProfile.stripeChart.tooltip)"></div>
-                    </div>
+                    <div class="row"></div>
                 </div>
-            </div>
-        </div>-->
-        <div class="row">
-            <div class="creature-battles">
-                    <div class="creature-battle-charts">
-                        <div class="col-md-12 col-lg-6">
-                            <div hc-creature-battle-tile="creatureProfileModel.battlesCount" type="BATTLE" summary-count="summaryBattles" ></div>
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div hc-creature-battle-tile="creatureProfileModel.reportsCount" type="REPORT" summary-count="summaryBattles" ></div>
-                        </div>
-                    </div>
             </div>
         </div>
-        <div  class="row">
+        <div class="row">
             <div class="col-xs-12 col-lg-6">
-                <div class="favorite-time">
-                    <header class="section-header">
-                        <div class="description">
-                            <h2>_(profile.favorite.timeOfDay)</h2>
-                            <h1>_(profile.timeOfDay)</h1>
-                        </div>
-                    </header>
-                    <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
+                <div class="user-charts">
+                    <div class="col-md-12 col-lg-6">
+                        <!--<div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>-->
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-lg-6">
-                <div class="top-users">
-                    <header class="section-header">
-                        <div class="description">
-                            <h2>_(profile.top)</h2>
-                            <h1>_(profile.top.heroes)</h1>
-                        </div>
-                    </header>
-                    <div hc-top-chart="creatureProfileModel.topHeroes"></div>
-                </div>
+                wykres kolowy z pora dnia
             </div>
         </div>
     </div>

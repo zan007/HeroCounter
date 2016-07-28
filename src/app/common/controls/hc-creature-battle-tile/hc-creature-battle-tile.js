@@ -1,18 +1,17 @@
-angular.module('controls.hcCreatureBattleTile', ['dataSource'])
-	.directive('hcCreatureBattleTile', ['$rootScope', 'dataSource', '$window', 'radialProgressService', function($rootScope, dataSource, $window, radialProgressService) {
+angular.module('controls.hcUserHeroTile', ['dataSource'])
+	.directive('hcUserHeroTile', ['$rootScope', 'dataSource', '$window', 'radialProgressService', function($rootScope, dataSource, $window, radialProgressService) {
 		return {
 			scope: {
-				type: '@',
-				count: '=hcCreatureBattleTile',
-				summaryCount: '='
+				hero: '=hcUserHeroTile',
+				stats: '='
 			},
 			replace: true,
 			restriction: 'E',
-			templateUrl: 'hc-creature-battle-tile',
+			templateUrl: 'hc-user-hero-tile',
 			link: function($scope, $elem) {
 
 				var countPercent = function() {
-					var percent = Math.floor(($scope.count * 100) / $scope.summaryCount);
+					var percent = ($scope.battleCount * 100) / $scope.stats.summaryBattles;
 					if(isNaN(percent)){
 						return 0 + '%';
 					} else {
@@ -20,27 +19,34 @@ angular.module('controls.hcCreatureBattleTile', ['dataSource'])
 					}
 				};
 
-				var countAndRender = function(){
-
+				var countAndRender = function(stats){
+					var battles = stats.battles;
+					for(var i = 0, len = battles.length; i < len; i++){
+						var currentBattle = battles[i];
+						if(currentBattle.heroId === $scope.hero.id){
+							$scope.battleCount = currentBattle.battleCount;
+						}
+					}
 					$scope.summaryPercent = countPercent();
 					var d3 = $window.d3;
 					if(d3.select($scope.radialChartElem[0]).select('.radial-svg')){
 						d3.select($scope.radialChartElem[0]).select('.radial-svg').remove();
 					}
-					radialProgressService.radialProgress($scope.radialChartElem[0], $scope.summaryCount).diameter(150).data([{ type: "outer", value:  $scope.count}]).render();
+					radialProgressService.radialProgress($scope.radialChartElem[0], $scope.stats.summaryBattles).diameter(150).data([{ type: "outer", value:  $scope.battleCount}]).render();
 				};
 
-
+				$scope.battleCount = 0;
 				$scope.radialChartElem = $elem.find('g');
-
-				$scope.$watchGroup(['count', 'summaryCount'], function(){
-					countAndRender();
+				$scope.$watch('stats', function(stats){
+					countAndRender(stats);
 				});
 
 				angular.element($window).bind('resize', function() {
-					countAndRender();
+					countAndRender($scope.stats);
 					$scope.$apply();
 				});
+				/*radialProgress($elem[0]).diameter(100)
+				 .data([{ type: "outer", value: 32 }, { type: "inner", value: 84 }]).render();*/
 			}
 		};
 	}]);

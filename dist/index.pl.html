@@ -87,6 +87,7 @@ $script.ready('vendors', function() {
 '/app/common/filters/resp-time-filter.js',
 '/app/common/services/avatar-service.js',
 '/app/common/services/notification-service.js',
+'/app/common/services/radial-progress-service.js',
 '/app/common/services/socket-factory.js',
 '/app/common/services/user-auth-service.js',
 '/app/common/utils/fast-filter.js',
@@ -94,6 +95,7 @@ $script.ready('vendors', function() {
 '/app/heroes/heroes.js',
 '/app/hide-menu.js',
 '/app/login/login.js',
+'/app/profile/creature-profile.js',
 '/app/profile/profile.js',
 '/app/register/register.js',
 '/app/settings/settings.js',
@@ -866,7 +868,6 @@ $script.ready('app', function() {
                     <div ng-repeat="mainHero in userProfileModel.mainHeroes" class="col-md-12 col-lg-6">
                         <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -883,6 +884,85 @@ $script.ready('app', function() {
                         <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div></script>
+  <script id="/creature-profile" type="text/ng-template"><div ng-controller="creatureProfileCtrl" class="row profile creature-profile full-height">
+    <div class="container-fluid full-height">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="creature-info-tile">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Creature</h2>
+                            <h1>Information</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-4 center-vertically">
+                            <img src="http://i.imgur.com/gNa78Ql.gif"/>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">Nazwa:</div>
+                                        <div class="section-value">Renegat Baulus</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+
+                                    <div class="property-section">
+                                        <div class="section-label">Minimalny czas respu:</div>
+                                        <div class="section-value">3 dni</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">Lvl:</div>
+                                        <div class="section-value">101</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">Maxymalny czas respu</div>
+                                        <div class="section-value">5 dni</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="probability-info-tile">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Prawdopodobieństwo</h2>
+                            <h1>Występowania</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6">
+                <div class="user-charts">
+                    <div class="col-md-12 col-lg-6">
+                        <!--<div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                wykres kolowy z pora dnia
             </div>
         </div>
     </div>

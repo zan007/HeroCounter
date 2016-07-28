@@ -18,29 +18,21 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 		if(!creatureId) {
 			connection.query('select * from creature', function (err, rows) {
 				if (err) throw err;
-
 				for (var i = 0; i < rows.length; i++) {
 					var currentCreature = rows[i];
 
-					//var msDate  = moment(rows[i].defeatedDate).valueOf();
 
-					//var minRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime);
 					var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
-					//console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+
 					if (moment(maxRespDate).isBefore(today)) {
 						console.log('stare');
 						currentCreature.timeToResp = null;
 					} else {
-						/* console.log(maxRespDate > today);
-						 console.log('oooo ' + moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
-						 console.log('today format ' + moment(today).format('DD/MM/YYYY HH:mm:ss'));
-						 console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
 
 						var dateDifference = moment(maxRespDate).diff(moment(today));
-						//  console.log(moment(dateDifference).valueOf());
+
 						currentCreature.timeToResp = dateDifference;
 					}
-					//console.log(currentCreature, 'ddoodododod');
 					creatures.push(currentCreature);
 				}
 				connection.release();
@@ -53,27 +45,17 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 				if (rows.length === 1) {
 
 					var currentCreature = rows[0];
-
-					//var msDate  = moment(rows[i].defeatedDate).valueOf();
-
-					//var minRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.minRespTime);
 					var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
-					//console.log('today', moment(minRespDate).format('DD/MM/YYYY HH:mm:ss'), moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
+
 					if (moment(maxRespDate).isBefore(today)) {
 						console.log('stare');
 						currentCreature.timeToResp = null;
 					} else {
-						/* console.log(maxRespDate > today);
-						 console.log('oooo ' + moment(maxRespDate).format('DD/MM/YYYY HH:mm:ss'));
-						 console.log('today format ' + moment(today).format('DD/MM/YYYY HH:mm:ss'));
-						 console.log('dzis', moment(today, 'DD/MM/YYYY HH:mm:ss').diff(moment(maxRespDate, 'DD/MM/YYYY HH:mm:ss')));*/
 
 						var dateDifference = moment(maxRespDate).diff(moment(today));
-						//  console.log(moment(dateDifference).valueOf());
+
 						currentCreature.timeToResp = dateDifference;
 					}
-					//console.log(currentCreature, 'ddoodododod');
-					creatures.push(currentCreature);
 				} else {
 					callback('unknown creature');
 				}

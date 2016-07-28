@@ -7,6 +7,7 @@ $script.ready('angular', function() {
 		'login',
 		'heroes',
 		'profile',
+		'creatureProfile',
 		'activation',
 		'settings',
 		'userManager',
@@ -17,6 +18,7 @@ $script.ready('angular', function() {
 		'timer',
 		'timeUtils',
 		'userAuthService',
+		'radialProgressService',
 		'socketFactory',
 		'notificationService',
 		'utils.fastFilter',
@@ -119,6 +121,15 @@ $script.ready('angular', function() {
 				params: {
 					newsVisible: true,
 					userId: ''
+				}
+			})
+			.state('creatureProfile', {
+				url: '/creatureProfile?creatureId',
+				templateUrl: '/creature-profile',
+				authRequire: true,
+				params: {
+					newsVisible: true,
+					creatureId: ''
 				}
 			})
 			.state('basic', {

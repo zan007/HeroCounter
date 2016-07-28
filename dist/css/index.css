@@ -1501,6 +1501,34 @@ ul {
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
 }
+.creature-profile .creature-info-tile,
+.creature-profile .probability-info-tile {
+  background-color: rgba(39, 84, 130, 0.9);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 25px;
+  margin-top: 20px;
+  opacity: 0.9;
+  min-height: 300px;
+  -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+}
+.creature-profile .creature-info-tile .property-section,
+.creature-profile .probability-info-tile .property-section {
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+}
+.creature-profile .creature-info-tile .property-section .section-label,
+.creature-profile .probability-info-tile .property-section .section-label {
+  min-height: auto;
+}
+.creature-profile .probability-info-tile {
+  height: 400px;
+}
 .form-checkbox {
   display: inline-block;
   position: relative;

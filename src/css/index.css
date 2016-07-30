@@ -13,6 +13,7 @@
 @import (less) "forms.less";
 @import (less) "user-manager.less";
 @import (less) "controls/hc-creature-tile.less";
+@import (less) "controls/hc-creature-battle-tile.less";
 @import (less) "controls/hc-events-timeline.less";
 @import (less) "controls/hc-user-hero-tile.less";
 @import (less) "controls/hc-stripe-chart.less";

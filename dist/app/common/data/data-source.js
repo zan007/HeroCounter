@@ -23,6 +23,7 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 	
 		var call = function(httpData, responseFn) {
 			$rootScope.$broadcast('dataSource.start');
+
 			var promise = $http(httpData).then(function(response) {
 				var result;
 				if (responseFn) {
@@ -335,6 +336,17 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 				$rootScope.model.events.splice(addIndex, 0, event);
 				/*$rootScope.model.events.unshift(event);*/
 				$rootScope.$broadcast('dataSource.ready');
+			},
+			getCreatureProfile: function(creatureId) {
+				return call({
+					method: 'GET',
+					url: '/creatureProfile',
+					params: {
+						creatureId: creatureId
+					}
+				}, function(data){
+
+				});
 			}
 		};
 	}

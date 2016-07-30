@@ -67,6 +67,7 @@ $script.ready('vendors', function() {
 '/app/common/constants.js',
 '/app/common/controls/animations/appAnimations.js',
 '/app/common/controls/hc-countdown/hc-countdown.js',
+'/app/common/controls/hc-creature-battle-tile/hc-creature-battle-tile.js',
 '/app/common/controls/hc-creature-tile/hc-creature-tile.js',
 '/app/common/controls/hc-equal/hc-equal.js',
 '/app/common/controls/hc-events-timeline/hc-events-timeline.js',
@@ -173,14 +174,13 @@ $script.ready('app', function() {
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
     </div>
 </nav>
-    <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
-        <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
+    <div class="content full-height scrollable" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
+        <div ui-view class="enter-animation container-fluid full-height"></div>
     </div>
     <div class="news container-fluid col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
         <div hc-events-timeline="events"></div>
     </div>
 </div>
-
 </head>
 <body>
 
@@ -954,12 +954,15 @@ $script.ready('app', function() {
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-lg-6">
-                <div class="user-charts">
-                    <div class="col-md-12 col-lg-6">
-                        <!--<div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>-->
+            <div class="creature-battles">
+                    <div class="creature-battle-charts">
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.battlesCount" type="BATTLE" summary-count="summaryBattles" ></div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.reportsCount" type="REPORT" summary-count="summaryBattles" ></div>
+                        </div>
                     </div>
-                </div>
             </div>
             <div class="col-xs-12 col-lg-6">
                 wykres kolowy z pora dnia
@@ -1080,6 +1083,22 @@ $script.ready('app', function() {
 		</div>
 	</div>
 </div></script>
+  <script id="hc-creature-battle-tile" type="text/ng-template"><div class="creature-battle-tile">
+    <g class="radial-chart">
+        <div class="summary-battles">
+            <div class="indicator">
+                <span class="count">{{count}}</span><span class="summary-count">/ {{summaryCount}}</span>
+            </div>
+            <div>battles</div>
+        </div>
+    </g>
+    <div class="description">
+        <div class="battle-type">{{type === 'RAPORT' ? 'creature.profile.raport' : 'creature.profile.battle'}}</div>
+        <hr>
+        <div class="summary-percent" ng-bind="summaryPercent"></div>
+        <div class="percent-description">of all events</div>
+    </div>
+</div></script>
   <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline scrollable full-height">
     <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
         <div class="day-label" ng-if="showDayLabel(event, $index)">
@@ -1105,6 +1124,12 @@ $script.ready('app', function() {
                 </span>
             </div>
          </div>
+     </div>
+     <div class="top-container" ng-show="showGoTopButton" ng-click="goToTop()">
+         <div class="top-button">
+             <i class="icon icon-up-small"></i>
+         </div>
+         <div class="center-vertically">Back to top</div>
      </div>
      <div class="col-xs-12 splash-container" ng-show="showLoadingIndicator">
          <div class="splash"></div>

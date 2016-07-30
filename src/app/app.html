@@ -1,8 +1,8 @@
 <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-cloak="" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
     <%include src="menu/menu.html"%>
-    <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
-        <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
+    <div class="content full-height scrollable" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
+        <div ui-view class="enter-animation container-fluid full-height"></div>
     </div>
     <div class="news container-fluid col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
         <div hc-events-timeline="events"></div>

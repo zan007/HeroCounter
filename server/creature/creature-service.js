@@ -48,7 +48,7 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 					var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
 
 					if (moment(maxRespDate).isBefore(today)) {
-						console.log('stare');
+
 						currentCreature.timeToResp = null;
 					} else {
 
@@ -140,10 +140,10 @@ app.post('/defeat', function(req, res){
 					var output = {
 						creatures: creaturesToSend
 					};
-					console.log('recalc defeat');
+
 
 					eventService.getEvents(function(cb, data){
-						console.log('getEvents po dodaniu', data);
+
 						io.emit('eventsUpdated', data[0]);
 					}, today, today);
 
@@ -247,12 +247,12 @@ app.post('/reportDefeat', function(req, res){
 						var output = {
 							creatures: data
 						};
-						console.log('recalc defeat');
+
 
 						io.emit('creaturesUpdated', output);
 
 						eventService.getEvents(function(cb, data){
-							console.log('getEvents po dodaniu', data);
+
 							io.emit('eventsUpdated', data[0]);
 						}, reportDate, reportDate);
 

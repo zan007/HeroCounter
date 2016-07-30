@@ -15,10 +15,10 @@ var getReports = function(cb, fromTimestamp, toTimestamp) {
 		connection.query('select * from report where reportDate >= ? and reportDate <= ?', [fromTimestamp, toTimestamp], function(err, rows) {
 			if(err) throw err;
 
-			console.log('query events');
+
 			//for(var i = 0, len = rows.length; i < len; i++) {
 			async.forEachLimit(rows, 1, function(currentReport, reportCallback){
-				console.log('foreach ', currentReport);
+
 				var creature = '',
 					reportDate = currentReport.reportDate,
 					reporter = '';
@@ -62,12 +62,12 @@ var getReports = function(cb, fromTimestamp, toTimestamp) {
 						wcb();
 					}
 				], function (err) {
-					console.log('przed reportCallback', reports);
+
 					reportCallback();
 					if (err) throw err;
 				});
 			}, function(err, result) {
-				console.log('po reportCallback', reports, result);
+
 				connection.release();
 				cb(null, reports);
 				//connection.release();
@@ -78,27 +78,27 @@ var getReports = function(cb, fromTimestamp, toTimestamp) {
 		});
 	});
 };
-
 var getEvents = function(cb, fromTimestamp, toTimestamp) {
 	var events = [];
+
 	if(!fromTimestamp && !toTimestamp){
 		toTimestamp = new Date().getTime();
 		fromTimestamp = moment(fromTimestamp).subtract('d', 3).valueOf();
 	}
-	console.log('getEfents w srodku ',toTimestamp, fromTimestamp);
+
 	pool.getConnection(function(err, connection) {
 
 		var fromDatetime = dateUtils.timestampToSqlDatetime(fromTimestamp);
 		var toDatetime = dateUtils.timestampToSqlDatetime(toTimestamp);
-		console.log('from ',fromDatetime,' to: ',toDatetime);
+
 
 		connection.query('select * from battle where battleDate >= ? and battleDate <= ?', [fromDatetime, toDatetime], function(err, rows) {
 			if(err) throw err;
 
-			console.log('query events');
+
 			//for(var i = 0, len = rows.length; i < len; i++) {
 			async.forEachLimit(rows, 1, function(currentBattle, battleCallback){
-				console.log('foreach ', currentBattle);
+
 				var place = '',
 					creature = '',
 					battleDate = currentBattle.battleDate,
@@ -149,12 +149,12 @@ var getEvents = function(cb, fromTimestamp, toTimestamp) {
 						wcb();
 					}
 				], function (err) {
-					console.log('przed battleCallback', events);
+
 					battleCallback();
 					if (err) throw err;
 				});
 			}, function(err, result) {
-				console.log('po battleCallback', events, result);
+
 				connection.release();
 				getReports(function(err, reports){
 					var allEvents = reports.concat(events);
@@ -193,11 +193,11 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 	connection.query('select id from hero where heroName = ?', currentHeroName, function(err, rows) {
 		if (err) cb(err);
 
-		console.log('for hero');
+
 		var currentHeroId = '';
 		if(rows.length === 1) {
 			currentHeroId = rows[0].id;
-			console.log('znalazlem currentheroid', currentHeroId);
+
 			//update creature set defeatedDate = ? where id = ?
 			if(userId !== null && guest === true){
 				connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
@@ -213,7 +213,7 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 				heroId: currentHeroId,
 				battleId: battleId
 			};
-			console.log('herobattle', heroBattleFields);
+
 			connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
 				if(err) {
 					throw(err);
@@ -221,20 +221,20 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 			});
 			/*connection.release();*/
 		} else {
-			console.log('dupa', currentHeroName);
+
 			connection.query('insert into hero set ?', {heroName: currentHeroName}, function (err, rows) {
 				if (err) {
 					cb(err);
 				}
 
-				console.log('insert into hero new', rows);
+
 				currentHeroId = rows.insertId;
-				console.log('currentHeroId', currentHeroId);
+
 				var heroBattleFields = {
 					heroId: currentHeroId,
 					battleId: battleId
 				};
-				console.log('herobattle', heroBattleFields);
+
 				connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
 					if(err){
 						throw(err);
@@ -263,7 +263,7 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 };
 
 app.post('/registerEvent', function(req, res) {
-	console.log('reeeegister event');
+
 	if(req.body){
 		var token = req.body.token,
 			nick = req.body.nick,
@@ -287,7 +287,7 @@ app.post('/registerEvent', function(req, res) {
 					var battleId = '';
 					var battleFields = '';
 
-					console.log('select user', timestamp);
+
 					connection.beginTransaction(function(err) {
 						if (err) {
 							return connection.rollback(function() {
@@ -369,7 +369,7 @@ app.post('/registerEvent', function(req, res) {
 										var output = {
 											creatures: data
 										};
-										console.log('recalc defeat');
+
 
 										io.emit('creaturesUpdated', output);
 
@@ -386,14 +386,14 @@ app.post('/registerEvent', function(req, res) {
 
 							}
 						], function (err, errorMessage) {
-							console.log('zwykly err');
+
 							return connection.rollback(function() {
-								console.log('rollback');
+
 								if(!errorMessage) {
 									connection.release();
 									throw err;
 								} else {
-									console.log('errorMessage: ', errorMessage);
+
 									connection.release();
 									res.status(500).send({message: errorMessage});
 								}

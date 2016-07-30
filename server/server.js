@@ -118,6 +118,7 @@ var userService = require('./user/user-service');
 var creatureService = require('./creature/creature-service');
 var eventService = require('./event/event-service');
 var userProfileService = require('./user/user-profile-service');
+var creatureProfileService = require('./creature/creature-profile-service');
 var settingsService = require('./settings/settings-service');
 var authentication = require('./authentication/authentication');
 require('./authentication/authentication')(passport);
@@ -128,9 +129,6 @@ var socketUserCounter = 0;
 
 app.get('/init', function(req, res, next) {
     var model = {};
-    var currentTimestamp = new Date().getTime();
-    var eventOffset = moment(currentTimestamp).add('d', 2).valueOf();
-    console.log('eventOffset', eventOffset.valueOf());
     async.series({
         personalData: function(callback){
            	var user = req.user;

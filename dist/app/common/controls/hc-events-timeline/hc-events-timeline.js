@@ -1,6 +1,6 @@
 angular.module('controls.hcEventsTimeline', ['dataSource'])
 
-.directive('hcEventsTimeline', ['$state', 'dataSource', 'locales', '$rootScope', 'timeUtils', 'locales', function($state, dataSource, locales, $rootScope, timeUtils, locales) {
+.directive('hcEventsTimeline', ['$state', 'dataSource', 'locales', '$rootScope', 'timeUtils', 'locales', '$timeout', function($state, dataSource, locales, $rootScope, timeUtils, locales, $timeout) {
 	return {
 		scope: {
 			events: '=hcEventsTimeline',
@@ -15,7 +15,7 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 				$scope.eventDate = new Date($scope.events.battleDate);
 				console.log($scope.events);
 			});*/
-
+			$scope.showGoTopButton = false;
 			$rootScope.$on('dataSource.ready', function(){
 				$scope.showLoadingIndicator = false;
 			});
@@ -49,6 +49,12 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 				}
 			};
 
+			$scope.goToTop = function(){
+				$elem.animate({
+					scrollTop : 0
+				}, 500);
+			};
+
 			$scope.loadMoreEvents = function(daysBack) {
 				if($scope.events && $scope.events.length > 0) {
 					$scope.showLoadingIndicator = true;
@@ -71,9 +77,12 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 
 			$elem.bind('scroll', function() {
 				var element = $elem[0];
+
 				if (element.scrollTop + element.offsetHeight >= element.scrollHeight) {
 					$scope.loadMoreEvents();
 				}
+				$scope.showGoTopButton = $elem[0].scrollTop > 20;
+				$scope.$apply();
 			});
 		}
 	};

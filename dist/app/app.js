@@ -32,6 +32,7 @@ $script.ready('angular', function() {
 		'controls.hcNotEqual',
 		'controls.hcUserHeroTile',
 		'controls.hcStripeChart',
+		'controls.hcCreatureBattleTile',
 		'controls.hcPieChart',
 		'controls.hcTimePicker',
 		'controls.hcCountdown',
@@ -141,6 +142,11 @@ $script.ready('angular', function() {
 				}
 			});
 	}])
+	.config(['pikadayConfigProvider', function(pikaday) {
+		pikaday.setConfig({
+			format: 'YYYY-MM-DD'
+		});
+	}])
 	.run(function ($rootScope, userAuthService, $state, adminRestrictedStates) {
 		$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
 
@@ -202,6 +208,7 @@ $script.ready('angular', function() {
 			$rootScope.showLogout = false;
 			$scope.stateParams = $stateParams;
 			$scope.defaultAvatarLink = defaultAvatar.link;
+
 
 			var createSocketEventHandlers = function () {
 				socketFactory.getSocket().then(function (socket) {

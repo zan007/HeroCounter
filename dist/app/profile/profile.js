@@ -57,13 +57,36 @@ angular.module('profile', ['dataSource'])
 		console.log(chartData, 'piechartdata');
 		return chartData;
 	};
-	
+
+	var concatCreatures = function(arrayWithDuplicates) {
+		var concatedCreatures = [];
+		var creaturesMap = {};
+		for(var i = 0, len = arrayWithDuplicates.length; i < len; i++) {
+			var currentElement = arrayWithDuplicates[i];
+			if(creaturesMap[currentElement.creatureId]){
+				creaturesMap[currentElement.creatureId].creatureBattleCount += currentElement.creatureBattleCount;
+			} else {
+
+				creaturesMap[currentElement.creatureId] = {
+					creatureBattleCount: currentElement.creatureBattleCount
+				};
+			}
+		}
+
+		for(var item in creaturesMap){
+			concatedCreatures.push({creatureId: parseInt(item), creatureBattleCount: creaturesMap[item].creatureBattleCount});
+		}
+
+		return concatedCreatures;
+	};
+
 	var prepareStripeChartData = function(){
 		var chartData = [];
 		var sortedData = [];
 		var topCount = 0;
 
-		chartData = $scope.userProfileModel.mainHeroStats.creatures.concat($scope.userProfileModel.guestHeroStats.creatures);
+		//chartData = $scope.userProfileModel.mainHeroStats.creatures.concat($scope.userProfileModel.guestHeroStats.creatures);
+		chartData = concatCreatures($scope.userProfileModel.mainHeroStats.creatures.concat($scope.userProfileModel.guestHeroStats.creatures));
 		for(var i = 0, len = chartData.length; i < len; i++){
 			$rootScope.model.creatures.map(function(currentCreature){
 				if(currentCreature.id === chartData[i].creatureId){
@@ -72,7 +95,7 @@ angular.module('profile', ['dataSource'])
 			});
 		}
 
-		topCount = chartData.length >= 5 ? 5 : chartData.length;
+		topCount = chartData.length >= 3 ? 3 : chartData.length;
 		console.log(topCount, 'asas');
 		sortedData = chartData.sort(compareBattleCount);
 
@@ -87,8 +110,12 @@ angular.module('profile', ['dataSource'])
 			}));
 		}*/
 
+		if(sortedData.length > topCount){
+			var howManyElements =  sortedData.length - topCount;
+			sortedData.splice(topCount-1, howManyElements);
+		}
 
-		return sortedData.length > topCount ? sortedData.splice(topCount, chartData.length - topCount) : sortedData;
+		return sortedData;
 	};
 
 	if($stateParams.userId) {

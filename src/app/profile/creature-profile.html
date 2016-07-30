@@ -64,12 +64,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-lg-6">
-                <div class="user-charts">
-                    <div class="col-md-12 col-lg-6">
-                        <!--<div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>-->
+            <div class="creature-battles">
+                    <div class="creature-battle-charts">
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.battlesCount" type="BATTLE" summary-count="summaryBattles" ></div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.reportsCount" type="REPORT" summary-count="summaryBattles" ></div>
+                        </div>
                     </div>
-                </div>
             </div>
             <div class="col-xs-12 col-lg-6">
                 wykres kolowy z pora dnia

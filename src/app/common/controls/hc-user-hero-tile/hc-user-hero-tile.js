@@ -11,7 +11,7 @@ angular.module('controls.hcUserHeroTile', ['dataSource'])
 		link: function($scope, $elem) {
 
 			var countPercent = function() {
-				var percent = ($scope.battleCount * 100) / $scope.stats.summaryBattles;
+				var percent = Math.floor(($scope.battleCount * 100) / $scope.stats.summaryBattles);
 				if(isNaN(percent)){
 					return 0 + '%';
 				} else {

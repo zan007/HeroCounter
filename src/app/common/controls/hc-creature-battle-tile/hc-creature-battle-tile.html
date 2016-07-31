@@ -1,0 +1,16 @@
+<div class="creature-battle-tile">
+    <g class="radial-chart">
+        <div class="summary-battles">
+            <div class="indicator">
+                <span class="count">{{count}}</span><span class="summary-count">/ {{summaryCount}}</span>
+            </div>
+            <div>battles</div>
+        </div>
+    </g>
+    <div class="description">
+        <div class="battle-type">{{type === 'RAPORT' ? '_(creature.profile.raport)' : '_(creature.profile.battle)'}}</div>
+        <hr>
+        <div class="summary-percent" ng-bind="summaryPercent"></div>
+        <div class="percent-description">of all events</div>
+    </div>
+</div>

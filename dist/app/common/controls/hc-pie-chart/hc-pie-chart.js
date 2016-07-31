@@ -26,6 +26,12 @@ angular.module('controls.hcPieChart', ['dataSource'])
 					{'label': 'Category C', 'value': 30}];*/
 
 				component.render = function() {
+					/*if(d3.select('svg')){
+						d3.select('svg').remove();
+					}*/
+					if(d3.select(element).select('.main-circle')){
+						d3.select(element).select('.main-circle').remove();
+					}
 					var circle = d3.select(element)
 						.append('svg:svg')
 						.attr('class', 'main-circle');

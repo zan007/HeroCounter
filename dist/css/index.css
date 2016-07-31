@@ -1521,6 +1521,36 @@ ul {
 .creature-profile .probability-info-tile {
   height: 400px;
 }
+.creature-profile .favorite-time,
+.creature-profile .top-users {
+  height: 350px;
+  background-color: rgba(39, 84, 130, 0.9);
+  padding: 25px 10px 0 25px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-top: 20px;
+  -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+.creature-profile .favorite-time .hc-pie-chart,
+.creature-profile .top-users .hc-pie-chart {
+  height: 230px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+}
+.creature-profile .favorite-time .hc-pie-chart svg,
+.creature-profile .top-users .hc-pie-chart svg {
+  margin: auto;
+}
+.creature-profile .hc-top-chart {
+  height: 240px;
+}
 .form-checkbox {
   display: inline-block;
   position: relative;
@@ -2467,6 +2497,66 @@ ul {
 }
 .hc-time-picker .indicator .icon {
   margin: auto;
+}
+.hc-top-chart {
+  /*width: 100%;
+  height: 100%;
+  position: relative;
+  .flex-display();
+  .flex-direction(row);
+  .justify-content(space-around);*/
+}
+.hc-top-chart .place-container {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.hc-top-chart .place-container .name {
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  margin-top: auto;
+}
+.hc-top-chart .place-container .name.active {
+  cursor: pointer;
+  font-weight: bold;
+}
+.hc-top-chart .place-container .line-box {
+  border-right: dashed 2px #008cdd;
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  margin-top: 40px;
+}
+.hc-top-chart .place-container .line-box .bubble {
+  position: absolute;
+  right: -11px;
+  top: -20px;
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: solid 2px #008cdd;
+}
+.hc-top-chart .place-container .line-box.second {
+  height: 40%;
+}
+.hc-top-chart .place-container .line-box.third {
+  height: 20%;
+}
+.hc-top-chart .place-container .line-box.first {
+  height: 60%;
 }
 /**
  * angular-ui-notification - Angular.js service providing simple notifications using Bootstrap 3 styles with css transitions for animating

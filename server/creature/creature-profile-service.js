@@ -11,24 +11,6 @@ var path = require('path'),
 	app = server.app,
 	io = server.io;
 
-var getPlaceById = function(id, cb){
-	pool.getConnection(function (err, connection) {
-		connection.query('select * from place where id = ?', id, function(err, rows){
-			if (err) {
-				throw err;
-			}
-			if(rows.length > 0) {
-				connection.release();
-				cb(null, rows);
-
-			} else {
-				connection.release();
-				cb('unknown place');
-			}
-		});
-	});
-}
-
 app.get('/creatureProfile', function(req, res) {
 	//console.log('poczatek pobierania profilu', req.params);
 
@@ -114,7 +96,7 @@ app.get('/creatureProfile', function(req, res) {
 					for(var i = 0, len = topHeroes.length; i < len; i++){
 						(function() {
 							var iCopy = i;
-							connection.query('select * from hero where id = ?', [creatureId, topHeroes[iCopy].heroId], function (err, rows) {
+							connection.query('select * from hero where id = ?', topHeroes[iCopy].heroId, function (err, rows) {
 								if (err) wcb(err);
 
 								if(rows.length > 0) {

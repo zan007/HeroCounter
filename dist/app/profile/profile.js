@@ -34,7 +34,7 @@ angular.module('profile', ['dataSource'])
 		}
 
 		return hasData;
-	}
+	};
 
 	var preparePieChartData = function(){
 		var guestDateMap = $scope.userProfileModel.guestHeroStats.dateMap,

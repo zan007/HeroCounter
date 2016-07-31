@@ -36,6 +36,7 @@ $script.ready('angular', function() {
 		'controls.hcPieChart',
 		'controls.hcTimePicker',
 		'controls.hcCountdown',
+		'controls.hcTopChart',
 		'avatarService',
 		'ngImgCrop'
 	])

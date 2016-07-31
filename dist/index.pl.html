@@ -76,6 +76,7 @@ $script.ready('vendors', function() {
 '/app/common/controls/hc-pretty-time/hc-pretty-time.js',
 '/app/common/controls/hc-stripe-chart/hc-stripe-chart.js',
 '/app/common/controls/hc-time-picker/hc-time-picker.js',
+'/app/common/controls/hc-top-chart/hc-top-chart.js',
 '/app/common/controls/hc-user-hero-tile/hc-user-hero-tile.js',
 '/app/common/controls/hc-validation-pattern/hc-validation-pattern.js',
 '/app/common/controls/ng-enter/ng-enter.js',
@@ -964,8 +965,29 @@ $script.ready('app', function() {
                         </div>
                     </div>
             </div>
+        </div>
+        <div  class="row">
             <div class="col-xs-12 col-lg-6">
-                wykres kolowy z pora dnia
+                <div class="favorite-time">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Favourite</h2>
+                            <h1>Time of the day</h1>
+                        </div>
+                    </header>
+                    <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <div class="top-users">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Top</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <div hc-top-chart="creatureProfileModel.topHeroes"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -1206,6 +1228,28 @@ $script.ready('app', function() {
 </div></script>
   <script id="hc-countdown" type="text/ng-template"><div class="hc-countdown">
 	{{days}} Dni {{hours}} godzin {{minutes}} minut {{seconds}} sekund
+</div></script>
+  <script id="hc-top-chart" type="text/ng-template"><div class="hc-top-chart full-height container-fluid">
+    <div class="row full-height">
+        <div class="col-xs-4 full-height place-container">
+            <div class="name" ng-bind="topData[1].heroName" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[1].mainUserId)"></div>
+            <div class="line-box second" ng-click="goToUserProfile(topData[1].mainUserId)">
+                <div class="bubble"></div>
+            </div>
+        </div>
+        <div class="col-xs-4 full-height place-container" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[0].mainUserId)">
+            <div class="name" ng-bind="topData[0].heroName"></div>
+            <div class="line-box first">
+                <div class="bubble"></div>
+            </div>
+        </div>
+        <div class="col-xs-4 full-height place-container" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[2].mainUserId)">
+            <div class="name" ng-bind="topData[2].heroName"></div>
+            <div class="line-box third">
+                <div class="bubble"></div>
+            </div>
+        </div>
+    </div>
 </div></script>
 </body>
 </html>

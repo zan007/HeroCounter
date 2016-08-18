@@ -1,7 +1,7 @@
-angular.module('dataSource', []).
+angular.module('dataSource', [])
 
-factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService',
-	function($http, $q, $rootScope, $location, notificationService) {
+.factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService', 'locales',
+	function($http, $q, $rootScope, $location, notificationService, locales) {
 	   
 /*		var model = {
 			creatures: [],
@@ -35,7 +35,12 @@ factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationSe
 
 			}).then(null, function(reason) {
 				console.log(reason);
-				notificationService.showErrorNotification(reason.data.message, reason.data.persistence);
+				if(reason.data.code){
+					notificationService.showErrorNotification(locales.errorCodes[reason.data.code], reason.data.persistence);
+				} else {
+					notificationService.showErrorNotification('', reason.data.persistence);
+				}
+
 				$rootScope.$broadcast('dataSource.error');
 				return $q.reject(reason);
 			});

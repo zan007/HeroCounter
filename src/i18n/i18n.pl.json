@@ -1,4 +1,15 @@
 {
+  "modules.login": "Logowanie",
+  "modules.register": "Rejestracja",
+  "modules.creatures": "Potwory",
+  "modules.userManager": "Zarządzanie użytkownikami",
+  "modules.settings": "Ustawienia",
+
+  "logout": "Wyloguj",
+
+  "administrator": "administrator",
+  "user": "użytkownik",
+
   "login": "LOGIN",
   "login.header": "logowanie",
   "login.info": "zaloguj się do swojego konta",
@@ -52,5 +63,15 @@
   "creature.countdown.minutes": "minut",
   "creature.countdown.seconds": "sekund",
 
-  "user": "użytkownik"
+  "user": "użytkownik",
+
+  "error.auth.login.failure": "Logowanie niepoprawne",
+  "error.auth.login.wrongPassword": "Niepoprawny login lub hasło, spróbuj ponownie",
+  "error.auth.login.waiting.Confirmation": "Zanim się zalogujesz kliknij w link potwierdzający rejestracje, który wysłaliśmy na podany przez Ciebie adres email",
+  "error.auth.login.waiting.Acceptance": "Zanim będziesz mógł się zalogować musisz poczekać na zaakceptowanie konta przez administratora. Wysłaliśmy mu email z przypomnieniem aby przyspieszyć proces. Powiadomimy Cie poprzez email o akceptacji.",
+  "error.auth.register.loginAlreadyTaken": "Ten login jest już zajęty",
+  "error.auth.register.nameAlreadyTaken": "Ta nazwa użytkownika jest już zajęta",
+  "error.settings.changePassword.wrongOldPassword": "Niepoprawne stare hasło",
+  "error.events.duplicate": "Duplikat informacji",
+  "error.events.unknownCreature": "Nieznany przeciwnik"
 }

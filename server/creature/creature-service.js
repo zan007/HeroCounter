@@ -170,7 +170,10 @@ app.post('/reportDefeat', function(req, res){
 
 	if(reportDate && creature){
 		checkDefeatDuplicate(creature, reportDate, function(){
-			res.status(404).send({message: 'duplicate'});
+			res.status(404).send({
+				message: 'duplicate',
+				code: 41
+			});
 		}, function(){
 			pool.getConnection(function(err, connection) {
 
@@ -216,6 +219,12 @@ app.post('/reportDefeat', function(req, res){
 
 					recalcCreatureRespTime(function(empty, data) {
 						/*console.log('recalc defeat', data);*/
+						if(empty) {
+							res.status(500).send({
+								message: empty,
+								code: 42
+							});
+						}
 						var output = {
 							creatures: data
 						};

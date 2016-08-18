@@ -3,25 +3,25 @@
         <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
         <div class="info">
             <div class="name" ng-bind="model.personalData.name"></div>
-            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+            <div class="role">{{model.personalData.isAdministrator ? '_(administrator)': '_(user)'}}</div>
         </div>
     </div>
     <hr/>
     <ul>
         <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
-            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+            <span class="title">{{appModules[state.reference]}}</span><i class="icon icon-circle"></i>
         </li>
     </ul>
     <div ng-if="model.personalData.isAdministrator">
         <hr/>
         <ul>
             <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
-                <span class="title">USER MANAGER</span>
+                <span class="title">_(modules.userManager)</span>
                 <i class="icon icon-circle"></i>
             </li>
         </ul>
     </div>
     <div class="bottom-buttons">
-        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+        <button class="menu-button" ng-if="showLogout" ng-click="logout()">_(logout)</button>
     </div>
 </nav>

@@ -8,13 +8,21 @@ var passport = require('passport'),
 	pool = server.pool,
 	app = server.app;
 
-app.post('/signup', passport.authenticate('local-signup', {
-	failureRedirect : '/register', // redirect back to the signup page if there is an error
-	failureFlash : true // allow flash messages
-}), function(req, res){
-	console.log('rejestracja poprawnie');
-	req.logOut();
-	res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
+app.post('/signup', function(req, res, next){
+	passport.authenticate('local-signup', function(err, user, info){
+
+		if(err) {
+			return next(err);
+		}
+		if(!user) {
+			console.log('500');
+			return res.status(500).send(info);
+			//return next(err);
+		}
+		console.log('rejestracja poprawnie');
+		req.logOut();
+		res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
+	})(req, res, next);
 });
 
 app.post('/login', function(req, res, next) {
@@ -80,7 +88,10 @@ app.post('/changePassword', function(req, res) {
 					}
 				});
 			} else {
-				res.status(500).send({message: 'wrong old password'});
+				res.status(500).send({
+					code: 31,
+					message: 'wrong old password'
+				});
 			}
 		});
 	} else {

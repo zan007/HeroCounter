@@ -7,11 +7,8 @@ controller('registerCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'user
 			userAuthService.register(registerData).then(function(data){
 				notificationService.showSuccessNotification(locales.waitingForConfirmation, true);
 				$state.go('login');
-			}).then(null, function(error) {
-				notificationService.showErrorNotification(error.message, true);
-				$scope.registerMessage = error.message;
 			});
-		}
+		};
 		
     }
 ]);

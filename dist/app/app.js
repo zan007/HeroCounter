@@ -5,7 +5,7 @@ $script.ready('angular', function() {
 		'ngMessages',
 		'register',
 		'login',
-		'heroes',
+		'creatures',
 		'profile',
 		'creatureProfile',
 		'activation',
@@ -66,9 +66,9 @@ $script.ready('angular', function() {
 		});
 
 		$stateProvider
-			.state('heroes', {
-				url: '/heroes',
-				templateUrl: '/heroes',
+			.state('creatures', {
+				url: '/creatures',
+				templateUrl: '/creatures',
 				authRequire: true,
 				params: {
 					newsVisible: true
@@ -148,7 +148,9 @@ $script.ready('angular', function() {
 			format: 'YYYY-MM-DD'
 		});
 	}])
-	.run(function ($rootScope, userAuthService, $state, adminRestrictedStates) {
+	.run(function ($rootScope, userAuthService, $state, adminRestrictedStates, locales) {
+		$rootScope.appModules = locales.modules;
+
 		$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
 
 			if (userAuthService.getIsLogged() !== undefined) {
@@ -175,22 +177,18 @@ $script.ready('angular', function() {
 	})
 	.constant('appStates', {
 		true: [{
-			reference: 'heroes',
-			selected: true,
-			name: 'HEROES'
+			reference: 'creatures',
+			selected: true
 		}, {
 			reference: 'settings',
-			selected: false,
-			name: 'SETTINGS'
+			selected: false
 		}],
 		false: [{
 			reference: 'login',
-			selected: true,
-			name: 'LOGIN'
+			selected: true
 		}, {
 			reference: 'register',
-			selected: false,
-			name: 'REGISTER'
+			selected: false
 		}]
 
 	})

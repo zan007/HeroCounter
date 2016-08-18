@@ -94,7 +94,7 @@ $script.ready('vendors', function() {
 '/app/common/services/user-auth-service.js',
 '/app/common/utils/fast-filter.js',
 '/app/common/utils/time-utils.js',
-'/app/heroes/heroes.js',
+'/app/creatures/creatures.js',
 '/app/hide-menu.js',
 '/app/login/login.js',
 '/app/profile/creature-profile.js',
@@ -144,6 +144,26 @@ $script.ready('app', function() {
 
             waitingForConfirmation: '_(register.waitingForConfirmation)',
 
+            errorCodes: {
+                11: '_(error.auth.login.failure)',
+                12: '_(error.auth.login.wrongPassword)',
+                13: '_(error.auth.login.waiting.Confirmation)',
+                14: '_(error.auth.login.waiting.Acceptance)',
+                21: '_(error.auth.register.loginAlreadyTaken)',
+                22: '_(error.auth.register.nameAlreadyTaken)',
+                31: '_(error.settings.changePassword.wrongOldPassword)',
+                41: '_(error.events.duplicate)',
+                42: '_(error.events.unknownCreature)'
+            },
+
+            modules: {
+                login: '_(modules.login)',
+                register: '_(modules.register)',
+                creatures: '_(modules.creatures)',
+                settings: '_(modules.settings)',
+                userManager: '_(modules.userManager)'
+            },
+
             yesterday: '_(yesterday)',
             today: '_(today)'
         });
@@ -155,26 +175,26 @@ $script.ready('app', function() {
         <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
         <div class="info">
             <div class="name" ng-bind="model.personalData.name"></div>
-            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+            <div class="role">{{model.personalData.isAdministrator ? '_(administrator)': '_(user)'}}</div>
         </div>
     </div>
     <hr/>
     <ul>
         <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
-            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+            <span class="title">{{appModules[state.reference]}}</span><i class="icon icon-circle"></i>
         </li>
     </ul>
     <div ng-if="model.personalData.isAdministrator">
         <hr/>
         <ul>
             <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
-                <span class="title">USER MANAGER</span>
+                <span class="title">_(modules.userManager)</span>
                 <i class="icon icon-circle"></i>
             </li>
         </ul>
     </div>
     <div class="bottom-buttons">
-        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+        <button class="menu-button" ng-if="showLogout" ng-click="logout()">_(logout)</button>
     </div>
 </nav>
     <div class="content full-height scrollable" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
@@ -192,7 +212,7 @@ $script.ready('app', function() {
         <div class="splash"></div>
     </div>
 </div>
-  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
+  <script id="/creatures" type="text/ng-template"><div ng-controller="creaturesCtrl" class="row">
 	<div class="container-fluid">
 		<div class="row">
 		 	<div class="col-md-6">
@@ -344,90 +364,6 @@ $script.ready('app', function() {
 					</div>
 					<button class="button register" ng-click="register(registerData)" ng-disabled="!signupForm.$valid">_(register.action)</button>
 			</form>
-		</div>
-	</div>
-</div>
-</script>
-  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
-	<div class="container-fluid">
-		<div class="row">
-		 	<div class="col-md-6">
-	<div class="filter-box">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<header class="filter-header">LEVEL RANGE</header>
-					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
-				</div>
-			</div>
-
-			<div class="row time-to-resp">
-				<div class="col-md-12">
-					<header class="filter-header">TIME TO RESP IN HOURS</header>
-					<rzslider rz-slider-model="timeSlider.value"></rzslider>
-				</div>
-				<div class="common-overlay" ng-show="!onlyWithKnownTime"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
-						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
-						<label for="common-checkbox-known-time"></label>
-						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-md-6">
-	<div class="query-container">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="query-box text-center col-md-12">
-					<div class="input-holder">
-						<span class="input-container">
-							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
-						</span>
-						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}" ng-click="queryInput = ''">
-							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
-							<i class="icon-cancel" ng-show="queryInput.length > 0"></i>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="query-box">
-					<div class="container-fluid">
-						<div class="row">
-							<header class="col-md-12">Creature Types</header>
-						</div>
-						<div class="row">
-							<div class="col-md-12 text-center">
-								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
-									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
-									<label for="common-checkbox1"></label>
-									<span class="checkbox-label">Titans</span>
-								</div>
-								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
-									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
-									<label for="common-checkbox2"></label>
-									<span class="checkbox-label">Heroes</span>
-								 </div>
-							 </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-		</div>
-		<div class="row">
-			<button class="form-button" ng-click="sendRequest()">send</button>
-			<div ng-repeat="creature in filteredCreatures">
-                <div hc-creature-tile="creature"></div>
-            </div>
 		</div>
 	</div>
 </div>
@@ -1031,26 +967,26 @@ $script.ready('app', function() {
         <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
         <div class="info">
             <div class="name" ng-bind="model.personalData.name"></div>
-            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+            <div class="role">{{model.personalData.isAdministrator ? '_(administrator)': '_(user)'}}</div>
         </div>
     </div>
     <hr/>
     <ul>
         <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
-            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+            <span class="title">{{appModules[state.reference]}}</span><i class="icon icon-circle"></i>
         </li>
     </ul>
     <div ng-if="model.personalData.isAdministrator">
         <hr/>
         <ul>
             <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
-                <span class="title">USER MANAGER</span>
+                <span class="title">_(modules.userManager)</span>
                 <i class="icon icon-circle"></i>
             </li>
         </ul>
     </div>
     <div class="bottom-buttons">
-        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+        <button class="menu-button" ng-if="showLogout" ng-click="logout()">_(logout)</button>
     </div>
 </nav></script>
   <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">

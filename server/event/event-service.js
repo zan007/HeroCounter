@@ -360,7 +360,7 @@ app.post('/registerEvent', function(req, res) {
 											cb();
 										});
 									} else {
-										cb({}, 'unknown creature');
+										cb({}, 'unknown creature', 42);
 									}
 								});
 							},
@@ -413,7 +413,7 @@ app.post('/registerEvent', function(req, res) {
 								});
 
 							}
-						], function (err, errorMessage) {
+						], function (err, errorMessage, errCode) {
 
 							return connection.rollback(function() {
 
@@ -423,14 +423,17 @@ app.post('/registerEvent', function(req, res) {
 								} else {
 
 									connection.release();
-									res.status(500).send({message: errorMessage});
+									res.status(500).send({
+										message: errorMessage,
+										code: errCode
+									});
 								}
 							});
 						});
 					});
 				} else {
 					connection.release();
-					res.status(500).send({message: 'unknown token'});
+					res.status(401).send({message: 'unknown token'});
 				}
 			});
 		});

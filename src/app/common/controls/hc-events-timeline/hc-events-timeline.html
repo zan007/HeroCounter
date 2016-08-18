@@ -14,7 +14,7 @@
             </div>
             <img class="avatar" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-src="{{event.reporter.avatar}}"/>
 
-            <div class="creature" ng-bind="event.creature.name"></div>
+            <div class="creature" ng-bind="event.creature.name" ng-click="goToCreatureProfile(event.creature.id)"></div>
             <div class="details">
                 <span ng-if="event.type === 'BATTLE'">was defeated by: </span>
                 <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">

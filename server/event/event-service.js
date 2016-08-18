@@ -262,6 +262,22 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 	});
 };
 
+var checkEventDuplicate = function(creature, date, duplicateExistCb, duplicateNotExistCb) {
+	var dateFrom = moment(date).subtract(1, 'minutes');
+
+	pool.getConnection(function(err, connection){
+		connection.query('select * from battle where battleDate between ? and ? and creatureId = ?', [dateUtils.timestampToSqlDatetime(dateFrom.valueOf()), dateUtils.timestampToSqlDatetime(moment(date).valueOf()), creature.id], function(err, rows){
+			if(rows.length > 0) {
+				connection.release();
+				duplicateExistCb();
+			} else {
+				connection.release();
+				duplicateNotExistCb();
+			}
+		});
+	});
+};
+
 app.post('/registerEvent', function(req, res) {
 
 	if(req.body){
@@ -296,6 +312,18 @@ app.post('/registerEvent', function(req, res) {
 						}
 
 						async.waterfall([
+							function(cb){
+								var creatureService = require('../creature/creature-service');
+								creatureService.getCreatureByName(creature, function(creatureObj){
+									checkEventDuplicate(creatureObj, timestamp, function(){
+										cb({}, 'duplicate');
+									}, function(){
+										cb();
+									});
+								},function(){
+									cb({}, 'creature not found');
+								});
+							},
 							function(cb) {
 								connection.query('select id from place where name = ?', place, function(err, rows) {
 									if (err) {

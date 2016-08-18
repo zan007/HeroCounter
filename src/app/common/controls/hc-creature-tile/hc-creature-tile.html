@@ -1,7 +1,7 @@
 <div class="col-md-6">
 	<div class="tile-container container-fluid">
 		<div class="row">
-			<div class="creature-avatar">
+			<div class="creature-avatar" ng-click="goToCreatureProfile(creature.id)">
 				<img ng-src="{{creature.image}}"/>
 			</div>
 			<div class="tile-header" ng-bind="creature.name"></div>

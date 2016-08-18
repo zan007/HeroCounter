@@ -1,5 +1,5 @@
 {
-	"name": "fa37d9d63966273d3ea618259800f05a",
+	"name": "1310bfe87c3ca4a776626c48d61d7a37",
 	"css_prefix_text": "icon-",
 	"css_use_suffix": false,
 	"hinting": true,
@@ -101,6 +101,12 @@
 			"css": "up-small",
 			"code": 59407,
 			"src": "typicons"
+		},
+		{
+			"uid": "8f25d96c5665c84e4403538eef14ec2c",
+			"css": "info-circled",
+			"code": 61573,
+			"src": "mfglabs"
 		}
 	]
 }

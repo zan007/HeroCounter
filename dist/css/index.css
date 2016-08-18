@@ -487,8 +487,8 @@ th {
 }
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?10272879');
-  src: url('../font/fontello.eot?10272879#iefix') format('embedded-opentype'), url('../font/fontello.woff2?10272879') format('woff2'), url('../font/fontello.woff?10272879') format('woff'), url('../font/fontello.ttf?10272879') format('truetype'), url('../font/fontello.svg?10272879#fontello') format('svg');
+  src: url('../font/fontello.eot?10501456');
+  src: url('../font/fontello.eot?10501456#iefix') format('embedded-opentype'), url('../font/fontello.woff2?10501456') format('woff2'), url('../font/fontello.woff?10501456') format('woff'), url('../font/fontello.ttf?10501456') format('truetype'), url('../font/fontello.svg?10501456#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -498,7 +498,7 @@ th {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?10272879#fontello') format('svg');
+    src: url('../font/fontello.svg?10501456#fontello') format('svg');
   }
 }
 */
@@ -594,6 +594,10 @@ th {
   content: '\e80f';
 }
 /* '' */
+.icon-info-circled:before {
+  content: '\f085';
+}
+/* '' */
 @font-face {
   font-family: 'brandon-blk';
   src: url('../font/brandon_med-webfont.eot'), url('../font/brandon_med-webfont.eot?#iefix') format('embedded-opentype'), url('../font/brandon_med-webfont.woff') format('woff'), url('../font/brandon_med-webfont.ttf') format('truetype'), url('../font/brandon_med-webfont.svg#svgFontName') format('svg');
@@ -844,7 +848,7 @@ body {
   -moz-transform: translate3d(50%, -50%, 0);
   -ms-transform: translate3d(50%, -50%, 0);
   transform: translate3d(50%, -50%, 0);
-  width: 300px;
+  width: 350px;
   height: auto;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -858,10 +862,16 @@ body {
 }
 .info-box .auth-type {
   color: #13a4e4;
+  text-transform: uppercase;
 }
 .info-box .header {
   color: white;
   margin-bottom: 40px;
+  text-transform: uppercase;
+}
+.info-box .button.login,
+.info-box .button.register {
+  text-transform: uppercase;
 }
 .button {
   -webkit-appearance: none;
@@ -1145,43 +1155,52 @@ ul {
   font-family: 'brandon-blk';
 }
 .ui-notification.error,
-.ui-notification.success {
+.ui-notification.success,
+.ui-notification.info {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   width: 500px;
 }
 .ui-notification.error h3,
-.ui-notification.success h3 {
+.ui-notification.success h3,
+.ui-notification.info h3 {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
   border-bottom: none;
 }
 .ui-notification.error i,
-.ui-notification.success i {
+.ui-notification.success i,
+.ui-notification.info i {
   font-size: 40px;
 }
 .ui-notification.error .subtitle,
-.ui-notification.success .subtitle {
+.ui-notification.success .subtitle,
+.ui-notification.info .subtitle {
   margin-top: 20px;
   font-size: 20px;
 }
 .ui-notification.error .title,
-.ui-notification.success .title {
+.ui-notification.success .title,
+.ui-notification.info .title {
   font-size: 20px;
 }
 .ui-notification.error .message,
-.ui-notification.success .message {
+.ui-notification.success .message,
+.ui-notification.info .message {
   font-size: 15px;
   text-align: center;
 }
 .ui-notification.error .subtitle,
 .ui-notification.success .subtitle,
+.ui-notification.info .subtitle,
 .ui-notification.error .title,
 .ui-notification.success .title,
+.ui-notification.info .title,
 .ui-notification.error .message,
-.ui-notification.success .message {
+.ui-notification.success .message,
+.ui-notification.info .message {
   font-style: normal!important;
   font-weight: normal!important;
 }
@@ -1610,6 +1629,7 @@ ul {
 .error-container {
   margin-top: 5px;
   color: #d9534f;
+  text-transform: uppercase;
 }
 .form-input {
   -webkit-appearance: none;
@@ -1627,15 +1647,19 @@ ul {
 }
 .form-input::-webkit-input-placeholder {
   color: #fff;
+  font-size: 12px;
 }
 .form-input:-moz-placeholder {
   color: #fff;
+  font-size: 12px;
 }
 .form-input::-moz-placeholder {
   color: #fff;
+  font-size: 12px;
 }
 .form-input:-ms-input-placeholder {
   color: #fff;
+  font-size: 12px;
 }
 .form-input:focus {
   outline: 0;
@@ -1802,6 +1826,7 @@ ul {
   right: 0;
   top: 0;
   padding: 10px;
+  cursor: pointer;
 }
 .tile-container .creature-avatar img {
   width: 50%;
@@ -2165,6 +2190,7 @@ ul {
   text-transform: uppercase;
   margin-top: 7px;
   margin-bottom: 15px;
+  cursor: pointer;
 }
 .hc-events-timeline .left-element .details,
 .hc-events-timeline .right-element .details {

@@ -49,6 +49,12 @@ angular.module('controls.hcEventsTimeline', ['dataSource'])
 				}
 			};
 
+			$scope.goToCreatureProfile = function(id){
+				if(id){
+					$state.go('creatureProfile', {creatureId: id});
+				}
+			};
+
 			$scope.goToTop = function(){
 				$elem.animate({
 					scrollTop : 0

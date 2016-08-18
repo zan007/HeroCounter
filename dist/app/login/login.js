@@ -11,9 +11,5 @@ controller('loginCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'userAut
 				$state.go($stateParams.destinationState !== '' ? $stateParams.destinationState: $rootScope.states[0].reference, $stateParams.destinationParams);
 			});
 		};
-
-		$scope.showNotification = function() {
-			notificationService.showSuccessNotification('wiadomosc');
-		};
     }
 ]);

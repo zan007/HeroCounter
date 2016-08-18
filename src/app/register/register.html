@@ -1,25 +1,44 @@
 <div class="row full-height">
 	<div ng-controller="registerCtrl" class="col-xs-12 full-height">
 		<div class="info-box">
-			<div class="auth-type">SIGNUP</div>
-			<div class="header">CREATE YOUR ACCOUNT</div>
-			<form name="signup-form">
+			<div class="auth-type">_(register.header)</div>
+			<div class="header">_(register.info)</div>
+			<form name="signupForm">
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/>
+						<input class="form-input" type="text" name="login" ng-model="registerData.login" ng-required="true" placeholder="_(login)"/>
+                        <div class="error-container" ng-messages="signupForm.login.$error" ng-show="signupForm.login.$dirty">
+                            <span ng-message="required">_(validation.required)</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/>
+						<input class="form-input" type="password" name="password" ng-model="registerData.password" ng-required="true" placeholder="_(password)"/>
+                        <div class="error-container" ng-messages="signupForm.password.$error" ng-show="signupForm.password.$dirty">
+                            <span ng-message="required">_(validation.required)</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/>
+						<input class="form-input" type="password" ng-model="registerData.repeatedPassword" ng-required="true" name="repeatedPassword" placeholder="_(password.repeat)" hc-equal="registerData.password"/>
+                        <div class="error-container" ng-messages="signupForm.repeatedPassword.$error" ng-show="signupForm.repeatedPassword.$dirty">
+                            <span ng-message="required">_(validation.required)</span>
+                            <span ng-message="hcEqual">_(register.validation.equalTo.password)</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/>
+						<input class="form-input" type="text" name="email" ng-model="registerData.email" ng-required="true" placeholder="_(email)" hc-validation-pattern="EMAIL"/>
+                        <div class="error-container" ng-messages="signupForm.email.$error" ng-show="signupForm.email.$dirty">
+                            <span ng-message="required">_(validation.required)</span>
+                            <span ng-message="hcValidationPattern.EMAIL">_(validation.email.format)</span>
+                            <span ng-message="hcValidationPattern.EMAIL_CHARS">_(validation.email.chars)</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.name" placeholder="NAME"/>
+						<input class="form-input" type="text" name="name" ng-model="registerData.name" ng-required="true" placeholder="_(name)" hc-validation-pattern="TEXT"/>
+                        <div class="error-container" ng-messages="signupForm.name.$error" ng-show="signupForm.name.$dirty">
+                            <span ng-message="required">_(validation.required)</span>
+                            <span ng-message="hcValidationPattern.TEXT">_(validation.text)</span>
+                        </div>
 					</div>
-					<button class="button" ng-click="register(registerData)">SIGNUP</button>
+					<button class="button register" ng-click="register(registerData)" ng-disabled="!signupForm.$valid">_(register.action)</button>
 			</form>
 		</div>
 	</div>

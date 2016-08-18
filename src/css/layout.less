@@ -242,7 +242,7 @@ body {
     top: 50%;
     right: 50%;
     .translate-3d(50%, -50%);
-    width: 300px;
+    width: 350px;
     height: auto;
     .border-radius(5px);
     .background-alpha(#275482, 0.6);
@@ -252,13 +252,21 @@ body {
     color: white;
     
     .auth-type {
-        color: #13a4e4;
+	  color: #13a4e4;
+	  text-transform: uppercase;
     }
 
     .header {
-        color: white;
-        margin-bottom: 40px;
+	  color: white;
+	  margin-bottom: 40px;
+	  text-transform: uppercase;
     }
+
+  	.button {
+	  &.login, &.register {
+		text-transform: uppercase;
+	  }
+	}
 }
 
 .button {

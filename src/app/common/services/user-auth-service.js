@@ -36,11 +36,12 @@ angular.module('userAuthService', [])
 
 		return deferred.promise;
 	};
+
 	var init = function() {
 		getUserAuthData().then(function(data) {
 			$rootScope.$broadcast('app-ready');
 		});
-	}
+	};
 
 	var loggIn = function(login, password) {
 		var credentials = {
@@ -99,5 +100,5 @@ angular.module('userAuthService', [])
 		getUserAuthData: getUserAuthData,
 		authEvents: AUTH_EVENTS,
 		setLogged: setLogged
-	}
+	};
 }]);

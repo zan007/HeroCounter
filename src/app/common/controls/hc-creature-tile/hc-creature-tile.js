@@ -1,6 +1,6 @@
 angular.module('controls.hcCreatureTile', ['dataSource'])
 
-.directive('hcCreatureTile', ['dataSource', '$rootScope', '$timeout', function (dataSource, $rootScope, $timeout) {
+.directive('hcCreatureTile', ['dataSource', '$rootScope', 'notificationService', '$timeout', '$state', function (dataSource, $rootScope, notificationService, $timeout, $state) {
 	return {
 		scope: {
 			creature: '=hcCreatureTile'
@@ -14,9 +14,9 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 			$scope.reportedDate = moment().format('YYYY-MM-DD');
 
 
-			$scope.startCountdown = function (creature) {
+			/*$scope.startCountdown = function (creature) {
 				dataSource.defeatCreature(creature);
-			};
+			};*/
 
 			$scope.toggleAdditionalActions = function () {
 				$scope.showAdditionalActions = !$scope.showAdditionalActions;
@@ -46,6 +46,8 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 					$scope.showLoadingIndicator = false;
 				}, function (data) {
 					console.log('error raport ', data);
+					$scope.showAdditionalActions = false;
+					$scope.showLoadingIndicator = false;
 				});
 			};
 
@@ -70,6 +72,12 @@ angular.module('controls.hcCreatureTile', ['dataSource'])
 
 
 					return creature;
+			};
+
+			$scope.goToCreatureProfile = function(id){
+				if(id){
+					$state.go('creatureProfile', {creatureId: id});
+				}
 			};
 
 			$scope.creature = countTimeToResp($scope.creature);

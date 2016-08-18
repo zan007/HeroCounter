@@ -142,6 +142,8 @@ $script.ready('app', function() {
                 'grudnia'
             ],
 
+            waitingForConfirmation: 'Kliknij w link, który został wysłany na podany przez Ciebie adres email i poczekaj na akceptacje przez administratora',
+
             yesterday: 'wczoraj',
             today: 'dziś'
         });
@@ -277,50 +279,70 @@ $script.ready('app', function() {
   <script id="/" type="text/ng-template"><div class="row full-height">
 	<div ng-controller="loginCtrl" class="col-xs-12 full-height">
 		<div class="info-box">
-			<div class="auth-type">LOGIN</div>
-			<div class="header">LOG IN INTO YOUR ACCOUNT</div>
+			<div class="auth-type">logowanie</div>
+			<div class="header">zaloguj się do swojego konta</div>
 			<form novalidate name="loginForm">
 					<div class="input-container">
 						<input type="text" name="login" class="form-input" ng-model="login" placeholder="LOGIN" ng-required="true" hc-validation-pattern="TEXT"/>
 						<div class="error-container" ng-messages="loginForm.login.$error" ng-show="loginForm.login.$dirty">
-							<span ng-message="hcValidationPattern.TEXT">Only text</span>
-							<span ng-message="required">Fill in the field.</span>
+							<!--<span ng-message="hcValidationPattern.TEXT">dozwolone tylko litery i cyfry</span>-->
+							<span ng-message="required">pole wymagane</span>
 						</div>
 					</div>
 					<div class="input-container">
-						<input type="text" name="password" class="form-input" ng-model="password" placeholder="PASSWORD"/>
+						<input type="password" name="password" class="form-input" ng-model="password" ng-required="true" placeholder="HASŁO"/>
+                        <div class="error-container" ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty">
+                            <span ng-message="required">pole wymagane</span>
+                        </div>
 					</div>
-					<button class="button" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">LOGIN</button>
+					<button class="button login" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">zaloguj</button>
 
 			</form>
 		</div>
-		<p ng-bind="loginMessage"></p>
-		<button class="button" ng-click="showNotification()">komunikat</button>
 	</div>
 </div>
 </script>
   <script id="/register" type="text/ng-template"><div class="row full-height">
 	<div ng-controller="registerCtrl" class="col-xs-12 full-height">
 		<div class="info-box">
-			<div class="auth-type">SIGNUP</div>
-			<div class="header">CREATE YOUR ACCOUNT</div>
-			<form name="signup-form">
+			<div class="auth-type">rejestracja</div>
+			<div class="header">utwórz nowe konto</div>
+			<form name="signupForm">
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/>
+						<input class="form-input" type="text" name="login" ng-model="registerData.login" ng-required="true" placeholder="LOGIN"/>
+                        <div class="error-container" ng-messages="signupForm.login.$error" ng-show="signupForm.login.$dirty">
+                            <span ng-message="required">pole wymagane</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/>
+						<input class="form-input" type="password" name="password" ng-model="registerData.password" ng-required="true" placeholder="HASŁO"/>
+                        <div class="error-container" ng-messages="signupForm.password.$error" ng-show="signupForm.password.$dirty">
+                            <span ng-message="required">pole wymagane</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/>
+						<input class="form-input" type="password" ng-model="registerData.repeatedPassword" ng-required="true" name="repeatedPassword" placeholder="POWTÓRZ HASŁO" hc-equal="registerData.password"/>
+                        <div class="error-container" ng-messages="signupForm.repeatedPassword.$error" ng-show="signupForm.repeatedPassword.$dirty">
+                            <span ng-message="required">pole wymagane</span>
+                            <span ng-message="hcEqual">hasło musi być zgodne z poprzednio wpisanym</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/>
+						<input class="form-input" type="text" name="email" ng-model="registerData.email" ng-required="true" placeholder="ADRES EMAIL" hc-validation-pattern="EMAIL"/>
+                        <div class="error-container" ng-messages="signupForm.email.$error" ng-show="signupForm.email.$dirty">
+                            <span ng-message="required">pole wymagane</span>
+                            <span ng-message="hcValidationPattern.EMAIL">niepoprawny format adresu</span>
+                            <span ng-message="hcValidationPattern.EMAIL_CHARS">niedozwolone znaki</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.name" placeholder="NAME"/>
+						<input class="form-input" type="text" name="name" ng-model="registerData.name" ng-required="true" placeholder="NAZWA UŻYTKOWNIKA" hc-validation-pattern="TEXT"/>
+                        <div class="error-container" ng-messages="signupForm.name.$error" ng-show="signupForm.name.$dirty">
+                            <span ng-message="required">pole wymagane</span>
+                            <span ng-message="hcValidationPattern.TEXT">dozwolone tylko litery i cyfry</span>
+                        </div>
 					</div>
-					<button class="button" ng-click="register(registerData)">SIGNUP</button>
+					<button class="button register" ng-click="register(registerData)" ng-disabled="!signupForm.$valid">rejestruj</button>
 			</form>
 		</div>
 	</div>
@@ -1034,7 +1056,7 @@ $script.ready('app', function() {
   <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
 	<div class="tile-container container-fluid">
 		<div class="row">
-			<div class="creature-avatar">
+			<div class="creature-avatar" ng-click="goToCreatureProfile(creature.id)">
 				<img ng-src="{{creature.image}}"/>
 			</div>
 			<div class="tile-header" ng-bind="creature.name"></div>
@@ -1137,7 +1159,7 @@ $script.ready('app', function() {
             </div>
             <img class="avatar" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-src="{{event.reporter.avatar}}"/>
 
-            <div class="creature" ng-bind="event.creature.name"></div>
+            <div class="creature" ng-bind="event.creature.name" ng-click="goToCreatureProfile(event.creature.id)"></div>
             <div class="details">
                 <span ng-if="event.type === 'BATTLE'">was defeated by: </span>
                 <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">

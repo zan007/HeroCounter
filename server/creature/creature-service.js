@@ -39,7 +39,7 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 				callback(null, creatures);
 			});
 		} else {
-			connection.query('select * from creature where id = ?',creatureId, function (err, rows) {
+			connection.query('select * from creature where id = ?', creatureId, function (err, rows) {
 				if (err) throw err;
 
 				if (rows.length === 1) {
@@ -56,6 +56,8 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 
 						currentCreature.timeToResp = dateDifference;
 					}
+					creatures.push(currentCreature);
+
 				} else {
 					callback('unknown creature');
 				}
@@ -70,7 +72,7 @@ var checkDefeatDuplicate = function(creature, date, duplicateExistCb, duplicateN
 	var dateFrom = moment(date).subtract(1, 'minutes');
 
 	pool.getConnection(function(err, connection){
-		connection.query('select * from battle where battleDate between ? and ? and creatureId = ?', [dateUtils.timestampToSqlDatetime(dateFrom.valueOf()), dateUtils.timestampToSqlDatetime(moment(date).valueOf()), creature.id], function(err, rows){
+		connection.query('select * from report where reportDate between ? and ? and creatureId = ?', [dateUtils.timestampToSqlDatetime(dateFrom.valueOf()), dateUtils.timestampToSqlDatetime(moment(date).valueOf()), creature.id], function(err, rows){
 			if(rows.length > 0) {
 				connection.release();
 				duplicateExistCb();
@@ -103,7 +105,7 @@ app.get('/creatures', function(req, res){
 	});
 });
 
-app.post('/defeat', function(req, res){
+/*app.post('/defeat', function(req, res){
 	var today = moment().format('YYYY-MM-DD HH:mm:ss');
 	if(req.body && req.body.creatureName) {
 		var creatureName = req.body.creatureName;
@@ -129,7 +131,7 @@ app.post('/defeat', function(req, res){
 			},
 			function(defeatedCreature, wcb){
 				recalcCreatureRespTime(function(empty, data) {
-					/*console.log('recalc defeat', data);*/
+					/!*console.log('recalc defeat', data);*!/
 					var creaturesToSend = [];
 					_.find(data, function(obj) {
 						if(obj.name === creatureName){
@@ -156,40 +158,10 @@ app.post('/defeat', function(req, res){
 					res.status(404).send();
 				}
 			});
-		/*pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err){
-			if(err){
-				throw(err);
-			}
-		});
-		pool.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, result){
-			if(err){
-				throw(err);
-			}
-
-			defeatedCreature = result.insertId;
-		});
-		recalcCreatureRespTime(function(empty, data) {
-			/!*console.log('recalc defeat', data);*!/
-			var creaturesToSend = [];
-			_.find(data, function(obj) {
-				if(obj.name === creatureName){
-					creaturesToSend.push(obj);
-				}
-			});
-
-			var output = {
-				creatures: creaturesToSend
-			};
-			console.log('recalc defeat');
-
-			io.emit('creaturesUpdated', output);
-
-			res.send(output);
-		}, defeatedCreature.id);*/
 	} else {
 		res.status(404).send('not Found');
 	}
-});
+});*/
 
 app.post('/reportDefeat', function(req, res){
 	var reportDate = req.body.date;
@@ -198,7 +170,7 @@ app.post('/reportDefeat', function(req, res){
 
 	if(reportDate && creature){
 		checkDefeatDuplicate(creature, reportDate, function(){
-			res.status(200).send({message: 'duplicate'});
+			res.status(404).send({message: 'duplicate'});
 		}, function(){
 			pool.getConnection(function(err, connection) {
 
@@ -264,6 +236,23 @@ app.post('/reportDefeat', function(req, res){
 	}
 });
 
+var getCreatureByName = function(name, foundCb, notFoundCb){
+	pool.getConnection(function(err, connection){
+		connection.query('select * from creature where name = ?', name, function(err, rows){
+			if(err){
+				connection.release();
+				notFoundCb();
+			}
+
+			if(rows.length === 1){
+				connection.release();
+				foundCb(rows[0]);
+			}
+		});
+	});
+};
+
 module.exports = {
-	recalcCreatureRespTime: recalcCreatureRespTime
+	recalcCreatureRespTime: recalcCreatureRespTime,
+	getCreatureByName: getCreatureByName
 };

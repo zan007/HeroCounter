@@ -1,24 +1,25 @@
 <div class="row full-height">
 	<div ng-controller="loginCtrl" class="col-xs-12 full-height">
 		<div class="info-box">
-			<div class="auth-type">LOGIN</div>
-			<div class="header">LOG IN INTO YOUR ACCOUNT</div>
+			<div class="auth-type">_(login.header)</div>
+			<div class="header">_(login.info)</div>
 			<form novalidate name="loginForm">
 					<div class="input-container">
-						<input type="text" name="login" class="form-input" ng-model="login" placeholder="LOGIN" ng-required="true" hc-validation-pattern="TEXT"/>
+						<input type="text" name="login" class="form-input" ng-model="login" placeholder="_(login)" ng-required="true" hc-validation-pattern="TEXT"/>
 						<div class="error-container" ng-messages="loginForm.login.$error" ng-show="loginForm.login.$dirty">
-							<span ng-message="hcValidationPattern.TEXT">Only text</span>
-							<span ng-message="required">Fill in the field.</span>
+							<!--<span ng-message="hcValidationPattern.TEXT">_(validation.text)</span>-->
+							<span ng-message="required">_(validation.required)</span>
 						</div>
 					</div>
 					<div class="input-container">
-						<input type="text" name="password" class="form-input" ng-model="password" placeholder="PASSWORD"/>
+						<input type="password" name="password" class="form-input" ng-model="password" ng-required="true" placeholder="_(password)"/>
+                        <div class="error-container" ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty">
+                            <span ng-message="required">_(validation.required)</span>
+                        </div>
 					</div>
-					<button class="button" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">LOGIN</button>
+					<button class="button login" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">_(login.action)</button>
 
 			</form>
 		</div>
-		<p ng-bind="loginMessage"></p>
-		<button class="button" ng-click="showNotification()">komunikat</button>
 	</div>
 </div>

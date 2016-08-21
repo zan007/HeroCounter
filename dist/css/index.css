@@ -792,6 +792,23 @@ body {
   font-size: 15px;
   margin: auto 0;
 }
+.menu .lang {
+  margin-top: 50px;
+  padding-left: 20px;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #5682b2;
+}
+.menu .lang .lang-flag {
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.menu .lang .lang-flag img {
+  height: 30px;
+  width: 30px;
+}
 .menu .menu-button {
   background-color: #214b76;
   border-radius: 5px 5px 5px 5px;
@@ -1859,6 +1876,7 @@ ul {
   color: #1792cd;
   font-size: 12px;
   padding: 0 0 0 35px;
+  margin-bottom: 30px;
   min-height: 35px;
 }
 .tile-container .tile-subtitle .last-seen-date {
@@ -1897,6 +1915,10 @@ ul {
   font-size: 20px;
   color: white;
 }
+.tile-container .additional-actions .potential-label {
+  min-height: 40px;
+  text-align: center;
+}
 .tile-container .additional-actions .date-picker {
   display: -webkit-flex;
   display: -moz-flex;
@@ -1911,6 +1933,7 @@ ul {
 }
 .tile-container .additional-actions .date-picker .form-input {
   text-align: center;
+  width: 100px;
 }
 .tile-container .additional-actions .overlay {
   position: absolute;
@@ -1942,30 +1965,28 @@ ul {
   flex-wrap: wrap;
 }
 .tile-container .tile-content .tile-section {
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
   /*display: inline-block;*/
-  height: 60px;
-  width: 75px;
   border-right: 3px dotted #234d78;
   text-align: center;
 }
 .tile-container .tile-content .tile-section:last-child {
   border-right: none;
 }
-.tile-container .tile-content .label {
+.tile-container .tile-content .tile-label {
   white-space: normal;
   color: #96abc0;
   font-size: 11px;
-  word-wrap: break-word;
-  text-align: center;
-  display: inline-block;
+  /*word-wrap: break-word;
+			text-align: center;
+			display: inline-block;*/
   vertical-align: top;
 }
 .tile-container .tile-content .value {
   color: #1792cd;
   font-size: 14px;
   font-weight: 600;
+  text-transform: none;
 }
 .tile-container .action-buttons {
   background-color: #1c456e;

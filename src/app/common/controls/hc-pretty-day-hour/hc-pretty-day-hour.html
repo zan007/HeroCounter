@@ -1,0 +1,8 @@
+<span class="hc-pretty-day-hour pretty-time">
+    <span ng-show="!fullNames">
+        <span class="day">{{days}}d </span><span class="hours" ng-show="hours">{{hours}}h</span>
+    </span>
+    <span ng-show="fullNames">
+        <span class="day">{{days}} {{days === 1 ? '_(singleDay)': '_(days)'}} </span><span class="hours" ng-show="hours">{{hours}} {{hours === 1 ? '_(singleHour)': '_(hours)'}}</span>
+    </span>
+</span>

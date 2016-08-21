@@ -116,6 +116,15 @@ angular.module('dataSource', [])
 								$rootScope.$broadcast('dataSource.ready');
 							});
 			},
+			setLanguage: function(lang){
+				return call({
+					method: 'POST',
+					url: '/setLanguage',
+					data: {
+						lang: lang
+					}
+				});
+			},
 			register: function(registerData) {
 				return call({ method: 'POST',
 								 url: '/signup',

@@ -11,31 +11,31 @@
                 <div ng-show="!creature.timeToResp">_(creatureTile.unknownTime)</div>
                 <div class="last-seen-date">_(creatureTile.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" day-description="true" ng-show="creature.lastSeenDate"></span></div>
 			</div>
-			<div class="tile-content ">
-                <section class="tile-section">
-                    <div class="value" ng-bind="creature.minRespTime"></div>
-                    <div class="label">_(creatureTile.minRespTime)</div>
+			<div class="tile-content row container-fluid">
+                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
+                    <div class="value" hc-pretty-day-hour="creature.minRespTime"></div>
+                    <div class="tile-label">_(creatureTile.minRespTime)</div>
                 </section>
-                <section class="tile-section">
-                    <div class="value" ng-bind="creature.maxRespTime"></div>
-                    <div class="label">_(creatureTile.maxRespTime)</div>
+                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
+                    <div class="value" hc-pretty-day-hour="creature.maxRespTime"></div>
+                    <div class="tile-label">_(creatureTile.maxRespTime)</div>
                 </section>
-                <section class="tile-section">
+                <section class="tile-section col-xs-4 col-lg-4 col-md-12">
                     <div class="value" ng-bind="creature.defeatCounter"></div>
-                    <div class="label">_(creatureTile.defeatedCount)</div>
+                    <div class="tile-label">_(creatureTile.defeatedCount)</div>
                 </section>
 			</div>
             <div class="additional-actions" ng-show="showAdditionalActions">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xs-12 col-lg-7">
-                            <div class="center-vertically">
+                        <div class="col-xs-12 col-md-12 col-lg-7">
+                            <div class="center-vertically potential-label">
                                 _(creatureTile.potentialTime)
                             </div>
-                            <div class="row no-gutters" hc-time-picker="reportedTime"></div>
+                            <div hc-time-picker="reportedTime"></div>
                         </div>
-                        <div class="col-xs-12 col-lg-5">
-                            <div class="center-vertically">
+                        <div class="col-xs-12 col-md-12 col-lg-5">
+                            <div class="center-vertically potential-label">
                                 _(creatureTile.potentialDate)
                             </div>
                             <div class="center-vertically date-picker">

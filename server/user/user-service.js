@@ -87,6 +87,18 @@ app.post('/getUsers', function(req, res) {
 	}
 });
 
+app.post('/setLanguage', function(req, res){
+
+	if(req.body && req.body.lang) {
+		var lang = req.param('lang');
+		req.session.lang = lang;
+		req.session.save();
+		res.status(200).send();
+	} else {
+		res.status(404).send();
+	}
+});
+
 app.post('/activate', function(req, res) {
 	console.log('poczatek aktywacji', req.params);
 	if(req.body && req.body.token){

@@ -24,4 +24,13 @@
     <div class="bottom-buttons">
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">_(logout)</button>
     </div>
+    <div class="lang">
+        <div>_(changeLang)</div>
+        <div class="lang-flag" ng-click="setLanguage('pl')">
+            <img src="img/pl-flag.png"/>
+        </div>
+        <div class="lang-flag" ng-click="setLanguage('en')">
+            <img src="img/en-flag.png"/>
+        </div>
+    </div>
 </nav>

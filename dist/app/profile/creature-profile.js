@@ -1,5 +1,5 @@
 angular.module('creatureProfile', ['dataSource'])
-.controller('creatureProfileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', '$state', function($scope, $rootScope, dataSource, $location, $stateParams, $state){
+.controller('creatureProfileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', '$state', 'locales', function($scope, $rootScope, dataSource, $location, $stateParams, $state, locales){
 
 	$scope.pieChartData = [];
 
@@ -8,16 +8,16 @@ angular.module('creatureProfile', ['dataSource'])
 		var chartData = [
 			{
 				value: dateMap.morning,
-				label: 'morning'
+				label: locales.timeOfTheDay.morning
 			},{
 				value: dateMap.afternoon,
-				label: 'afternoon'
+				label: locales.timeOfTheDay.afternoon
 			},{
 				value: dateMap.evening,
-				label: 'evening'
+				label: locales.timeOfTheDay.evening
 			},{
 				value: dateMap.night,
-				label: 'night'
+				label: locales.timeOfTheDay.night
 			}
 		];
 

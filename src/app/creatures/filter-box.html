@@ -3,24 +3,24 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-					<header class="filter-header">LEVEL RANGE</header>
+					<header class="filter-header">_(filter.levelRange)</header>
 					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
 				</div>
 			</div>
 
 			<div class="row time-to-resp">
 				<div class="col-md-12">
-					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<header class="filter-header">_(filter.timeToResp)</header>
 					<rzslider rz-slider-model="timeSlider.value"></rzslider>
 				</div>
 				<div class="common-overlay" ng-show="!onlyWithKnownTime"></div>
 			</div>
-			<div class="row">
+			<div class="row only-known-time">
 				<div class="col-md-12 text-center">
 					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
 						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
 						<label for="common-checkbox-known-time"></label>
-						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+						<div class="checkbox-label">_(filter.onlyKnownTime)</div>
 					</div>
 				</div>
 			</div>
@@ -31,10 +31,10 @@
 	<div class="query-container">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="query-box text-center col-md-12">
+				<div class="query-box text-center col-md-12 center-vertically">
 					<div class="input-holder">
 						<span class="input-container">
-							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="_(filter.query.placeholder)"/>
 						</span>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}" ng-click="queryInput = ''">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
@@ -45,21 +45,21 @@
 			</div>
 			<div class="row">
 				<div class="query-box">
-					<div class="container-fluid">
+					<div>
 						<div class="row">
-							<header class="col-md-12">Creature Types</header>
+							<header class="col-md-12">_(filter.creatureType)</header>
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
 								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
 									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
 									<label for="common-checkbox1"></label>
-									<span class="checkbox-label">Titans</span>
+									<span class="checkbox-label">_(filter.titan)</span>
 								</div>
 								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
 									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
 									<label for="common-checkbox2"></label>
-									<span class="checkbox-label">Heroes</span>
+									<span class="checkbox-label">_(filter.hero)</span>
 								 </div>
 							 </div>
 						</div>

@@ -2,11 +2,11 @@
     <form novalidate name="contactSettingsForm">
         <header class="section-header">
             <div class="description">
-                <h2>settings</h2>
-                <h1>Contact</h1>
+                <h2>_(modules.settings)</h2>
+                <h1>_(settings.contact)</h1>
             </div>
             <button class="button" ng-click="changeContactSettings()" ng-show="!editContactSettings"">
-            Edit settings
+            _(settings.actions.change)
             </button>
         </header>
         <hr/>
@@ -14,57 +14,66 @@
             <div class="col-xs-12 col-md-6">
                 <div class="row">
                     <div class="property col-xs-6">
-                        <div class="section-label">Name</div>
+                        <div class="section-label">_(settings.contact.name)</div>
                         <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
                         <div class="input-container" ng-show="editContactSettings">
-                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" placeholder="NEW NAME"/>
+                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" ng-focus="rememberContactValue('name')" ng-blur="restoreContactValue('name')" placeholder="_(settings.contact.newName)" hc-validation-pattern="TEXT"/>
+                            <div class="error-container" ng-messages="contactSettingsForm.name.$error" ng-show="contactSettingsForm.name.$dirty">
+                                <span ng-message="hcValidationPattern.TEXT">_(validation.text)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-md-10 col-lg-6">
+            <div class="col-xs-12 col-md-12 col-lg-6">
                 <div class="property-section container-fluid row">
                     <div class="property">
-                        <div class="section-label">Phone number</div>
+                        <div class="section-label">_(settings.contact.phone)</div>
                         <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
-                        <div class="input-container" ng-show="editContactSettings">
-                            <input type="text" name="name" class="form-input" ng-model="model.personalData.phone" placeholder="NEW PHONE"/>
+                        <div class="input-container" ng-if="editContactSettings && model.personalData.phoneVisible">
+                            <input type="text" name="phone" class="form-input" ng-model="model.personalData.phone" placeholder="_(settings.contact.newPhone)" ng-focus="rememberContactValue('phone')" ng-blur="restoreContactValue('phone')" hc-validation-pattern="PHONE_NUMBER"/>
+                            <div class="error-container" ng-messages="contactSettingsForm.phone.$error" ng-show="contactSettingsForm.phone.$dirty">
+                                <span ng-message="hcValidationPattern.TEXT">_(validation.phoneNumber)</span>
+                            </div>
                         </div>
                     </div>
                     <div class="property-switcher" >
-                        <div class="section-label">Show phone number on profile</div>
+                        <div class="section-label">_(settings.contact.showPhone)</div>
                         <i class="icon-ok" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
                         <i class="icon-cancel" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
                         <div class="form-checkbox" ng-show="editContactSettings">
                             <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                             <label for="common-checkbox-show-phone"></label>
-                            <span class="checkbox-label"></span>
+                            <div class="checkbox-label"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-10 col-lg-6">
+            <div class="col-xs-12 col-md-12 col-lg-6">
                 <div class="container-fluid row">
                     <div class="property-section">
                         <div class="property">
-                            <div class="section-label">GG number</div>
+                            <div class="section-label">_(settings.contact.gg)</div>
                             <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
-                            <div class="input-container" ng-show="editContactSettings">
-                                <input type="text" name="name" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG"/>
+                            <div class="input-container" ng-if="editContactSettings && model.personalData.ggVisible">
+                                <input type="text" name="gg" class="form-input" ng-model="model.personalData.gg" placeholder="_(settings.contact.newGG)" hc-validation-pattern="NUMBER" ng-focus="rememberContactValue('gg')" ng-blur="restoreContactValue('gg')"/>
+                                <div class="error-container" ng-messages="contactSettingsForm.gg.$error" ng-show="contactSettingsForm.gg.$dirty">
+                                    <span ng-message="hcValidationPattern.NUMBER">_(validation.number)</span>
+                                </div>
                             </div>
 
                         </div>
                         <div class="property-switcher">
 
-                            <div class="section-label">Show GG on profile</div>
+                            <div class="section-label">_(settings.contact.showGG)</div>
                             <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
                             <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
                             <div class="form-checkbox" ng-show="editContactSettings">
                                 <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                                 <label for="common-checkbox-show-gg"></label>
-                                <span class="checkbox-label"></span>
+                                <div class="checkbox-label"></div>
                             </div>
                         </div>
                     </div>
@@ -74,8 +83,8 @@
 
         <div class="row" ng-show="editContactSettings">
             <div class="button-group col-xs-12">
-                <button class="button accept" ng-click="applyContactSettings()">Change</button>
-                <button class="button cancel" ng-click="cancelContactSettings()">Cancel</button>
+                <button class="button accept" ng-disabled="!contactSettingsForm.$valid" ng-click="applyContactSettings()">_(settings.actions.change)</button>
+                <button class="button cancel" ng-click="cancelContactSettings()">_(settings.actions.cancel)</button>
             </div>
         </div>
     </form>

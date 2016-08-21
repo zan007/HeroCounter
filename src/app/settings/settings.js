@@ -4,7 +4,7 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
     function($scope, $rootScope, dataSource, avatarService, notificationService, defaultAvatar) {
 
 
-		var setDefaultSettingsValues = function(){
+		var setDefaultSettingsValues = function() {
 			$scope.editPasswordSettings = null;
 			$scope.editContactSettings = null;
 			$scope.editEmailSettings = null;
@@ -80,6 +80,9 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 				$scope.showContactOverlay = false;
 				settingsCheckpoint = createSettingsCheckpoint(data);
 				notificationService.showSuccessNotification('Contact settings succesfully changed');
+			}, function(){
+				$scope.showContactOverlay = false;
+				restoreSettingsCheckpoint();
 			});
 		};
 
@@ -127,6 +130,18 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		
 		$scope.cancelChangePassword = function(){
 			$scope.editPasswordSettings = false;
+		};
+
+		var tempContactFieldVal = '';
+
+		$scope.rememberContactValue = function(field) {
+			tempContactFieldVal = $scope.model.personalData[field];
+		};
+
+		$scope.restoreContactValue = function(field) {
+			if(!$scope.model.personalData[field]) {
+				$scope.model.personalData[field] = tempContactFieldVal;
+			}
 		};
 
     }

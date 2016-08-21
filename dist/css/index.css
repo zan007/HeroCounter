@@ -876,7 +876,7 @@ body {
 .button {
   -webkit-appearance: none;
   border: 0;
-  width: 150px;
+  min-width: 150px;
   height: 30px;
   font-size: 16px;
   background-color: #129fdd;
@@ -1029,20 +1029,21 @@ ul {
   -webkit-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
   box-shadow: -4px -5px 13px -1px rgba(0, 0, 0, 0.2);
-  min-height: 160px;
+  min-height: 196px;
   display: inline-block;
   /*margin-right: 10px;*/
   margin-top: 10px;
   margin-bottom: 10px;
   float: left;
   font-size: 12px;
-  padding: 10px 0 10px 0;
+  padding: 10px 0 5px 0;
   position: relative;
 }
 .filter-box .filter-header {
   font-size: 14px;
   color: white;
   text-align: center;
+  text-transform: uppercase;
 }
 .filter-box rzslider {
   margin-top: 13px;
@@ -1095,8 +1096,11 @@ ul {
   z-index: 3;
   background-color: #26527e;
 }
+.filter-box .only-known-time {
+  margin-top: 8px;
+}
 .query-container {
-  min-height: 160px;
+  min-height: 196px;
   width: 100%;
   display: inline-block;
   margin-bottom: 10px;
@@ -1104,7 +1108,7 @@ ul {
 }
 .query-container .query-box {
   width: 100%;
-  min-height: 75px;
+  min-height: 93px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -1127,17 +1131,22 @@ ul {
   color: white;
   margin-bottom: 5px;
 }
-.query-container .query-box .input-holder {
-  width: 94%;
-  height: 30px;
+.query-container .query-box .form-checkbox {
   margin-top: 10px;
-  margin-left: 10px;
+}
+.query-container .query-box .form-checkbox .checkbox-label {
+  margin-right: 10px;
+}
+.query-container .query-box .input-holder {
+  width: 100%;
+  height: 30px;
   position: relative;
 }
 .query-container .query-box .input-holder input {
   width: 84%;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
+  text-transform: uppercase;
 }
 .query-container .query-box .input-holder .icon-container {
   height: 100%;
@@ -1258,12 +1267,12 @@ ul {
 }
 .settings .settings-section .section-header button {
   margin-left: auto;
-  width: 120px;
+  min-width: 100px;
 }
 .settings .settings-section .section-label {
   font-weight: bold;
   margin-bottom: 5px;
-  min-height: 45px;
+  min-height: 25px;
   color: #b9d5ee;
 }
 .settings .settings-section .section-value {
@@ -1285,7 +1294,7 @@ ul {
   margin-left: auto;
   border-right: 3px dotted #234d78;
   padding-right: 10px;
-  min-width: 135px;
+  width: 190px;
 }
 .settings .settings-section .property-section .property-switcher .form-checkbox {
   margin-left: 10px;
@@ -1348,9 +1357,9 @@ ul {
   text-align: center;
 }
 .settings .additional-box .token-box .user-token {
-  font-size: 18px;
+  font-size: 14px;
   word-wrap: break-word;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .settings .contact-overlay,
 .settings .password-overlay,
@@ -1574,7 +1583,6 @@ ul {
   display: inline-block;
   position: relative;
   cursor: pointer;
-  height: 20px;
 }
 .form-checkbox label {
   width: 20px;
@@ -1613,6 +1621,13 @@ ul {
   visibility: hidden;
   margin-left: 5px;
   margin-right: 5px;
+  float: left;
+  position: absolute;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0;
 }
 .form-checkbox input[type=checkbox]:checked + label:after {
   opacity: 1;
@@ -1620,8 +1635,9 @@ ul {
 .checkbox-label {
   color: #96abc0;
   font-size: 12px;
-  margin-right: 10px;
+  padding-left: 25px;
   font-weight: 600;
+  text-transform: uppercase;
 }
 .input-container {
   margin: 0 auto 20px auto;

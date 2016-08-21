@@ -152,6 +152,7 @@ $script.ready('app', function() {
                 21: '_(error.auth.register.loginAlreadyTaken)',
                 22: '_(error.auth.register.nameAlreadyTaken)',
                 31: '_(error.settings.changePassword.wrongOldPassword)',
+                32: '_(error.settings.contact.nameAlreadyTaken)',
                 41: '_(error.events.duplicate)',
                 42: '_(error.events.unknownCreature)'
             },
@@ -162,6 +163,13 @@ $script.ready('app', function() {
                 creatures: '_(modules.creatures)',
                 settings: '_(modules.settings)',
                 userManager: '_(modules.userManager)'
+            },
+
+            timeOfTheDay: {
+                morning: '_(morning)',
+                afternoon: '_(afternoon)',
+                evening: '_(evening)',
+                night: '_(night)'
             },
 
             yesterday: '_(yesterday)',
@@ -220,24 +228,24 @@ $script.ready('app', function() {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-					<header class="filter-header">LEVEL RANGE</header>
+					<header class="filter-header">_(filter.levelRange)</header>
 					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
 				</div>
 			</div>
 
 			<div class="row time-to-resp">
 				<div class="col-md-12">
-					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<header class="filter-header">_(filter.timeToResp)</header>
 					<rzslider rz-slider-model="timeSlider.value"></rzslider>
 				</div>
 				<div class="common-overlay" ng-show="!onlyWithKnownTime"></div>
 			</div>
-			<div class="row">
+			<div class="row only-known-time">
 				<div class="col-md-12 text-center">
 					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
 						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
 						<label for="common-checkbox-known-time"></label>
-						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+						<div class="checkbox-label">_(filter.onlyKnownTime)</div>
 					</div>
 				</div>
 			</div>
@@ -248,10 +256,10 @@ $script.ready('app', function() {
 	<div class="query-container">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="query-box text-center col-md-12">
+				<div class="query-box text-center col-md-12 center-vertically">
 					<div class="input-holder">
 						<span class="input-container">
-							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="_(filter.query.placeholder)"/>
 						</span>
 						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}" ng-click="queryInput = ''">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
@@ -262,21 +270,21 @@ $script.ready('app', function() {
 			</div>
 			<div class="row">
 				<div class="query-box">
-					<div class="container-fluid">
+					<div>
 						<div class="row">
-							<header class="col-md-12">Creature Types</header>
+							<header class="col-md-12">_(filter.creatureType)</header>
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
 								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
 									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
 									<label for="common-checkbox1"></label>
-									<span class="checkbox-label">Titans</span>
+									<span class="checkbox-label">_(filter.titan)</span>
 								</div>
 								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
 									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
 									<label for="common-checkbox2"></label>
-									<span class="checkbox-label">Heroes</span>
+									<span class="checkbox-label">_(filter.hero)</span>
 								 </div>
 							 </div>
 						</div>
@@ -373,8 +381,8 @@ $script.ready('app', function() {
         <div class="row">
             <div class="col-xs-12 col-md-8">
                 <div class="header-container">
-                    <header class="main-header">My Account</header>
-                    <header class="sub-header">You can change your account settings here</header>
+                    <header class="main-header">_(settings.myAccount)</header>
+                    <header class="sub-header">_(settings.myAccount.description)</header>
                 </div>
                 <div class="row container-fluid">
                     <div class="main-box">
@@ -382,11 +390,11 @@ $script.ready('app', function() {
     <form novalidate name="contactSettingsForm">
         <header class="section-header">
             <div class="description">
-                <h2>settings</h2>
-                <h1>Contact</h1>
+                <h2>_(modules.settings)</h2>
+                <h1>_(settings.contact)</h1>
             </div>
             <button class="button" ng-click="changeContactSettings()" ng-show="!editContactSettings"">
-            Edit settings
+            _(settings.actions.change)
             </button>
         </header>
         <hr/>
@@ -394,57 +402,66 @@ $script.ready('app', function() {
             <div class="col-xs-12 col-md-6">
                 <div class="row">
                     <div class="property col-xs-6">
-                        <div class="section-label">Name</div>
+                        <div class="section-label">_(settings.contact.name)</div>
                         <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
                         <div class="input-container" ng-show="editContactSettings">
-                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" placeholder="NEW NAME"/>
+                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" ng-focus="rememberContactValue('name')" ng-blur="restoreContactValue('name')" placeholder="_(settings.contact.newName)" hc-validation-pattern="TEXT"/>
+                            <div class="error-container" ng-messages="contactSettingsForm.name.$error" ng-show="contactSettingsForm.name.$dirty">
+                                <span ng-message="hcValidationPattern.TEXT">_(validation.text)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-md-10 col-lg-6">
+            <div class="col-xs-12 col-md-12 col-lg-6">
                 <div class="property-section container-fluid row">
                     <div class="property">
-                        <div class="section-label">Phone number</div>
+                        <div class="section-label">_(settings.contact.phone)</div>
                         <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
-                        <div class="input-container" ng-show="editContactSettings">
-                            <input type="text" name="name" class="form-input" ng-model="model.personalData.phone" placeholder="NEW PHONE"/>
+                        <div class="input-container" ng-if="editContactSettings && model.personalData.phoneVisible">
+                            <input type="text" name="phone" class="form-input" ng-model="model.personalData.phone" placeholder="_(settings.contact.newPhone)" ng-focus="rememberContactValue('phone')" ng-blur="restoreContactValue('phone')" hc-validation-pattern="PHONE_NUMBER"/>
+                            <div class="error-container" ng-messages="contactSettingsForm.phone.$error" ng-show="contactSettingsForm.phone.$dirty">
+                                <span ng-message="hcValidationPattern.TEXT">_(validation.phoneNumber)</span>
+                            </div>
                         </div>
                     </div>
                     <div class="property-switcher" >
-                        <div class="section-label">Show phone number on profile</div>
+                        <div class="section-label">_(settings.contact.showPhone)</div>
                         <i class="icon-ok" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
                         <i class="icon-cancel" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
                         <div class="form-checkbox" ng-show="editContactSettings">
                             <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                             <label for="common-checkbox-show-phone"></label>
-                            <span class="checkbox-label"></span>
+                            <div class="checkbox-label"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-10 col-lg-6">
+            <div class="col-xs-12 col-md-12 col-lg-6">
                 <div class="container-fluid row">
                     <div class="property-section">
                         <div class="property">
-                            <div class="section-label">GG number</div>
+                            <div class="section-label">_(settings.contact.gg)</div>
                             <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
-                            <div class="input-container" ng-show="editContactSettings">
-                                <input type="text" name="name" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG"/>
+                            <div class="input-container" ng-if="editContactSettings && model.personalData.ggVisible">
+                                <input type="text" name="gg" class="form-input" ng-model="model.personalData.gg" placeholder="_(settings.contact.newGG)" hc-validation-pattern="NUMBER" ng-focus="rememberContactValue('gg')" ng-blur="restoreContactValue('gg')"/>
+                                <div class="error-container" ng-messages="contactSettingsForm.gg.$error" ng-show="contactSettingsForm.gg.$dirty">
+                                    <span ng-message="hcValidationPattern.NUMBER">_(validation.number)</span>
+                                </div>
                             </div>
 
                         </div>
                         <div class="property-switcher">
 
-                            <div class="section-label">Show GG on profile</div>
+                            <div class="section-label">_(settings.contact.showGG)</div>
                             <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
                             <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
                             <div class="form-checkbox" ng-show="editContactSettings">
                                 <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                                 <label for="common-checkbox-show-gg"></label>
-                                <span class="checkbox-label"></span>
+                                <div class="checkbox-label"></div>
                             </div>
                         </div>
                     </div>
@@ -454,8 +471,8 @@ $script.ready('app', function() {
 
         <div class="row" ng-show="editContactSettings">
             <div class="button-group col-xs-12">
-                <button class="button accept" ng-click="applyContactSettings()">Change</button>
-                <button class="button cancel" ng-click="cancelContactSettings()">Cancel</button>
+                <button class="button accept" ng-disabled="!contactSettingsForm.$valid" ng-click="applyContactSettings()">_(settings.actions.change)</button>
+                <button class="button cancel" ng-click="cancelContactSettings()">_(settings.actions.cancel)</button>
             </div>
         </div>
     </form>
@@ -471,40 +488,41 @@ $script.ready('app', function() {
                             <section class="settings-section email">
     <header class="section-header">
         <span class="description">
-            <h2>settings</h2>
-            <h1>Email</h1>
+            <h2>_(modules.settings)</h2>
+            <h1>_(settings.email)</h1>
         </span>
-        <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">Change</button>
+        <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">_(settings.actions.change)</button>
     </header>
     <hr/>
     <div class="container-fluid row">
         <div class="property">
             <div ng-show="!editEmailSettings">
-                <div class="section-label">Email address</div>
+                <div class="section-label">_(settings.email.address)</div>
                 <div class="section-value" ng-bind="model.personalData.email"></div>
             </div>
             <form novalidate name="changeEmailForm" ng-if="editEmailSettings">
                 <div class="input-container">
-                    <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="_(settings.changeEmail.oldEmail)" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
                     <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
-                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
-                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
-                        <span ng-message="hcEqual">Typed email isn't your old email</span>
-                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="required">_(validation.required)</span>
+                        <span ng-message="hcValidationPattern.EMAIL">_(validation.email.format)</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">_(validation.email.chars)</span>
+                        <span ng-message="hcEqual">_(settings.changeEmail.validation.equalTo.oldEmail)</span>
                     </div>
                 </div>
                 <div class="input-container">
-                    <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="_(settings.changeEmail.newEmail)" hc-not-equal="emailModel.oldEmail" ng-required="true" hc-validation-pattern="EMAIL"/>
                     <div class="error-container" ng-messages="changeEmailForm.newEmail.$error" ng-show="changeEmailForm.newEmail.$dirty">
-                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
-                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
-                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="required">_(validation.required)</span>
+                        <span ng-message="hcValidationPattern.EMAIL">_(validation.email.format)</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">_(validation.email.chars)</span>
+                        <span ng-message="hcNotEqual">_(settings.changeEmail.validation.notEqualTo.previousEmail)</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="button-group col-xs-12">
-                        <button class="button accept" ng-click="changeEmail(emailModel)" ng-disabled="!changeEmailForm.$valid">Change</button>
-                        <button class="button cancel" ng-click="cancelChangeEmail()">Cancel</button>
+                        <button class="button accept" ng-click="changeEmail(emailModel)" ng-disabled="!changeEmailForm.$valid">_(settings.actions.change)</button>
+                        <button class="button cancel" ng-click="cancelChangeEmail()">_(settings.actions.cancel)</button>
                     </div>
                 </div>
             </form>
@@ -522,32 +540,32 @@ $script.ready('app', function() {
                             <section class="settings-section password">
     <header class="section-header">
         <span class="description">
-            <h2>settings</h2>
-            <h1>Password</h1>
+            <h2>_(modules.settings)</h2>
+            <h1>_(password)</h1>
         </span>
-        <button class="button" ng-click="editPasswordSettings = true" ng-show="!editPasswordSettings">Change</button>
+        <button class="button" ng-click="editPasswordSettings = true" ng-show="!editPasswordSettings">_(settings.actions.change)</button>
     </header>
     <hr/>
     <div class="container-fluid row">
         <div class="property">
             <form novalidate name="changePasswordForm" ng-if="editPasswordSettings">
                 <div class="input-container">
-                    <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="OLD PASSWORD" ng-required="true"/>
+                    <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="_(settings.changePassword.oldPassword)" ng-required="true"/>
                     <div class="error-container" ng-messages="changePasswordForm.oldPassword.$error" ng-show="changePasswordForm.oldPassword.$dirty">
-                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="required">_(validation.required)</span>
                     </div>
                 </div>
                 <div class="input-container">
-                    <input type="text" name="newPassword" class="form-input" ng-model="passwordModel.newPassword" placeholder="NEW PASSWORD" hc-not-equal="passwordModel.oldPassword" ng-required="true"/>
+                    <input type="text" name="newPassword" class="form-input" ng-model="passwordModel.newPassword" placeholder="_(settings.changePassword.newPassword)" hc-not-equal="passwordModel.oldPassword" ng-required="true"/>
                     <div class="error-container" ng-messages="changePasswordForm.newPassword.$error" ng-show="changePasswordForm.newPassword.$dirty">
-                        <span ng-message="required">Fill in the field.</span>
-                        <span ng-message="hcNotEqual">New password can't be the same as old</span>
+                        <span ng-message="required">_(validation.required)</span>
+                        <span ng-message="hcNotEqual">_(settings.changePassword.validation.notEqualTo.oldPassword)</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="button-group col-xs-12">
-                        <button class="button accept" ng-click="changePassword(passwordModel)" ng-disabled="!changePasswordForm.$valid">Change</button>
-                        <button class="button cancel" ng-click="cancelChangePassword()">Cancel</button>
+                        <button class="button accept" ng-click="changePassword(passwordModel)" ng-disabled="!changePasswordForm.$valid">_(settings.actions.change)</button>
+                        <button class="button cancel" ng-click="cancelChangePassword()">_(settings.actions.cancel)</button>
                     </div>
                 </div>
             </form>
@@ -567,24 +585,24 @@ $script.ready('app', function() {
                     <section class="settings-section contact">
     <header class="section-header">
                             <span class="description">
-                                <h2>settings</h2>
-                                <h1>Avatar</h1>
+                                <h2>_(modules.settings)</h2>
+                                <h1>_(settings.avatar)</h1>
                             </span>
 
         <button class="button" ng-click="editAvatar = true" ng-show="!editAvatar">
-            Change avatar
+            _(settings.actions.change)
         </button>
 
     </header>
     <hr/>
     <div class="container-fluid row">
         <div class="col-xs-12 current-avatar" ng-class="{'col-xs-6': editAvatar}">
-            <div class="avatar-header" ng-show="editAvatar">Current avatar</div>
+            <div class="avatar-header" ng-show="editAvatar">_(settings.avatar.current)</div>
             <img class="avatar-img" ng-src="{{model.personalData.avatar || defaultAvatarLink}}">
             <div class="avatar-label" ng-bind="model.personalData.name"></div>
         </div>
         <div class="col-xs-6" ng-show="editAvatar">
-            <div class="avatar-header" ng-show="loadedImg">New avatar</div>
+            <div class="avatar-header" ng-show="loadedImg">_(settings.avatar.new)</div>
             <div class="crop-area" ng-show="loadedImg">
                 <img-crop image="loadedImg" result-image="croppedImg"
                           area-type="circle" ngf-accept="'image/*'"
@@ -593,13 +611,13 @@ $script.ready('app', function() {
             </div>
 
             <div class="drop-box drop-box-container" ng-show="!loadedImg" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*">
-                <div class="drop-box-label">Drop image or click to upload avatar</div>
+                <div class="drop-box-label">_(settings.avatar.help)</div>
             </div>
         </div>
     </div>
     <div class="row button-group" ng-show="editAvatar">
-        <button class="button accept" ng-click="uploadAvatar()">Change avatar</button>
-        <button class="button cancel" ng-click="cancelUploadAvatar()">Cancel</button>
+        <button class="button accept" ng-click="uploadAvatar()">_(settings.avatar.actions.change)</button>
+        <button class="button cancel" ng-click="cancelUploadAvatar()">_(settings.actions.cancel)</button>
     </div>
 </section>
 <div class="splash-container avatar-overlay" ng-show="showAvatarOverlay">
@@ -610,12 +628,11 @@ $script.ready('app', function() {
                     <section class="settings-section contact">
     <header class="section-header">
         <span class="description">
-            <h2>Token</h2>
-            <h1>Your private token</h1>
+            <h2>_(settings.token)</h2>
+            <h1>_(settings.token.description)</h1>
         </span>
     </header>
-    <hr/>
-    <span>Here is your private token. If you want connect game with this application, copy and paste them to hero-counter margonem addon</span>
+    <span>_(settings.token.help)</span>
     <div class="user-token font-bold" ng-bind="model.personalData.userToken"></div>
 </section>
                 </div>
@@ -627,24 +644,24 @@ $script.ready('app', function() {
 </script>
   <script id="/user-manager" type="text/ng-template"><div ng-controller="userManagerCtrl" class="row user-manager">
     <div class="container-fluid">
-        <div class="main-header">User manager</div>
-        <div class="sub-header">You can manage users here, accept, reject or delete</div>
+        <div class="main-header">_(userManager.header)</div>
+        <div class="sub-header">_(userManager.description)</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="users-list">
-                    <div class="list-header">Users</div>
+                    <div class="list-header">_(userManager.users)</div>
                     <div class="list-legend">
-                        <div class="col-xs-1 role">Role</div>
+                        <div class="col-xs-1 role">_(userManager.role)</div>
                         <div class="col-xs-4 name clickable" ng-click="setFilter('name')">
-                            Name
+                            _(userManager.name)
                             <i ng-show="filterConfig.field === 'name'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                         <div class="col-xs-3 email clickable" ng-click="setFilter('email')">
-                            Email
+                            _(userManager.email)
                             <i ng-show="filterConfig.field === 'email'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                         <div class="col-xs-4 register-date clickable" ng-click="setFilter('registerDate')">
-                            Register Date
+                            _(userManager.registerDate)
                             <i ng-show="filterConfig.field === 'registerDate'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                     </div>
@@ -658,7 +675,7 @@ $script.ready('app', function() {
                                 <div class="name" ng-bind="user.name"></div>
                             </div>
                             <div class="center-vertically col-xs-3">
-                                <div class="email" ng-bind="user.email">Email</div>
+                                <div class="email" ng-bind="user.email"></div>
                             </div>
                             <div class="center-vertically col-xs-4">
                                 <div class="register-date" hc-pretty-time="user.tokenExpirationDate" full-date="true"></div>
@@ -667,22 +684,22 @@ $script.ready('app', function() {
                         <div ng-show="activeUserId === user.id" class="row user-details">
                             <div class="center-vertically action" ng-show="user.waitForAccept">
                                 <button class="button accept" ng-click="acceptUser(user)">
-                                    Accept User
+                                    _(userManager.actions.accept)
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="user.waitForAccept">
                                 <button class="button cancel" ng-click="rejectUser(user)">
-                                    Reject User
+                                    _(userManager.actions.reject)
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="!user.isAdministrator && user.waitForAccept != null && user.waitForAccept !== 1">
                                 <button class="button" ng-click="setAdministrator(user)">
-                                    Set as administrator
+                                    _(userManager.actions.setAsAdministrator)
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="user.isAdministrator">
                                 <button class="button cancel" ng-click="setCommonUser(user)">
-                                    Set as common user
+                                    _(userManager.actions.setAsCommonUser)
                                 </button>
                             </div>
                             <div class="user-details-overlay splash-container" ng-show="showUserDetailsOverlay">
@@ -754,7 +771,7 @@ $script.ready('app', function() {
                                 <div class="name" ng-bind="userProfileModel.guestUser.name"></div>
                             </div>
                             <div class="name" ng-bind="userProfileModel.name"></div>
-                            <div class="role">{{userProfileModel.isAdministrator ? 'Administrator': 'User'}}</div>
+                            <div class="role">{{userProfileModel.isAdministrator ? '_(administrator)': '_(user)'}}</div>
                         </div>
                     </div>
                 </div>
@@ -763,8 +780,8 @@ $script.ready('app', function() {
                 <div class="about-box">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Profile</h2>
-                            <h1>Contact</h1>
+                            <h2>_(profile)</h2>
+                            <h1>_(settings.contact)</h1>
                         </div>
                     </header>
                     <hr/>
@@ -772,18 +789,18 @@ $script.ready('app', function() {
                         <div class="col-xs-6">
                             <div class="property-section">
                                 <div class="property">
-                                    <div class="section-label">GG number</div>
+                                    <div class="section-label">_(settings.contact.gg)</div>
                                     <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.gg"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.gg">User not allowed to display them</div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.gg">_(profile.contact.numberNotAllowed)</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="property-section">
                                 <div class="property">
-                                    <div class="section-label">Phone number</div>
+                                    <div class="section-label">_(settings.contact.phone)</div>
                                     <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phone"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.phone">User not allowed to display them</div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.phone">_(profile.contact.numberNotAllowed)</div>
                                 </div>
                             </div>
                         </div>
@@ -796,8 +813,8 @@ $script.ready('app', function() {
                 <div class="favorites-creatures">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Favourite</h2>
-                            <h1>Creatures</h1>
+                            <h2>_(profile.favorite.creatures)</h2>
+                            <h1>_(profile.creatures)</h1>
                         </div>
                     </header>
                     <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount"></div>
@@ -807,8 +824,8 @@ $script.ready('app', function() {
                 <div class="favorite-time">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Favourite</h2>
-                            <h1>Time of the day</h1>
+                            <h2>_(profile.favorite.timeOfDay)</h2>
+                            <h1>_(profile.timeOfDay)</h1>
                         </div>
                     </header>
                     <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
@@ -819,8 +836,8 @@ $script.ready('app', function() {
             <div class="user-heroes">
                 <header class="section-header">
                     <div class="description">
-                        <h2>Main</h2>
-                        <h1>Heroes</h1>
+                        <h2>_(profile.main)</h2>
+                        <h1>_(profile.main.heroes)</h1>
                     </div>
                 </header>
                 <div class="user-charts">
@@ -834,8 +851,8 @@ $script.ready('app', function() {
             <div class="user-heroes">
                 <header class="section-header">
                     <div class="description">
-                        <h2>Guest</h2>
-                        <h1>Heroes</h1>
+                        <h2>_(profile.guest)</h2>
+                        <h1>_(profile.guest.heroes)</h1>
                     </div>
                 </header>
                 <div class="user-charts">
@@ -903,8 +920,8 @@ $script.ready('app', function() {
                 <div class="probability-info-tile">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Prawdopodobieństwo</h2>
-                            <h1>Występowania</h1>
+                            <h2>_(creatureBattleTile.probability)</h2>
+                            <h1>_(creatureBattleTile.occurrence)</h1>
                         </div>
                     </header>
                     <hr/>
@@ -929,8 +946,8 @@ $script.ready('app', function() {
                 <div class="favorite-time">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Favourite</h2>
-                            <h1>Time of the day</h1>
+                            <h2>_(profile.favorite.timeOfDay)</h2>
+                            <h1>_(profile.timeOfDay)</h1>
                         </div>
                     </header>
                     <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
@@ -940,8 +957,8 @@ $script.ready('app', function() {
                 <div class="top-users">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Top</h2>
-                            <h1>Heroes</h1>
+                            <h2>_(profile.top)</h2>
+                            <h1>_(profile.top.heroes)</h1>
                         </div>
                     </header>
                     <div hc-top-chart="creatureProfileModel.topHeroes"></div>
@@ -999,43 +1016,35 @@ $script.ready('app', function() {
 			<div class="tile-subtitle">
                 <div ng-show="creature.timeToResp" hc-countdown="creature.timeToResp"></div>
 				<!-- <timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer> -->
-                <div ng-show="!creature.timeToResp">Czas nieznany</div>
-                <div class="last-seen-date">_(creature.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" day-description="true" ng-show="creature.lastSeenDate"></span></div>
+                <div ng-show="!creature.timeToResp">_(creatureTile.unknownTime)</div>
+                <div class="last-seen-date">_(creatureTile.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" day-description="true" ng-show="creature.lastSeenDate"></span></div>
 			</div>
 			<div class="tile-content ">
                 <section class="tile-section">
                     <div class="value" ng-bind="creature.minRespTime"></div>
-                    <div class="label">Min czas respu</div>
+                    <div class="label">_(creatureTile.minRespTime)</div>
                 </section>
                 <section class="tile-section">
                     <div class="value" ng-bind="creature.maxRespTime"></div>
-                    <div class="label">Max czas respu</div>
+                    <div class="label">_(creatureTile.maxRespTime)</div>
                 </section>
                 <section class="tile-section">
                     <div class="value" ng-bind="creature.defeatCounter"></div>
-                    <div class="label">Pokonany</div>
+                    <div class="label">_(creatureTile.defeatedCount)</div>
                 </section>
-
-				<!-- <p class="label">Minimalny czas respu</p>
-				<p class="value" ng-bind="creature.minRespTime"></p>
-				<p class="label">Maksymalny czas respu</p>
-				<p class="value" ng-bind="creature.maxRespTime"></p>
-				<p class="label">Czas do respu</p>
-				<p class="value" ng-show="creature.timeToResp"><timer interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer></p> -->
-
 			</div>
             <div class="additional-actions" ng-show="showAdditionalActions">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12 col-lg-7">
                             <div class="center-vertically">
-                                potencjalna godzina
+                                _(creatureTile.potentialTime)
                             </div>
                             <div class="row no-gutters" hc-time-picker="reportedTime"></div>
                         </div>
                         <div class="col-xs-12 col-lg-5">
                             <div class="center-vertically">
-                                Potencjalna data
+                                _(creatureTile.potentialDate)
                             </div>
                             <div class="center-vertically date-picker">
                                 <input class="form-input" pikaday="reportedDate" ng-model="reportedDate">
@@ -1043,7 +1052,7 @@ $script.ready('app', function() {
                         </div>
                     </div>
                     <div class="row center-vertically">
-                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">_(creature.report.action)</button>
+                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">_(creatureTile.action.report)</button>
                     </div>
                     <div class="row center-vertically">
                         <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
@@ -1058,7 +1067,7 @@ $script.ready('app', function() {
 
 			<div class="action-buttons" ng-hide="showAdditionalActions">
 				<!--<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>-->
-				<div class="tile-button" ng-click="toggleAdditionalActions()">_(creature.report)</div>
+				<div class="tile-button" ng-click="toggleAdditionalActions()">_(creatureTile.report)</div>
 			</div>
 		</div>
 	</div>
@@ -1069,14 +1078,14 @@ $script.ready('app', function() {
             <div class="indicator">
                 <span class="count">{{count}}</span><span class="summary-count">/ {{summaryCount}}</span>
             </div>
-            <div>battles</div>
+            <div>_(creatureBattleTile.battles)</div>
         </div>
     </g>
     <div class="description">
-        <div class="battle-type">{{type === 'RAPORT' ? '_(creature.profile.raport)' : '_(creature.profile.battle)'}}</div>
+        <div class="battle-type">{{type === 'REPORT' ? '_(creatureBattleTile.reports)' : '_(creatureBattleTile.battles)'}}</div>
         <hr>
         <div class="summary-percent" ng-bind="summaryPercent"></div>
-        <div class="percent-description">of all events</div>
+        <div class="percent-description">_(creatureBattleTile.ofAllEvents)</div>
     </div>
 </div></script>
   <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline scrollable full-height">
@@ -1097,7 +1106,7 @@ $script.ready('app', function() {
 
             <div class="creature" ng-bind="event.creature.name" ng-click="goToCreatureProfile(event.creature.id)"></div>
             <div class="details">
-                <span ng-if="event.type === 'BATTLE'">was defeated by: </span>
+                <span ng-if="event.type === 'BATTLE'">_(eventsTimeline.defeatedBy)</span>
                 <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">
                     <span>{{member.heroName}}</span>
                     <span ng-show="!$last">,</span>
@@ -1109,7 +1118,7 @@ $script.ready('app', function() {
          <div class="top-button">
              <i class="icon icon-up-small"></i>
          </div>
-         <div class="center-vertically">Back to top</div>
+         <div class="center-vertically">_(backToTop)</div>
      </div>
      <div class="col-xs-12 splash-container" ng-show="showLoadingIndicator">
          <div class="splash"></div>
@@ -1117,7 +1126,7 @@ $script.ready('app', function() {
      <div class="col-xs-12 empty-container full-height" ng-if="events.length === 0">
          <i class="icon-address"></i>
          <div class="info">
-             No events yet. Please wait for uploading information from your friends about fights
+             _(eventsTimeLine.noEvents)
          </div>
      </div>
 </div></script>
@@ -1127,15 +1136,15 @@ $script.ready('app', function() {
             <div class="indicator">
                 <span class="count">{{battleCount}}</span><span class="summary-count">/ {{stats.summaryBattles}}</span>
             </div>
-            <div>battles</div>
+            <div>_(userHeroTile.battles)</div>
         </div>
     </g>
     <div class="description">
         <div class="hero-name">{{hero.heroName}}</div>
-        <div class="hero-lvl">Lvl: {{hero.lvl}}</div>
+        <div class="hero-lvl">_(userHeroTile.lvl) {{hero.lvl}}</div>
         <hr>
         <div class="summary-percent" ng-bind="summaryPercent"></div>
-        <div class="percent-description">of all battles on this hero group</div>
+        <div class="percent-description">_(userHeroTile.description)</div>
     </div>
 </div></script>
   <script id="hc-stripe-chart" type="text/ng-template"><div class="hc-stripe-chart">

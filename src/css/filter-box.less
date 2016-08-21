@@ -4,20 +4,21 @@
 	background-color: #26527e;
 	.background-alpha(#26527e, 0.9);
 	.box-shadow(-4px -5px 13px -1px rgba(0, 0, 0, 0.2));
-	min-height: 160px;
+	min-height: 196px;
 	display: inline-block;
 	/*margin-right: 10px;*/
 	margin-top: 10px;
 	margin-bottom: 10px;
 	float: left;
 	font-size: 12px;
-	padding: 10px 0 10px 0;
+	padding: 10px 0 5px 0;
 	position: relative;
 
 	.filter-header {
-		font-size: 14px;
-		color: white;
-		text-align: center;
+	  font-size: 14px;
+	  color: white;
+	  text-align: center;
+	  text-transform: uppercase;
 	}
 
 	rzslider {
@@ -79,10 +80,14 @@
 			background-color: #26527e;
 		}
 	}
+
+  .only-known-time {
+	margin-top: 8px;
+  }
 }
 	
 .query-container {
-	min-height: 160px;
+	min-height: 196px;
 	width: 100%;
 	display: inline-block;
 	margin-bottom: 10px;
@@ -90,7 +95,7 @@
 
 	.query-box {
 		width: 100%;
-		min-height: 75px;
+		min-height: 93px;
 		.border-radius(5px);
 		background-color: #26527e;
 		.background-alpha(#26527e, 0.9);
@@ -110,17 +115,24 @@
 			margin-bottom: 5px;
 		}
 
+	  	.form-checkbox {
+		  margin-top: 10px;
+
+		  .checkbox-label {
+			margin-right: 10px;
+		  }
+		}
+
 		.input-holder {
-			width: 94%;
+			width: 100%;
 			height: 30px;
-			margin-top: 10px;
-			margin-left: 10px;
 			position: relative;
 
 			input {
-				width: 84%;
-				border-bottom-right-radius: 0;
-				border-top-right-radius: 0;
+			  width: 84%;
+			  border-bottom-right-radius: 0;
+			  border-top-right-radius: 0;
+			  text-transform: uppercase;
 			}
 
 			.icon-container {

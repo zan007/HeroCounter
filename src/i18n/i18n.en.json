@@ -10,6 +10,8 @@
   "administrator": "administrator",
   "user": "user",
 
+  "changeLang": "Change page language",
+
   "login": "LOGIN",
   "login.header": "login",
   "login.info": "log in into your account",
@@ -32,6 +34,10 @@
   "validation.email.chars": "unsupported chars",
   "validation.phoneNumber": "unsupported phone number",
 
+  "activation.activated": "Your account was activated.",
+  "activation.canLogin": "Wait until administrator accept your account",
+  "activation.actions.goToLogin": "Go to login",
+
   "test": "testasdasd",
   "today": "dziś",
   "yesterday": "wczoraj",
@@ -43,6 +49,11 @@
   "friday": "friday",
   "saturday": "saturday",
   "sunday": "sunday",
+
+  "singleDay": "day",
+  "days": "days",
+  "singleHour": "hour",
+  "hours": "hours",
 
   "january": "stycznia",
   "february": "lutego",
@@ -60,7 +71,7 @@
   "morning": "morning",
   "afternoon": "afternoon",
   "evening": "evening",
-  "nigth": "nigth",
+  "night": "nigth",
 
   "creature.lastSeenDate": "Przeciwnik był widziany: ",
   "creature.report": "Zaraportuj pogłoskę o walce",
@@ -154,6 +165,13 @@
   "creatureBattleTile.reports": "Reports",
   "creatureBattleTile.probability": "Probability",
   "creatureBattleTile.occurrence": "Occurrence",
+
+  "creatureProfile.creature": "Creature",
+  "creatureProfile.information": "Information",
+  "creatureProfile.name": "Name: ",
+  "creatureProfile.minRespTime": "Minimal respawn time: ",
+  "creatureProfile.maxRespTime": "Maximal respawn time: ",
+  "creatureProfile.lvl": "Lvl: ",
 
   "eventsTimeline.defeatedBy": "Defeated by: ",
   "eventsTimeLine.noEvents": "No events yet. Please wait or upload yourself repor/tinformation about creature defeat",

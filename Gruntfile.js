@@ -51,7 +51,7 @@ module.exports = function (grunt) {
       build: {
         options: {
           src: ['src/i18n/*.json'],
-          locales: ['pl']//, 'en']
+          locales: ['pl', 'en']//, 'en']
         },
       
         files: [{

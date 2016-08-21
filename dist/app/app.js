@@ -26,6 +26,7 @@ $script.ready('angular', function() {
 		'hcLocales',
 		'pikaday',
 		'controls.hcPrettyTime',
+		'controls.hcPrettyDayHour',
 		'controls.hcEventsTimeline',
 		'controls.hcValidationPattern',
 		'controls.hcEqual',
@@ -266,6 +267,12 @@ $script.ready('angular', function() {
 					$rootScope.model = {};
 					socketFactory.disconnect();
 					$state.go($rootScope.states[0].reference);
+				});
+			};
+
+			$scope.setLanguage = function(lang) {
+				dataSource.setLanguage(lang).then(function() {
+					$window.location.reload();
 				});
 			};
 		}]);

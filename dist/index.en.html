@@ -34,19 +34,21 @@ return this}};h&&m(h);return g})}})})(window)})(window);
 (function(e,t){typeof module!="undefined"&&module.exports?module.exports=t():typeof define=="function"&&define.amd?define(t):this[e]=t()})("$script",function(){function p(e,t){for(var n=0,i=e.length;n<i;++n)if(!t(e[n]))return r;return 1}function d(e,t){p(e,function(e){return t(e),1})}function v(e,t,n){function g(e){return e.call?e():u[e]}function y(){if(!--h){u[o]=1,s&&s();for(var e in f)p(e.split("|"),g)&&!d(f[e],g)&&(f[e]=[])}}e=e[i]?e:[e];var r=t&&t.call,s=r?t:n,o=r?e.join(""):t,h=e.length;return setTimeout(function(){d(e,function t(e,n){if(e===null)return y();!n&&!/^https?:\/\//.test(e)&&c&&(e=e.indexOf(".js")===-1?c+e+".js":c+e);if(l[e])return o&&(a[o]=1),l[e]==2?y():setTimeout(function(){t(e,!0)},0);l[e]=1,o&&(a[o]=1),m(e,y)})},0),v}function m(n,r){var i=e.createElement("script"),u;i.onload=i.onerror=i[o]=function(){if(i[s]&&!/^c|loade/.test(i[s])||u)return;i.onload=i[o]=null,u=1,l[n]=2,r()},i.async=1,i.src=h?n+(n.indexOf("?")===-1?"?":"&")+h:n,t.insertBefore(i,t.lastChild)}var e=document,t=e.getElementsByTagName("head")[0],n="string",r=!1,i="push",s="readyState",o="onreadystatechange",u={},a={},f={},l={},c,h;return v.get=m,v.order=function(e,t,n){(function r(i){i=e.shift(),e.length?v(i,r):v(i,t,n)})()},v.path=function(e){c=e},v.urlArgs=function(e){h=e},v.ready=function(e,t,n){e=e[i]?e:[e];var r=[];return!d(e,function(e){u[e]||r[i](e)})&&p(e,function(e){return u[e]})?t():!function(e){f[e]=f[e]||[],f[e][i](t),n&&n(r)}(e.join("|")),v},v.done=function(e){v([null],e)},v})
 </script>
   <script charset="utf-8">
-$script('/vendor/angular/1.5.5/angular.js', 'angular');
+$script('/vendor/jquery/1.10.2/jquery.js', 'jquery');
+$script.ready('jquery', function() {
+    $script('/vendor/angular/1.5.5/angular.js', 'angular');
+});
 $script.ready('angular', function() {
     $script([
-        '/vendor/jquery/1.10.2/jquery.js',
         '/vendor/angular/1.5.5/angular-touch.js',
         '/vendor/angular/1.5.5/angular-animate.js',
         '/vendor/angular/1.5.5/angular-messages.js',
         '/vendor/angular/1.5.5/angular-cookies.js',
         '/vendor/angular-ui-router/release/angular-ui-router.js',
         '/vendor/angular/1.5.5/i18n/angular-locale_pl.js',
-        '/vendor/timer/timer.min.js',
         '/vendor/moment/min/moment.min.js',
         '/vendor/moment/min/locales.min.js',
+        '/vendor/angular-timer/angular-timer.js',
         '/vendor/humanize-duration/humanize-duration.js',
         '/vendor/socket-io/socket.io.js',
         '/vendor/angular-ui-notification/angular-ui-notification.min.js',
@@ -64,14 +66,18 @@ $script.ready('vendors', function() {
 '/app/app.js',
 '/app/common/constants.js',
 '/app/common/controls/animations/appAnimations.js',
+'/app/common/controls/hc-countdown/hc-countdown.js',
+'/app/common/controls/hc-creature-battle-tile/hc-creature-battle-tile.js',
 '/app/common/controls/hc-creature-tile/hc-creature-tile.js',
 '/app/common/controls/hc-equal/hc-equal.js',
 '/app/common/controls/hc-events-timeline/hc-events-timeline.js',
 '/app/common/controls/hc-not-equal/hc-not-equal.js',
 '/app/common/controls/hc-pie-chart/hc-pie-chart.js',
+'/app/common/controls/hc-pretty-day-hour/hc-pretty-day-hour.js',
 '/app/common/controls/hc-pretty-time/hc-pretty-time.js',
 '/app/common/controls/hc-stripe-chart/hc-stripe-chart.js',
 '/app/common/controls/hc-time-picker/hc-time-picker.js',
+'/app/common/controls/hc-top-chart/hc-top-chart.js',
 '/app/common/controls/hc-user-hero-tile/hc-user-hero-tile.js',
 '/app/common/controls/hc-validation-pattern/hc-validation-pattern.js',
 '/app/common/controls/ng-enter/ng-enter.js',
@@ -84,12 +90,15 @@ $script.ready('vendors', function() {
 '/app/common/filters/resp-time-filter.js',
 '/app/common/services/avatar-service.js',
 '/app/common/services/notification-service.js',
+'/app/common/services/radial-progress-service.js',
 '/app/common/services/socket-factory.js',
 '/app/common/services/user-auth-service.js',
 '/app/common/utils/fast-filter.js',
-'/app/heroes/heroes.js',
+'/app/common/utils/time-utils.js',
+'/app/creatures/creatures.js',
 '/app/hide-menu.js',
 '/app/login/login.js',
+'/app/profile/creature-profile.js',
 '/app/profile/profile.js',
 '/app/register/register.js',
 '/app/settings/settings.js',
@@ -106,6 +115,68 @@ $script.ready('app', function() {
 </script>
 
 
+    <script>
+    angular.module('hcLocales',[])
+        .constant('locales', {
+            daysOfWeek: {
+                monday: 'monday',
+                tuesday: 'tuesday',
+                wednesday: 'wednesday',
+                thursday: 'thursday',
+                friday: 'friday',
+                saturday: 'saturday',
+                sunday: 'sunday'
+            },
+
+            months: [
+                'stycznia',
+                'lutego',
+                'marca',
+                'kwietnia',
+                'maja',
+                'czerwca',
+                'lipca',
+                'sierpnia',
+                'września',
+                'października',
+                'listopada',
+                'grudnia'
+            ],
+
+            waitingForConfirmation: 'Click into link that We send to Your email address and wait for administrator acceptation',
+
+            errorCodes: {
+                11: 'Authentication failure',
+                12: 'Wrong login or password, please try again',
+                13: 'Before you log in please click into link that We send to your email adress',
+                14: 'Before log in your account must be accepted by administrator. We send email to him to make it faster. If your account will be accepted we inform you via email',
+                21: 'This login is already taken',
+                22: 'This user name is already taken',
+                31: 'Wrong old password',
+                32: 'User name which you type is already taken, try another one.',
+                41: 'Information duplicated',
+                42: 'Unknown creature'
+            },
+
+            modules: {
+                login: 'Login',
+                register: 'Register',
+                creatures: 'Creatures',
+                settings: 'Settings',
+                userManager: 'User manager'
+            },
+
+            timeOfTheDay: {
+                morning: 'morning',
+                afternoon: 'afternoon',
+                evening: 'evening',
+                night: 'nigth'
+            },
+
+            yesterday: 'wczoraj',
+            today: 'dziś'
+        });
+</script>
   <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-cloak="" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
     <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
     <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
@@ -113,20 +184,20 @@ $script.ready('app', function() {
         <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
         <div class="info">
             <div class="name" ng-bind="model.personalData.name"></div>
-            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+            <div class="role">{{model.personalData.isAdministrator ? 'administrator': 'użytkownik'}}</div>
         </div>
     </div>
     <hr/>
     <ul>
         <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
-            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+            <span class="title">{{appModules[state.reference]}}</span><i class="icon icon-circle"></i>
         </li>
     </ul>
     <div ng-if="model.personalData.isAdministrator">
         <hr/>
         <ul>
             <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
-                <span class="title">USER MANAGER</span>
+                <span class="title">User manager</span>
                 <i class="icon icon-circle"></i>
             </li>
         </ul>
@@ -134,24 +205,32 @@ $script.ready('app', function() {
     <div class="bottom-buttons">
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
     </div>
-</nav>
-
-    <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
-        <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
+    <div class="lang">
+        <div>Change page language</div>
+        <div class="lang-flag" ng-click="setLanguage('pl')">
+            <img src="img/pl-flag.png"/>
+        </div>
+        <div class="lang-flag" ng-click="setLanguage('en')">
+            <img src="img/en-flag.png"/>
+        </div>
     </div>
-    <div class="news container-fluid scrollable col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
+</nav>
+    <div class="content full-height scrollable" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
+        <div ui-view class="enter-animation container-fluid full-height"></div>
+    </div>
+    <div class="news container-fluid col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
         <div hc-events-timeline="events"></div>
     </div>
 </div>
-
 </head>
 <body>
+
   <div class="splash-screen" ng-cloak="">
     <div class="splash-container">
         <div class="splash"></div>
     </div>
 </div>
-  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
+  <script id="/creatures" type="text/ng-template"><div ng-controller="creaturesCtrl" class="row">
 	<div class="container-fluid">
 		<div class="row">
 		 	<div class="col-md-6">
@@ -159,22 +238,24 @@ $script.ready('app', function() {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-					<header class="filter-header">LEVEL RANGE</header>
+					<header class="filter-header">Level range</header>
 					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
 				</div>
 			</div>
-			<div class="row">
+
+			<div class="row time-to-resp">
 				<div class="col-md-12">
-					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<header class="filter-header">Time to respawn [h]</header>
 					<rzslider rz-slider-model="timeSlider.value"></rzslider>
 				</div>
+				<div class="common-overlay" ng-show="!onlyWithKnownTime"></div>
 			</div>
-			<div class="row">
+			<div class="row only-known-time">
 				<div class="col-md-12 text-center">
 					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
 						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
 						<label for="common-checkbox-known-time"></label>
-						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+						<div class="checkbox-label">Show only creatures with known resp time</div>
 					</div>
 				</div>
 			</div>
@@ -185,35 +266,35 @@ $script.ready('app', function() {
 	<div class="query-container">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="query-box text-center col-md-12">
+				<div class="query-box text-center col-md-12 center-vertically">
 					<div class="input-holder">
 						<span class="input-container">
-							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="Creature name"/>
 						</span>
-						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}" ng-click="queryInput = ''">
 							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
-							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0"></i>
 						</span>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="query-box">
-					<div class="container-fluid">
+					<div>
 						<div class="row">
-							<header class="col-md-12">Creature Types</header>
+							<header class="col-md-12">Creature type</header>
 						</div>
 						<div class="row">
 							<div class="col-md-12 text-center">
 								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
 									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
 									<label for="common-checkbox1"></label>
-									<span class="checkbox-label">Titans</span>
+									<span class="checkbox-label">Titan</span>
 								</div>
 								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
 									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
 									<label for="common-checkbox2"></label>
-									<span class="checkbox-label">Heroes</span>
+									<span class="checkbox-label">Hero</span>
 								 </div>
 							 </div>
 						</div>
@@ -226,7 +307,9 @@ $script.ready('app', function() {
 		</div>
 		<div class="row">
 			<button class="form-button" ng-click="sendRequest()">send</button>
-			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+			<div ng-repeat="creature in filteredCreatures">
+                <div hc-creature-tile="creature"></div>
+            </div>
 		</div>
 	</div>
 </div>
@@ -234,131 +317,71 @@ $script.ready('app', function() {
   <script id="/" type="text/ng-template"><div class="row full-height">
 	<div ng-controller="loginCtrl" class="col-xs-12 full-height">
 		<div class="info-box">
-			<div class="auth-type">LOGIN</div>
-			<div class="header">LOG IN INTO YOUR ACCOUNT</div>
+			<div class="auth-type">login</div>
+			<div class="header">log in into your account</div>
 			<form novalidate name="loginForm">
 					<div class="input-container">
 						<input type="text" name="login" class="form-input" ng-model="login" placeholder="LOGIN" ng-required="true" hc-validation-pattern="TEXT"/>
 						<div class="error-container" ng-messages="loginForm.login.$error" ng-show="loginForm.login.$dirty">
-							<span ng-message="hcValidationPattern.TEXT">Only text</span>
-							<span ng-message="required">Fill in the field.</span>
+							<!--<span ng-message="hcValidationPattern.TEXT">only letters and digits are allow</span>-->
+							<span ng-message="required">field is required</span>
 						</div>
 					</div>
 					<div class="input-container">
-						<input type="text" name="password" class="form-input" ng-model="password" placeholder="PASSWORD"/>
+						<input type="password" name="password" class="form-input" ng-model="password" ng-required="true" placeholder="PASSWORD"/>
+                        <div class="error-container" ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty">
+                            <span ng-message="required">field is required</span>
+                        </div>
 					</div>
-					<button class="button" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">LOGIN</button>
+					<button class="button login" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">login</button>
 
 			</form>
 		</div>
-		<p ng-bind="loginMessage"></p>
-		<button class="button" ng-click="showNotification()">komunikat</button>
 	</div>
 </div>
 </script>
   <script id="/register" type="text/ng-template"><div class="row full-height">
 	<div ng-controller="registerCtrl" class="col-xs-12 full-height">
 		<div class="info-box">
-			<div class="auth-type">SIGNUP</div>
-			<div class="header">CREATE YOUR ACCOUNT</div>
-			<form name="signup-form">
+			<div class="auth-type">register</div>
+			<div class="header">create new account</div>
+			<form name="signupForm">
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/>
+						<input class="form-input" type="text" name="login" ng-model="registerData.login" ng-required="true" placeholder="LOGIN"/>
+                        <div class="error-container" ng-messages="signupForm.login.$error" ng-show="signupForm.login.$dirty">
+                            <span ng-message="required">field is required</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/>
+						<input class="form-input" type="password" name="password" ng-model="registerData.password" ng-required="true" placeholder="PASSWORD"/>
+                        <div class="error-container" ng-messages="signupForm.password.$error" ng-show="signupForm.password.$dirty">
+                            <span ng-message="required">field is required</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/>
+						<input class="form-input" type="password" ng-model="registerData.repeatedPassword" ng-required="true" name="repeatedPassword" placeholder="REPEAT PASSWORD" hc-equal="registerData.password"/>
+                        <div class="error-container" ng-messages="signupForm.repeatedPassword.$error" ng-show="signupForm.repeatedPassword.$dirty">
+                            <span ng-message="required">field is required</span>
+                            <span ng-message="hcEqual">password must match the previous entry</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/>
+						<input class="form-input" type="text" name="email" ng-model="registerData.email" ng-required="true" placeholder="EMAIL ADDRESS" hc-validation-pattern="EMAIL"/>
+                        <div class="error-container" ng-messages="signupForm.email.$error" ng-show="signupForm.email.$dirty">
+                            <span ng-message="required">field is required</span>
+                            <span ng-message="hcValidationPattern.EMAIL">bad email format</span>
+                            <span ng-message="hcValidationPattern.EMAIL_CHARS">unsupported chars</span>
+                        </div>
 					</div>
 					<div class="input-container">
-						<input class="form-input" ng-model="registerData.name" placeholder="NAME"/>
+						<input class="form-input" type="text" name="name" ng-model="registerData.name" ng-required="true" placeholder="USER NAME" hc-validation-pattern="TEXT"/>
+                        <div class="error-container" ng-messages="signupForm.name.$error" ng-show="signupForm.name.$dirty">
+                            <span ng-message="required">field is required</span>
+                            <span ng-message="hcValidationPattern.TEXT">only letters and digits are allow</span>
+                        </div>
 					</div>
-					<button class="button" ng-click="register(registerData)">SIGNUP</button>
+					<button class="button register" ng-click="register(registerData)" ng-disabled="!signupForm.$valid">register</button>
 			</form>
-		</div>
-	</div>
-</div>
-</script>
-  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
-	<div class="container-fluid">
-		<div class="row">
-		 	<div class="col-md-6">
-	<div class="filter-box">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<header class="filter-header">LEVEL RANGE</header>
-					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<header class="filter-header">TIME TO RESP IN HOURS</header>
-					<rzslider rz-slider-model="timeSlider.value"></rzslider>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
-						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
-						<label for="common-checkbox-known-time"></label>
-						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-md-6">
-	<div class="query-container">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="query-box text-center col-md-12">
-					<div class="input-holder">
-						<span class="input-container">
-							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
-						</span>
-						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
-							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
-							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="query-box">
-					<div class="container-fluid">
-						<div class="row">
-							<header class="col-md-12">Creature Types</header>
-						</div>
-						<div class="row">
-							<div class="col-md-12 text-center">
-								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
-									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
-									<label for="common-checkbox1"></label>
-									<span class="checkbox-label">Titans</span>
-								</div>
-								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
-									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
-									<label for="common-checkbox2"></label>
-									<span class="checkbox-label">Heroes</span>
-								 </div>
-							 </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-		</div>
-		<div class="row">
-			<button class="form-button" ng-click="sendRequest()">send</button>
-			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
 		</div>
 	</div>
 </div>
@@ -368,8 +391,8 @@ $script.ready('app', function() {
         <div class="row">
             <div class="col-xs-12 col-md-8">
                 <div class="header-container">
-                    <header class="main-header">My Account</header>
-                    <header class="sub-header">You can change your account settings here</header>
+                    <header class="main-header">My account</header>
+                    <header class="sub-header">You can change here your account settings</header>
                 </div>
                 <div class="row container-fluid">
                     <div class="main-box">
@@ -377,11 +400,11 @@ $script.ready('app', function() {
     <form novalidate name="contactSettingsForm">
         <header class="section-header">
             <div class="description">
-                <h2>settings</h2>
-                <h1>Contact</h1>
+                <h2>Settings</h2>
+                <h1>contact</h1>
             </div>
             <button class="button" ng-click="changeContactSettings()" ng-show="!editContactSettings"">
-            Edit settings
+            Change
             </button>
         </header>
         <hr/>
@@ -389,23 +412,29 @@ $script.ready('app', function() {
             <div class="col-xs-12 col-md-6">
                 <div class="row">
                     <div class="property col-xs-6">
-                        <div class="section-label">Name</div>
+                        <div class="section-label">User name</div>
                         <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
                         <div class="input-container" ng-show="editContactSettings">
-                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" placeholder="NEW NAME"/>
+                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" ng-focus="rememberContactValue('name')" ng-blur="restoreContactValue('name')" placeholder="NEW NAME" hc-validation-pattern="TEXT"/>
+                            <div class="error-container" ng-messages="contactSettingsForm.name.$error" ng-show="contactSettingsForm.name.$dirty">
+                                <span ng-message="hcValidationPattern.TEXT">only letters and digits are allow</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-md-10 col-lg-6">
+            <div class="col-xs-12 col-md-12 col-lg-6">
                 <div class="property-section container-fluid row">
                     <div class="property">
                         <div class="section-label">Phone number</div>
                         <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
-                        <div class="input-container" ng-show="editContactSettings">
-                            <input type="text" name="name" class="form-input" ng-model="model.personalData.phone" placeholder="NEW PHONE"/>
+                        <div class="input-container" ng-if="editContactSettings && model.personalData.phoneVisible">
+                            <input type="text" name="phone" class="form-input" ng-model="model.personalData.phone" placeholder="NEW NUMBER" ng-focus="rememberContactValue('phone')" ng-blur="restoreContactValue('phone')" hc-validation-pattern="PHONE_NUMBER"/>
+                            <div class="error-container" ng-messages="contactSettingsForm.phone.$error" ng-show="contactSettingsForm.phone.$dirty">
+                                <span ng-message="hcValidationPattern.TEXT">unsupported phone number</span>
+                            </div>
                         </div>
                     </div>
                     <div class="property-switcher" >
@@ -415,31 +444,34 @@ $script.ready('app', function() {
                         <div class="form-checkbox" ng-show="editContactSettings">
                             <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                             <label for="common-checkbox-show-phone"></label>
-                            <span class="checkbox-label"></span>
+                            <div class="checkbox-label"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-10 col-lg-6">
+            <div class="col-xs-12 col-md-12 col-lg-6">
                 <div class="container-fluid row">
                     <div class="property-section">
                         <div class="property">
                             <div class="section-label">GG number</div>
                             <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
-                            <div class="input-container" ng-show="editContactSettings">
-                                <input type="text" name="name" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG"/>
+                            <div class="input-container" ng-if="editContactSettings && model.personalData.ggVisible">
+                                <input type="text" name="gg" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG" hc-validation-pattern="NUMBER" ng-focus="rememberContactValue('gg')" ng-blur="restoreContactValue('gg')"/>
+                                <div class="error-container" ng-messages="contactSettingsForm.gg.$error" ng-show="contactSettingsForm.gg.$dirty">
+                                    <span ng-message="hcValidationPattern.NUMBER">only digits are allow</span>
+                                </div>
                             </div>
 
                         </div>
                         <div class="property-switcher">
 
-                            <div class="section-label">Show GG on profile</div>
+                            <div class="section-label">Show gg number on profile</div>
                             <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
                             <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
                             <div class="form-checkbox" ng-show="editContactSettings">
                                 <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
                                 <label for="common-checkbox-show-gg"></label>
-                                <span class="checkbox-label"></span>
+                                <div class="checkbox-label"></div>
                             </div>
                         </div>
                     </div>
@@ -449,12 +481,15 @@ $script.ready('app', function() {
 
         <div class="row" ng-show="editContactSettings">
             <div class="button-group col-xs-12">
-                <button class="button accept" ng-click="applyContactSettings()">Change</button>
+                <button class="button accept" ng-disabled="!contactSettingsForm.$valid" ng-click="applyContactSettings()">Change</button>
                 <button class="button cancel" ng-click="cancelContactSettings()">Cancel</button>
             </div>
         </div>
     </form>
 </section>
+<div class="splash-container contact-overlay" ng-show="showContactOverlay">
+    <div class="splash"></div>
+</div>
                     </div>
                 </div>
                 <div class="row">
@@ -463,8 +498,8 @@ $script.ready('app', function() {
                             <section class="settings-section email">
     <header class="section-header">
         <span class="description">
-            <h2>settings</h2>
-            <h1>Email</h1>
+            <h2>Settings</h2>
+            <h1>email</h1>
         </span>
         <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">Change</button>
     </header>
@@ -477,20 +512,21 @@ $script.ready('app', function() {
             </div>
             <form novalidate name="changeEmailForm" ng-if="editEmailSettings">
                 <div class="input-container">
-                    <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL ADDRESS" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
                     <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
-                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
-                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
-                        <span ng-message="hcEqual">Typed email isn't your old email</span>
-                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="required">field is required</span>
+                        <span ng-message="hcValidationPattern.EMAIL">bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">unsupported chars</span>
+                        <span ng-message="hcEqual">new email address must be equal to old one</span>
                     </div>
                 </div>
                 <div class="input-container">
-                    <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL ADDRESS" hc-not-equal="emailModel.oldEmail" ng-required="true" hc-validation-pattern="EMAIL"/>
                     <div class="error-container" ng-messages="changeEmailForm.newEmail.$error" ng-show="changeEmailForm.newEmail.$dirty">
-                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
-                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
-                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="required">field is required</span>
+                        <span ng-message="hcValidationPattern.EMAIL">bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">unsupported chars</span>
+                        <span ng-message="hcNotEqual">new email address must be different than previous typed</span>
                     </div>
                 </div>
                 <div class="row">
@@ -504,6 +540,9 @@ $script.ready('app', function() {
 
     </div>
 </section>
+<div class="splash-container email-overlay" ng-show="showEmailOverlay">
+    <div class="splash"></div>
+</div>
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12">
@@ -511,8 +550,8 @@ $script.ready('app', function() {
                             <section class="settings-section password">
     <header class="section-header">
         <span class="description">
-            <h2>settings</h2>
-            <h1>Password</h1>
+            <h2>Settings</h2>
+            <h1>PASSWORD</h1>
         </span>
         <button class="button" ng-click="editPasswordSettings = true" ng-show="!editPasswordSettings">Change</button>
     </header>
@@ -523,14 +562,14 @@ $script.ready('app', function() {
                 <div class="input-container">
                     <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="OLD PASSWORD" ng-required="true"/>
                     <div class="error-container" ng-messages="changePasswordForm.oldPassword.$error" ng-show="changePasswordForm.oldPassword.$dirty">
-                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="required">field is required</span>
                     </div>
                 </div>
                 <div class="input-container">
                     <input type="text" name="newPassword" class="form-input" ng-model="passwordModel.newPassword" placeholder="NEW PASSWORD" hc-not-equal="passwordModel.oldPassword" ng-required="true"/>
                     <div class="error-container" ng-messages="changePasswordForm.newPassword.$error" ng-show="changePasswordForm.newPassword.$dirty">
-                        <span ng-message="required">Fill in the field.</span>
-                        <span ng-message="hcNotEqual">New password can't be the same as old</span>
+                        <span ng-message="required">field is required</span>
+                        <span ng-message="hcNotEqual">new password must be different than old one</span>
                     </div>
                 </div>
                 <div class="row">
@@ -544,6 +583,9 @@ $script.ready('app', function() {
         </div>
     </div>
 </section>
+<div class="splash-container password-overlay" ng-show="showPasswordOverlay">
+    <div class="splash"></div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -553,12 +595,12 @@ $script.ready('app', function() {
                     <section class="settings-section contact">
     <header class="section-header">
                             <span class="description">
-                                <h2>settings</h2>
-                                <h1>Avatar</h1>
+                                <h2>Settings</h2>
+                                <h1>avatar</h1>
                             </span>
 
         <button class="button" ng-click="editAvatar = true" ng-show="!editAvatar">
-            Change avatar
+            Change
         </button>
 
     </header>
@@ -588,6 +630,9 @@ $script.ready('app', function() {
         <button class="button cancel" ng-click="cancelUploadAvatar()">Cancel</button>
     </div>
 </section>
+<div class="splash-container avatar-overlay" ng-show="showAvatarOverlay">
+    <div class="splash"></div>
+</div>
                 </div>
                 <div class="token-box">
                     <section class="settings-section contact">
@@ -597,8 +642,7 @@ $script.ready('app', function() {
             <h1>Your private token</h1>
         </span>
     </header>
-    <hr/>
-    <span>Here is your private token. If you want connect game with this application, copy and paste them to hero-counter margonem addon</span>
+    <span>Allows you to connect this application with game. Paste them to hero-counter addon in game. Only then sending information about creatures that you kill will be possible.</span>
     <div class="user-token font-bold" ng-bind="model.personalData.userToken"></div>
 </section>
                 </div>
@@ -611,7 +655,7 @@ $script.ready('app', function() {
   <script id="/user-manager" type="text/ng-template"><div ng-controller="userManagerCtrl" class="row user-manager">
     <div class="container-fluid">
         <div class="main-header">User manager</div>
-        <div class="sub-header">You can manage users here, accept, reject or delete</div>
+        <div class="sub-header">You can manage existing users here and accept, reject recently created accounts</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="users-list">
@@ -627,7 +671,7 @@ $script.ready('app', function() {
                             <i ng-show="filterConfig.field === 'email'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                         <div class="col-xs-4 register-date clickable" ng-click="setFilter('registerDate')">
-                            Register Date
+                            Register date
                             <i ng-show="filterConfig.field === 'registerDate'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                     </div>
@@ -641,7 +685,7 @@ $script.ready('app', function() {
                                 <div class="name" ng-bind="user.name"></div>
                             </div>
                             <div class="center-vertically col-xs-3">
-                                <div class="email" ng-bind="user.email">Email</div>
+                                <div class="email" ng-bind="user.email"></div>
                             </div>
                             <div class="center-vertically col-xs-4">
                                 <div class="register-date" hc-pretty-time="user.tokenExpirationDate" full-date="true"></div>
@@ -650,25 +694,29 @@ $script.ready('app', function() {
                         <div ng-show="activeUserId === user.id" class="row user-details">
                             <div class="center-vertically action" ng-show="user.waitForAccept">
                                 <button class="button accept" ng-click="acceptUser(user)">
-                                    Accept User
+                                    Accept
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="user.waitForAccept">
                                 <button class="button cancel" ng-click="rejectUser(user)">
-                                    Reject User
+                                    Reject
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="!user.isAdministrator && user.waitForAccept != null && user.waitForAccept !== 1">
                                 <button class="button" ng-click="setAdministrator(user)">
-                                    Set as administrator
+                                    Make administrator
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="user.isAdministrator">
                                 <button class="button cancel" ng-click="setCommonUser(user)">
-                                    Set as common user
+                                    Make common user
                                 </button>
                             </div>
+                            <div class="user-details-overlay splash-container" ng-show="showUserDetailsOverlay">
+                                <div class="splash"></div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -723,21 +771,27 @@ $script.ready('app', function() {
   <script id="/profile" type="text/ng-template"><div ng-controller="profileCtrl" class="row profile full-height">
     <div class="container-fluid full-height">
         <div class="row">
-            <div class="col-md-12 col-lg-5">
+            <div class="col-md-12 col-lg-6">
                 <div class="avatar-box center-vertically">
-                    <div class="avatar">
-                        <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
-                        <div class="name" ng-bind="userProfileModel.name"></div>
-                        <div class="role">{{userProfileModel.isAdministrator ? 'Administrator': 'User'}}</div>
+                    <div ng-class="{'multiple-avatars': userProfileModel.guestUser}">
+                        <div class="avatar">
+                            <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
+                            <div class="guest-avatar" ng-click="goToUserProfile(userProfileModel.guestUser.id)" ng-if="userProfileModel.guestUser">
+                                <img ng-src="{{userProfileModel.guestUser.avatar}}"/>
+                                <div class="name" ng-bind="userProfileModel.guestUser.name"></div>
+                            </div>
+                            <div class="name" ng-bind="userProfileModel.name"></div>
+                            <div class="role">{{userProfileModel.isAdministrator ? 'administrator': 'użytkownik'}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-7">
+            <div class="col-md-12 col-lg-6">
                 <div class="about-box">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Profile</h2>
-                            <h1>Contact</h1>
+                            <h2>Profil</h2>
+                            <h1>contact</h1>
                         </div>
                     </header>
                     <hr/>
@@ -747,7 +801,7 @@ $script.ready('app', function() {
                                 <div class="property">
                                     <div class="section-label">GG number</div>
                                     <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.gg"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.gg">User not allowed to display them</div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.gg">User disable visibility</div>
                                 </div>
                             </div>
                         </div>
@@ -756,7 +810,7 @@ $script.ready('app', function() {
                                 <div class="property">
                                     <div class="section-label">Phone number</div>
                                     <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phone"></div>
-                                    <div class="section-value empty-label" ng-show="!userProfileModel.phone">User not allowed to display them</div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.phone">User disable visibility</div>
                                 </div>
                             </div>
                         </div>
@@ -765,22 +819,22 @@ $script.ready('app', function() {
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-lg-7">
+            <div class="col-xs-12 col-lg-6">
                 <div class="favorites-creatures">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Favourite</h2>
+                            <h2>Favorite</h2>
                             <h1>Creatures</h1>
                         </div>
                     </header>
                     <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount"></div>
                 </div>
             </div>
-            <div class="col-xs-12 col-lg-5">
+            <div class="col-xs-12 col-lg-6">
                 <div class="favorite-time">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Favourite</h2>
+                            <h2>Favorite</h2>
                             <h1>Time of the day</h1>
                         </div>
                     </header>
@@ -800,7 +854,6 @@ $script.ready('app', function() {
                     <div ng-repeat="mainHero in userProfileModel.mainHeroes" class="col-md-12 col-lg-6">
                         <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -821,13 +874,116 @@ $script.ready('app', function() {
         </div>
     </div>
 </div></script>
+  <script id="/creature-profile" type="text/ng-template"><div ng-controller="creatureProfileCtrl" class="row profile creature-profile full-height">
+    <div class="container-fluid full-height">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="creature-info-tile">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Creature</h2>
+                            <h1>Information</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-4 center-vertically">
+                            <img ng-src="{{creatureProfileModel.creature.image}}"/>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">Name: </div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.name"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+
+                                    <div class="property-section">
+                                        <div class="section-label">Minimal respawn time: </div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.minRespTime" full-names="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">Lvl: </div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.lvl"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">Maximal respawn time: </div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.maxRespTime" full-names="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="probability-info-tile">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Probability</h2>
+                            <h1>Occurrence</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="creature-battles">
+                    <div class="creature-battle-charts">
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.battlesCount" type="BATTLE" summary-count="summaryBattles" ></div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.reportsCount" type="REPORT" summary-count="summaryBattles" ></div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div  class="row">
+            <div class="col-xs-12 col-lg-6">
+                <div class="favorite-time">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Favorite</h2>
+                            <h1>Time of the day</h1>
+                        </div>
+                    </header>
+                    <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <div class="top-users">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Generally</h2>
+                            <h1>Defeated by</h1>
+                        </div>
+                    </header>
+                    <div hc-top-chart="creatureProfileModel.topHeroes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></script>
   <script id="/activation" type="text/ng-template"><div ng-controller="activationCtrl" class="full-height">
         <div class="row full-height">
             <div class="col-xs-12 full-height">
                 <div class="info-box center full-height">
-                    <p>Your account is activate now</p>
-                    <p>You can now go to login by press te link below</p>
-                    <a ui-sref="login">Login</a>
+                    <p>Your account was activated.</p>
+                    <p>Wait until administrator accept your account</p>
+                    <a ui-sref="login">Go to login</a>
                 </div>
             </div>
         </div>
@@ -838,20 +994,20 @@ $script.ready('app', function() {
         <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
         <div class="info">
             <div class="name" ng-bind="model.personalData.name"></div>
-            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+            <div class="role">{{model.personalData.isAdministrator ? 'administrator': 'użytkownik'}}</div>
         </div>
     </div>
     <hr/>
     <ul>
         <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
-            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+            <span class="title">{{appModules[state.reference]}}</span><i class="icon icon-circle"></i>
         </li>
     </ul>
     <div ng-if="model.personalData.isAdministrator">
         <hr/>
         <ul>
             <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
-                <span class="title">USER MANAGER</span>
+                <span class="title">User manager</span>
                 <i class="icon icon-circle"></i>
             </li>
         </ul>
@@ -859,52 +1015,55 @@ $script.ready('app', function() {
     <div class="bottom-buttons">
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
     </div>
+    <div class="lang">
+        <div>Change page language</div>
+        <div class="lang-flag" ng-click="setLanguage('pl')">
+            <img src="img/pl-flag.png"/>
+        </div>
+        <div class="lang-flag" ng-click="setLanguage('en')">
+            <img src="img/en-flag.png"/>
+        </div>
+    </div>
 </nav></script>
   <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
 	<div class="tile-container container-fluid">
 		<div class="row">
-			<div class="creature-avatar">
+			<div class="creature-avatar" ng-click="goToCreatureProfile(creature.id)">
 				<img ng-src="{{creature.image}}"/>
 			</div>
 			<div class="tile-header" ng-bind="creature.name"></div>
 			<div class="tile-subtitle">
-				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
-				<div ng-show="!creature.timeToResp">Czas nieznany</div>
+                <div ng-show="creature.timeToResp" hc-countdown="creature.timeToResp"></div>
+				<!-- <timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer> -->
+                <div ng-show="!creature.timeToResp">Unknown time</div>
+                <div class="last-seen-date">Last seen: <span hc-pretty-time="creature.lastSeenDate" full-date="true" day-description="true" ng-show="creature.lastSeenDate"></span></div>
 			</div>
-			<div class="tile-content ">
-                <section class="tile-section">
-                    <div class="value" ng-bind="creature.minRespTime"></div>
-                    <div class="label">Min czas respu</div>
+			<div class="tile-content row container-fluid">
+                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
+                    <div class="value" hc-pretty-day-hour="creature.minRespTime"></div>
+                    <div class="tile-label">Min resp time</div>
                 </section>
-                <section class="tile-section">
-                    <div class="value" ng-bind="creature.maxRespTime"></div>
-                    <div class="label">Max czas respu</div>
+                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
+                    <div class="value" hc-pretty-day-hour="creature.maxRespTime"></div>
+                    <div class="tile-label">Max resp time</div>
                 </section>
-                <section class="tile-section">
+                <section class="tile-section col-xs-4 col-lg-4 col-md-12">
                     <div class="value" ng-bind="creature.defeatCounter"></div>
-                    <div class="label">Pokonany</div>
+                    <div class="tile-label">Defeat count</div>
                 </section>
-
-				<!-- <p class="label">Minimalny czas respu</p>
-				<p class="value" ng-bind="creature.minRespTime"></p>
-				<p class="label">Maksymalny czas respu</p>
-				<p class="value" ng-bind="creature.maxRespTime"></p>
-				<p class="label">Czas do respu</p>
-				<p class="value" ng-show="creature.timeToResp"><timer interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer></p> -->
-
 			</div>
             <div class="additional-actions" ng-show="showAdditionalActions">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xs-12 col-lg-7">
-                            <div class="center-vertically">
-                                potencjalna godzina
+                        <div class="col-xs-12 col-md-12 col-lg-7">
+                            <div class="center-vertically potential-label">
+                                Potential time
                             </div>
-                            <div class="row no-gutters" hc-time-picker="reportedTime"></div>
+                            <div hc-time-picker="reportedTime"></div>
                         </div>
-                        <div class="col-xs-12 col-lg-5">
-                            <div class="center-vertically">
-                                Potencjalna data
+                        <div class="col-xs-12 col-md-12 col-lg-5">
+                            <div class="center-vertically potential-label">
+                                Potential date
                             </div>
                             <div class="center-vertically date-picker">
                                 <input class="form-input" pikaday="reportedDate" ng-model="reportedDate">
@@ -912,35 +1071,61 @@ $script.ready('app', function() {
                         </div>
                     </div>
                     <div class="row center-vertically">
-                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">Raportuj</button>
+                        <button class="button" ng-click="reportDefeat(creature, reportedTime, reportedDate)">Report</button>
                     </div>
                     <div class="row center-vertically">
                         <div class="up-button" ng-click="toggleAdditionalActions()"><i class="icon icon-up-small"></i></div>
                     </div>
                 </div>
+                <div class="overlay" ng-show="showLoadingIndicator">
+                    <div class="splash-container">
+                        <div class="splash"></div>
+                    </div>
+                </div>
             </div>
+
 			<div class="action-buttons" ng-hide="showAdditionalActions">
-				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
-				<div class="tile-button" ng-click="toggleAdditionalActions()">Podobno ubita</div>
+				<!--<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>-->
+				<div class="tile-button" ng-click="toggleAdditionalActions()">Prepare report about fight</div>
 			</div>
 		</div>
 	</div>
 </div></script>
-  <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline full-height">
+  <script id="hc-creature-battle-tile" type="text/ng-template"><div class="creature-battle-tile">
+    <g class="radial-chart">
+        <div class="summary-battles">
+            <div class="indicator">
+                <span class="count">{{count}}</span><span class="summary-count">/ {{summaryCount}}</span>
+            </div>
+            <div>Battles</div>
+        </div>
+    </g>
+    <div class="description">
+        <div class="battle-type">{{type === 'REPORT' ? 'Reports' : 'Battles'}}</div>
+        <hr>
+        <div class="summary-percent" ng-bind="summaryPercent"></div>
+        <div class="percent-description">Of all events</div>
+    </div>
+</div></script>
+  <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline scrollable full-height">
     <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
         <div class="day-label" ng-if="showDayLabel(event, $index)">
-            <div class="value" ng-bind="getDayName(event.battleDate)"></div>
+            <div class="value" ng-bind="event.type === 'BATTLE' ? getDayName(event.battleDate) : getDayName(event.reportDate)"></div>
         </div>
-        <div class="event-info">
-            <div hc-pretty-time="event.battleDate"></div>
-            <div>
-                <i class="icon-circle"></i>
-                <div class="person" ng-bind="event.group[0].heroName"></div>
+        <div class="event-info" ng-class="{report: event.type === 'REPORT'}">
+            <div class="header">
+                <div hc-pretty-time="event.battleDate || event.reportDate"></div>
+                <div>
+                    <i class="icon-circle"></i>
+                    <div class="person" ng-if="event.type === 'BATTLE'" ng-bind="event.group[0].heroName"></div>
+                    <div class="person active" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)">użytkownik: {{event.reporter.name}}</div>
+                </div>
             </div>
+            <img class="avatar" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-src="{{event.reporter.avatar}}"/>
 
-            <div class="creature" ng-bind="event.creature.name"></div>
+            <div class="creature" ng-bind="event.creature.name" ng-click="goToCreatureProfile(event.creature.id)"></div>
             <div class="details">
-                <span>was defeated by: </span>
+                <span ng-if="event.type === 'BATTLE'">Defeated by: </span>
                 <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">
                     <span>{{member.heroName}}</span>
                     <span ng-show="!$last">,</span>
@@ -948,10 +1133,19 @@ $script.ready('app', function() {
             </div>
          </div>
      </div>
+     <div class="top-container" ng-show="showGoTopButton" ng-click="goToTop()">
+         <div class="top-button">
+             <i class="icon icon-up-small"></i>
+         </div>
+         <div class="center-vertically">Up</div>
+     </div>
+     <div class="col-xs-12 splash-container" ng-show="showLoadingIndicator">
+         <div class="splash"></div>
+     </div>
      <div class="col-xs-12 empty-container full-height" ng-if="events.length === 0">
          <i class="icon-address"></i>
          <div class="info">
-             No events yet. Please wait for uploading information from your friends about fights
+             No events yet. Please wait or upload yourself repor/tinformation about creature defeat
          </div>
      </div>
 </div></script>
@@ -961,31 +1155,44 @@ $script.ready('app', function() {
             <div class="indicator">
                 <span class="count">{{battleCount}}</span><span class="summary-count">/ {{stats.summaryBattles}}</span>
             </div>
-            <div>battles</div>
+            <div>Battles</div>
         </div>
     </g>
     <div class="description">
         <div class="hero-name">{{hero.heroName}}</div>
-        <div class="hero-lvl">Lvl: {{hero.lvl}}</div>
+        <div class="hero-lvl">Lvl:  {{hero.lvl}}</div>
         <hr>
         <div class="summary-percent" ng-bind="summaryPercent"></div>
-        <div class="percent-description">of all battles on this hero group</div>
+        <div class="percent-description">Of all battles on this hero group</div>
     </div>
 </div></script>
   <script id="hc-stripe-chart" type="text/ng-template"><div class="hc-stripe-chart">
 </div></script>
-  <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
+  <script id="hc-pretty-time" type="text/ng-template"><span class="preety-time">
     <span ng-show="fullDate">
-	    <span class="day">{{day}}</span> 
-	    <span class="month">{{month}}</span> 
-	    <span class="year">{{year}}</span> 
+        <span ng-show="!isNear">
+            <span class="day">{{day}}</span>
+            <span class="month" ng-bind="months[month]"></span>
+            <span class="year" ng-show="month === 0 || month === 11" ng-bind="year"></span>
+        </span>
+        <span ng-show="isNear">
+            <span ng-bind="nearText"></span>
+        </span>
     </span>
     <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
-</div></script>
+</span></script>
+  <script id="hc-pretty-day-hour" type="text/ng-template"><span class="hc-pretty-day-hour pretty-time">
+    <span ng-show="!fullNames">
+        <span class="day">{{days}}d </span><span class="hours" ng-show="hours">{{hours}}h</span>
+    </span>
+    <span ng-show="fullNames">
+        <span class="day">{{days}} {{days === 1 ? 'day': 'days'}} </span><span class="hours" ng-show="hours">{{hours}} {{hours === 1 ? 'hour': 'hours'}}</span>
+    </span>
+</span></script>
   <script id="hc-pie-chart" type="text/ng-template"><div class="hc-pie-chart">
 </div></script>
   <script id="hc-time-picker" type="text/ng-template"><div class="hc-time-picker">
-    <form name="hc-time-picker-form" class="full-height">
+    <form name="hc-time-picker-form" class="full-height row no-gutters">
         <div class="col-xs-5 full-height column">
 
                 <div class="indicator" ng-click="incrementHour()">
@@ -1012,6 +1219,31 @@ $script.ready('app', function() {
 
         </div>
     </form>
+</div></script>
+  <script id="hc-countdown" type="text/ng-template"><div class="hc-countdown">
+	{{days}} Dni {{hours}} godzin {{minutes}} minut {{seconds}} sekund
+</div></script>
+  <script id="hc-top-chart" type="text/ng-template"><div class="hc-top-chart full-height container-fluid">
+    <div class="row full-height">
+        <div class="col-xs-4 full-height place-container">
+            <div class="name" ng-bind="topData[1].heroName" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[1].mainUserId)"></div>
+            <div class="line-box second" ng-click="goToUserProfile(topData[1].mainUserId)">
+                <div class="bubble"></div>
+            </div>
+        </div>
+        <div class="col-xs-4 full-height place-container" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[0].mainUserId)">
+            <div class="name" ng-bind="topData[0].heroName"></div>
+            <div class="line-box first">
+                <div class="bubble"></div>
+            </div>
+        </div>
+        <div class="col-xs-4 full-height place-container" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[2].mainUserId)">
+            <div class="name" ng-bind="topData[2].heroName"></div>
+            <div class="line-box third">
+                <div class="bubble"></div>
+            </div>
+        </div>
+    </div>
 </div></script>
 </body>
 </html>

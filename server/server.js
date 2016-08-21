@@ -167,13 +167,15 @@ function isLoggedIn(req, res, next) {
         return next();
     }
    /* res.status(401);*/
-    res.sendfile(path.join(__dirname, srcDir, 'index.pl.html'));
+	var lang = req.session.lang ? req.session.lang : 'pl';
+    res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 }
 
 app.get('/', isLoggedIn, function(req, res, next) {
     console.log('poczatek');
     res.status(200);
-    res.sendfile(path.join(__dirname, srcDir, 'index.pl.html'));
+	var lang = req.session.lang ? req.session.lang : 'pl';
+    res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 });
 
 app.get('/isLoggedIn', function(req, res) {

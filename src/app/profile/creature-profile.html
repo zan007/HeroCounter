@@ -5,42 +5,42 @@
                 <div class="creature-info-tile">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Creature</h2>
-                            <h1>Information</h1>
+                            <h2>_(creatureProfile.creature)</h2>
+                            <h1>_(creatureProfile.information)</h1>
                         </div>
                     </header>
                     <hr/>
                     <div class="row">
                         <div class="col-xs-4 center-vertically">
-                            <img src="http://i.imgur.com/gNa78Ql.gif"/>
+                            <img ng-src="{{creatureProfileModel.creature.image}}"/>
                         </div>
                         <div class="col-xs-8">
                             <div class="row">
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">Nazwa:</div>
-                                        <div class="section-value">Renegat Baulus</div>
+                                        <div class="section-label">_(creatureProfile.name)</div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.name"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-12">
 
                                     <div class="property-section">
-                                        <div class="section-label">Minimalny czas respu:</div>
-                                        <div class="section-value">3 dni</div>
+                                        <div class="section-label">_(creatureProfile.minRespTime)</div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.minRespTime" full-names="true"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">Lvl:</div>
-                                        <div class="section-value">101</div>
+                                        <div class="section-label">_(creatureProfile.lvl)</div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.lvl"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">Maxymalny czas respu</div>
-                                        <div class="section-value">5 dni</div>
+                                        <div class="section-label">_(creatureProfile.maxRespTime)</div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.maxRespTime" full-names="true"></div>
                                     </div>
                                 </div>
                             </div>

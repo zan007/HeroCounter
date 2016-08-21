@@ -73,6 +73,7 @@ $script.ready('vendors', function() {
 '/app/common/controls/hc-events-timeline/hc-events-timeline.js',
 '/app/common/controls/hc-not-equal/hc-not-equal.js',
 '/app/common/controls/hc-pie-chart/hc-pie-chart.js',
+'/app/common/controls/hc-pretty-day-hour/hc-pretty-day-hour.js',
 '/app/common/controls/hc-pretty-time/hc-pretty-time.js',
 '/app/common/controls/hc-stripe-chart/hc-stripe-chart.js',
 '/app/common/controls/hc-time-picker/hc-time-picker.js',
@@ -203,6 +204,15 @@ $script.ready('app', function() {
     </div>
     <div class="bottom-buttons">
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">_(logout)</button>
+    </div>
+    <div class="lang">
+        <div>_(changeLang)</div>
+        <div class="lang-flag" ng-click="setLanguage('pl')">
+            <img src="img/pl-flag.png"/>
+        </div>
+        <div class="lang-flag" ng-click="setLanguage('en')">
+            <img src="img/en-flag.png"/>
+        </div>
     </div>
 </nav>
     <div class="content full-height scrollable" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
@@ -871,42 +881,42 @@ $script.ready('app', function() {
                 <div class="creature-info-tile">
                     <header class="section-header">
                         <div class="description">
-                            <h2>Creature</h2>
-                            <h1>Information</h1>
+                            <h2>_(creatureProfile.creature)</h2>
+                            <h1>_(creatureProfile.information)</h1>
                         </div>
                     </header>
                     <hr/>
                     <div class="row">
                         <div class="col-xs-4 center-vertically">
-                            <img src="http://i.imgur.com/gNa78Ql.gif"/>
+                            <img ng-src="{{creatureProfileModel.creature.image}}"/>
                         </div>
                         <div class="col-xs-8">
                             <div class="row">
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">Nazwa:</div>
-                                        <div class="section-value">Renegat Baulus</div>
+                                        <div class="section-label">_(creatureProfile.name)</div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.name"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-12">
 
                                     <div class="property-section">
-                                        <div class="section-label">Minimalny czas respu:</div>
-                                        <div class="section-value">3 dni</div>
+                                        <div class="section-label">_(creatureProfile.minRespTime)</div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.minRespTime" full-names="true"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">Lvl:</div>
-                                        <div class="section-value">101</div>
+                                        <div class="section-label">_(creatureProfile.lvl)</div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.lvl"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="property-section">
-                                        <div class="section-label">Maxymalny czas respu</div>
-                                        <div class="section-value">5 dni</div>
+                                        <div class="section-label">_(creatureProfile.maxRespTime)</div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.maxRespTime" full-names="true"></div>
                                     </div>
                                 </div>
                             </div>
@@ -971,9 +981,9 @@ $script.ready('app', function() {
         <div class="row full-height">
             <div class="col-xs-12 full-height">
                 <div class="info-box center full-height">
-                    <p>Your account is activate now</p>
-                    <p>You can now go to login by press te link below</p>
-                    <a ui-sref="login">Login</a>
+                    <p>_(activation.activated)</p>
+                    <p>_(activation.canLogin)</p>
+                    <a ui-sref="login">_(activation.actions.goToLogin)</a>
                 </div>
             </div>
         </div>
@@ -1005,6 +1015,15 @@ $script.ready('app', function() {
     <div class="bottom-buttons">
         <button class="menu-button" ng-if="showLogout" ng-click="logout()">_(logout)</button>
     </div>
+    <div class="lang">
+        <div>_(changeLang)</div>
+        <div class="lang-flag" ng-click="setLanguage('pl')">
+            <img src="img/pl-flag.png"/>
+        </div>
+        <div class="lang-flag" ng-click="setLanguage('en')">
+            <img src="img/en-flag.png"/>
+        </div>
+    </div>
 </nav></script>
   <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
 	<div class="tile-container container-fluid">
@@ -1019,31 +1038,31 @@ $script.ready('app', function() {
                 <div ng-show="!creature.timeToResp">_(creatureTile.unknownTime)</div>
                 <div class="last-seen-date">_(creatureTile.lastSeenDate)<span hc-pretty-time="creature.lastSeenDate" full-date="true" day-description="true" ng-show="creature.lastSeenDate"></span></div>
 			</div>
-			<div class="tile-content ">
-                <section class="tile-section">
-                    <div class="value" ng-bind="creature.minRespTime"></div>
-                    <div class="label">_(creatureTile.minRespTime)</div>
+			<div class="tile-content row container-fluid">
+                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
+                    <div class="value" hc-pretty-day-hour="creature.minRespTime"></div>
+                    <div class="tile-label">_(creatureTile.minRespTime)</div>
                 </section>
-                <section class="tile-section">
-                    <div class="value" ng-bind="creature.maxRespTime"></div>
-                    <div class="label">_(creatureTile.maxRespTime)</div>
+                <section class="tile-section col-xs-4 col-lg-4 col-md-6">
+                    <div class="value" hc-pretty-day-hour="creature.maxRespTime"></div>
+                    <div class="tile-label">_(creatureTile.maxRespTime)</div>
                 </section>
-                <section class="tile-section">
+                <section class="tile-section col-xs-4 col-lg-4 col-md-12">
                     <div class="value" ng-bind="creature.defeatCounter"></div>
-                    <div class="label">_(creatureTile.defeatedCount)</div>
+                    <div class="tile-label">_(creatureTile.defeatedCount)</div>
                 </section>
 			</div>
             <div class="additional-actions" ng-show="showAdditionalActions">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xs-12 col-lg-7">
-                            <div class="center-vertically">
+                        <div class="col-xs-12 col-md-12 col-lg-7">
+                            <div class="center-vertically potential-label">
                                 _(creatureTile.potentialTime)
                             </div>
-                            <div class="row no-gutters" hc-time-picker="reportedTime"></div>
+                            <div hc-time-picker="reportedTime"></div>
                         </div>
-                        <div class="col-xs-12 col-lg-5">
-                            <div class="center-vertically">
+                        <div class="col-xs-12 col-md-12 col-lg-5">
+                            <div class="center-vertically potential-label">
                                 _(creatureTile.potentialDate)
                             </div>
                             <div class="center-vertically date-picker">
@@ -1162,10 +1181,18 @@ $script.ready('app', function() {
     </span>
     <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
 </span></script>
+  <script id="hc-pretty-day-hour" type="text/ng-template"><span class="hc-pretty-day-hour pretty-time">
+    <span ng-show="!fullNames">
+        <span class="day">{{days}}d </span><span class="hours" ng-show="hours">{{hours}}h</span>
+    </span>
+    <span ng-show="fullNames">
+        <span class="day">{{days}} {{days === 1 ? '_(singleDay)': '_(days)'}} </span><span class="hours" ng-show="hours">{{hours}} {{hours === 1 ? '_(singleHour)': '_(hours)'}}</span>
+    </span>
+</span></script>
   <script id="hc-pie-chart" type="text/ng-template"><div class="hc-pie-chart">
 </div></script>
   <script id="hc-time-picker" type="text/ng-template"><div class="hc-time-picker">
-    <form name="hc-time-picker-form" class="full-height">
+    <form name="hc-time-picker-form" class="full-height row no-gutters">
         <div class="col-xs-5 full-height column">
 
                 <div class="indicator" ng-click="incrementHour()">

@@ -10,6 +10,8 @@
   "administrator": "administrator",
   "user": "użytkownik",
 
+  "changeLang": "Zmień język strony",
+
   "login": "LOGIN",
   "login.header": "logowanie",
   "login.info": "zaloguj się do swojego konta",
@@ -32,6 +34,10 @@
   "validation.email.chars": "niedozwolone znaki",
   "validation.phoneNumber": "niepoprawny numer telefonu",
 
+  "activation.activated": "Twoje konto zostało aktywowane.",
+  "activation.canLogin": "Poczekaj aż administrator zaakceptuje Twoje konto",
+  "activation.actions.goToLogin": "Przejdź do logowania",
+
   "test": "testasdasd",
   "today": "dziś",
   "yesterday": "wczoraj",
@@ -43,6 +49,11 @@
   "friday": "friday",
   "saturday": "saturday",
   "sunday": "sunday",
+
+  "singleDay": "dzień",
+  "days": "dni",
+  "singleHour": "godzina",
+  "hours": "godziny",
 
   "january": "stycznia",
   "february": "lutego",
@@ -60,7 +71,7 @@
   "morning": "poranek",
   "afternoon": "popołudnie",
   "evening": "wieczór",
-  "nigth": "noc",
+  "night": "noc",
 
   "creature.lastSeenDate": "Przeciwnik był widziany: ",
   "creature.report": "Zaraportuj pogłoskę o walce",
@@ -154,6 +165,13 @@
   "creatureBattleTile.reports": "Raporty",
   "creatureBattleTile.probability": "Prawdopodobieństwo",
   "creatureBattleTile.occurrence": "Występowania",
+
+  "creatureProfile.creature": "Potwór",
+  "creatureProfile.information": "Informacje",
+  "creatureProfile.name": "Nazwa: ",
+  "creatureProfile.minRespTime": "Minimalny czas odrodzenia: ",
+  "creatureProfile.maxRespTime": "Maxymalny czas odrodzenia: ",
+  "creatureProfile.lvl": "Poziom: ",
 
   "eventsTimeline.defeatedBy": "Pokonany przez: ",
   "eventsTimeLine.noEvents": "Jeszcze nie ma żadnych wydarzeń. Poczekaj aż znajomi lub Ty wyślecie raport albo informację o pokonaniu potwora",

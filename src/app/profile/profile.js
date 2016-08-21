@@ -1,5 +1,5 @@
 angular.module('profile', ['dataSource'])
-.controller('profileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', 'defaultAvatar', '$state', function($scope, $rootScope, dataSource, $location, $stateParams, defaultAvatar, $state){
+.controller('profileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', 'defaultAvatar', '$state', 'locales', function($scope, $rootScope, dataSource, $location, $stateParams, defaultAvatar, $state, locales){
 	console.log('profileCtrl');
 	$scope.defaultAvatarLink = defaultAvatar.link;
 	$scope.userProfileModel = {};
@@ -42,16 +42,16 @@ angular.module('profile', ['dataSource'])
 			chartData = [
 				{
 					value: guestDateMap.morning + mainDateMap.morning,
-					label: 'morning'
+					label: locales.timeOfTheDay.morning
 				},{
 					value: guestDateMap.afternoon + mainDateMap.afternoon,
-					label: 'afternoon'
+					label: locales.timeOfTheDay.afternoon
 				},{
 					value: guestDateMap.evening + mainDateMap.evening,
-					label: 'evening'
+					label: locales.timeOfTheDay.evening
 				},{
 					value: guestDateMap.night + mainDateMap.night,
-					label: 'night'
+					label: locales.timeOfTheDay.night
 				}
 			];
 		console.log(chartData, 'piechartdata');

@@ -16,7 +16,7 @@
 
             <div class="creature" ng-bind="event.creature.name" ng-click="goToCreatureProfile(event.creature.id)"></div>
             <div class="details">
-                <span ng-if="event.type === 'BATTLE'">was defeated by: </span>
+                <span ng-if="event.type === 'BATTLE'">_(eventsTimeline.defeatedBy)</span>
                 <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">
                     <span>{{member.heroName}}</span>
                     <span ng-show="!$last">,</span>
@@ -28,7 +28,7 @@
          <div class="top-button">
              <i class="icon icon-up-small"></i>
          </div>
-         <div class="center-vertically">Back to top</div>
+         <div class="center-vertically">_(backToTop)</div>
      </div>
      <div class="col-xs-12 splash-container" ng-show="showLoadingIndicator">
          <div class="splash"></div>
@@ -36,7 +36,7 @@
      <div class="col-xs-12 empty-container full-height" ng-if="events.length === 0">
          <i class="icon-address"></i>
          <div class="info">
-             No events yet. Please wait for uploading information from your friends about fights
+             _(eventsTimeLine.noEvents)
          </div>
      </div>
 </div>

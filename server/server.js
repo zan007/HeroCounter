@@ -132,6 +132,8 @@ app.get('/init', function(req, res, next) {
     async.series({
         personalData: function(callback){
            	var user = req.user;
+			//user.lang = req.session.lang;
+
             console.log(user);
             callback(null, user);
         },
@@ -172,9 +174,10 @@ function isLoggedIn(req, res, next) {
 }
 
 app.get('/', isLoggedIn, function(req, res, next) {
-    console.log('poczatek');
+    console.log('poczatek ');
     res.status(200);
 	var lang = req.session.lang ? req.session.lang : 'pl';
+
     res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 });
 

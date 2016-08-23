@@ -44,7 +44,7 @@ angular.module('creatureProfile', ['dataSource'])
 			}
 		}
 	};
-
+	
 	if($stateParams.creatureId) {
 		dataSource.getCreatureProfile(parseInt($stateParams.creatureId)).then(function (data) {
 
@@ -55,12 +55,15 @@ angular.module('creatureProfile', ['dataSource'])
 			if(evaluatePieChartData()){
 				$scope.pieChartData = preparePieChartData();
 			}
+
 			/*$scope.userProfileModel = data;
 			 $scope.stripeChartData = prepareStripeChartData();
 			 if(evaluatePieChartData()){
 			 $scope.pieChartData = preparePieChartData();
 			 }*/
 		});
+		dataSource.getCreatureAnalyze(parseInt($stateParams.creatureId)).then(function(data){
+			$scope.survivalChartData = data;
+		});
 	}
-
 }]);

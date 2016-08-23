@@ -805,6 +805,10 @@ body {
   margin-top: 10px;
   cursor: pointer;
 }
+.menu .lang .lang-flag.not-active {
+  opacity: 0.3;
+  cursor: auto;
+}
 .menu .lang .lang-flag img {
   height: 30px;
   width: 30px;
@@ -1595,6 +1599,9 @@ ul {
 }
 .creature-profile .hc-top-chart {
   height: 240px;
+}
+.creature-profile .hc-stripe-chart {
+  height: 250px;
 }
 .form-checkbox {
   display: inline-block;

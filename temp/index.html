@@ -207,10 +207,10 @@ $script.ready('app', function() {
     </div>
     <div class="lang">
         <div>_(changeLang)</div>
-        <div class="lang-flag" ng-click="setLanguage('pl')">
+        <div class="lang-flag" ng-class="{'not-active': activeLang === 'pl'}" ng-click="setLanguage('pl')">
             <img src="img/pl-flag.png"/>
         </div>
-        <div class="lang-flag" ng-click="setLanguage('en')">
+        <div class="lang-flag" ng-class="{'not-active': activeLang === 'en'}" ng-click="setLanguage('en')">
             <img src="img/en-flag.png"/>
         </div>
     </div>
@@ -935,7 +935,9 @@ $script.ready('app', function() {
                         </div>
                     </header>
                     <hr/>
-                    <div class="row"></div>
+                    <div class="row">
+                        <div hc-stripe-chart="survivalChartData.probabilityArray" name-field="time" value-field="probability"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1017,10 +1019,10 @@ $script.ready('app', function() {
     </div>
     <div class="lang">
         <div>_(changeLang)</div>
-        <div class="lang-flag" ng-click="setLanguage('pl')">
+        <div class="lang-flag" ng-class="{'not-active': activeLang === 'pl'}" ng-click="setLanguage('pl')">
             <img src="img/pl-flag.png"/>
         </div>
-        <div class="lang-flag" ng-click="setLanguage('en')">
+        <div class="lang-flag" ng-class="{'not-active': activeLang === 'en'}" ng-click="setLanguage('en')">
             <img src="img/en-flag.png"/>
         </div>
     </div>

@@ -201,9 +201,10 @@ $script.ready('angular', function() {
 	.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory', 'defaultAvatar', '$window',
 		function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory, defaultAvatar, $window) {
 
-		$window.onScroll = function(){
-			console.log('scroll');
-		};
+			dataSource.getLanguage().then(function(data){
+				$scope.activeLang = data;
+			});
+
 			userAuthService.init();
 			$rootScope.showLogout = false;
 			$scope.stateParams = $stateParams;
@@ -271,9 +272,13 @@ $script.ready('angular', function() {
 			};
 
 			$scope.setLanguage = function(lang) {
-				dataSource.setLanguage(lang).then(function() {
-					$window.location.reload();
-				});
+				if(lang !== $scope.activeLang) {
+					//lang === 'pl' ? $scope.plLang = true : $scope.plLang = false;
+					dataSource.setLanguage(lang).then(function () {
+						$window.location.reload();
+					});
+				}
+
 			};
 		}]);
 });

@@ -125,6 +125,12 @@ angular.module('dataSource', [])
 					}
 				});
 			},
+			getLanguage: function(){
+				return call({
+					method: 'GET',
+					url: '/getLanguage'
+				});
+			},
 			register: function(registerData) {
 				return call({ method: 'POST',
 								 url: '/signup',
@@ -316,8 +322,6 @@ angular.module('dataSource', [])
 					params: {
 						userId: userId
 					}
-				}, function(data){
-
 				});
 			},
 			getEvents: function(fromTimestamp, toTimestamp) {
@@ -360,6 +364,15 @@ angular.module('dataSource', [])
 					}
 				}, function(data){
 
+				});
+			},
+			getCreatureAnalyze: function (creatureId) {
+				return call({
+					method: 'GET',
+					url: '/creatureAnalyze',
+					params: {
+						creatureId: creatureId
+					}
 				});
 			}
 		};

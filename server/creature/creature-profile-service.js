@@ -11,6 +11,105 @@ var path = require('path'),
 	app = server.app,
 	io = server.io;
 
+
+app.get('/creatureAnalyze', function(req, res){
+	if (req.query.creatureId && req.isAuthenticated()) {
+		var creature = '',
+			observations = [],
+			interval = 30;
+
+		pool.getConnection(function (err, connection) {
+			var allEvents = [];
+			async.waterfall([
+				function (wcb) {
+					connection.query('select * from creature where id = ?', req.query.creatureId, function (err, rows) {
+						creature = rows[0];
+						wcb();
+					});
+				},
+				function (wcb) {
+					connection.query('select * from battle where creatureId = ?', req.query.creatureId, function (err, rows) {
+						wcb(null, rows);
+					});
+				}, function (battles, wcb) {
+					connection.query('select * from report where creatureId = ?', req.query.creatureId, function (err, rows) {
+						allEvents = battles.concat(rows);
+						var sortedEvents = allEvents.sort(function (a, b) {
+							var aSortField = a.battleDate ? a.battleDate : a.reportDate;
+							var bSortField = b.battleDate ? b.battleDate : b.reportDate;
+
+							return aSortField - bSortField;
+						});
+						wcb(null, sortedEvents);
+					});
+				}, function (sortedEvents, wcb) {
+					for (var i = 0, len = sortedEvents.length; i < len; i++) {
+						var currentEventDate =  sortedEvents[i].battleDate ? sortedEvents[i].battleDate : sortedEvents[i].reportDate;
+						if(i+1 < len) {
+							var nextEventDate = sortedEvents[i + 1].battleDate ? sortedEvents[i + 1].battleDate : sortedEvents[i + 1].reportDate;
+						} else {
+							break;
+						}
+						var maxRespTime = moment(currentEventDate).add('h', creature.maxRespTime);
+
+						if (maxRespTime.diff(nextEventDate) > 0) {
+							observations.push({
+								status: 1,
+								//defeatAfter: Math.floor((moment(maxRespTime).diff(nextEventDate) / 60000) / interval).toFixed(0)
+								defeatAfter: Math.floor((moment(nextEventDate).diff(currentEventDate) / 60000) / interval).toFixed(0)
+							});
+						} else {
+							observations.push({
+								status: 0,
+								defeatAfter: Math.floor((creature.maxRespTime * 60) / interval).toFixed(0)
+							});
+						}
+					}
+
+					wcb();
+				}, function(){
+					var defeatCountMap = _.countBy(observations, function(obj){
+						if(obj.status === 1) {
+							return obj.defeatAfter;
+						}
+					});
+
+					var probabilityArray = [];
+					var tempObservationsLen = observations.length;
+					var tempProbability = 1;
+					delete defeatCountMap['undefined'];
+
+					for(var elem in defeatCountMap) {
+						var defeatCount = defeatCountMap[elem];
+						var probability = tempProbability * ((tempObservationsLen - defeatCount) / tempObservationsLen);
+						tempProbability = probability;
+
+						probabilityArray.push({
+							'time': parseInt(elem),
+							'probability': probability
+						});
+						//elem.surviveProbability = (tempObservationsLen - defeatCount) / tempObservationsLen;
+						tempObservationsLen -= defeatCount;
+
+					}
+
+					connection.release();
+					res.status(200).send({
+						'observations': observations,
+						'defeatCountMap': defeatCountMap,
+						'probabilityArray': probabilityArray
+					});
+				}
+			], function (err) {
+				connection.release();
+				if (err) {
+					res.status(404).send();
+				}
+			});
+		});
+	}
+});
+
 app.get('/creatureProfile', function(req, res) {
 	//console.log('poczatek pobierania profilu', req.params);
 
@@ -187,13 +286,13 @@ app.get('/creatureProfile', function(req, res) {
 						res.status(404).send();
 					}
 
-				var toSend = {
-					battlesCount: battleCount,
-					reportsCount: reportCount,
-					topHeroes: topHeroes,
-					dateMap: dateMap,
-					places: placeArray
-				};
+					var toSend = {
+						battlesCount: battleCount,
+						reportsCount: reportCount,
+						topHeroes: topHeroes,
+						dateMap: dateMap,
+						places: placeArray
+					};
 
 					res.status(200).send(toSend);
 			});

@@ -99,6 +99,10 @@ app.post('/setLanguage', function(req, res){
 	}
 });
 
+app.get('/getLanguage', function(req, res){
+	res.send(req.session.lang ? req.session.lang : 'pl');
+});
+
 app.post('/activate', function(req, res) {
 	console.log('poczatek aktywacji', req.params);
 	if(req.body && req.body.token){

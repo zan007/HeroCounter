@@ -149,6 +149,7 @@
   "profile.guest.heroes": "Postacie",
   "profile.top": "Najczęściej",
   "profile.top.heroes": "Pokonywany przez",
+  "profile.stripeChart.tooltip": "Ilość walk",
 
   "creatureTile.unknownTime": "czas nieznany",
   "creatureTile.lastSeenDate": "Ostatnio widziany: ",
@@ -172,6 +173,7 @@
   "creatureProfile.minRespTime": "Minimalny czas odrodzenia: ",
   "creatureProfile.maxRespTime": "Maxymalny czas odrodzenia: ",
   "creatureProfile.lvl": "Poziom: ",
+  "creatureProfile.stripeChart.tooltip": "Prawdopodobieństwo przeżycia",
 
   "eventsTimeline.defeatedBy": "Pokonany przez: ",
   "eventsTimeLine.noEvents": "Jeszcze nie ma żadnych wydarzeń. Poczekaj aż znajomi lub Ty wyślecie raport albo informację o pokonaniu potwora",

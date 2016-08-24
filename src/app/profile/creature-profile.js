@@ -2,6 +2,15 @@ angular.module('creatureProfile', ['dataSource'])
 .controller('creatureProfileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', '$state', 'locales', function($scope, $rootScope, dataSource, $location, $stateParams, $state, locales){
 
 	$scope.pieChartData = [];
+	var stripeChartXAxisFormatter = function(data){
+		data /= 2;
+		if(data>=24){
+			return Math.floor((data / 24).toFixed(0)) + ' ' + locales.days + ' ' + data % 24 + ' ' + locales.hours;
+		} else {
+			return data % 24 + ' ' + locales.hours;
+		}
+		// Zarówno mediana jak i inne percentyle wyznaczane są jako najkrótszy czas przeżycia, dla którego funkcja przeżycia jest mniejsza lub równa danemu percentylowi
+	};
 
 	var preparePieChartData = function(){
 		var dateMap = $scope.creatureProfileModel.dateMap;
@@ -44,7 +53,19 @@ angular.module('creatureProfile', ['dataSource'])
 			}
 		}
 	};
-	
+
+	var prepareStripeChartData = function(data) {
+		var preparedData = [];
+		for(var i = 0, len = data.length; i < len; i++) {
+			preparedData.push({
+				'time': stripeChartXAxisFormatter(data[i].time),
+				'probability': data[i].probability
+			});
+		}
+
+		return preparedData;
+	};
+
 	if($stateParams.creatureId) {
 		dataSource.getCreatureProfile(parseInt($stateParams.creatureId)).then(function (data) {
 
@@ -63,7 +84,7 @@ angular.module('creatureProfile', ['dataSource'])
 			 }*/
 		});
 		dataSource.getCreatureAnalyze(parseInt($stateParams.creatureId)).then(function(data){
-			$scope.survivalChartData = data;
+			$scope.survivalChartData = prepareStripeChartData(data.probabilityArray);
 		});
 	}
 }]);

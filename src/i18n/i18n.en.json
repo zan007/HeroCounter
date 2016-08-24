@@ -149,6 +149,7 @@
   "profile.guest.heroes": "Heroes",
   "profile.top": "Generally",
   "profile.top.heroes": "Defeated by",
+  "profile.stripeChart.tooltip": "Defeat count",
 
   "creatureTile.unknownTime": "Unknown time",
   "creatureTile.lastSeenDate": "Last seen: ",
@@ -172,6 +173,7 @@
   "creatureProfile.minRespTime": "Minimal respawn time: ",
   "creatureProfile.maxRespTime": "Maximal respawn time: ",
   "creatureProfile.lvl": "Lvl: ",
+  "creatureProfile.stripeChart.tooltip": "Survive probability",
 
   "eventsTimeline.defeatedBy": "Defeated by: ",
   "eventsTimeLine.noEvents": "No events yet. Please wait or upload yourself repor/tinformation about creature defeat",

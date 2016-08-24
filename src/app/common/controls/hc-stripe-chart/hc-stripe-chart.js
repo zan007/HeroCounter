@@ -4,7 +4,9 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 		scope: {
 			data: '=hcStripeChart',
 			nameField: '@',
-			valueField: '@'
+			valueField: '@',
+			stepLine: '@',
+			tooltipLabel: '@'
 		},
 		restriction: 'E',
 		replace: 'true',
@@ -23,8 +25,8 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 
 				var x = d3.scale.ordinal().rangePoints([0, w]),
 					y = d3.scale.linear().range([h, 0]),
-					xAxis = d3.svg.axis().scale(x).orient('bottom'),
-					yAxis = d3.svg.axis().scale(y).ticks(2).orient('right');
+					xAxis = d3.svg.axis().scale(x).orient('bottom').tickSize(-height),
+					yAxis = d3.svg.axis().scale(y).ticks(2).orient('right').ticks(5).tickSize(-width);
 
 				var area = d3.svg.area()
 					.interpolate('ordinal')
@@ -36,8 +38,12 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 						return y(d[valueField]);
 					});
 
+				var lineType = $scope.stepLine ? 'step-after': 'interpolate';
+
+
+
 				var line = d3.svg.line()
-					.interpolate('linear')
+					.interpolate(lineType)
 					.x(function (d) {
 						return x(d[nameField]);
 					})
@@ -84,7 +90,9 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 					});
 				}
 
+
 				component.render = function() {
+
 					if(d3.select('svg')){
 						d3.select('svg').remove();
 					}
@@ -94,6 +102,8 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 						.attr('height', h + m[0] + m[2])
 						.append('svg:g')
 						.attr('transform', 'translate(' + m[3] + ',' + m[0] + ')');
+
+
 
 					svg.append('svg:path')
 						.attr('class', 'area')
@@ -124,6 +134,10 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 						.style('stroke-opacity', 0.1);
 
 					svg.append('svg:path')
+						/*.call(d3.behavior.zoom().on("zoom", function () {
+							svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+						}))*/
+
 						.attr('class', 'line')
 						.attr('d', line(data));
 
@@ -147,18 +161,28 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 						.style('stroke-width', .2)
 						.style('font-size', '12px')
 						.style('font-weight', 'bold');*/
-
+					var tooltip = d3.select('body')
+						.append('div')
+						.attr('class', 'circle-tooltip');
 
 						svg.selectAll('circle')
 						.data(data)
 						.enter().append('circle')
-							.attr('class', 'chart-circle')
+						.attr('class', 'chart-circle')
 						.attr('cx', function (d) {
 							return x(d[nameField]);
 						})
 						.attr('cy', function (d) {
 							return y(d[valueField]);
-						});
+						})
+						.on('mouseover', function(d){
+							tooltip.text($scope.tooltipLabel + ':' + d[valueField].toFixed(2));
+							return tooltip.style('visibility', 'visible');
+						})
+						.on('mousemove', function(){return tooltip.style('top', (d3.event.pageY-10)+'px').style('left',(d3.event.pageX+10)+'px');})
+						.on('mouseout', function(){return tooltip.style('visibility', 'hidden');});
+
+
 
 				};
 				return component;
@@ -183,6 +207,8 @@ angular.module('controls.hcStripeChart', ['dataSource'])
 					stripeChart($elem[0], $scope.data, width, height).render();
 				}
 			});
+
+
 		}
 	};
 }]);

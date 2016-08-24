@@ -87,7 +87,7 @@
   }
 
   .favorites-creatures, .favorite-time {
-	height: 350px;
+	height: 370px;
 	background-color: rgba(39, 84, 130, 0.9);
 	padding: 25px 10px 0 25px;
 	.border-radius(5px);
@@ -109,7 +109,9 @@
   .favorites-creatures {
 	.box-shadow(-4px -5px 13px -1px rgba(0, 0, 0, 0.2));
 	.hc-stripe-chart {
-	  height: 250px;
+	  height: 270px;
+	  overflow-x: auto;
+	  overflow-y: hidden;
 	}
   }
 
@@ -180,6 +182,12 @@
   }
 
   .hc-stripe-chart {
-	height: 250px;
+	height: 270px;
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	.chart-circle {
+	  r: 5px;
+	}
   }
 }

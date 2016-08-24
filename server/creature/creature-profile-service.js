@@ -6,6 +6,7 @@ var path = require('path'),
 	userService = require('../user/user-service'),
 	dateUtils = require('../utils/date-utils'),
 	pool = server.pool,
+	percentile = require('stats-percentile'),
 	async = require('async'),
 	moment = require('moment'),
 	app = server.app,
@@ -16,6 +17,7 @@ app.get('/creatureAnalyze', function(req, res){
 	if (req.query.creatureId && req.isAuthenticated()) {
 		var creature = '',
 			observations = [],
+			defeatAfterArray = [],
 			interval = 30;
 
 		pool.getConnection(function (err, connection) {
@@ -58,11 +60,13 @@ app.get('/creatureAnalyze', function(req, res){
 								//defeatAfter: Math.floor((moment(maxRespTime).diff(nextEventDate) / 60000) / interval).toFixed(0)
 								defeatAfter: Math.floor((moment(nextEventDate).diff(currentEventDate) / 60000) / interval).toFixed(0)
 							});
+							defeatAfterArray.push(Math.floor((moment(nextEventDate).diff(currentEventDate) / 60000) / interval).toFixed(0));
 						} else {
 							observations.push({
 								status: 0,
 								defeatAfter: Math.floor((creature.maxRespTime * 60) / interval).toFixed(0)
 							});
+							defeatAfterArray.push(Math.floor((creature.maxRespTime * 60) / interval).toFixed(0));
 						}
 					}
 
@@ -77,16 +81,18 @@ app.get('/creatureAnalyze', function(req, res){
 					var probabilityArray = [];
 					var tempObservationsLen = observations.length;
 					var tempProbability = 1;
+					var probabilityValues = [];
 					delete defeatCountMap['undefined'];
 
 					for(var elem in defeatCountMap) {
 						var defeatCount = defeatCountMap[elem];
 						var probability = tempProbability * ((tempObservationsLen - defeatCount) / tempObservationsLen);
+						probabilityValues.push(probability);
 						tempProbability = probability;
 
 						probabilityArray.push({
 							'time': parseInt(elem),
-							'probability': probability
+							'probability': probability.toFixed(2)
 						});
 						//elem.surviveProbability = (tempObservationsLen - defeatCount) / tempObservationsLen;
 						tempObservationsLen -= defeatCount;
@@ -97,7 +103,13 @@ app.get('/creatureAnalyze', function(req, res){
 					res.status(200).send({
 						'observations': observations,
 						'defeatCountMap': defeatCountMap,
-						'probabilityArray': probabilityArray
+						'probabilityArray': probabilityArray,
+						'defeatAfterArray': defeatAfterArray,
+						'percintiles': {
+							'25': percentile.calc(defeatAfterArray, 25),
+							'50': percentile.calc(defeatAfterArray, 50),
+							'75': percentile.calc(defeatAfterArray, 75)
+						}
 					});
 				}
 			], function (err) {

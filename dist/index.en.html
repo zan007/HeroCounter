@@ -158,6 +158,9 @@ $script.ready('app', function() {
                 42: 'Unknown creature'
             },
 
+            days: 'days',
+            hours: 'hours',
+
             modules: {
                 login: 'Login',
                 register: 'Register',
@@ -827,7 +830,7 @@ $script.ready('app', function() {
                             <h1>Creatures</h1>
                         </div>
                     </header>
-                    <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount"></div>
+                    <div hc-stripe-chart="stripeChartData" name-field="name" value-field="creatureBattleCount" tooltip-label="Defeat count"></div>
                 </div>
             </div>
             <div class="col-xs-12 col-lg-6">
@@ -936,7 +939,7 @@ $script.ready('app', function() {
                     </header>
                     <hr/>
                     <div class="row">
-                        <div hc-stripe-chart="survivalChartData.probabilityArray" name-field="time" value-field="probability"></div>
+                        <div hc-stripe-chart="survivalChartData" name-field="time" value-field="probability" step-line="true" tooltip-label="Survive probability"></div>
                     </div>
                 </div>
             </div>

@@ -198,8 +198,8 @@ $script.ready('angular', function() {
 		'userManager': true
 	})
 
-	.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory', 'defaultAvatar', '$window',
-		function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory, defaultAvatar, $window) {
+	.controller('AppCtrl', ['$rootScope', '$scope', 'dataSource', 'userAuthService', '$state', 'appStates', 'notificationService', '$stateParams', 'socketFactory', 'defaultAvatar', '$window', 'locales',
+		function($rootScope, $scope, dataSource, userAuthService, $state, appStates, notificationService, $stateParams, socketFactory, defaultAvatar, $window, locales) {
 
 			dataSource.getLanguage().then(function(data){
 				$scope.activeLang = data;
@@ -209,7 +209,7 @@ $script.ready('angular', function() {
 			$rootScope.showLogout = false;
 			$scope.stateParams = $stateParams;
 			$scope.defaultAvatarLink = defaultAvatar.link;
-
+			$rootScope.locales = locales;
 
 			var createSocketEventHandlers = function () {
 				socketFactory.getSocket().then(function (socket) {

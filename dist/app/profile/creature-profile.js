@@ -83,8 +83,8 @@ angular.module('creatureProfile', ['dataSource'])
 			 $scope.pieChartData = preparePieChartData();
 			 }*/
 		});
-		dataSource.getCreatureAnalyze(parseInt($stateParams.creatureId)).then(function(data){
+		/*dataSource.getCreatureAnalyze(parseInt($stateParams.creatureId)).then(function(data){
 			$scope.survivalChartData = prepareStripeChartData(data.probabilityArray);
-		});
+		});*/
 	}
 }]);

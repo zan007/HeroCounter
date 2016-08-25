@@ -184,6 +184,7 @@
 
   "backToTop": "Do góry",
 
+  "error.header": "Ups... Coś poszło nie tak",
   "error.auth.login.failure": "Logowanie niepoprawne",
   "error.auth.login.wrongPassword": "Niepoprawny login lub hasło, spróbuj ponownie",
   "error.auth.login.waiting.Confirmation": "Zanim się zalogujesz kliknij w link potwierdzający rejestracje, który wysłaliśmy na podany przez Ciebie adres email",

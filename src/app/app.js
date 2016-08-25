@@ -63,7 +63,7 @@ $script.ready('angular', function() {
 		});
 
 		$urlRouterProvider.otherwise(function () {
-			return '/heroes';
+			return '/creatures';
 		});
 
 		$stateProvider

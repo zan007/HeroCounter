@@ -184,6 +184,7 @@
 
   "backToTop": "Up",
 
+  "error.header": "Ooops, something went wrong.",
   "error.auth.login.failure": "Authentication failure",
   "error.auth.login.wrongPassword": "Wrong login or password, please try again",
   "error.auth.login.waiting.Confirmation": "Before you log in please click into link that We send to your email adress",

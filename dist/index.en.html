@@ -169,6 +169,10 @@ $script.ready('app', function() {
                 userManager: 'User manager'
             },
 
+            error: {
+                header: 'Ooops, something went wrong.'
+            },
+
             timeOfTheDay: {
                 morning: 'morning',
                 afternoon: 'afternoon',
@@ -309,7 +313,6 @@ $script.ready('app', function() {
 </div>
 		</div>
 		<div class="row">
-			<button class="form-button" ng-click="sendRequest()">send</button>
 			<div ng-repeat="creature in filteredCreatures">
                 <div hc-creature-tile="creature"></div>
             </div>
@@ -928,7 +931,7 @@ $script.ready('app', function() {
                 </div>
             </div>
         </div>
-        <div class="row">
+       <!-- <div class="row">
             <div class="col-xs-12">
                 <div class="probability-info-tile">
                     <header class="section-header">
@@ -943,7 +946,7 @@ $script.ready('app', function() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="row">
             <div class="creature-battles">
                     <div class="creature-battle-charts">

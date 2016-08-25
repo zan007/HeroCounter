@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>HeroCounter</title>
+
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="author" content="hero-counter.herokuapp.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- web app in fullscreen mode on iPad -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+
+  <script>
+/*
+ AngularJS v1.5.5
+ (c) 2010-2016 Google, Inc. http://angularjs.org
+ License: MIT
+*/
+(function(){'use strict';function d(b){return function(){var a=arguments[0],e;e="["+(b?b+":":"")+a+"] http://errors.angularjs.org/1.5.5/"+(b?b+"/":"")+a;for(a=1;a<arguments.length;a++){e=e+(1==a?"?":"&")+"p"+(a-1)+"=";var d=encodeURIComponent,c;c=arguments[a];c="function"==typeof c?c.toString().replace(/ \{[\s\S]*$/,""):"undefined"==typeof c?"undefined":"string"!=typeof c?JSON.stringify(c):c;e+=d(c)}return Error(e)}}(function(b){function a(c,a,b){return c[a]||(c[a]=b())}var e=d("$injector"),n=d("ng");
+b=a(b,"angular",Object);b.$minErr=b.$minErr||d;return a(b,"module",function(){var c={};return function(b,d,h){if("hasOwnProperty"===b)throw n("badname","module");d&&c.hasOwnProperty(b)&&(c[b]=null);return a(c,b,function(){function c(a,b,d,e){e||(e=f);return function(){e[d||"push"]([a,b,arguments]);return g}}function a(c,e){return function(a,d){d&&"function"===typeof d&&(d.$moduleName=b);f.push([c,e,arguments]);return g}}if(!d)throw e("nomod",b);var f=[],k=[],l=[],m=c("$injector","invoke","push",
+k),g={_invokeQueue:f,_configBlocks:k,_runBlocks:l,requires:d,name:b,provider:a("$provide","provider"),factory:a("$provide","factory"),service:a("$provide","service"),value:c("$provide","value"),constant:c("$provide","constant","unshift"),decorator:a("$provide","decorator"),animation:a("$animateProvider","register"),filter:a("$filterProvider","register"),controller:a("$controllerProvider","register"),directive:a("$compileProvider","directive"),component:a("$compileProvider","component"),config:m,run:function(a){l.push(a);
+return this}};h&&m(h);return g})}})})(window)})(window);
+//# sourceMappingURL=angular-loader.min.js.map
+
+  /*!
+  * $script.js JS loader & dependency manager
+  * https://github.com/ded/script.js
+  * (c) Dustin Diaz 2014 | License MIT
+  */
+(function(e,t){typeof module!="undefined"&&module.exports?module.exports=t():typeof define=="function"&&define.amd?define(t):this[e]=t()})("$script",function(){function p(e,t){for(var n=0,i=e.length;n<i;++n)if(!t(e[n]))return r;return 1}function d(e,t){p(e,function(e){return t(e),1})}function v(e,t,n){function g(e){return e.call?e():u[e]}function y(){if(!--h){u[o]=1,s&&s();for(var e in f)p(e.split("|"),g)&&!d(f[e],g)&&(f[e]=[])}}e=e[i]?e:[e];var r=t&&t.call,s=r?t:n,o=r?e.join(""):t,h=e.length;return setTimeout(function(){d(e,function t(e,n){if(e===null)return y();!n&&!/^https?:\/\//.test(e)&&c&&(e=e.indexOf(".js")===-1?c+e+".js":c+e);if(l[e])return o&&(a[o]=1),l[e]==2?y():setTimeout(function(){t(e,!0)},0);l[e]=1,o&&(a[o]=1),m(e,y)})},0),v}function m(n,r){var i=e.createElement("script"),u;i.onload=i.onerror=i[o]=function(){if(i[s]&&!/^c|loade/.test(i[s])||u)return;i.onload=i[o]=null,u=1,l[n]=2,r()},i.async=1,i.src=h?n+(n.indexOf("?")===-1?"?":"&")+h:n,t.insertBefore(i,t.lastChild)}var e=document,t=e.getElementsByTagName("head")[0],n="string",r=!1,i="push",s="readyState",o="onreadystatechange",u={},a={},f={},l={},c,h;return v.get=m,v.order=function(e,t,n){(function r(i){i=e.shift(),e.length?v(i,r):v(i,t,n)})()},v.path=function(e){c=e},v.urlArgs=function(e){h=e},v.ready=function(e,t,n){e=e[i]?e:[e];var r=[];return!d(e,function(e){u[e]||r[i](e)})&&p(e,function(e){return u[e]})?t():!function(e){f[e]=f[e]||[],f[e][i](t),n&&n(r)}(e.join("|")),v},v.done=function(e){v([null],e)},v})
+</script>
+  <script charset="utf-8">
+$script('/vendor/angular/1.5.5/angular.js', 'angular');
+$script.ready('angular', function() {
+    $script([
+        '/vendor/jquery/1.10.2/jquery.js',
+        '/vendor/angular/1.5.5/angular-touch.js',
+        '/vendor/angular/1.5.5/angular-animate.js',
+        '/vendor/angular/1.5.5/angular-messages.js',
+        '/vendor/angular/1.5.5/angular-cookies.js',
+        '/vendor/angular-ui-router/release/angular-ui-router.js',
+        '/vendor/angular/1.5.5/i18n/angular-locale_pl.js',
+        '/vendor/timer/timer.min.js',
+        '/vendor/moment/min/moment.min.js',
+        '/vendor/moment/min/locales.min.js',
+        '/vendor/humanize-duration/humanize-duration.js',
+        '/vendor/socket-io/socket.io.js',
+        '/vendor/angular-ui-notification/angular-ui-notification.min.js',
+        '/vendor/slider/rzslider.min.js',
+        '/vendor/ng-file-upload/ng-file-upload.js',
+        '/vendor/ng-img-crop/ng-img-crop.js',
+        '/vendor/d3/d3.js'
+    ], 'vendors');
+});
+$script.ready('vendors', function() {
+    $script([
+    '/app/activation/activation.js',
+'/app/app.js',
+'/app/common/constants.js',
+'/app/common/controls/animations/appAnimations.js',
+'/app/common/controls/hc-creature-tile/hc-creature-tile.js',
+'/app/common/controls/hc-equal/hc-equal.js',
+'/app/common/controls/hc-events-timeline/hc-events-timeline.js',
+'/app/common/controls/hc-not-equal/hc-not-equal.js',
+'/app/common/controls/hc-pretty-time/hc-pretty-time.js',
+'/app/common/controls/hc-user-hero-tile/hc-user-hero-tile.js',
+'/app/common/controls/hc-validation-pattern/hc-validation-pattern.js',
+'/app/common/controls/ng-enter/ng-enter.js',
+'/app/common/data/data-source.js',
+'/app/common/filters/creature-lvl-filter.js',
+'/app/common/filters/creature-type-filter.js',
+'/app/common/filters/creatures-filter.js',
+'/app/common/filters/creatures-query-filter.js',
+'/app/common/filters/only-with-known-time-filter.js',
+'/app/common/filters/resp-time-filter.js',
+'/app/common/services/avatar-service.js',
+'/app/common/services/notification-service.js',
+'/app/common/services/socket-factory.js',
+'/app/common/services/user-auth-service.js',
+'/app/common/utils/fast-filter.js',
+'/app/heroes/heroes.js',
+'/app/hide-menu.js',
+'/app/login/login.js',
+'/app/profile/profile.js',
+'/app/register/register.js',
+'/app/settings/settings.js',
+'/app/user-manager/user-manager.js'
+    ], 'app');
+});
+
+$script.ready('app', function() {
+   /* setTimeout(function(){
+        angular.bootstrap(document, ['heroCounter']);
+    }, 300000);*/
+    angular.bootstrap(document, ['heroCounter']);
+});
+</script>
+
+
+  <div ng-controller="AppCtrl" class="main-container full-height container-view full-height" ng-cloak="" ng-class="{'menu-opened': $root.opened}" ng-swipe-right="$root.opened=true" ng-swipe-left="$root.opened=false" hide-menu="$root.opened">
+    <i class="icon-menu" ng-click="btnClick=!btnClick" ng-class="{opened: btnClick}"></i>
+    <nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
+    <div class="user-details" ng-if="showLogout">
+        <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
+        <div class="info">
+            <div class="name" ng-bind="model.personalData.name"></div>
+            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+        </div>
+    </div>
+    <hr/>
+    <ul>
+        <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
+            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+        </li>
+    </ul>
+    <div ng-if="model.personalData.isAdministrator">
+        <hr/>
+        <ul>
+            <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
+                <span class="title">USER MANAGER</span>
+                <i class="icon icon-circle"></i>
+            </li>
+        </ul>
+    </div>
+    <div class="bottom-buttons">
+        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+    </div>
+</nav>
+
+    <div class="content full-height" ng-class="{'col-xs-7 col-sm-6 col-md-6': stateParams.newsVisible, 'col-md-10 col-xs-12 col-sm-9 col-lg-10': !stateParams.newsVisible}">
+        <div ui-view class="enter-animation container-fluid full-height scrollable"></div>
+    </div>
+    <div class="news container-fluid scrollable col-xs-5 col-sm-3 col-md-4 full-height" ng-if="stateParams.newsVisible">
+        <div hc-events-timeline="events"></div>
+    </div>
+</div>
+
+</head>
+<body>
+    <div class="splash-screen" ng-cloak="">
+    <div class="splash-container">
+        <div class="splash"></div>
+    </div>
+</div>
+  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
+	<div class="container-fluid">
+		<div class="row">
+		 	<div class="col-md-6">
+	<div class="filter-box">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">LEVEL RANGE</header>
+					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<rzslider rz-slider-model="timeSlider.value"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
+						<label for="common-checkbox-known-time"></label>
+						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="query-container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="query-box text-center col-md-12">
+					<div class="input-holder">
+						<span class="input-container">
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						</span>
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="query-box">
+					<div class="container-fluid">
+						<div class="row">
+							<header class="col-md-12">Creature Types</header>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
+									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
+									<label for="common-checkbox1"></label>
+									<span class="checkbox-label">Titans</span>
+								</div>
+								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
+									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
+									<label for="common-checkbox2"></label>
+									<span class="checkbox-label">Heroes</span>
+								 </div>
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="row">
+			<button class="form-button" ng-click="sendRequest()">send</button>
+			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+		</div>
+	</div>
+</div>
+</script>
+  <script id="/" type="text/ng-template"><div class="row full-height">
+	<div ng-controller="loginCtrl" class="col-xs-12 full-height">
+		<div class="info-box">
+			<div class="auth-type">LOGIN</div>
+			<div class="header">LOG IN INTO YOUR ACCOUNT</div>
+			<form novalidate name="loginForm">
+					<div class="input-container">
+						<input type="text" name="login" class="form-input" ng-model="login" placeholder="LOGIN" ng-required="true" hc-validation-pattern="TEXT"/>
+						<div class="error-container" ng-messages="loginForm.login.$error" ng-show="loginForm.login.$dirty">
+							<span ng-message="hcValidationPattern.TEXT">Only text</span>
+							<span ng-message="required">Fill in the field.</span>
+						</div>
+					</div>
+					<div class="input-container">
+						<input type="text" name="password" class="form-input" ng-model="password" placeholder="PASSWORD"/>
+					</div>
+					<button class="button" ng-click="logg(login, password)" ng-disabled="!loginForm.$valid">LOGIN</button>
+
+			</form>
+		</div>
+		<p ng-bind="loginMessage"></p>
+		<button class="button" ng-click="showNotification()">komunikat</button>
+	</div>
+</div>
+</script>
+  <script id="/register" type="text/ng-template"><div class="row full-height">
+	<div ng-controller="registerCtrl" class="col-xs-12 full-height">
+		<div class="info-box">
+			<div class="auth-type">SIGNUP</div>
+			<div class="header">CREATE YOUR ACCOUNT</div>
+			<form name="signup-form">
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.login" placeholder="LOGIN"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.password" placeholder="PASSWORD"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.repeatedPassword" placeholder="REPEAT"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.email" placeholder="EMAIL"/>
+					</div>
+					<div class="input-container">
+						<input class="form-input" ng-model="registerData.name" placeholder="NAME"/>
+					</div>
+					<button class="button" ng-click="register(registerData)">SIGNUP</button>
+			</form>
+		</div>
+	</div>
+</div>
+</script>
+  <script id="/heroes" type="text/ng-template"><div ng-controller="heroesCtrl" class="row heroes">
+	<div class="container-fluid">
+		<div class="row">
+		 	<div class="col-md-6">
+	<div class="filter-box">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">LEVEL RANGE</header>
+					<rzslider rz-slider-model="lvlRangeSlider.minValue" rz-slider-high="lvlRangeSlider.maxValue" rz-slider-options="lvlRangeSlider.options"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<header class="filter-header">TIME TO RESP IN HOURS</header>
+					<rzslider rz-slider-model="timeSlider.value"></rzslider>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="form-checkbox" ng-click="onlyWithKnownTime =! onlyWithKnownTime">
+						<input type="checkbox" id="common-checkbox-known-time" value="None" ng-model="onlyWithKnownTime"/>
+						<label for="common-checkbox-known-time"></label>
+						<span class="checkbox-label">ONLY WITH KNOWN TIME</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="query-container">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="query-box text-center col-md-12">
+					<div class="input-holder">
+						<span class="input-container">
+							<input type="text" class="form-input" ng-model="queryInput" placeholder="CREATURE NAME"/>
+						</span>
+						<span class="icon-container" ng-class="{clickable: queryInput.length > 0}">
+							<i class="icon-search" ng-show="queryInput === undefined || queryInput.length == 0"></i>
+							<i class="icon-cancel" ng-show="queryInput.length > 0" ng-click="queryInput = ''" ></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="query-box">
+					<div class="container-fluid">
+						<div class="row">
+							<header class="col-md-12">Creature Types</header>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<div class="form-checkbox" ng-click="creatureType.titan =! creatureType.titan">
+									<input type="checkbox" id="common-checkbox1" value="None" ng-model="creatureType.titan"/> 
+									<label for="common-checkbox1"></label>
+									<span class="checkbox-label">Titans</span>
+								</div>
+								<div class="form-checkbox" ng-click="creatureType.hero =! creatureType.hero">
+									<input type="checkbox" id="common-checkbox2" value="none" ng-model="creatureType.hero"/>
+									<label for="common-checkbox2"></label>
+									<span class="checkbox-label">Heroes</span>
+								 </div>
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="row">
+			<button class="form-button" ng-click="sendRequest()">send</button>
+			<div ng-repeat="creature in filteredCreatures" hc-creature-tile="creature"></div>
+		</div>
+	</div>
+</div>
+</script>
+  <script id="/settings" type="text/ng-template"><div ng-controller="settingsCtrl" class="row settings full-height">
+    <div class="container-fluid full-height">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <div class="header-container">
+                    <header class="main-header">My Account</header>
+                    <header class="sub-header">You can change your account settings here</header>
+                </div>
+                <div class="row container-fluid">
+                    <div class="main-box">
+                        <section class="settings-section contact">
+    <form novalidate name="contactSettingsForm">
+        <header class="section-header">
+            <div class="description">
+                <h2>settings</h2>
+                <h1>Contact</h1>
+            </div>
+            <button class="button" ng-click="changeContactSettings()" ng-show="!editContactSettings"">
+            Edit settings
+            </button>
+        </header>
+        <hr/>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="row">
+                    <div class="property col-xs-6">
+                        <div class="section-label">Name</div>
+                        <div class="section-value" ng-bind="model.personalData.name" ng-show="!editContactSettings"></div>
+                        <div class="input-container" ng-show="editContactSettings">
+                            <input type="text" name="name" class="form-input" ng-model="model.personalData.name" placeholder="NEW NAME"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-10 col-lg-6">
+                <div class="property-section container-fluid row">
+                    <div class="property">
+                        <div class="section-label">Phone number</div>
+                        <div class="section-value" ng-bind="model.personalData.phone" ng-show="!editContactSettings"></div>
+                        <div class="input-container" ng-show="editContactSettings">
+                            <input type="text" name="name" class="form-input" ng-model="model.personalData.phone" placeholder="NEW PHONE"/>
+                        </div>
+                    </div>
+                    <div class="property-switcher" >
+                        <div class="section-label">Show phone number on profile</div>
+                        <i class="icon-ok" ng-show="model.personalData.phoneVisible && !editContactSettings"></i>
+                        <i class="icon-cancel" ng-show="!model.personalData.phoneVisible && !editContactSettings"></i>
+                        <div class="form-checkbox" ng-show="editContactSettings">
+                            <input type="checkbox" id="common-checkbox-show-phone" value="None" ng-model="model.personalData.phoneVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
+                            <label for="common-checkbox-show-phone"></label>
+                            <span class="checkbox-label"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-10 col-lg-6">
+                <div class="container-fluid row">
+                    <div class="property-section">
+                        <div class="property">
+                            <div class="section-label">GG number</div>
+                            <div class="section-value" ng-bind="model.personalData.gg" ng-show="!editContactSettings"></div>
+                            <div class="input-container" ng-show="editContactSettings">
+                                <input type="text" name="name" class="form-input" ng-model="model.personalData.gg" placeholder="NEW GG"/>
+                            </div>
+
+                        </div>
+                        <div class="property-switcher">
+
+                            <div class="section-label">Show GG on profile</div>
+                            <i class="icon-ok" ng-show="model.personalData.ggVisible && !editContactSettings"></i>
+                            <i class="icon-cancel" ng-show="!model.personalData.ggVisible && !editContactSettings"></i>
+                            <div class="form-checkbox" ng-show="editContactSettings">
+                                <input type="checkbox" id="common-checkbox-show-gg" value="None" ng-model="model.personalData.ggVisible" parse-int="" ng-true-value="1" ng-false-value="0"/>
+                                <label for="common-checkbox-show-gg"></label>
+                                <span class="checkbox-label"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="editContactSettings">
+            <div class="button-group col-xs-12">
+                <button class="button accept" ng-click="applyContactSettings()">Change</button>
+                <button class="button cancel" ng-click="cancelContactSettings()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</section>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="email-box">
+                            <section class="settings-section email">
+    <header class="section-header">
+        <span class="description">
+            <h2>settings</h2>
+            <h1>Email</h1>
+        </span>
+        <button class="button" ng-click="editEmailSettings = true" ng-show="!editEmailSettings">Change</button>
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="property">
+            <div ng-show="!editEmailSettings">
+                <div class="section-label">Email address</div>
+                <div class="section-value" ng-bind="model.personalData.email"></div>
+            </div>
+            <form novalidate name="changeEmailForm" ng-if="editEmailSettings">
+                <div class="input-container">
+                    <input type="text" name="oldEmail" class="form-input" ng-model="emailModel.oldEmail" placeholder="OLD EMAIL" hc-equal="model.personalData.email" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <div class="error-container" ng-messages="changeEmailForm.oldEmail.$error" ng-show="changeEmailForm.oldEmail.$dirty">
+                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
+                        <span ng-message="hcEqual">Typed email isn't your old email</span>
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="newEmail" class="form-input" ng-model="emailModel.newEmail" placeholder="NEW EMAIL" ng-required="true" hc-validation-pattern="EMAIL"/>
+                    <div class="error-container" ng-messages="changeEmailForm.newEmail.$error" ng-show="changeEmailForm.newEmail.$dirty">
+                        <span ng-message="hcValidationPattern.EMAIL">Bad email format</span>
+                        <span ng-message="hcValidationPattern.EMAIL_CHARS">Unsupported char</span>
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-group col-xs-12">
+                        <button class="button accept" ng-click="changeEmail(emailModel)" ng-disabled="!changeEmailForm.$valid">Change</button>
+                        <button class="button cancel" ng-click="cancelChangeEmail()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="password-box">
+                            <section class="settings-section password">
+    <header class="section-header">
+        <span class="description">
+            <h2>settings</h2>
+            <h1>Password</h1>
+        </span>
+        <button class="button" ng-click="editPasswordSettings = true" ng-show="!editPasswordSettings">Change</button>
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="property">
+            <form novalidate name="changePasswordForm" ng-if="editPasswordSettings">
+                <div class="input-container">
+                    <input type="text" name="oldPassword" class="form-input" ng-model="passwordModel.oldPassword" placeholder="OLD PASSWORD" ng-required="true"/>
+                    <div class="error-container" ng-messages="changePasswordForm.oldPassword.$error" ng-show="changePasswordForm.oldPassword.$dirty">
+                        <span ng-message="required">Fill in the field.</span>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="newPassword" class="form-input" ng-model="passwordModel.newPassword" placeholder="NEW PASSWORD" hc-not-equal="passwordModel.oldPassword" ng-required="true"/>
+                    <div class="error-container" ng-messages="changePasswordForm.newPassword.$error" ng-show="changePasswordForm.newPassword.$dirty">
+                        <span ng-message="required">Fill in the field.</span>
+                        <span ng-message="hcNotEqual">New password can't be the same as old</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-group col-xs-12">
+                        <button class="button accept" ng-click="changePassword(passwordModel)" ng-disabled="!changePasswordForm.$valid">Change</button>
+                        <button class="button cancel" ng-click="cancelChangePassword()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="additional-box col-xs-12 col-md-4">
+                <div class="avatar-box">
+                    <section class="settings-section contact">
+    <header class="section-header">
+                            <span class="description">
+                                <h2>settings</h2>
+                                <h1>Avatar</h1>
+                            </span>
+
+        <button class="button" ng-click="editAvatar = true" ng-show="!editAvatar">
+            Change avatar
+        </button>
+
+    </header>
+    <hr/>
+    <div class="container-fluid row">
+        <div class="col-xs-12 current-avatar" ng-class="{'col-xs-6': editAvatar}">
+            <div class="avatar-header" ng-show="editAvatar">Current avatar</div>
+            <img class="avatar-img" ng-src="{{model.personalData.avatar || defaultAvatarLink}}">
+            <div class="avatar-label" ng-bind="model.personalData.name"></div>
+        </div>
+        <div class="col-xs-6" ng-show="editAvatar">
+            <div class="avatar-header" ng-show="loadedImg">New avatar</div>
+            <div class="crop-area" ng-show="loadedImg">
+                <img-crop image="loadedImg" result-image="croppedImg"
+                          area-type="circle" ngf-accept="'image/*'"
+                          result-image-size="450" class="image-preview">
+                </img-crop>
+            </div>
+
+            <div class="drop-box drop-box-container" ng-show="!loadedImg" ngf-drag-over-class="drop-box-dragover" ngf-change="readFileImg($files)" ngf-drop="" ngf-select="" ng-model="files" ngf-multiple="false" ngf-allow-dir="false" accept="image/*">
+                <div class="drop-box-label">Drop image or click to upload avatar</div>
+            </div>
+        </div>
+    </div>
+    <div class="row button-group" ng-show="editAvatar">
+        <button class="button accept" ng-click="uploadAvatar()">Change avatar</button>
+        <button class="button cancel" ng-click="cancelUploadAvatar()">Cancel</button>
+    </div>
+</section>
+                </div>
+                <div class="token-box">
+                    <section class="settings-section contact">
+    <header class="section-header">
+        <span class="description">
+            <h2>Token</h2>
+            <h1>Your private token</h1>
+        </span>
+    </header>
+    <hr/>
+    <span>Here is your private token. If you want connect game with this application, copy and paste them to hero-counter margonem addon</span>
+    <div class="user-token font-bold" ng-bind="model.personalData.userToken"></div>
+</section>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</script>
+  <script id="/user-manager" type="text/ng-template"><div ng-controller="userManagerCtrl" class="row user-manager">
+    <div class="container-fluid">
+        <div class="main-header">User manager</div>
+        <div class="sub-header">You can manage users here, accept, reject or delete</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="users-list">
+                    <div class="list-header">Users</div>
+                    <div class="list-legend">
+                        <div class="col-xs-1 role">Role</div>
+                        <div class="col-xs-4 name clickable" ng-click="setFilter('name')">
+                            Name
+                            <i ng-show="filterConfig.field === 'name'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                        <div class="col-xs-3 email clickable" ng-click="setFilter('email')">
+                            Email
+                            <i ng-show="filterConfig.field === 'email'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                        <div class="col-xs-4 register-date clickable" ng-click="setFilter('registerDate')">
+                            Register Date
+                            <i ng-show="filterConfig.field === 'registerDate'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
+                        </div>
+                    </div>
+                    <div ng-repeat="user in model.users | orderBy:filterConfig.field:filterConfig.reverse" class="list-element container-fluid" ng-class="{'active': user.waitForAccept !== null, 'opened': activeUserId === user.id}" ng-click="openDetails(user)">
+                        <div class="row user-info">
+                            <div class="role center-vertically col-xs-1">
+                                <i ng-class="{'icon-admin': user.isAdministrator, 'icon-user': !user.isAdministrator, 'icon-lock': user.waitForAccept == null}"></i>
+                            </div>
+                            <div class="center-vertically col-xs-4">
+                                <img class="avatar" ng-src="{{user.avatar || defaultAvatarLink}}"/>
+                                <div class="name" ng-bind="user.name"></div>
+                            </div>
+                            <div class="center-vertically col-xs-3">
+                                <div class="email" ng-bind="user.email">Email</div>
+                            </div>
+                            <div class="center-vertically col-xs-4">
+                                <div class="register-date" hc-pretty-time="user.tokenExpirationDate" full-date="true"></div>
+                            </div>
+                        </div>
+                        <div ng-show="activeUserId === user.id" class="row user-details">
+                            <div class="center-vertically action" ng-show="user.waitForAccept">
+                                <button class="button accept" ng-click="acceptUser(user)">
+                                    Accept User
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="user.waitForAccept">
+                                <button class="button cancel" ng-click="rejectUser(user)">
+                                    Reject User
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="!user.isAdministrator && user.waitForAccept != null && user.waitForAccept !== 1">
+                                <button class="button" ng-click="setAdministrator(user)">
+                                    Set as administrator
+                                </button>
+                            </div>
+                            <div class="center-vertically action" ng-show="user.isAdministrator">
+                                <button class="button cancel" ng-click="setCommonUser(user)">
+                                    Set as common user
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+  <script id="/basic" type="text/ng-template"><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width"/>
+<style>#outlook a{padding:0;}body{width:100%!important;min-width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin:0;padding:0;}.ExternalClass{width:100%;}.ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div{line-height:100%;}#backgroundTable{margin:0;padding:0;width:100%!important;line-height:100%!important;}img{outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;width:auto;max-width:100%;float:left;clear:both;display:block;}center{width:100%;min-width:580px;}a img{border:none;}p{margin:0 0 0 10px;}table{border-spacing:0;border-collapse:collapse;}td{word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;hyphens:auto;border-collapse:collapse!important;}table,tr,td{padding:0;vertical-align:top;text-align:left;}hr{color:#d9d9d9;background-color:#0b1f39;height:1px;border:none;}table.body{height:100%;width:100%;background:#0b1f39;}table.container{width:580px;margin:0 auto;text-align:inherit;}table.row{padding:0px;width:100%;position:relative;}table.container table.row{display:block;}td.wrapper{padding:10px 20px 0px 0px;position:relative;}table.columns,table.column{margin:0 auto;}table.columns td,table.column td{padding:0px 0px 10px;}table.columns td.sub-columns,table.column td.sub-columns,table.columns td.sub-column,table.column td.sub-column{padding-right:10px;}td.sub-column,td.sub-columns{min-width:0px;}table.row td.last,table.container td.last{padding-right:0px;}table.one{width:30px;}table.two{width:80px;}table.three{width:130px;}table.four{width:180px;}table.five{width:230px;}table.six{width:280px;}table.seven{width:330px;}table.eight{width:380px;}table.nine{width:430px;}table.ten{width:480px;}table.eleven{width:530px;}table.twelve{width:580px;}table.one center{min-width:30px;}table.two center{min-width:80px;}table.three center{min-width:130px;}table.four center{min-width:180px;}table.five center{min-width:230px;}table.six center{min-width:280px;}table.seven center{min-width:330px;}table.eight center{min-width:380px;}table.nine center{min-width:430px;}table.ten center{min-width:480px;}table.eleven center{min-width:530px;}table.twelve center{min-width:580px;}table.one .panel center{min-width:10px;}table.two .panel center{min-width:60px;}table.three .panel center{min-width:110px;}table.four .panel center{min-width:160px;}table.five .panel center{min-width:210px;}table.six .panel center{min-width:260px;}table.seven .panel center{min-width:310px;}table.eight .panel center{min-width:360px;}table.nine .panel center{min-width:410px;}table.ten .panel center{min-width:460px;}table.eleven .panel center{min-width:510px;}table.twelve .panel center{min-width:560px;}.body .columns td.one,.body .column td.one{width:8.333333%;}.body .columns td.two,.body .column td.two{width:16.666666%;}.body .columns td.three,.body .column td.three{width:25%;}.body .columns td.four,.body .column td.four{width:33.333333%;}.body .columns td.five,.body .column td.five{width:41.666666%;}.body .columns td.six,.body .column td.six{width:50%;}.body .columns td.seven,.body .column td.seven{width:58.333333%;}.body .columns td.eight,.body .column td.eight{width:66.666666%;}.body .columns td.nine,.body .column td.nine{width:75%;}.body .columns td.ten,.body .column td.ten{width:83.333333%;}.body .columns td.eleven,.body .column td.eleven{width:91.666666%;}.body .columns td.twelve,.body .column td.twelve{width:100%;}td.offset-by-one{padding-left:50px;}td.offset-by-two{padding-left:100px;}td.offset-by-three{padding-left:150px;}td.offset-by-four{padding-left:200px;}td.offset-by-five{padding-left:250px;}td.offset-by-six{padding-left:300px;}td.offset-by-seven{padding-left:350px;}td.offset-by-eight{padding-left:400px;}td.offset-by-nine{padding-left:450px;}td.offset-by-ten{padding-left:500px;}td.offset-by-eleven{padding-left:550px;}td.expander{visibility:hidden;width:0px;padding:0!important;}table.columns .text-pad,table.column .text-pad{padding-left:10px;padding-right:10px;}table.columns .left-text-pad,table.columns .text-pad-left,table.column .left-text-pad,table.column .text-pad-left{padding-left:10px;}table.columns .right-text-pad,table.columns .text-pad-right,table.column .right-text-pad,table.column .text-pad-right{padding-right:10px;}.block-grid{width:100%;max-width:580px;}.block-grid td{display:inline-block;padding:10px;}.two-up td{width:270px;}.three-up td{width:173px;}.four-up td{width:125px;}.five-up td{width:96px;}.six-up td{width:76px;}.seven-up td{width:62px;}.eight-up td{width:52px;}table.center,td.center{text-align:center;}h1.center,h2.center,h3.center,h4.center,h5.center,h6.center{text-align:center;}span.center{display:block;width:100%;text-align:center;}img.center{margin:0 auto;float:none;}.show-for-small,.hide-for-desktop{display:none;}body,table.body,h1,h2,h3,h4,h5,h6,p,td{color:#fff;font-family:"Helvetica","Arial",sans-serif;font-weight:normal;padding:0;margin:0;text-align:left;line-height:1.3;}h1,h2,h3,h4,h5,h6{word-break:normal;}h1{font-size:40px;}h2{font-size:36px;}h3{font-size:32px;}h4{font-size:28px;}h5{font-size:24px;}h6{font-size:20px;}body,table.body,p,td{font-size:14px;line-height:19px;}p.lead,p.lede,p.leed{font-size:18px;line-height:21px;}p{margin-bottom:10px;}small{font-size:10px;}a{color:#2ba6cb;text-decoration:none;}a:hover{color:#2795b6!important;}a:active{color:#2795b6!important;}a:visited{color:#2ba6cb!important;}h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{color:#2ba6cb;}h1 a:active,h2 a:active,h3 a:active,h4 a:active,h5 a:active,h6 a:active{color:#2ba6cb!important;}h1 a:visited,h2 a:visited,h3 a:visited,h4 a:visited,h5 a:visited,h6 a:visited{color:#2ba6cb!important;}.panel{background:#f2f2f2;border:1px solid #d9d9d9;padding:10px!important;}.sub-grid table{width:100%;}.sub-grid td.sub-columns{padding-bottom:0;}table.button,table.tiny-button,table.small-button,table.medium-button,table.large-button{width:100%;overflow:hidden;}table.button td,table.tiny-button td,table.small-button td,table.medium-button td,table.large-button td{display:block;width:auto!important;text-align:center;background:#2ba6cb;border:1px solid #2284a1;color:#ffffff;padding:8px 0;}table.tiny-button td{padding:5px 0 4px;}table.small-button td{padding:8px 0 7px;}table.medium-button td{padding:12px 0 10px;}table.large-button td{padding:21px 0 18px;}table.button td a,table.tiny-button td a,table.small-button td a,table.medium-button td a,table.large-button td a{font-weight:bold;text-decoration:none;font-family:Helvetica,Arial,sans-serif;color:#ffffff;font-size:16px;}table.tiny-button td a{font-size:12px;font-weight:normal;}table.small-button td a{font-size:16px;}table.medium-button td a{font-size:20px;}table.large-button td a{font-size:24px;}table.button:hover td,table.button:visited td,table.button:active td{background:#2795b6!important;}table.button:hover td a,table.button:visited td a,table.button:active td a{color:#fff!important;}table.button:hover td,table.tiny-button:hover td,table.small-button:hover td,table.medium-button:hover td,table.large-button:hover td{background:#2795b6!important;}table.button:hover td a,table.button:active td a,table.button td a:visited,table.tiny-button:hover td a,table.tiny-button:active td a,table.tiny-button td a:visited,table.small-button:hover td a,table.small-button:active td a,table.small-button td a:visited,table.medium-button:hover td a,table.medium-button:active td a,table.medium-button td a:visited,table.large-button:hover td a,table.large-button:active td a,table.large-button td a:visited{color:#ffffff!important;}table.secondary td{background:#e9e9e9;border-color:#d0d0d0;color:#555;}table.secondary td a{color:#555;}table.secondary:hover td{background:#d0d0d0!important;color:#555;}table.secondary:hover td a,table.secondary td a:visited,table.secondary:active td a{color:#555!important;}table.success td{background:#5da423;border-color:#457a1a;}table.success:hover td{background:#457a1a!important;}table.alert td{background:#c60f13;border-color:#970b0e;}table.alert:hover td{background:#970b0e!important;}table.radius td{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}table.round td{-webkit-border-radius:500px;-moz-border-radius:500px;border-radius:500px;}body.outlook p{display:inline!important;}@media only screen and (max-width: 600px) {table[class="body"] img{width:auto!important;height:auto!important;}table[class="body"] center{min-width:0!important;}table[class="body"] .container{width:95%!important;}table[class="body"] .row{width:100%!important;display:block!important;}table[class="body"] .wrapper{display:block!important;padding-right:0!important;}table[class="body"] .columns,table[class="body"] .column{table-layout:fixed!important;float:none!important;width:100%!important;padding-right:0px!important;padding-left:0px!important;display:block!important;}table[class="body"] .wrapper.first .columns,table[class="body"] .wrapper.first .column{display:table!important;}table[class="body"] table.columns td,table[class="body"] table.column td{width:100%!important;}table[class="body"] .columns td.one,table[class="body"] .column td.one{width:8.333333%!important;}table[class="body"] .columns td.two,table[class="body"] .column td.two{width:16.666666%!important;}table[class="body"] .columns td.three,table[class="body"] .column td.three{width:25%!important;}table[class="body"] .columns td.four,table[class="body"] .column td.four{width:33.333333%!important;}table[class="body"] .columns td.five,table[class="body"] .column td.five{width:41.666666%!important;}table[class="body"] .columns td.six,table[class="body"] .column td.six{width:50%!important;}table[class="body"] .columns td.seven,table[class="body"] .column td.seven{width:58.333333%!important;}table[class="body"] .columns td.eight,table[class="body"] .column td.eight{width:66.666666%!important;}table[class="body"] .columns td.nine,table[class="body"] .column td.nine{width:75%!important;}table[class="body"] .columns td.ten,table[class="body"] .column td.ten{width:83.333333%!important;}table[class="body"] .columns td.eleven,table[class="body"] .column td.eleven{width:91.666666%!important;}table[class="body"] .columns td.twelve,table[class="body"] .column td.twelve{width:100%!important;}table[class="body"] td.offset-by-one,table[class="body"] td.offset-by-two,table[class="body"] td.offset-by-three,table[class="body"] td.offset-by-four,table[class="body"] td.offset-by-five,table[class="body"] td.offset-by-six,table[class="body"] td.offset-by-seven,table[class="body"] td.offset-by-eight,table[class="body"] td.offset-by-nine,table[class="body"] td.offset-by-ten,table[class="body"] td.offset-by-eleven{padding-left:0!important;}table[class="body"] table.columns td.expander{width:1px!important;}table[class="body"] .right-text-pad,table[class="body"] .text-pad-right{padding-left:10px!important;}table[class="body"] .left-text-pad,table[class="body"] .text-pad-left{padding-right:10px!important;}table[class="body"] .hide-for-small,table[class="body"] .show-for-desktop{display:none!important;}table[class="body"] .show-for-small,table[class="body"] .hide-for-desktop{display:inherit!important;}}</style>
+<style>table.facebook td{background:#3b5998;border-color:#2d4473;}table.facebook:hover td{background:#2d4473!important;}table.twitter td{background:#00acee;border-color:#0087bb;}table.twitter:hover td{background:#0087bb!important;}table.google-plus td{background-color:#DB4A39;border-color:#CC0000;}table.google-plus:hover td{background:#CC0000!important;}.template-label{color:#ffffff;font-weight:bold;font-size:11px;}.callout .panel{background:#ECF8FF;border-color:#b9e5ff;}.header{background:#999999;}.footer .wrapper{background:#ebebeb;}.footer h5{padding-bottom:10px;}table.columns .text-pad{padding-left:10px;padding-right:10px;}table.columns .left-text-pad{padding-left:10px;}table.columns .right-text-pad{padding-right:10px;}@media only screen and (max-width: 600px) {table[class="body"] .right-text-pad{padding-left:10px!important;}table[class="body"] .left-text-pad{padding-right:10px!important;}}</style>
+<style>table.facebook td{background:#3b5998;border-color:#2d4473;}table.facebook:hover td{background:#2d4473!important;}table.twitter td{background:#00acee;border-color:#0087bb;}table.twitter:hover td{background:#0087bb!important;}table.google-plus td{background-color:#DB4A39;border-color:#CC0000;}table.google-plus:hover td{background:#CC0000!important;}.template-label{color:#ffffff;font-weight:bold;font-size:11px;}.callout .wrapper{padding-bottom:20px;}.callout .panel{background:#ECF8FF;border-color:#b9e5ff;}.header{background:#999999;}.footer .wrapper{background:#ebebeb;}.footer h5{padding-bottom:10px;}table.columns .text-pad{padding-left:10px;padding-right:10px;}table.columns .left-text-pad{padding-left:10px;}table.columns .right-text-pad{padding-right:10px;}@media only screen and (max-width: 600px) {table[class="body"] .right-text-pad{padding-left:10px!important;}table[class="body"] .left-text-pad{padding-right:10px!important;}}</style>
+</head>
+<body>
+<table class="body">
+<tr>
+<td class="center" align="center" valign="top">
+<center>
+<table class="container">
+<tr>
+<td>
+<table class="row">
+<tr>
+<td class="wrapper last">
+<table class="twelve columns">
+<tr>
+<td>
+<h1>Hi, {{name}}</h1>
+<p>You are receiving this because you (or someone else) have requested the reset of the password for your account</p>
+<p>Please click on the following link, or paste this into your browser to complete the process:</p>
+<a href="{{activationLink}}">Activation link</a>
+<p>If you did not request this, please ignore this email</p>
+</td>
+<td class="expander"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html></script>
+  <script id="/profile" type="text/ng-template"><div ng-controller="profileCtrl" class="row profile full-height">
+    <div class="container-fluid full-height">
+        <div class="row">
+            <div class="col-md-12 col-lg-5">
+                <div class="avatar-box center-vertically">
+                    <div class="avatar">
+                        <img ng-src="{{userProfileModel.avatar || defaultAvatarLink}}"/>
+                        <div class="name" ng-bind="userProfileModel.name"></div>
+                        <div class="role">{{userProfileModel.isAdministrator ? 'Administrator': 'User'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-7">
+                <div class="about-box">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Profile</h2>
+                            <h1>Contact</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="property-section">
+                                <div class="property">
+                                    <div class="section-label">GG number</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.gg" ng-show="userProfileModel.ggVisible"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.ggVisible">User not allowed to display them</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="property-section">
+                                <div class="property">
+                                    <div class="section-label">Phone number</div>
+                                    <div class="section-value gg" ng-bind="userProfileModel.phone" ng-show="userProfileModel.phoneVisible"></div>
+                                    <div class="section-value empty-label" ng-show="!userProfileModel.phoneVisible">User not allowed to display them</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-heroes">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Main</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <div class="row user-charts">
+                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
+                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                        </div>
+                        <div ng-repeat="mainHero in userProfileModel.mainHeroes">
+                            <div hc-user-hero-tile="mainHero" stats="userProfileModel.mainHeroStats"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="user-heroes">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>Guest</h2>
+                            <h1>Heroes</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row user-charts">
+                        <div ng-repeat="guestHero in userProfileModel.guestHeroes">
+                            <div hc-user-hero-tile="guestHero" stats="userProfileModel.guestHeroStats"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></script>
+  <script id="/activation" type="text/ng-template"><div ng-controller="activationCtrl" class="full-height">
+        <div class="row full-height">
+            <div class="col-xs-12 full-height">
+                <div class="info-box center full-height">
+                    <p>Your account is activate now</p>
+                    <p>You can now go to login by press te link below</p>
+                    <a ui-sref="login">Login</a>
+                </div>
+            </div>
+        </div>
+</div>
+</script>
+  <script id="/menu" type="text/ng-template"><nav class="menu col-md-2 col-sm-3 col-lg-2 full-height" ng-class="{opened: btnClick}">
+    <div class="user-details" ng-if="showLogout">
+        <img class="avatar" ng-src="{{model.personalData.avatar || defaultAvatarLink}}"/>
+        <div class="info">
+            <div class="name" ng-bind="model.personalData.name"></div>
+            <div class="role">{{model.personalData.isAdministrator ? 'Administrator': 'User'}}</div>
+        </div>
+    </div>
+    <hr/>
+    <ul>
+        <li class="menu-element" ng-repeat="state in states" ui-sref="{{state.reference}}" ui-sref-active="active">
+            <span class="title">{{state.name}}</span><i class="icon icon-circle"></i>
+        </li>
+    </ul>
+    <div ng-if="model.personalData.isAdministrator">
+        <hr/>
+        <ul>
+            <li class="menu-element additional" ui-sref="userManager" ui-sref-active="active">
+                <span class="title">USER MANAGER</span>
+                <i class="icon icon-circle"></i>
+            </li>
+        </ul>
+    </div>
+    <div class="bottom-buttons">
+        <button class="menu-button" ng-if="showLogout" ng-click="logout()">Logout</button>
+    </div>
+</nav></script>
+  <script id="hc-creature-tile" type="text/ng-template"><div class="col-md-6">
+	<div class="tile-container container-fluid">
+		<div class="row">
+			<div class="creature-avatar">
+				<img ng-src="{{creature.image}}"/>
+			</div>
+			<div class="tile-header" ng-bind="creature.name"></div>
+			<div class="tile-subtitle">
+				<timer ng-show="creature.timeToResp" interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer>
+				<div ng-show="!creature.timeToResp">Czas nieznany</div>
+			</div>
+			<div class="tile-content container-fluid">
+				<div class="row">
+					<section class="tile-section col-md-4">
+						<div class="value" ng-bind="creature.minRespTime"></div>
+						<div class="label row">Min czas respu</div>
+					</section>
+					<section class="tile-section col-md-4">
+						<div class="value" ng-bind="creature.maxRespTime"></div>
+						<div class="label row">Max czas respu</div>
+					</section>
+					<section class="tile-section col-md-4">
+						<div class="value" ng-bind="creature.defeatCounter"></div>
+						<div class="label row">Pokonany</div>
+					</section>
+				</div>
+				<!-- <p class="label">Minimalny czas respu</p>
+				<p class="value" ng-bind="creature.minRespTime"></p>
+				<p class="label">Maksymalny czas respu</p>
+				<p class="value" ng-bind="creature.maxRespTime"></p>
+				<p class="label">Czas do respu</p>
+				<p class="value" ng-show="creature.timeToResp"><timer interval="1000" countdown="creature.timeToResp/1000" max-time-unit="'day'">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds</timer></p> -->
+
+			</div>
+			<div class="action-buttons">
+				<div class="tile-button" ng-click="startCountdown(creature)">Pokonałem poczwarę</div>
+				<div class="tile-button" ng-click="">Podobno ubita</div>
+			</div>
+		</div>
+	</div>
+</div></script>
+  <script id="hc-events-timeline" type="text/ng-template"> <div class="row hc-events-timeline">
+    <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
+        <div class="day-label" ng-if="showDayLabel(event, $index)">
+            <div class="value" ng-bind="getDayName(event.battleDate)"></div>
+        </div>
+        <div class="event-info">
+            <div hc-pretty-time="event.battleDate"></div>
+            <div>
+                <i class="icon-circle"></i>
+                <div class="person" ng-bind="event.group[0].heroName"></div>
+            </div>
+
+            <div class="creature" ng-bind="event.creature.name"></div>
+            <div class="details">
+                <span>was defeated by: </span>
+                <span ng-repeat="member in event.group">
+                    <span>{{member.heroName}}</span>
+                    <span ng-show="!$last">,</span>
+                </span>
+            </div>
+         </div>
+     </div>
+</div></script>
+  <script id="hc-user-hero-tile" type="text/ng-template"><div class="user-hero-tile">
+    <g class="radial-chart">
+        <div class="summary-battles">
+            <div class="indicator">
+                <span class="count">{{battleCount}}</span><span class="summary-count">/ {{stats.summaryBattles}}</span>
+            </div>
+            <div>battles</div>
+        </div>
+    </g>
+    <div class="description">
+        <div class="hero-name">{{hero.heroName}}</div>
+        <div class="hero-lvl">Lvl: {{hero.lvl}}</div>
+    </div>
+</div></script>
+  <script id="hc-pretty-time" type="text/ng-template"><div class="preety-time">
+    <span ng-show="fullDate">
+	    <span class="day">{{day}}</span> 
+	    <span class="month">{{month}}</span> 
+	    <span class="year">{{year}}</span> 
+    </span>
+    <span class="hours">{{hours}}</span>:<span class="minutes">{{minutes}}</span>
+</div></script>
+</body>
+</html>

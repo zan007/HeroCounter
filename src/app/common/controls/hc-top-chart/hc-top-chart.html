@@ -1,0 +1,22 @@
+<div class="hc-top-chart full-height container-fluid">
+    <div class="row full-height">
+        <div class="col-xs-4 full-height place-container">
+            <div class="name" ng-bind="topData[1].heroName" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[1].mainUserId)"></div>
+            <div class="line-box second" ng-click="goToUserProfile(topData[1].mainUserId)">
+                <div class="bubble"></div>
+            </div>
+        </div>
+        <div class="col-xs-4 full-height place-container" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[0].mainUserId)">
+            <div class="name" ng-bind="topData[0].heroName"></div>
+            <div class="line-box first">
+                <div class="bubble"></div>
+            </div>
+        </div>
+        <div class="col-xs-4 full-height place-container" ng-class="{active: topData[1].mainUserId}" ng-click="goToUserProfile(topData[2].mainUserId)">
+            <div class="name" ng-bind="topData[2].heroName"></div>
+            <div class="line-box third">
+                <div class="bubble"></div>
+            </div>
+        </div>
+    </div>
+</div>

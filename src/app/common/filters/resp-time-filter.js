@@ -1,19 +1,20 @@
 angular.module('respTimeFilter',[])
 
 .filter('respTimeFilter',function(){
-	return function(input, hoursToResp){
-		if (!input)
+	return function(input, hoursToResp, enabled){
+		if (!input || !enabled)
             return input;
 
 		var output = [];
+		var hoursToRespTimestamp = hoursToResp * 3600000;
+		for(var i = 0; i < input.length; i++){
+			var currentItem = input[i];
 
- /*       for(var i = 0; i < input.length; i++){
-            currentItem = input[i];
-            if(currentItem.type === type) {
-        	   output.push(input[i]);
-            }
-        }
-*/
-        return input;
+			if(currentItem.timeToResp && (hoursToRespTimestamp > currentItem.timeToResp)) {
+				output.push(input[i]);
+			}
+
+		}
+        return output;
 	};
 });

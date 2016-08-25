@@ -8,8 +8,9 @@ var path = require('path');
 var transporter = nodemailer.createTransport('smtps://' + mailConfig.address + ':' + mailConfig.pwd + '@smtp.gmail.com');
 
 exports.sendRegisterLink = function(token, user, req) {
-	
-	var mailTemplate = fs.readFileSync(path.join(__dirname, 'mail_templates/registration-link.ejs'), 'utf-8');
+	var lang = req.session.lang ? req.session.lang : 'pl';
+
+	var mailTemplate = fs.readFileSync(path.join(__dirname, 'mail_templates/registration-link' + lang + '.ejs'), 'utf-8');
 	var activationLink = 'http://' + req.headers.host + '/#/activation?token=' + token;
 	
 	var htmlMailTemplate = ejs.render(mailTemplate, {name: user.name, activationLink: activationLink});
@@ -17,7 +18,7 @@ exports.sendRegisterLink = function(token, user, req) {
 	var mailOptions = {
 	    from: 'Hero-Counter 👥 <hero.counter.app@gmail.com>', // sender address
 	    to: user.email, // list of receivers
-	    subject: 'Registration link',
+	    subject: lang == 'en' ? 'Registration link': 'Link rejestracyjny',
 	    generateTextFromHTML: true,
 	    html: htmlMailTemplate
 	};
@@ -37,8 +38,9 @@ exports.sendRegisterLink = function(token, user, req) {
 };
 
 exports.sendActivationReminder = function(newUserName, administratorsEmails, req){
-	var mailTemplate = fs.readFileSync(path.join(__dirname, 'mail_templates/activation-reminder.ejs'), 'utf-8');
-	var settingsLink = 'http://' + req.headers.host + '/#/settings';
+	var lang = req.session.lang ? req.session.lang : 'pl';
+	var mailTemplate = fs.readFileSync(path.join(__dirname, 'mail_templates/activation-reminder' + lang + '.ejs'), 'utf-8');
+	var settingsLink = 'http://' + req.headers.host + '/#/user-manager';
 	var mailModel = {
 		name: newUserName,
 		settingsLink: settingsLink
@@ -49,7 +51,7 @@ exports.sendActivationReminder = function(newUserName, administratorsEmails, req
 	var mailOptions = {
 		from: 'Hero-Counter 👥 <hero.counter.app@gmail.com>', // sender address
 		to: administratorsEmails, // list of receivers
-		subject: 'Activation reminder',
+		subject: lang === 'en' ? 'Activation reminder': 'Przypomnienie o aktywowaniu użytkownika',
 		generateTextFromHTML: true,
 		html: htmlMailTemplate
 	};

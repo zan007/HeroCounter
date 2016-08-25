@@ -1,4 +1,5 @@
 var express = require('express'),
+	cors = require('./config/cors'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -56,7 +57,7 @@ if(process.argv[2] === 'remote') {
 pool.on('enqueue', function () {
 	console.log('Waiting for available connection slot');
 });
-
+app.use(cors());
 app.use('/app', express.static(path.join(__dirname, srcDir, 'app')));
 app.use('/css', express.static(path.join(__dirname, srcDir, 'css')));
 app.use('/img', express.static(path.join(__dirname, srcDir, 'img')));
@@ -117,6 +118,7 @@ var userService = require('./user/user-service');
 var creatureService = require('./creature/creature-service');
 var eventService = require('./event/event-service');
 var userProfileService = require('./user/user-profile-service');
+var creatureProfileService = require('./creature/creature-profile-service');
 var settingsService = require('./settings/settings-service');
 var authentication = require('./authentication/authentication');
 require('./authentication/authentication')(passport);
@@ -127,12 +129,11 @@ var socketUserCounter = 0;
 
 app.get('/init', function(req, res, next) {
     var model = {};
-    var currentTimestamp = new Date().getTime();
-    var eventOffset = moment(currentTimestamp).add('d', 2).valueOf();
-    console.log('eventOffset', eventOffset.valueOf());
     async.series({
         personalData: function(callback){
            	var user = req.user;
+			//user.lang = req.session.lang;
+
             console.log(user);
             callback(null, user);
         },
@@ -168,13 +169,16 @@ function isLoggedIn(req, res, next) {
         return next();
     }
    /* res.status(401);*/
-    res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+	var lang = req.session.lang ? req.session.lang : 'pl';
+    res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 }
 
 app.get('/', isLoggedIn, function(req, res, next) {
-    console.log('poczatek');
+    console.log('poczatek ');
     res.status(200);
-    res.sendfile(path.join(__dirname, srcDir, 'index.html'));
+	var lang = req.session.lang ? req.session.lang : 'pl';
+
+    res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 });
 
 app.get('/isLoggedIn', function(req, res) {

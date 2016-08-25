@@ -4,7 +4,7 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
     function($scope, $rootScope, dataSource, avatarService, notificationService, defaultAvatar) {
 
 
-		var setDefaultSettingsValues = function(){
+		var setDefaultSettingsValues = function() {
 			$scope.editPasswordSettings = null;
 			$scope.editContactSettings = null;
 			$scope.editEmailSettings = null;
@@ -46,7 +46,10 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		var settingsCheckpoint = {};
 
 		$scope.uploadAvatar = function(){
-			dataSource.changeAvatar($rootScope.model.personalData.id, $scope.croppedImg);
+			$scope.showAvatarOverlay = true;
+			dataSource.changeAvatar($rootScope.model.personalData.id, $scope.croppedImg).then(function(){
+				$scope.showAvatarOverlay = false;
+			});
 		};
 
 		$scope.cancelUploadAvatar = function(){
@@ -70,12 +73,16 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		};
 
 		$scope.applyContactSettings = function(){
-
+			$scope.showContactOverlay = true;
 			var contactSettingsPromise = dataSource.applyContactSettings($scope.model.personalData);
 			contactSettingsPromise.then(function(data){
 				$scope.editContactSettings = false;
+				$scope.showContactOverlay = false;
 				settingsCheckpoint = createSettingsCheckpoint(data);
 				notificationService.showSuccessNotification('Contact settings succesfully changed');
+			}, function(){
+				$scope.showContactOverlay = false;
+				restoreSettingsCheckpoint();
 			});
 		};
 
@@ -90,9 +97,11 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		};
 
 		$scope.changeEmail = function(changeEmailForm){
+			$scope.showEmailOverlay = true;
 			var changeEmailPromise = dataSource.changeEmail($rootScope.model.personalData, changeEmailForm.oldEmail, changeEmailForm.newEmail);
 			changeEmailPromise.then(function(data){
 				$scope.editEmailSettings = false;
+				$scope.showEmailOverlay = false;
 				notificationService.showSuccessNotification('Successfully change your email address to '+ data.email);
 			});
 		};
@@ -109,9 +118,11 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 	    };
 
 		$scope.changePassword = function(changePasswordForm){
+			$scope.showPasswordOverlay = true;
 			var changePasswordPromise = dataSource.changePassword($rootScope.model.personalData, changePasswordForm.oldPassword, changePasswordForm.newPassword);
 
 			changePasswordPromise.then(function(){
+				$scope.showPasswordOverlay = true;
 				$scope.editPasswordSettings = false;
 				notificationService.showSuccessNotification('Successfully change your password');
 			});
@@ -119,6 +130,18 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		
 		$scope.cancelChangePassword = function(){
 			$scope.editPasswordSettings = false;
+		};
+
+		var tempContactFieldVal = '';
+
+		$scope.rememberContactValue = function(field) {
+			tempContactFieldVal = $scope.model.personalData[field];
+		};
+
+		$scope.restoreContactValue = function(field) {
+			if(!$scope.model.personalData[field]) {
+				$scope.model.personalData[field] = tempContactFieldVal;
+			}
 		};
 
     }

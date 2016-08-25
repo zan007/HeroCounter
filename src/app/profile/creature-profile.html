@@ -1,0 +1,105 @@
+<div ng-controller="creatureProfileCtrl" class="row profile creature-profile full-height">
+    <div class="container-fluid full-height">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="creature-info-tile">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>_(creatureProfile.creature)</h2>
+                            <h1>_(creatureProfile.information)</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-4 center-vertically">
+                            <img ng-src="{{creatureProfileModel.creature.image}}"/>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">_(creatureProfile.name)</div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.name"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+
+                                    <div class="property-section">
+                                        <div class="section-label">_(creatureProfile.minRespTime)</div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.minRespTime" full-names="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">_(creatureProfile.lvl)</div>
+                                        <div class="section-value" ng-bind="creatureProfileModel.creature.lvl"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="property-section">
+                                        <div class="section-label">_(creatureProfile.maxRespTime)</div>
+                                        <div class="section-value" hc-pretty-day-hour="creatureProfileModel.creature.maxRespTime" full-names="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!-- <div class="row">
+            <div class="col-xs-12">
+                <div class="probability-info-tile">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>_(creatureBattleTile.probability)</h2>
+                            <h1>_(creatureBattleTile.occurrence)</h1>
+                        </div>
+                    </header>
+                    <hr/>
+                    <div class="row">
+                        <div hc-stripe-chart="survivalChartData" name-field="time" value-field="probability" step-line="true" tooltip-label="_(creatureProfile.stripeChart.tooltip)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="creature-battles">
+                    <div class="creature-battle-charts">
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.battlesCount" type="BATTLE" summary-count="summaryBattles" ></div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <div hc-creature-battle-tile="creatureProfileModel.reportsCount" type="REPORT" summary-count="summaryBattles" ></div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div  class="row">
+            <div class="col-xs-12 col-lg-6">
+                <div class="favorite-time">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>_(profile.favorite.timeOfDay)</h2>
+                            <h1>_(profile.timeOfDay)</h1>
+                        </div>
+                    </header>
+                    <div ng-show="pieChartData" hc-pie-chart="pieChartData" name-field="label" value-field="value"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <div class="top-users">
+                    <header class="section-header">
+                        <div class="description">
+                            <h2>_(profile.top)</h2>
+                            <h1>_(profile.top.heroes)</h1>
+                        </div>
+                    </header>
+                    <div hc-top-chart="creatureProfileModel.topHeroes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

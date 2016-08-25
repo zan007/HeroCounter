@@ -75,7 +75,7 @@ module.exports = function(passport) {
 		passReqToCallback : true
 	},
 	function(req, login, password, done) {
-		console.log(req.body);
+		console.log('TUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ', req.body);
 		process.nextTick(function() {
 			pool.getConnection(function(err, connection) {
 				connection.query('select * from user where login = ?', login, function(err, rows){
@@ -83,45 +83,60 @@ module.exports = function(passport) {
 						return done(err);
 
 					if (rows.length > 0) {
-						return done(null, false, {message: 'That login is already taken.'});
+						return done(null, false, {
+							message: 'That login is already taken.',
+							code: 21,
+							persistence: true
+						});
 					} else {
-						var timestamp = new Date().getTime();
-						var tokenExpirationDate = timestamp + 7200000; 
-						var activationToken = generateToken();
-						var userToken = generateToken();
-						var registerData = req.body;
-						var newUser = {
-							login: login,
-							password: generateHash(password),
-							name: registerData.name,
-							email: registerData.email,
-							activationToken: activationToken,
-							tokenExpirationDate: tokenExpirationDate,
-							userToken: userToken
-						};
-						console.log('poczatek rejestracji', newUser);
-						mailer.sendRegisterLink(activationToken, newUser, req);
-						connection.query('insert into user set ?', newUser, function(error, rows2){
-							if (error) throw error;
+						connection.query('select * from user where name = ?', req.body.name, function(err, rows){
+							if(rows.length > 0){
+								return done(null, false, {
+									message: 'That name is already taken.',
+									code: 22,
+									persistence: true
+								});
+							} else {
+								var timestamp = new Date().getTime();
+								var tokenExpirationDate = timestamp + 7200000;
+								var activationToken = generateToken();
+								var userToken = generateToken();
+								var registerData = req.body;
+								var newUser = {
+									login: login,
+									password: generateHash(password),
+									name: registerData.name,
+									email: registerData.email,
+									activationToken: activationToken,
+									tokenExpirationDate: tokenExpirationDate,
+									userToken: userToken
+								};
+								console.log('poczatek rejestracji', newUser);
+								mailer.sendRegisterLink(activationToken, newUser, req);
+								connection.query('insert into user set ?', newUser, function(error, rows2){
+									if (error) throw error;
 
-							newUser.id = rows2.insertId;
-							sendActivationReminder(newUser.name, req);
-							/*connection.query('select email from user where isAdministrator = ?', 1, function(error, rows) {
-								if (error) throw error;
+									newUser.id = rows2.insertId;
+									sendActivationReminder(newUser.name, req);
+									/*connection.query('select email from user where isAdministrator = ?', 1, function(error, rows) {
+									 if (error) throw error;
 
-								var administrators = [];
-								for(var i = 0, len = rows.length; i < len; i++) {
-									administrators.push(rows[i].email);
-								}
+									 var administrators = [];
+									 for(var i = 0, len = rows.length; i < len; i++) {
+									 administrators.push(rows[i].email);
+									 }
 
-								console.log('administratorzy: ', administrators);
-								if(administrators.length > 0) {
-									mailer.sendActivationReminder(newUser.name, administrators, req);
-								}
-							});*/
+									 console.log('administratorzy: ', administrators);
+									 if(administrators.length > 0) {
+									 mailer.sendActivationReminder(newUser.name, administrators, req);
+									 }
+									 });*/
 
-							return done(null, newUser);
-						});	
+									return done(null, newUser);
+								});
+							}
+						});
+
 					}
 					connection.release();	
 				});
@@ -145,14 +160,20 @@ module.exports = function(passport) {
 
 				if (!rows.length) {
 					console.log('authentication failuer');
-					return done(null, false, {message: 'authentication failured'});//req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+					return done(null, false, {
+						message: 'authentication failured',
+						code: 11
+					});
 				} 
 				
 				bcrypt.compare(password, rows[0].password, function(err, res){
 					if(!res){
 						console.log('wrong password but login ok');
 						connection.release();
-						return done(null, false, {message: 'Wrong password, please try again'});
+						return done(null, false, {
+							message: 'Wrong password, please try again',
+							code: 12
+						});
 					} else {
 						connection.query('SELECT * FROM user WHERE login = ? AND activationToken IS NULL', [login], function(err, rows) {
 							if(err) {
@@ -174,8 +195,10 @@ module.exports = function(passport) {
 										console.log('Before log in your account must be accepted by administrator. ' +
 											'We send email to him to make it faster. If your account will be accepted we inform you by email');
 										connection.release();
-										return done(null, false, {persistence: true, message: 'Before log in your account must be accepted by administrator. ' +
-										'We send email to him to make it faster. If your account will be accepted we inform you via email'});
+										return done(null, false, {
+											persistence: true,
+											code: 14,
+											message: 'Before log in your account must be accepted by administrator. We send email to him to make it faster. If your account will be accepted we inform you via email'});
 									}
 
 								});
@@ -183,7 +206,11 @@ module.exports = function(passport) {
 							} else if(rows.length === 0) {
 								console.log('Before log in please click activation link from email');
 								connection.release();
-								return done(null, false, {persistence: true, message: 'Please activate account by click in activation link from email before login'});
+								return done(null, false, {
+									code: 13,
+									persistence: true,
+									message: 'Please activate account by click in activation link from email before login'
+								});
 							}
 						});
 					}

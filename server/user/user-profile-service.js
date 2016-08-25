@@ -1,9 +1,21 @@
 var server = require('../server'),
 	pool = server.pool,
+	_ = require('lodash'),
 	userService = require('./user-service'),
 	async = require('async'),
 	moment = require('moment'),
 	app = server.app;
+
+var getCreatureBattlesCount = function(battles, creatureId){
+	var creatureBattleCount = 0;
+	for(var i = 0, len = battles.length; i < len; i++){
+		if(battles[i].creatureId === creatureId) {
+			creatureBattleCount++;
+		}
+	}
+
+	return creatureBattleCount;
+};
 
 var getBattleStats = function(battles, profileModel, guest, cb){
 	var statsModel;
@@ -12,37 +24,36 @@ var getBattleStats = function(battles, profileModel, guest, cb){
 	} else {
 		statsModel = profileModel.mainHeroStats;
 	}
+	var tempCreatureList = {};
+
+	for(var j = 0; j < battles.length; j++) {
+		var creatureId = battles[j].creatureId;
+		var placeId = battles[j].placeId;
+
+		if(statsModel.creatures.map(function(e) { return e.creatureId; }).indexOf(creatureId) === -1) {
+			statsModel.creatures.push({creatureId: creatureId, creatureBattleCount: 0});
+		}
+		if(statsModel.places.map(function(e) { return e.placeId; }).indexOf(placeId) === -1) {
+			statsModel.places.push({placeId: placeId, placeBattleCount: 0});
+		}
+
+	}
 
 	for(var i = 0; i < battles.length; i++) {
 		var placeId = battles[i].placeId;
 		var creatureId = battles[i].creatureId;
+		console.log('creatureId', creatureId);
+		statsModel.places.forEach(function(place){
+			if(place.placeId === placeId) {
+				place.placeBattleCount += 1;
+			}
+		});
 
-		if(statsModel.places.length > 0) {
-			statsModel.places.forEach(function (place) {
-
-				if (place.placeId === placeId) {
-					place.placeCount += 1;
-				}
-			});
-		} else {
-			statsModel.places.push({
-				placeId: placeId,
-				placeCount: 1
-			});
-		}
-		
-		if(statsModel.creatures.length > 0){
-			statsModel.creatures.forEach(function(creature){
-				if(creature.creatuId === creatureId) {
-					creature.creatureCount += 1;
-				}
-			});
-		} else {
-			statsModel.creatures.push({
-				creatureId: creatureId,
-				creatureCount: 1
-			});
-		}
+		statsModel.creatures.forEach(function(creature){
+			if(creature.creatureId === creatureId) {
+				creature.creatureBattleCount += 1;
+			}
+		});
 
 		var battleHour = moment(battles[i].battleDate).hours();
 
@@ -70,7 +81,7 @@ var getBattleStats = function(battles, profileModel, guest, cb){
 
 app.get('/getUserProfile', function(req, res) {
 	console.log('poczatek pobierania profilu', req.params);
-	if(req.param('userId')){
+	if(req.param('userId') && req.isAuthenticated()){
 		var userId = req.param('userId'),
 			profileModel = {};
 		pool.getConnection(function(err, connection) {
@@ -103,6 +114,7 @@ app.get('/getUserProfile', function(req, res) {
 							for (var i = 0, len = rows.length; i < len; i++) {
 								var currentHero = rows[i];
 								profileModel.mainHeroes.push(currentHero);
+
 								profileModel.mainHeroStats.battles.push({
 									'heroId': currentHero.id,
 									'battleCount': 0
@@ -126,7 +138,12 @@ app.get('/getUserProfile', function(req, res) {
 						if (rows && rows.length > 0) {
 							for (var i = 0, len = rows.length; i < len; i++) {
 								var currentHero = rows[i];
+								var guestUserId = rows[i].mainUserId ? rows[i].mainUserId : null;
 								profileModel.guestHeroes.push(currentHero);
+
+								profileModel.guestUser = {
+									id: guestUserId
+								};
 								profileModel.guestHeroStats.battles.push({
 									'heroId': currentHero.id,
 									'battleCount': 0
@@ -137,6 +154,26 @@ app.get('/getUserProfile', function(req, res) {
 						cb(null, profileModel);
 					});
 
+				},
+				function(profileModel, cb){
+					if(profileModel.guestUser && profileModel.guestUser.id) {
+						userService.getUser(profileModel.guestUser.id, function (err, user) {
+							if (err) {
+								cb(err);
+							}
+							profileModel.guestUser = _.merge({
+								name: user.name,
+								avatar: user.avatar,
+								isAdministrator: user.isAdministrator
+							}, profileModel.guestUser);
+
+
+							cb(null, profileModel);
+						});
+					} else {
+						profileModel.guestUser = null;
+						cb(null, profileModel);
+					}
 				},
 				function (profileModel, cb) {
 					profileModel.mainHeroStats.places = [];
@@ -178,7 +215,7 @@ app.get('/getUserProfile', function(req, res) {
 										battleRows = battleRows.concat(rows);
 										profileModel.mainHeroStats.battles.forEach(function(battle){
 											if(battle.heroId === mainHeroIds[iCopy]){
-												battle.battleCount = battleRows.length;
+												battle.battleCount = rows.length;
 											}
 										});
 
@@ -219,7 +256,7 @@ app.get('/getUserProfile', function(req, res) {
 										battleRows = battleRows.concat(rows);
 										profileModel.guestHeroStats.battles.forEach(function(battle){
 											if(battle.heroId === guestHeroIds[iCopy]){
-												battle.battleCount = battleRows.length;
+												battle.battleCount = rows.length;
 											}
 										});
 									}
@@ -248,7 +285,6 @@ app.get('/getUserProfile', function(req, res) {
 			});
 		});
 	} else {
-		connection.release();
 		res.status(404).send('not Found');
 	}
 });

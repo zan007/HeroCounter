@@ -19,6 +19,22 @@ var getUser = function(id, cb){
 	});
 };
 
+var getUserByToken = function(token, cb) {
+	pool.getConnection(function(err, connection){
+		connection.query('select * from user where userToken = ?', token, function(err, rows){
+			if (err) throw err;
+
+			connection.release();
+			if(rows.length === 1) {
+				return cb(null, rows[0]);
+			} else {
+				return cb(err);
+			}
+
+		});
+	});
+};
+
 var getUsers = function(cb) {
 	pool.getConnection(function(err, connection){
 		connection.query('select id, email, name, tokenExpirationDate, isAdministrator, waitForAccept, avatar from user', 1, function(err, rows){
@@ -69,6 +85,22 @@ app.post('/getUsers', function(req, res) {
 	} else {
 		res.status(404).send();
 	}
+});
+
+app.post('/setLanguage', function(req, res){
+
+	if(req.body && req.body.lang) {
+		var lang = req.param('lang');
+		req.session.lang = lang;
+		req.session.save();
+		res.status(200).send();
+	} else {
+		res.status(404).send();
+	}
+});
+
+app.get('/getLanguage', function(req, res){
+	res.send(req.session.lang ? req.session.lang : 'pl');
 });
 
 app.post('/activate', function(req, res) {
@@ -210,5 +242,6 @@ app.post('/setCommonUser', function(req, res) {
 
 module.exports = {
 	getUser: getUser,
-	getUsers: getUsers
+	getUsers: getUsers,
+	getUserByToken: getUserByToken
 };

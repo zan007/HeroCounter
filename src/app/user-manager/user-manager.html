@@ -1,23 +1,23 @@
 <div ng-controller="userManagerCtrl" class="row user-manager">
     <div class="container-fluid">
-        <div class="main-header">User manager</div>
-        <div class="sub-header">You can manage users here, accept, reject or delete</div>
+        <div class="main-header">_(userManager.header)</div>
+        <div class="sub-header">_(userManager.description)</div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="users-list">
-                    <div class="list-header">Users</div>
+                    <div class="list-header">_(userManager.users)</div>
                     <div class="list-legend">
-                        <div class="col-xs-1 role">Role</div>
+                        <div class="col-xs-1 role">_(userManager.role)</div>
                         <div class="col-xs-4 name clickable" ng-click="setFilter('name')">
-                            Name
+                            _(userManager.name)
                             <i ng-show="filterConfig.field === 'name'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                         <div class="col-xs-3 email clickable" ng-click="setFilter('email')">
-                            Email
+                            _(userManager.email)
                             <i ng-show="filterConfig.field === 'email'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                         <div class="col-xs-4 register-date clickable" ng-click="setFilter('registerDate')">
-                            Register Date
+                            _(userManager.registerDate)
                             <i ng-show="filterConfig.field === 'registerDate'" ng-class="{'icon-up': !filterConfig.reverse, 'icon-down': filterConfig.reverse}"></i>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                 <div class="name" ng-bind="user.name"></div>
                             </div>
                             <div class="center-vertically col-xs-3">
-                                <div class="email" ng-bind="user.email">Email</div>
+                                <div class="email" ng-bind="user.email"></div>
                             </div>
                             <div class="center-vertically col-xs-4">
                                 <div class="register-date" hc-pretty-time="user.tokenExpirationDate" full-date="true"></div>
@@ -40,25 +40,29 @@
                         <div ng-show="activeUserId === user.id" class="row user-details">
                             <div class="center-vertically action" ng-show="user.waitForAccept">
                                 <button class="button accept" ng-click="acceptUser(user)">
-                                    Accept User
+                                    _(userManager.actions.accept)
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="user.waitForAccept">
                                 <button class="button cancel" ng-click="rejectUser(user)">
-                                    Reject User
+                                    _(userManager.actions.reject)
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="!user.isAdministrator && user.waitForAccept != null && user.waitForAccept !== 1">
                                 <button class="button" ng-click="setAdministrator(user)">
-                                    Set as administrator
+                                    _(userManager.actions.setAsAdministrator)
                                 </button>
                             </div>
                             <div class="center-vertically action" ng-show="user.isAdministrator">
                                 <button class="button cancel" ng-click="setCommonUser(user)">
-                                    Set as common user
+                                    _(userManager.actions.setAsCommonUser)
                                 </button>
                             </div>
+                            <div class="user-details-overlay splash-container" ng-show="showUserDetailsOverlay">
+                                <div class="splash"></div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

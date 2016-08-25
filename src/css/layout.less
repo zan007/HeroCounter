@@ -144,15 +144,18 @@ body {
 		  	.justify-content(space-between);
             padding: 0 15px;
             font-family: 'brandon-blk';
-            max-width: 175px;
+           /* max-width: 175px;*/
+		  padding-top: 5px;
+		  padding-bottom: 5px;
             min-height: 30px;
             border-radius: 2.5px;
             cursor: pointer;
 
             .title {
-                font-size: 13px;
-                color: #5682b2;
-                margin: auto 0;
+			  font-size: 13px;
+			  text-transform: uppercase;
+              color: #5682b2;
+              margin: auto 0;
             }
 
             .icon {
@@ -178,6 +181,31 @@ body {
 
         }
     }
+
+  	.lang {
+	  margin-top: 50px;
+	  padding-left: 20px;
+	  font-size: 13px;
+	  text-transform: uppercase;
+	  color: #5682b2;
+
+	  .lang-flag {
+		display: inline-block;
+		margin-right: 10px;
+		margin-top: 10px;
+		cursor: pointer;
+
+		&.not-active {
+		  opacity: 0.3;
+		  cursor: auto;
+		}
+
+		img {
+		  height: 30px;
+		  width: 30px;
+		}
+	  }
+	}
 
     .menu-button {
         background-color: #214b76;
@@ -215,13 +243,18 @@ body {
 
 }
 
+.common-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.5;
+}
+
 .news {
 
     /*.rotate-y(30deg);*/
-}
-
-.heroes {
-    font-size: 0;
 }
 
 .text-center {
@@ -233,7 +266,7 @@ body {
     top: 50%;
     right: 50%;
     .translate-3d(50%, -50%);
-    width: 300px;
+    width: 350px;
     height: auto;
     .border-radius(5px);
     .background-alpha(#275482, 0.6);
@@ -243,20 +276,29 @@ body {
     color: white;
     
     .auth-type {
-        color: #13a4e4;
+	  color: #13a4e4;
+	  text-transform: uppercase;
     }
 
     .header {
-        color: white;
-        margin-bottom: 40px;
+	  color: white;
+	  margin-bottom: 40px;
+	  text-transform: uppercase;
     }
+
+  	.button {
+	  &.login, &.register {
+		text-transform: uppercase;
+	  }
+	}
 }
 
 .button {
     -webkit-appearance: none;
     border: 0;
-    width: 150px;
+    min-width: 150px;
     height: 30px;
+  	font-size: 16px;
     background-color: #129fdd;
     color: white;
     margin-top: 10px;

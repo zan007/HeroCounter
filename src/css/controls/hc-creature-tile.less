@@ -4,6 +4,7 @@
 	background-color: #275482;
 	.background-alpha(#275482, 0.9);
 	.border-radius(5px);
+	.box-shadow(-4px -5px 13px -1px rgba(0, 0, 0, 0.2));
 	text-transform: uppercase;
 	position: relative;
 	display: inline-block;
@@ -16,6 +17,7 @@
 		right: 0;
 		top: 0;
 		padding: 10px;
+		cursor: pointer;
 
 		img {
 			width: 50%;
@@ -27,6 +29,7 @@
 	.tile-header {
 		font-size: 14px;
 		color: white;
+	  	min-height: 80px;
 		padding: 30px 65px 10px 30px;
 	}
 
@@ -34,17 +37,83 @@
 		color: #1792cd;
 		font-size: 12px;
 		padding: 0 0 0 35px;
+	  margin-bottom: 30px;
+	  	min-height: 35px;
+
+	  .last-seen-date {
+		font-size: 12px;
+		margin-top: 5px;
+		color: #b9d5ee;
+	  }
+
+	}
+
+  	.additional-actions {
+	  	color: white;
+	  	font-size: 12px;
+	  	padding-bottom: 10px;
+	  	padding-top: 10px;
+		background-color: rgba(31,69,109,0.7);
+	  	.box-shadow(inset 0px 8px 34px -17px rgba(4,26,55,0.72));
+		position: relative;
+
+		.up-button {
+		  width: 40px;
+		  height: 40px;
+		  margin-top: 20px;
+		  .border-radius(50%);
+		  border: solid 2px white;
+		  .flex-display();
+		  cursor: pointer;
+
+		  .icon{
+			margin: auto;
+			font-size: 20px;
+			color: white;
+
+		  }
+		}
+
+	  	.potential-label {
+		  min-height: 40px;
+		  text-align: center;
+		}
+
+		.date-picker {
+		  .flex-display();
+		  .justify-content(center);
+		  height: 100px;
+
+		  .form-input {
+			text-align: center;
+			width: 100px;
+		  }
+		}
+
+	  	.overlay {
+		  position: absolute;
+		  left: 0;
+		  top: 0;
+		  width: 100%;
+		  height: 100%;
+		  opacity: 0.7;
+		  background-color: rgba(31, 69, 109, 1);
+		}
 	}
 
 	.tile-content {
-		margin-bottom: 40px;
 		text-align: center;
+	  	.flex-display();
+	  	.flex-direction(row);
+	  	.justify-content(space-around);
+	  	.flex-wrap(wrap);
 
 		.tile-section {
-			margin-top: 30px;
-			display: inline-block;
-			height: 60px;
-			/*width: 75px;*/
+
+		  	margin-bottom: 35px;
+			/*display: inline-block;*/
+			//height: 60px;
+			//width: 75px;
 			border-right: 3px dotted #234d78;
 			text-align: center;
 
@@ -53,20 +122,22 @@
 			}
 		}
 
-		.label {
+
+		.tile-label {
 			white-space: normal;
 			color: #96abc0;
 			font-size: 11px;
-			padding-left: 5px;
+			/*word-wrap: break-word;
 			text-align: center;
-			display: inline-block;
+			display: inline-block;*/
 			vertical-align: top;
 		}
 
 		.value {
-			color: #1792cd;
-			font-size: 14px;
-			font-weight: 600;
+		  color: #1792cd;
+		  font-size: 14px;
+		  font-weight: 600;
+		  text-transform: none;
 		}
 	}
 
@@ -95,7 +166,7 @@
 		background-color: #224d79;
 		.border-radius(0 0 5px 5px);
 		cursor: pointer;
-		color: #3c6795;
+		color: #96abc0;
 
 		&:hover {
 			color: white;

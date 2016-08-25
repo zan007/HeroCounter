@@ -1,6 +1,26 @@
 .hc-events-timeline {
 	position: relative;
+	padding-bottom: 100px;
 
+
+  .top-container {
+	position: fixed;
+	bottom: 20px;
+	right: 30px;
+	font-size: 14px;
+
+	.top-button {
+	  width: 50px;
+	  height: 50px;
+	  background-color: #12aeef;
+	  .border-radius(50%);
+	  margin: auto;
+	}
+
+	.icon {
+	  font-size: 36px;
+	}
+  }
 	.day-label + .event-info {
 		margin-top: 70px;
 	}
@@ -8,6 +28,51 @@
     .left-element.event-with-label+.right-element.event-with-label {
         padding-top: 180px;
     }
+
+  	.event-info {
+
+	  &.report {
+
+	  }
+
+	  .header {
+		display: inline-block;
+		vertical-align: middle;
+	  }
+	  .avatar {
+		width: 40px;
+		.border-radius(50%);
+		border: solid 1px #129fdd;
+		text-align: center;
+		margin: auto 0 auto 25px;
+		cursor: pointer;
+	  }
+
+
+	}
+
+  	.right-element {
+	  .avatar {
+		float: left;
+		margin: auto 25px auto 0;
+	  }
+	}
+
+	.splash-container {
+	  height: 100px;
+	}
+
+  	.empty-container {
+	  color: #fff;
+	  .flex-display();
+	  .justify-content(center);
+	  .flex-direction(column);
+	  text-align: center;
+	  i {
+		text-align: center;
+		font-size: 30px;
+	  }
+	}
 
 	.left-element, .right-element {
 		position: relative;
@@ -30,6 +95,10 @@
 			color: #12aeef;
 			font-size: 12px;
 			text-transform: uppercase;
+
+		  &.active {
+			cursor: pointer;
+		  }
 		}
 
 		.creature {
@@ -37,31 +106,37 @@
 			text-transform: uppercase;
 			margin-top: 7px;
 			margin-bottom: 15px;
+		  	cursor: pointer;
 		}
 
 		.details {
 			color: #b9d5ee;
 			font-size: 12px;
+
+		  .active {
+			color: #fcf8e3;
+			cursor: pointer;
+		  }
 		}
 
-		.day-label {
-			position: absolute;
-			width: 100%;
-			height: 35px;
-			margin: 20px 0px 40px 0px;
+	  .day-label {
+		position: absolute;
+		width: 100%;
+		height: 35px;
+		margin: 20px 0px 40px 0px;
 
-			.value {
-				margin: 0 24%;
-                padding-top: 8px;
-                height: 100%;
-				.border-radius(5px);
-				background-color: #12aeef;
-				color: white;
-				text-align: center;
-				text-transform: uppercase;
-			}
-			
+		.value {
+		  margin: 0 24%;
+		  padding-top: 8px;
+		  height: 100%;
+		  .border-radius(5px);
+		  background-color: #12aeef;
+		  color: white;
+		  text-align: center;
+		  text-transform: uppercase;
 		}
+
+	  }
 	}
 
 	.left-element {
@@ -82,7 +157,7 @@
 	}
 
 	.right-element {
-		padding-top: 100px;
+		padding-top: 150px;
 		padding-left: 25px;
 		text-align: left;
 		border-left: solid 3px #1d4975;
@@ -95,4 +170,20 @@
 			left: -10px;
 		}
 	}
+}
+
+@media only screen and (max-width: 1280px){
+  .hc-events-timeline {
+	.right-element {
+	  padding-top: 200px;
+	}
+  }
+}
+
+@media only screen and (max-width: 1024px){
+  .hc-events-timeline {
+	.right-element {
+	  padding-top: 250px;
+	}
+  }
 }

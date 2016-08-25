@@ -8,9 +8,9 @@ angular.module('onlyWithKnownTimeFilter',[])
 		var output = [];
 
         for(var i = 0; i < input.length; i++){
-            currentItem = input[i];
-            if(onlyWithKnownTime ) {
-                if(currentItem.timeToResp) {
+            var currentItem = input[i];
+            if(onlyWithKnownTime) {
+                if(currentItem.timeToResp || currentItem.lastSeenDate) {
             	   output.push(input[i]);
                 }
             } else {

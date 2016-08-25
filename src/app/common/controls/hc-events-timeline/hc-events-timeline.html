@@ -1,23 +1,42 @@
- <div class="row hc-events-timeline">
+ <div class="row hc-events-timeline scrollable full-height">
     <div ng-repeat="event in events" class="col-xs-6" ng-class="{'right-element': !($index % 2 == 0), 'left-element': $index % 2 == 0, 'event-with-label': showDayLabel(event, $index)}">
         <div class="day-label" ng-if="showDayLabel(event, $index)">
-            <div class="value" ng-bind="getDayName(event.battleDate)"></div>
+            <div class="value" ng-bind="event.type === 'BATTLE' ? getDayName(event.battleDate) : getDayName(event.reportDate)"></div>
         </div>
-        <div class="event-info">
-            <div hc-pretty-time="event.battleDate"></div>
-            <div>
-                <i class="icon-circle"></i>
-                <div class="person" ng-bind="event.group[0].heroName"></div>
+        <div class="event-info" ng-class="{report: event.type === 'REPORT'}">
+            <div class="header">
+                <div hc-pretty-time="event.battleDate || event.reportDate"></div>
+                <div>
+                    <i class="icon-circle"></i>
+                    <div class="person" ng-if="event.type === 'BATTLE'" ng-bind="event.group[0].heroName"></div>
+                    <div class="person active" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)">_(user): {{event.reporter.name}}</div>
+                </div>
             </div>
+            <img class="avatar" ng-if="event.type === 'REPORT'" ng-click="goToUserProfile(event.reporter.id)" ng-src="{{event.reporter.avatar}}"/>
 
-            <div class="creature" ng-bind="event.creature.name"></div>
+            <div class="creature" ng-bind="event.creature.name" ng-click="goToCreatureProfile(event.creature.id)"></div>
             <div class="details">
-                <span>was defeated by: </span>
-                <span ng-repeat="member in event.group">
+                <span ng-if="event.type === 'BATTLE'">_(eventsTimeline.defeatedBy)</span>
+                <span ng-repeat="member in event.group" ng-click="goToUserProfile(member.mainUserId)" ng-class="{active: member.mainUserId}">
                     <span>{{member.heroName}}</span>
                     <span ng-show="!$last">,</span>
                 </span>
             </div>
+         </div>
+     </div>
+     <div class="top-container" ng-show="showGoTopButton" ng-click="goToTop()">
+         <div class="top-button">
+             <i class="icon icon-up-small"></i>
+         </div>
+         <div class="center-vertically">_(backToTop)</div>
+     </div>
+     <div class="col-xs-12 splash-container" ng-show="showLoadingIndicator">
+         <div class="splash"></div>
+     </div>
+     <div class="col-xs-12 empty-container full-height" ng-if="events.length === 0">
+         <i class="icon-address"></i>
+         <div class="info">
+             _(eventsTimeLine.noEvents)
          </div>
      </div>
 </div>

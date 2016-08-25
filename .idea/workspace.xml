@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aa742d42-75f6-49b8-a5bf-8c88d0a812d2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/css/index.css" afterPath="$PROJECT_DIR$/dist/css/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.en.html" afterPath="$PROJECT_DIR$/dist/index.en.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.pl.html" afterPath="$PROJECT_DIR$/dist/index.pl.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/index.html" afterPath="$PROJECT_DIR$/temp/index.html" />
-    </list>
+    <list default="true" id="aa742d42-75f6-49b8-a5bf-8c88d0a812d2" name="Default" comment="" />
     <ignored path="heroCounter.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -1012,7 +1006,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="847250000" />
+    <option name="totallyTimeSpent" value="847859000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1024,7 +1018,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1060" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28004292" sideWeight="0.1295681" order="0" side_tool="false" content_ui="combo" />
@@ -1587,9 +1581,9 @@
         <state relative-caret-position="84">
           <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
           <folding>
-            <marker date="1472161162366" expanded="true" signature="9770:9776" ph="{...}" />
-            <marker date="1472161162366" expanded="true" signature="9770:9783" ph="{...}" />
-            <marker date="1472161162366" expanded="true" signature="9770:9791" ph="{...}" />
+            <marker date="1472162061017" expanded="true" signature="9770:9776" ph="{...}" />
+            <marker date="1472162061017" expanded="true" signature="9770:9783" ph="{...}" />
+            <marker date="1472162061017" expanded="true" signature="9770:9791" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1599,7 +1593,7 @@
         <state relative-caret-position="231">
           <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
           <folding>
-            <marker date="1472161162428" expanded="true" signature="318:1076" ph="[...]" />
+            <marker date="1472162061086" expanded="true" signature="318:1076" ph="[...]" />
           </folding>
         </state>
       </provider>

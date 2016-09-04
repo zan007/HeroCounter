@@ -131,7 +131,7 @@ module.exports = function (grunt) {
           sourceMapRootpath: '/'
         },
         files: {
-          'dist/css/index.css': 'src/css/index.css'
+          'dist/css/index.css': 'src/css/index.less'
         }
       },
       release: {
@@ -141,7 +141,7 @@ module.exports = function (grunt) {
           optimization: 2
         },
         files: {
-          'dist/app/app.<%=timestamp%>.css': 'src/css/index.css'
+          'dist/app/app.<%=timestamp%>.css': 'src/css/index.less'
         }
       }
     },

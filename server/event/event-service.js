@@ -433,7 +433,7 @@ app.post('/registerEvent', function(req, res) {
 					});
 				} else {
 					connection.release();
-					res.status(401).send({message: 'unknown token'});
+					res.status(404).send();
 				}
 			});
 		});

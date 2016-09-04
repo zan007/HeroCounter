@@ -1,4 +1,4 @@
-angular.module('login', ['dataSource', 'ngEnter', 'userAuthService', 'controls.hcValidationPattern']).
+angular.module('login', ['ngEnter', 'userAuthService', 'controls.hcValidationPattern']).
 
 controller('loginCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'userAuthService', 'appStates', '$state', 'notificationService', '$stateParams',
     function($scope, $rootScope, dataSource, $http, userAuthService, appStates, $state, notificationService, $stateParams) {

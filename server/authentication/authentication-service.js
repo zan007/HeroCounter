@@ -60,6 +60,11 @@ app.get('/logout', function(req, res) {
 	});
 });
 
+app.get('/isLoggedIn', function(req, res) {
+	console.log('isloggedIn request', req.isAuthenticated(), req.user);
+	res.send(req.isAuthenticated()? req.user : {});
+});
+
 app.post('/changePassword', function(req, res) {
 	if(req.body){
 		var newPasswordPlain = req.body.newPassword,

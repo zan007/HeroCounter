@@ -1,5 +1,5 @@
-angular.module('controls.hcUserHeroTile', ['dataSource'])
-.directive('hcUserHeroTile', ['$rootScope', 'dataSource', '$window', 'radialProgressService', function($rootScope, dataSource, $window, radialProgressService) {
+angular.module('controls.hcUserHeroTile', [])
+.directive('hcUserHeroTile', ['$rootScope', '$window', 'radialProgressService', function($rootScope, $window, radialProgressService) {
 	return {
 		scope: {
 			hero: '=hcUserHeroTile',

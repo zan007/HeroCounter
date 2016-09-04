@@ -1,4 +1,4 @@
-angular.module('activation', ['dataSource', 'ui.router']).
+angular.module('activation', ['ui.router']).
 
 controller('activationCtrl', ['$scope', '$rootScope', '$location', 'dataSource',
 	function($scope, $rootScope, $location, dataSource) {

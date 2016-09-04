@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt-nodejs'),
 	databaseConfig = require('./../config/database'),
 	mysql = require('mysql'),
 	LocalStrategy = require('passport-local').Strategy,
-	mailer = require('./../mailer');
+	mailer = require('./../utils/mailer');
 //var connection = mysql.createConnection(databaseConfig.details);
 console.log('duuuuuuuuuupa', pool);
 /*if(process.argv[2] === 'remote') {

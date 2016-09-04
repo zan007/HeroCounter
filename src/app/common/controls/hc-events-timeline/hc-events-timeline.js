@@ -1,4 +1,4 @@
-angular.module('controls.hcEventsTimeline', ['dataSource'])
+angular.module('controls.hcEventsTimeline', [])
 
 .directive('hcEventsTimeline', ['$state', 'dataSource', 'locales', '$rootScope', 'timeUtils', 'locales', '$timeout', function($state, dataSource, locales, $rootScope, timeUtils, locales, $timeout) {
 	return {

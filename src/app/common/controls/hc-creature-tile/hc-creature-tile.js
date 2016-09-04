@@ -1,4 +1,4 @@
-angular.module('controls.hcCreatureTile', ['dataSource'])
+angular.module('controls.hcCreatureTile', [])
 
 .directive('hcCreatureTile', ['dataSource', '$rootScope', 'notificationService', '$timeout', '$state', function (dataSource, $rootScope, notificationService, $timeout, $state) {
 	return {

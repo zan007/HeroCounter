@@ -1,4 +1,4 @@
-angular.module('creatures', ['dataSource', 'ngEnter', 'controls.hcCreatureTile', 'rzModule', 'filters.creaturesFilter']).
+angular.module('creatures', ['ngEnter', 'controls.hcCreatureTile', 'rzModule', 'filters.creaturesFilter']).
 
 controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creaturesFilter', '$cookies','$cookieStore', '$stateParams', '$timeout', 'socketFactory', 'notificationService',
 	function($scope, $rootScope, dataSource, $http, creaturesFilter, $cookies, $cookieStore, $stateParams, $timeout, socketFactory, notificationService) {

@@ -39,5 +39,5 @@ angular.module('socketFactory', [])
     		socket.removeAllListeners();
     	},
     	getSocket: getSocket
-    }
+    };
 }])

@@ -1,5 +1,5 @@
-angular.module('controls.hcTopChart', ['dataSource'])
-	.directive('hcTopChart', ['$rootScope', 'dataSource', '$window', '$state', function($rootScope, dataSource, $window, $state) {
+angular.module('controls.hcTopChart', [])
+	.directive('hcTopChart', ['$rootScope', '$window', '$state', function($rootScope, $window, $state) {
 		return {
 			scope: {
 				topData: '=hcTopChart'

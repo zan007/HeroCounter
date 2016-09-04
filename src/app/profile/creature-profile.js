@@ -1,4 +1,4 @@
-angular.module('creatureProfile', ['dataSource'])
+angular.module('creatureProfile', [])
 .controller('creatureProfileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', '$state', 'locales', function($scope, $rootScope, dataSource, $location, $stateParams, $state, locales){
 
 	$scope.pieChartData = [];

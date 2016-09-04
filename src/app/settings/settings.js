@@ -1,4 +1,4 @@
-angular.module('settings', ['dataSource', 'ngFileUpload', 'ngImgCrop']).
+angular.module('settings', ['ngFileUpload', 'ngImgCrop']).
 
 controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService', 'notificationService', 'defaultAvatar',
     function($scope, $rootScope, dataSource, avatarService, notificationService, defaultAvatar) {

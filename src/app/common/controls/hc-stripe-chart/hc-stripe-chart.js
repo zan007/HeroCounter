@@ -1,5 +1,5 @@
-angular.module('controls.hcStripeChart', ['dataSource'])
-.directive('hcStripeChart', ['$rootScope', 'dataSource', '$window', function($rootScope, dataSource, $window) {
+angular.module('controls.hcStripeChart', [])
+.directive('hcStripeChart', ['$rootScope', '$window', function($rootScope, $window) {
 	return {
 		scope: {
 			data: '=hcStripeChart',

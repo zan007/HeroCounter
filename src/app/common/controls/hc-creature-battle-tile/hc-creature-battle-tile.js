@@ -1,5 +1,5 @@
-angular.module('controls.hcCreatureBattleTile', ['dataSource'])
-	.directive('hcCreatureBattleTile', ['$rootScope', 'dataSource', '$window', 'radialProgressService', function($rootScope, dataSource, $window, radialProgressService) {
+angular.module('controls.hcCreatureBattleTile', [])
+	.directive('hcCreatureBattleTile', ['$rootScope', '$window', 'radialProgressService', function($rootScope, $window, radialProgressService) {
 		return {
 			scope: {
 				type: '@',

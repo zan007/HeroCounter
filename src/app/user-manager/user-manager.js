@@ -1,4 +1,4 @@
-angular.module('userManager', ['dataSource', 'ngEnter']).
+angular.module('userManager', ['ngEnter']).
 
 controller('userManagerCtrl', ['$scope', '$rootScope', 'dataSource', 'notificationService', 'defaultAvatar',
 	function($scope, $rootScope, dataSource, notificationService, defaultAvatar) {

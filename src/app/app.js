@@ -11,7 +11,7 @@ $script.ready('angular', function() {
 		'activation',
 		'settings',
 		'userManager',
-		'dataSource',
+		'data.dataSource',
 		'ngTouch',
 		'ngEnter',
 		'constants',
@@ -42,7 +42,7 @@ $script.ready('angular', function() {
 		'ngImgCrop'
 	])
 	.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function ($httpProvider, $stateProvider, $urlRouterProvider) {
-		$httpProvider.interceptors.push(function ($q, $location, $window) {
+		$httpProvider.interceptors.push(function ($q, $location, $window, $rootScope) {
 			return {
 				response: function (response) {
 					// do something on success
@@ -53,7 +53,7 @@ $script.ready('angular', function() {
 					console.log('error');
 					if (response.status === 401) {
 						console.log('401');
-						$window.location.reload();
+						$rootScope.logout();
 
 					}
 
@@ -133,14 +133,6 @@ $script.ready('angular', function() {
 				params: {
 					newsVisible: true,
 					creatureId: ''
-				}
-			})
-			.state('basic', {
-				url: '/basic',
-				templateUrl: '/basic',
-				authRequire: false,
-				params: {
-					newsVisible: false
 				}
 			});
 	}])
@@ -262,7 +254,7 @@ $script.ready('angular', function() {
 
 			$scope.btnClick = false;
 
-			$scope.logout = function () {
+			$rootScope.logout = function () {
 				userAuthService.logout().then(function (data) {
 					$rootScope.states = appStates[userAuthService.getIsLogged()];
 					$rootScope.model = {};

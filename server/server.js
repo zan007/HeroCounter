@@ -9,7 +9,6 @@ var express = require('express'),
     databaseConfig = require('./config/database'),
     mime = require('mime'),
     async = require('async'),
-    gen = require('./gen'),
     mysql = require('mysql'),
     passport = require('passport'),
     flash    = require('connect-flash'),
@@ -181,9 +180,6 @@ app.get('/', isLoggedIn, function(req, res, next) {
     res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 });
 
-app.get('/isLoggedIn', function(req, res) {
-    console.log('isloggedIn request', req.isAuthenticated(), req.user);
-    res.send(req.isAuthenticated()? req.user : {});
-});
+
 
 

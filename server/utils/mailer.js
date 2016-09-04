@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 var express = require('express');
-var mailConfig = require('./config/mail');
+var mailConfig = require('./../config/mail');
 var fs = require('fs');
 var ejs = require('ejs');
 var path = require('path');

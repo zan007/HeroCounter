@@ -143,7 +143,7 @@ app.post('/changeAvatar', function(req, res){
 				});
 			} else {
 				connection.release();
-				res.status(401).send();
+				res.status(404).send();
 			}
 		});
 	}

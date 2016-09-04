@@ -1,4 +1,4 @@
-angular.module('register', ['dataSource', 'ngEnter']).
+angular.module('register', ['ngEnter']).
 
 controller('registerCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'userAuthService', '$state', 'locales', 'notificationService',
     function($scope, $rootScope, dataSource, $http, userAuthService, $state, locales, notificationService) {

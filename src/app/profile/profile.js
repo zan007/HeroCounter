@@ -1,4 +1,4 @@
-angular.module('profile', ['dataSource'])
+angular.module('profile', [])
 .controller('profileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', 'defaultAvatar', '$state', 'locales', function($scope, $rootScope, dataSource, $location, $stateParams, defaultAvatar, $state, locales){
 	console.log('profileCtrl');
 	$scope.defaultAvatarLink = defaultAvatar.link;

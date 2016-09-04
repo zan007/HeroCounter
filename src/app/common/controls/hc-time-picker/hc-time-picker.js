@@ -1,6 +1,6 @@
-angular.module('controls.hcTimePicker', ['dataSource'])
+angular.module('controls.hcTimePicker', [])
 
-	.directive('hcTimePicker', ['dataSource', function (dataSource) {
+	.directive('hcTimePicker', function () {
 		return {
 			scope: {
 				time: '=hcTimePicker'
@@ -62,4 +62,4 @@ angular.module('controls.hcTimePicker', ['dataSource'])
 				});
 			}
 		};
-	}]);
+	});

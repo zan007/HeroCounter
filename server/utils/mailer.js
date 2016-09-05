@@ -10,7 +10,7 @@ var transporter = nodemailer.createTransport('smtps://' + mailConfig.address + '
 exports.sendRegisterLink = function(token, user, req) {
 	var lang = req.session.lang ? req.session.lang : 'pl';
 
-	var mailTemplate = fs.readFileSync(path.join(__dirname, 'mail_templates/registration-link.' + lang + '.ejs'), 'utf-8');
+	var mailTemplate = fs.readFileSync(path.join('..', 'server', 'mail_templates/registration-link.' + lang + '.ejs'), 'utf-8');
 	var activationLink = 'http://' + req.headers.host + '/#/activation?token=' + token;
 	
 	var htmlMailTemplate = ejs.render(mailTemplate, {name: user.name, activationLink: activationLink});
@@ -39,7 +39,7 @@ exports.sendRegisterLink = function(token, user, req) {
 
 exports.sendActivationReminder = function(newUserName, administratorsEmails, req){
 	var lang = req.session.lang ? req.session.lang : 'pl';
-	var mailTemplate = fs.readFileSync(path.join(__dirname, 'mail_templates/activation-reminder.' + lang + '.ejs'), 'utf-8');
+	var mailTemplate = fs.readFileSync(path.join('..', 'server', 'mail_templates/activation-reminder.' + lang + '.ejs'), 'utf-8');
 	var settingsLink = 'http://' + req.headers.host + '/#/user-manager';
 	var mailModel = {
 		name: newUserName,

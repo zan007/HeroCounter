@@ -30,21 +30,22 @@ controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'cre
 		};
 
 		$scope.sendRequest = function() {
-			dataSource.call({method: 'POST',
-								url: '/registerEvent',
-								data: { 
-									token: 'bcf3e0ce2f2986c9d7a5e651446de927654161635ab77a4e5c137cc0765f6751746ea326620c88f37674ebe1914ff37a',
-								 	nick: 'Nirun',
-								 	creature: 'łowczyni wspomnień',
-								 	group: ['Nirun Briendus', 'Szopen'],
-								 	place: 'Mroczny przesmyk',
-									guest: true
-								}
-							}, function(data) {
-								//$rootScope.model.creatures = data.creatures;
-								//$rootScope.$broadcast('dataSource.ready');
-							});
-		}
+			dataSource.call({
+				method: 'POST',
+				url: '/registerEvent',
+				data: {
+					token: 'bcf3e0ce2f2986c9d7a5e651446de927654161635ab77a4e5c137cc0765f6751746ea326620c88f37674ebe1914ff37a',
+					nick: 'Nirun',
+					creature: 'łowczyni wspomnień',
+					group: ['Nirun Briendus', 'Szopen'],
+					place: 'Mroczny przesmyk',
+					guest: true
+				}
+			}, function(data) {
+				//$rootScope.model.creatures = data.creatures;
+				//$rootScope.$broadcast('dataSource.ready');
+			});
+		};
 
 		$scope.lvlRangeSlider = {
 			minValue: $cookieStore.get('lvlRange.minValue') ? $cookieStore.get('lvlRange.minValue'): 20,
@@ -54,8 +55,8 @@ controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'cre
 				ceil: 320,
 				step: 1,
 				onChange: function() {
-					/*$scope.filter.lvlRange = $scope.lvlRangeSlider;
-					$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);*/
+					$scope.filter.lvlRange = $scope.lvlRangeSlider;
+					$scope.filteredCreatures = creaturesFilter.filter($scope.creatures, $scope.filter);
 					$cookieStore.put('lvlRange.minValue', $scope.lvlRangeSlider.minValue); 
 					$cookieStore.put('lvlRange.maxValue', $scope.lvlRangeSlider.maxValue);
 				}
@@ -63,7 +64,14 @@ controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'cre
 		};
 		
 		$scope.timeSlider = {
-			value: 24
+			value: 24,
+			options: {
+				onChange: function() {
+					$scope.filter.hoursToResp = $scope.timeSlider.value;
+					$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
+					$cookieStore.put('hoursToResp', $scope.timeSlider.value);
+				}
+			}
 		};
 
 	   	$scope.$watch('creatureType', function(creatureType) {
@@ -83,25 +91,6 @@ controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'cre
 			$scope.filter.onlyWithKnownTime = onlyWithKnownTime;
 			$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
 			$cookieStore.put('onlyWithKnownTime', onlyWithKnownTime); 
-		});
-		
-		$scope.$watch('lvlRangeSlider', function(lvlRange) {
-				$scope.filter.lvlRange = lvlRange;
-				$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter, $scope.onlyWithKnownTime);
-				$cookieStore.put('lvlRange.minValue', lvlRange.minValue); 
-				$cookieStore.put('lvlRange.maxValue', lvlRange.maxValue);
-		}, true);
-
-		$scope.$watch('timeSlider', function(timeSlider) {
-			$scope.filter.hoursToResp = timeSlider.value;
-			$scope.filteredCreatures = creaturesFilter.filter(angular.copy($scope.creatures), $scope.filter);
-			$cookieStore.put('hoursToResp', timeSlider.value);
-		}, true);
-
-		$scope.$watch('creatures', function(creatures) {
-			if(creatures && creatures.length > 0) {
-				
-			}
 		});
 	}
 ]);

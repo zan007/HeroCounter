@@ -11,7 +11,7 @@
 
   <!-- web app in fullscreen mode on iPad -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" type="text/css" href="/app/app.1473096500667.css">
+  <link rel="stylesheet" type="text/css" href="/app/app.1473108543658.css">
   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
 
   <script>
@@ -62,7 +62,7 @@ $script.ready('angular', function() {
     ], 'vendors');
 });
 $script.ready('vendors', function() {
-    $script(['/app/app.1473096500667.js'], 'app');
+    $script(['/app/app.1473108543658.js'], 'app');
 });
 $script.ready('app', function() {
     angular.bootstrap(document, ['heroCounter']);
@@ -207,7 +207,7 @@ $script.ready('app', function() {
 			<div class="row time-to-resp">
 				<div class="col-md-12">
 					<header class="filter-header">Czas do pojawienia się potwora [h]</header>
-					<rzslider rz-slider-model="timeSlider.value"></rzslider>
+					<rzslider rz-slider-model="timeSlider.value" rz-slider-options="timeSlider.options"></rzslider>
 				</div>
 				<div class="common-overlay" ng-show="!onlyWithKnownTime"></div>
 			</div>

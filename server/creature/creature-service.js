@@ -16,7 +16,7 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 	var creatures = [];
 	pool.getConnection(function(err, connection) {
 		if(!creatureId) {
-			connection.query('select * from creature', function (err, rows) {
+			connection.query('select * from creature order by lvl', function (err, rows) {
 				if (err) throw err;
 				for (var i = 0; i < rows.length; i++) {
 					var currentCreature = rows[i];

@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="row button-group" ng-show="editAvatar">
-        <button class="button accept" ng-click="uploadAvatar()">_(settings.avatar.actions.change)</button>
+        <button class="button accept" ng-disabled="!croppedImg" ng-click="uploadAvatar()">_(settings.avatar.actions.change)</button>
         <button class="button cancel" ng-click="cancelUploadAvatar()">_(settings.actions.cancel)</button>
     </div>
 </section>

@@ -46,10 +46,14 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		var settingsCheckpoint = {};
 
 		$scope.uploadAvatar = function(){
-			$scope.showAvatarOverlay = true;
-			dataSource.changeAvatar($rootScope.model.personalData.id, $scope.croppedImg).then(function(){
-				$scope.showAvatarOverlay = false;
-			});
+			if($scope.croppedImg) {
+				$scope.showAvatarOverlay = true;
+				dataSource.changeAvatar($rootScope.model.personalData.id, $scope.croppedImg).then(function () {
+					$scope.showAvatarOverlay = false;
+				}, function(){
+					$scope.showAvatarOverlay = false;
+				});
+			}
 		};
 
 		$scope.cancelUploadAvatar = function(){

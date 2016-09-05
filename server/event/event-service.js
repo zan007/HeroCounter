@@ -406,7 +406,9 @@ app.post('/registerEvent', function(req, res) {
 											io.emit('eventsUpdated', data[0]);
 										}, timestamp, timestamp);
 
-										res.status(200).send(output);
+										res.status(200).send({
+											message: 'Dodano informację',
+										});
 									}, creatureId);
 
 

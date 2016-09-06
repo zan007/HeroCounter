@@ -143,7 +143,7 @@ app.get('/creatureProfile', function(req, res) {
 
 			async.waterfall([
 				function(wcb){
-					connection.query('select count(*) as count from battle', function (err, rows) {
+					connection.query('select count(*) as count from battle where creatureId = ?', creatureId, function (err, rows) {
 						if(err) {
 							wcb(err);
 						}
@@ -152,7 +152,7 @@ app.get('/creatureProfile', function(req, res) {
 						wcb();
 					});
 				}, function(wcb) {
-					connection.query('select count(*) as count from report', function (err, rows){
+					connection.query('select count(*) as count from report where creatureId = ?', creatureId, function (err, rows){
 						if(err) {
 							wcb(err);
 						}

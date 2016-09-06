@@ -1,7 +1,7 @@
 angular.module('creatures', ['ngEnter', 'controls.hcCreatureTile', 'rzModule', 'filters.creaturesFilter']).
 
-controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creaturesFilter', '$cookies','$cookieStore', '$stateParams', '$timeout', 'socketFactory', 'notificationService',
-	function($scope, $rootScope, dataSource, $http, creaturesFilter, $cookies, $cookieStore, $stateParams, $timeout, socketFactory, notificationService) {
+controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'creaturesFilter', '$cookies','$cookieStore', '$stateParams', '$timeout', 'socketFactory', 'notificationService', 'call',
+	function($scope, $rootScope, dataSource, $http, creaturesFilter, $cookies, $cookieStore, $stateParams, $timeout, socketFactory, notificationService, call) {
 		$scope.filteredCreatures = {};
 		$scope.filter = creaturesFilter.get();
 
@@ -30,18 +30,19 @@ controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'cre
 		};
 
 		$scope.sendRequest = function() {
-			dataSource.call({
+			call({
 				method: 'POST',
 				url: '/registerEvent',
 				data: {
 					token: 'bcf3e0ce2f2986c9d7a5e651446de927654161635ab77a4e5c137cc0765f6751746ea326620c88f37674ebe1914ff37a',
-					nick: 'Nirun',
-					creature: 'łowczyni wspomnień',
-					group: ['Nirun Briendus', 'Szopen'],
+					nick: 'Nir',
+					creature: 'Renegat Baulus',
+					group: ['Nir', 'Szopen', 'iiiiii', 'pppp', 'pooo'],
 					place: 'Mroczny przesmyk',
 					guest: true
 				}
 			}, function(data) {
+				console.log(data);
 				//$rootScope.model.creatures = data.creatures;
 				//$rootScope.$broadcast('dataSource.ready');
 			});

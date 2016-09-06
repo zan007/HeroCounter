@@ -197,66 +197,108 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 		var currentHeroId = '';
 		if(rows.length === 1) {
 			currentHeroId = rows[0].id;
+			async.waterfall([
+				function(wcb){
+					if(userId !== null && guest === true){
+						connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
+							if(err) wcb(err);
 
-			//update creature set defeatedDate = ? where id = ?
-			if(userId !== null && guest === true){
-				connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
-					if(err) cb(err);
-				});
-			} else if(userId !== null && guest === false) {
-				connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err){
-					if(err) cb(err);
-				});
-			}
+							wcb();
+						});
+					} else if(userId !== null && guest === false) {
+						connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err){
+							if(err) wcb(err);
 
-			var heroBattleFields = {
-				heroId: currentHeroId,
-				battleId: battleId
-			};
+							wcb();
+						});
+					} else {
+						wcb();
+					}
+				},
+				function(wcb) {
+					var heroBattleFields = {
+						heroId: currentHeroId,
+						battleId: battleId
+					};
 
-			connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
-				if(err) {
-					throw(err);
-				}
-			});
-			/*connection.release();*/
-		} else {
+					connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
+						if(err) {
+							wcb(err);
+						}
 
-			connection.query('insert into hero set ?', {heroName: currentHeroName}, function (err, rows) {
-				if (err) {
-					cb(err);
-				}
-
-
-				currentHeroId = rows.insertId;
-
-				var heroBattleFields = {
-					heroId: currentHeroId,
-					battleId: battleId
-				};
-
-				connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
-					if(err){
-						throw(err);
+						cb();
+					});
+				}],
+				function(err){
+					if(err) {
+						cb(err);
 					}
 				});
+			//update creature set defeatedDate = ? where id = ?
 
-				if(userId !== null && guest === true){
-					connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
-						if(err) {
-							cb(err);
+
+
+
+			/*connection.release();*/
+		} else {
+			async.waterfall([
+					function(wcb){
+						var heroFields = {
+							heroName: currentHeroName
+						};
+
+						connection.query('insert into hero set ?', heroFields, function (err, rows) {
+							if (err) {
+								wcb(err);
+							}
+
+
+							wcb(null, rows.insertId);
+						});
+					},
+					function(currentHeroId, wcb) {
+						var heroBattleFields = {
+							heroId: currentHeroId,
+							battleId: battleId
+						};
+
+						connection.query('insert into heroBattle set ?', heroBattleFields, function (err) {
+							if(err){
+								wcb(err);
+							}
+
+							wcb();
+						});
+					},
+					function(wcb){
+						if(userId !== null && guest === true){
+							connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
+								if(err) {
+									wcb(err);
+								}
+								connection.release();
+								cb();
+							});
+
+						} else if(userId !== null && guest === false) {
+							connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err){
+								if(err) {
+									wcb(err);
+								}
+								connection.release();
+								cb();
+							});
+
+						} else {
+							cb();
 						}
-					});
-					connection.release();
-				} else if(userId !== null && guest === false) {
-					connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err){
-						if(err) {
-							cb(err);
-						}
-					});
-					connection.release();
-				}
-			});
+					}],
+				function(err){
+					if(err) {
+						cb(err);
+						connection.release();
+					}
+				});
 		}
 
 	});
@@ -381,14 +423,36 @@ app.post('/registerEvent', function(req, res) {
 							},
 							function(cb) {
 								for(var i = 0, len = group.length; i < len; i++) {
-									var currentHeroName = group[i];
-									console.log(currentHeroName);
-									if(currentHeroName === nick) {
-										insertIntoHeroBattle(connection, currentHeroName, battleId, userId, guest, cb);
-									} else {
-										insertIntoHeroBattle(connection, currentHeroName, battleId, null, null, cb);
-									}
+									(function() {
+										var iCopy = i;
+										var currentHeroName = group[iCopy];
+										console.log(currentHeroName);
+										if (currentHeroName === nick) {
+											insertIntoHeroBattle(connection, currentHeroName, battleId, userId, guest, function(err){
+												if(err){
+													cb(err);
+												}
+
+												if(iCopy === len - 1){
+													cb();
+												}
+											});
+										} else {
+											insertIntoHeroBattle(connection, currentHeroName, battleId, null, false, function(err){
+												if(err){
+													cb(err);
+												}
+
+												if(iCopy === len - 1){
+													cb();
+												}
+											});
+										}
+									}());
 								}
+
+
+							}, function(cb){
 								connection.commit(function(err) {
 									if (err) cb(err);
 									var creatureService = require('../creature/creature-service');
@@ -407,13 +471,12 @@ app.post('/registerEvent', function(req, res) {
 										}, timestamp, timestamp);
 
 										res.status(200).send({
-											message: 'Dodano informację',
+											message: 'Dodano informację'
 										});
 									}, creatureId);
 
 
 								});
-
 							}
 						], function (err, errorMessage, errCode) {
 

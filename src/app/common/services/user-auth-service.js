@@ -50,16 +50,15 @@ angular.module('userAuthService', [])
 		};
 		var deferred = $q.defer();
 		dataSource.logg(credentials).then(function(data) {
-			if(data) {
-				
-				setLogged(true);
-				/*this.isLogged = true;*/
-				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-				deferred.resolve(data);
-			} else {
-				deferred.reject();
-				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);	
-			}
+
+			setLogged(true);
+			/*this.isLogged = true;*/
+			$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			deferred.resolve(data);
+
+		}, function(){
+			deferred.reject();
+			$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 		});
 
 		return deferred.promise;

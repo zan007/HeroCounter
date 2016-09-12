@@ -3,7 +3,6 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    fs = require('fs'),
     path = require('path'),
     appConfig = require('./config/app'),
     databaseConfig = require('./config/database'),
@@ -12,12 +11,9 @@ var express = require('express'),
     mysql = require('mysql'),
     passport = require('passport'),
     flash    = require('connect-flash'),
-    moment = require('moment'),
     http = require('http').Server(express),
     _ = require('lodash'),
-    bluebird = require('bluebird'),
     io,
-	bcrypt = require('bcrypt-nodejs'),
     favicon = require('serve-favicon');
 
 express.static.mime.define({
@@ -101,7 +97,7 @@ var runServer = function(err) {
 	setEventHandlers();
 
 	console.log('Listening on port: ' + appConfig.listenPort);
-}
+};
 
 runServer(null);
 
@@ -144,7 +140,6 @@ app.get('/init', function(req, res, next) {
         model.personalData = results.personalData;
         model.creatures = results.creatures;
         model.events = results.events;
-		model.users = results.users;
 
         console.log('powinien byc emit');
         io.sockets.emit('hello', {hello: true});

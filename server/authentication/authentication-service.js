@@ -21,7 +21,8 @@ app.post('/signup', function(req, res, next){
 		}
 		console.log('rejestracja poprawnie');
 		req.logOut();
-		res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
+		res.status(200).send();
+		//res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
 	})(req, res, next);
 });
 
@@ -44,7 +45,8 @@ app.post('/login', function(req, res, next) {
 			}
 
 			console.log('logowanie poprawnie ');
-			res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
+			res.status(200).send();
+			//res.sendfile(path.join(server.dirName, server.srcDir, 'index.pl.html'));
 		});
 	})(req, res, next);
 });

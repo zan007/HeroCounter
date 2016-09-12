@@ -6,17 +6,6 @@ var server = require('../server'),
 	moment = require('moment'),
 	app = server.app;
 
-var getCreatureBattlesCount = function(battles, creatureId){
-	var creatureBattleCount = 0;
-	for(var i = 0, len = battles.length; i < len; i++){
-		if(battles[i].creatureId === creatureId) {
-			creatureBattleCount++;
-		}
-	}
-
-	return creatureBattleCount;
-};
-
 var getBattleStats = function(battles, profileModel, guest, cb){
 	var statsModel;
 	if(guest) {
@@ -24,7 +13,6 @@ var getBattleStats = function(battles, profileModel, guest, cb){
 	} else {
 		statsModel = profileModel.mainHeroStats;
 	}
-	var tempCreatureList = {};
 
 	for(var j = 0; j < battles.length; j++) {
 		var creatureId = battles[j].creatureId;
@@ -42,7 +30,7 @@ var getBattleStats = function(battles, profileModel, guest, cb){
 	for(var i = 0; i < battles.length; i++) {
 		var placeId = battles[i].placeId;
 		var creatureId = battles[i].creatureId;
-		console.log('creatureId', creatureId);
+
 		statsModel.places.forEach(function(place){
 			if(place.placeId === placeId) {
 				place.placeBattleCount += 1;
@@ -80,10 +68,10 @@ var getBattleStats = function(battles, profileModel, guest, cb){
 };
 
 app.get('/getUserProfile', function(req, res) {
-	console.log('poczatek pobierania profilu', req.params);
 	if(req.param('userId') && req.isAuthenticated()){
 		var userId = req.param('userId'),
 			profileModel = {};
+
 		pool.getConnection(function(err, connection) {
 			async.waterfall([
 				function (cb) {
@@ -274,11 +262,11 @@ app.get('/getUserProfile', function(req, res) {
 						cb(null, profileModel);
 					}
 				},
-				function (profileModel, cb) {
+				function (profileModel) {
 					connection.release();
 					res.status(200).send(profileModel);
 				}
-			], function (err, errMessage) {
+			], function (err) {
 				connection.release();
 				res.status(500).send();
 				throw err;

@@ -1,17 +1,12 @@
-var path = require('path'),
-	server = require('../server'),
+var server = require('../server'),
 	io = server.io,
 	_ = require('lodash'),
-	eventService = require('../event/event-service'),
-	userService = require('../user/user-service'),
-	dateUtils = require('../utils/date-utils'),
 	pool = server.pool,
 	percentile = require('stats-percentile'),
 	async = require('async'),
 	moment = require('moment'),
 	app = server.app,
 	io = server.io;
-
 
 app.get('/creatureAnalyze', function(req, res){
 	if (req.query.creatureId && req.isAuthenticated()) {
@@ -57,7 +52,6 @@ app.get('/creatureAnalyze', function(req, res){
 						if (maxRespTime.diff(nextEventDate) > 0) {
 							observations.push({
 								status: 1,
-								//defeatAfter: Math.floor((moment(maxRespTime).diff(nextEventDate) / 60000) / interval).toFixed(0)
 								defeatAfter: Math.floor((moment(nextEventDate).diff(currentEventDate) / 60000) / interval).toFixed(0)
 							});
 							defeatAfterArray.push(Math.floor((moment(nextEventDate).diff(currentEventDate) / 60000) / interval).toFixed(0));
@@ -94,7 +88,6 @@ app.get('/creatureAnalyze', function(req, res){
 							'time': parseInt(elem),
 							'probability': probability.toFixed(2)
 						});
-						//elem.surviveProbability = (tempObservationsLen - defeatCount) / tempObservationsLen;
 						tempObservationsLen -= defeatCount;
 
 					}
@@ -123,8 +116,6 @@ app.get('/creatureAnalyze', function(req, res){
 });
 
 app.get('/creatureProfile', function(req, res) {
-	//console.log('poczatek pobierania profilu', req.params);
-
 	if (req.query.creatureId && req.isAuthenticated()) {
 		var creatureId = req.query.creatureId;
 		var battleCount = 0,
@@ -199,7 +190,6 @@ app.get('/creatureProfile', function(req, res) {
 						sortedTopHeroes.splice(topCount-1, howManyElements);
 					}
 
-
 					topHeroes = sortedTopHeroes;
 
 					wcb();
@@ -217,7 +207,6 @@ app.get('/creatureProfile', function(req, res) {
 									topHeroes[iCopy].mainUserId = rows[0].mainUserId;
 								}
 							});
-
 						}());
 					}
 
@@ -237,6 +226,7 @@ app.get('/creatureProfile', function(req, res) {
 							} else if (battleHour >= 5 && battleHour < 12) {
 								dateMap.night += 1;
 							}
+
 							if(rows[i].placeId) {
 								var currentPlaceId = rows[i].placeId;
 								if (placeMap[currentPlaceId]) {
@@ -267,32 +257,10 @@ app.get('/creatureProfile', function(req, res) {
 									wcb();
 								}
 							});
-
-
 						}());
 					}
-
-					/*for(var keys = Object.keys(placeMap), i = 0, end = keys.length; i < end; i++) {
-						var key = keys[i];
-
-						getPlaceById(key, function(err, placeRow) {
-							if (placeRow){
-								placeArray.push({
-									placeId: placeRow[0].id,
-									placeName: placeRow[0].name
-								});
-							}
-
-							if(i === end){
-								wcb();
-							}
-						});
-
-						// do what you need to here, with index i as position information
-					}*/
-
-				}
-				], function(err) {
+				}],
+				function(err) {
 					connection.release();
 					if(err) {
 						res.status(404).send();
@@ -307,7 +275,7 @@ app.get('/creatureProfile', function(req, res) {
 					};
 
 					res.status(200).send(toSend);
-			});
+				});
 		});
 	} else {
 		res.status(404).send();

@@ -90,9 +90,7 @@ var runServer = function(err) {
 	if (err)
 		throw err;
 
-	//data = generatedData;
 	server = app.listen(process.env.PORT || 8000);
-	//io = require('socket.io').listen(server);
 	io = require('socket.io').listen(server);
 	setEventHandlers();
 
@@ -120,16 +118,12 @@ require('./authentication/authentication')(passport);
 var socketUserCounter = 0;
 
 
-
-
 app.get('/init', function(req, res, next) {
     var model = {};
     async.series({
         personalData: function(callback){
            	var user = req.user;
-			//user.lang = req.session.lang;
 
-            console.log(user);
             callback(null, user);
         },
         creatures: creatureService.recalcCreatureRespTime,
@@ -141,40 +135,21 @@ app.get('/init', function(req, res, next) {
         model.creatures = results.creatures;
         model.events = results.events;
 
-        console.log('powinien byc emit');
-        io.sockets.emit('hello', {hello: true});
         res.send(model);
     });
 });
 
-/*app.post('/login', passport.authenticate('local-login', {
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }), function(req, res){
-        console.log('logowanie poprawnie ', res);
-        res.sendfile(path.join(__dirname, srcDir, 'index.html'));
-    });*/
-
 function isLoggedIn(req, res, next) {
-    console.log('islogged', req.isAuthenticated());
     if (req.isAuthenticated()){
-        console.log('next');
-        
         return next();
     }
-   /* res.status(401);*/
 	var lang = req.session.lang ? req.session.lang : 'pl';
     res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 }
 
 app.get('/', isLoggedIn, function(req, res, next) {
-    console.log('poczatek ');
     res.status(200);
 	var lang = req.session.lang ? req.session.lang : 'pl';
 
     res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
 });
-
-
-
-

@@ -104,7 +104,6 @@ app.get('/getLanguage', function(req, res){
 });
 
 app.post('/activate', function(req, res) {
-	console.log('poczatek aktywacji', req.params);
 	if(req.body && req.body.token){
 		var token = req.body.token;
 		var currentTimestamp = new Date().getTime();
@@ -136,7 +135,6 @@ app.post('/activate', function(req, res) {
 });
 
 app.post('/acceptUserActivation', function(req, res) {
-	console.log('poczatek akceptacji uzytkownika', req.params);
 	if(req.body && req.body.userToken && req.body.userId) {
 		checkAdministrator(req.body.userToken, function() {
 			var userId = req.body.userId;
@@ -163,7 +161,6 @@ app.post('/acceptUserActivation', function(req, res) {
 });
 
 app.post('/rejectUserActivation', function(req, res) {
-	console.log('poczatek odrzucania uzytkownika', req.params);
 	if(req.body && req.body.userToken && req.body.userId) {
 		checkAdministrator(req.body.userToken, function() {
 			var userId = req.body.userId;

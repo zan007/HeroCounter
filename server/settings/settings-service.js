@@ -89,56 +89,45 @@ app.post('/changeAvatar', function(req, res){
 					if (rows[0].avatar !== null) {
 						cloudinaryUtils.delete(userId, function (error, result) {
 							if (error) {
-								console.log(error);
 								res.status(500).send(error);
-							} else {
-								console.log('SUUUUKCES usuniecia avatara', result);
-
-								async.waterfall([
-									function (cb) {
-
-
-										cloudinaryUtils.upload(avatar, userId, function (error, result) {
-											if (error) {
-												cb(error);
-
-											} else {
-												console.log('SUUUUKCES dodania avatara', result);
-
-
-												cb(null, result);
-											}
-										});
-
-
-									},
-									function (uploadedData, cb) {
-										var avatarLink = uploadedData.secure_url;
-										connection.query('update user set avatar = ? where id = ?', [avatarLink, userId], function (err) {
-											if (err) cb(err);
-											connection.query('select * from user where id = ?', userId, function(err, rows) {
-												res.status(200).send(rows[0]);
-
-											});
-
-										});
-									}
-								], function (err, errorMessage) {
-									console.log('zwykly err');
-
-									if (!errorMessage) {
-										connection.release();
-										throw err;
-									} else {
-										console.log('errorMessage: ', errorMessage);
-										connection.release();
-										res.status(500).send({message: errorMessage});
-									}
-
-								});
-
 							}
+
+							async.waterfall([
+								function (cb) {
+									cloudinaryUtils.upload(avatar, userId, function (error, result) {
+										if (error) {
+											cb(error);
+										}
+
+										cb(null, result);
+									});
+								},
+								function (uploadedData, cb) {
+									var avatarLink = uploadedData.secure_url;
+									connection.query('update user set avatar = ? where id = ?', [avatarLink, userId], function (err) {
+										if (err) {
+											cb(err);
+										}
+
+										connection.query('select * from user where id = ?', userId, function(err, rows) {
+											res.status(200).send(rows[0]);
+										});
+
+									});
+								}
+							], function (err, errorMessage) {
+								if (!errorMessage) {
+									connection.release();
+									throw err;
+								} else {
+									connection.release();
+									res.status(500).send({message: errorMessage});
+								}
+
+							});
 						});
+					} else {
+						res.status(404).send();
 					}
 				});
 			} else {
@@ -146,5 +135,7 @@ app.post('/changeAvatar', function(req, res){
 				res.status(404).send();
 			}
 		});
+	} else {
+		res.status(404).send();
 	}
 });

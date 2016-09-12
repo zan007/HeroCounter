@@ -15,7 +15,7 @@ exports.sendRegisterLink = function(token, user, req) {
 	var activationLink = 'http://' + req.headers.host + '/#/activation?token=' + token;
 	
 	var htmlMailTemplate = ejs.render(mailTemplate, {name: user.name, activationLink: activationLink});
-	//console.log('dypa',htmlMailTemplate);
+
 	var mailOptions = {
 	    from: 'Hero-Counter 👥 <hero.counter.app@gmail.com>', // sender address
 	    to: user.email, // list of receivers
@@ -26,15 +26,13 @@ exports.sendRegisterLink = function(token, user, req) {
 	
 	transporter.sendMail(mailOptions, function(error, info) {
 		if(error) {
-			console.log('email error', error);
 			return {status: 'error'};
 		}
-		console.log('email success');
+
 		return {
 			status: 'success',
 			info: info
 		};
-
 	});
 };
 
@@ -48,7 +46,6 @@ exports.sendActivationReminder = function(newUserName, administratorsEmails, req
 	};
 
 	var htmlMailTemplate = ejs.render(mailTemplate, mailModel);
-	//console.log('dypa',htmlMailTemplate);
 	var mailOptions = {
 		from: 'Hero-Counter 👥 <hero.counter.app@gmail.com>', // sender address
 		to: administratorsEmails, // list of receivers
@@ -59,14 +56,12 @@ exports.sendActivationReminder = function(newUserName, administratorsEmails, req
 
 	transporter.sendMail(mailOptions, function(error, info) {
 		if(error) {
-			console.log('email error', error);
 			return {status: 'error'};
 		}
-		console.log('email success');
+
 		return {
 			status: 'success',
 			info: info
 		};
-
 	});
 };

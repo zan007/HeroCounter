@@ -20,17 +20,12 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 				if (err) throw err;
 				for (var i = 0; i < rows.length; i++) {
 					var currentCreature = rows[i];
-
-
 					var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
 
 					if (moment(maxRespDate).isBefore(today)) {
-						console.log('stare');
 						currentCreature.timeToResp = null;
 					} else {
-
 						var dateDifference = moment(maxRespDate).diff(moment(today));
-
 						currentCreature.timeToResp = dateDifference;
 					}
 					creatures.push(currentCreature);
@@ -43,21 +38,17 @@ var recalcCreatureRespTime = function(callback, creatureId) {
 				if (err) throw err;
 
 				if (rows.length === 1) {
-
 					var currentCreature = rows[0];
 					var maxRespDate = moment(currentCreature.defeatedDate).add('h', currentCreature.maxRespTime);
 
 					if (moment(maxRespDate).isBefore(today)) {
-
 						currentCreature.timeToResp = null;
 					} else {
-
 						var dateDifference = moment(maxRespDate).diff(moment(today));
-
 						currentCreature.timeToResp = dateDifference;
 					}
-					creatures.push(currentCreature);
 
+					creatures.push(currentCreature);
 				} else {
 					callback('unknown creature');
 				}
@@ -94,74 +85,14 @@ app.get('/creatures', function(req, res){
 			if (err) throw err;
 
 			for (var i = 0; i < rows.length; i++) {
-				/*console.log(rows[i]);*/
 				creatures.push(rows[i]);
 			}
 
-			//console.log(creatures);
 			connection.release();
 			res.send(creatures);
 		});
 	});
 });
-
-/*app.post('/defeat', function(req, res){
-	var today = moment().format('YYYY-MM-DD HH:mm:ss');
-	if(req.body && req.body.creatureName) {
-		var creatureName = req.body.creatureName;
-		var defeatedCreature = '';
-		async.waterfall([
-			function(wcb){
-				pool.query('update creature set defeatedDate = ? where name = ?', [today, creatureName], function(err){
-					if(err){
-						wcb(err);
-					}
-
-					wcb();
-				});
-			},
-			function(wcb){
-				pool.query('update creature set defeatCounter = defeatCounter + 1 where name = ?', [creatureName], function(err, result){
-					if(err){
-						wcb(err);
-					}
-
-					wcb(null, result.insertId);
-				});
-			},
-			function(defeatedCreature, wcb){
-				recalcCreatureRespTime(function(empty, data) {
-					/!*console.log('recalc defeat', data);*!/
-					var creaturesToSend = [];
-					_.find(data, function(obj) {
-						if(obj.name === creatureName){
-							creaturesToSend.push(obj);
-						}
-					});
-
-					var output = {
-						creatures: creaturesToSend
-					};
-
-
-					eventService.getEvents(function(cb, data){
-
-						io.emit('eventsUpdated', data[0]);
-					}, today, today);
-
-					io.emit('creaturesUpdated', output);
-
-					//res.send(output);
-				}, defeatedCreature.id);
-			}], function (err) {
-				if(err) {
-					res.status(404).send();
-				}
-			});
-	} else {
-		res.status(404).send('not Found');
-	}
-});*/
 
 app.post('/reportDefeat', function(req, res){
 	var reportDate = req.body.date;
@@ -209,8 +140,6 @@ app.post('/reportDefeat', function(req, res){
 
 					}
 				], function(err){
-					//koniec
-
 					if(err) {
 						res.status(404).send();
 					}
@@ -218,22 +147,19 @@ app.post('/reportDefeat', function(req, res){
 					connection.release();
 
 					recalcCreatureRespTime(function(empty, data) {
-						/*console.log('recalc defeat', data);*/
 						if(empty) {
 							res.status(500).send({
 								message: empty,
 								code: 42
 							});
 						}
+
 						var output = {
 							creatures: data
 						};
-
-
 						io.emit('creaturesUpdated', output);
 
 						eventService.getEvents(function(cb, data){
-
 							io.emit('eventsUpdated', data[0]);
 						}, reportDate, reportDate);
 

@@ -11,7 +11,7 @@
 
   <!-- web app in fullscreen mode on iPad -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" type="text/css" href="/app/app.1473700611287.css">
+  <link rel="stylesheet" type="text/css" href="/app/app.1473703423283.css">
   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
 
   <script>
@@ -62,7 +62,7 @@ $script.ready('angular', function() {
     ], 'vendors');
 });
 $script.ready('vendors', function() {
-    $script(['/app/app.1473700611287.js'], 'app');
+    $script(['/app/app.1473703423283.js'], 'app');
 });
 $script.ready('app', function() {
     angular.bootstrap(document, ['heroCounter']);
@@ -586,7 +586,7 @@ $script.ready('app', function() {
         </div>
     </div>
     <div class="row button-group" ng-show="editAvatar">
-        <button class="button accept" ng-disabled="!croppedImg" ng-click="uploadAvatar()">Change avatar</button>
+        <button class="button accept" ng-disabled="!loadedImg" ng-click="uploadAvatar()">Change avatar</button>
         <button class="button cancel" ng-click="cancelUploadAvatar()">Cancel</button>
     </div>
 </section>

@@ -3,7 +3,7 @@ angular.module('profile', [])
 	console.log('profileCtrl');
 	$scope.defaultAvatarLink = defaultAvatar.link;
 	$scope.userProfileModel = {};
-	$scope.stripeChartData = [];
+	$scope.lineChartData = [];
 	$scope.pieChartData = [];
 
 	$scope.goToUserProfile = function(id) {
@@ -80,7 +80,7 @@ angular.module('profile', [])
 		return concatedCreatures;
 	};
 
-	var prepareStripeChartData = function(){
+	var prepareLineChartData = function(){
 		var chartData = [];
 		var sortedData = [];
 		var topCount = 0;
@@ -121,7 +121,7 @@ angular.module('profile', [])
 	if($stateParams.userId) {
 		dataSource.getUserProfile($stateParams.userId).then(function (data) {
 			$scope.userProfileModel = data;
-			$scope.stripeChartData = prepareStripeChartData();
+			$scope.lineChartData = prepareLineChartData();
 			if(evaluatePieChartData()){
 				$scope.pieChartData = preparePieChartData();
 			}

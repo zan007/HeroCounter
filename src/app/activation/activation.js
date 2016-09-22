@@ -1,11 +1,13 @@
 angular.module('activation', ['ui.router']).
 
-controller('activationCtrl', ['$scope', '$rootScope', '$location', 'dataSource',
-	function($scope, $rootScope, $location, dataSource) {
-		console.log('activationToken', $location.search().token);
-		$rootScope.$on('app-ready', function(data, next) {
+controller('activationCtrl', ['$scope', '$rootScope', 'dataSource', '$stateParams',
+	function($scope, $rootScope, dataSource, $stateParams) {
+		console.log('activationToken', $stateParams.token);
+		$rootScope.$on('app-ready', function() {
 			console.log('activationCtrl');
-			dataSource.activateUserAccount($location.search().token);
+			if($stateParams.token) {
+				dataSource.activateUserAccount($stateParams.token);
+			}
 		});
 	}
 ]);

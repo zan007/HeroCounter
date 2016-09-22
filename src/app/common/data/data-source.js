@@ -1,9 +1,7 @@
 angular.module('data.dataSource', ['data.authentication', 'data.context', 'data.creature', 'data.user', 'data.call'])
 
-.factory('dataSource', ['$http', '$q', '$rootScope', '$location', 'notificationService', 'locales', 'authentication', 'context', 'creature', 'user',
-	function($http, $q, $rootScope, $location, notificationService, locales, authentication, context, creature, user) {
-
-		var model;
+.factory('dataSource', ['authentication', 'context', 'creature', 'user',
+	function(authentication, context, creature, user) {
 		var dataSource = {};
 
 		var use = function(service) {
@@ -15,9 +13,6 @@ angular.module('data.dataSource', ['data.authentication', 'data.context', 'data.
 		use(creature);
 		use(user);
 
-		$rootScope.opened = false;
-
 		return dataSource;
-
 	}
 ]);

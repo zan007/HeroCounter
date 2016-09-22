@@ -54,7 +54,7 @@ angular.module('creatureProfile', [])
 		}
 	};
 
-	var prepareStripeChartData = function(data) {
+	var prepareLineChartData = function(data) {
 		var preparedData = [];
 		for(var i = 0, len = data.length; i < len; i++) {
 			preparedData.push({

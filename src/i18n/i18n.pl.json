@@ -149,7 +149,7 @@
   "profile.guest.heroes": "Postacie",
   "profile.top": "Najczęściej",
   "profile.top.heroes": "Pokonywany przez",
-  "profile.stripeChart.tooltip": "Ilość walk",
+  "profile.lineChart.tooltip": "Ilość walk",
 
   "creatureTile.unknownTime": "czas nieznany",
   "creatureTile.lastSeenDate": "Ostatnio widziany: ",

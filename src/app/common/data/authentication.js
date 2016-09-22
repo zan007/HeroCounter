@@ -2,7 +2,7 @@ angular.module('data.authentication', [])
 
 .factory('authentication', ['$http', '$q', '$rootScope', '$location', 'notificationService', 'locales', 'call',
 	function($http, $q, $rootScope, $location, notificationService, locales, call) {
-		var initModel = function() {
+		var clearModel = function() {
 			$rootScope.model = {
 				creatures: [],
 				personalData: {},
@@ -11,7 +11,7 @@ angular.module('data.authentication', [])
 			};
 		};
 
-		initModel();
+		clearModel();
 
 		var authentication = {
 			register: function(registerData) {
@@ -64,7 +64,7 @@ angular.module('data.authentication', [])
 					url: '/logout',
 					data: { }
 				}, function(data) {
-					initModel();
+					clearModel();
 					$rootScope.$broadcast('dataSource.ready');
 				});
 			},

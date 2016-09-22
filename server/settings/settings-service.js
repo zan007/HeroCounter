@@ -42,7 +42,7 @@ app.post('/applySettings', function(req, res) {
 							message: errMessage,
 							code: errCode
 						});
-					});
+				});
 			} else {
 				connection.release();
 				res.status(500).send();

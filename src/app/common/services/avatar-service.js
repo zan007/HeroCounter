@@ -1,9 +1,6 @@
 angular.module('avatarService', [])
 	.factory('avatarService', ['$q', 'notificationService', function ($q, notificationService) {
 		return {
-			uploadAvatar: function(files){
-
-			},
 			readImageFile: function(file){
 				var deferred = $q.defer();
 

@@ -32,7 +32,7 @@ $script.ready('angular', function() {
 		'controls.hcEqual',
 		'controls.hcNotEqual',
 		'controls.hcUserHeroTile',
-		'controls.hcStripeChart',
+		'controls.hcLineChart',
 		'controls.hcCreatureBattleTile',
 		'controls.hcPieChart',
 		'controls.hcTimePicker',
@@ -110,10 +110,11 @@ $script.ready('angular', function() {
 				}
 			})
 			.state('activation', {
-				url: '/activation',
+				url: '/activation?token',
 				templateUrl: '/activation',
 				authRequire: false,
 				params: {
+					token: '',
 					newsVisible: false
 				}
 			})
@@ -162,7 +163,6 @@ $script.ready('angular', function() {
 
 			var isPersonalDataReady = $rootScope.model && $rootScope.model.personalData;
 			if (adminRestrictedStates[toState.name] && isPersonalDataReady && !$rootScope.model.personalData.isAdministrator) {
-
 				$state.go(fromState.name || 'login');
 			}
 		});
@@ -197,7 +197,7 @@ $script.ready('angular', function() {
 				$scope.activeLang = data;
 			});
 
-			userAuthService.init();
+			userAuthService.initialize();
 			$rootScope.showLogout = false;
 			$scope.stateParams = $stateParams;
 			$scope.defaultAvatarLink = defaultAvatar.link;

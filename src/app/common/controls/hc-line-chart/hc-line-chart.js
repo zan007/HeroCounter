@@ -1,8 +1,8 @@
-angular.module('controls.hcStripeChart', [])
-.directive('hcStripeChart', ['$rootScope', '$window', function($rootScope, $window) {
+angular.module('controls.hcLineChart', [])
+.directive('hcLineChart', ['$rootScope', '$window', function($rootScope, $window) {
 	return {
 		scope: {
-			data: '=hcStripeChart',
+			data: '=hcLineChart',
 			nameField: '@',
 			valueField: '@',
 			stepLine: '@',
@@ -10,10 +10,10 @@ angular.module('controls.hcStripeChart', [])
 		},
 		restriction: 'E',
 		replace: 'true',
-		templateUrl: 'hc-stripe-chart',
+		templateUrl: 'hc-line-chart',
 		link: function($scope, $elem) {
 
-			var stripeChart = function(element, data, width, height) {
+			var lineChart = function(element, data, width, height) {
 				var d3 = window.d3;
 				var component = {};
 				var nameField = $scope.nameField;
@@ -176,7 +176,7 @@ angular.module('controls.hcStripeChart', [])
 							return y(d[valueField]);
 						})
 						.on('mouseover', function(d){
-							tooltip.text($scope.tooltipLabel + ':' + d[valueField].toFixed(2));
+							tooltip.text($scope.tooltipLabel + ':' + d[valueField].toFixed(0));
 							return tooltip.style('visibility', 'visible');
 						})
 						.on('mousemove', function(){return tooltip.style('top', (d3.event.pageY-10)+'px').style('left',(d3.event.pageX+10)+'px');})
@@ -192,7 +192,7 @@ angular.module('controls.hcStripeChart', [])
 				console.log('resize');
 				var width = $elem.prop('offsetWidth');
 				var height = $elem.prop('offsetHeight');
-				stripeChart($elem[0], $scope.data, width, height).render();
+				lineChart($elem[0], $scope.data, width, height).render();
 			});
 			console.log($scope.data);
 			var width = $elem.prop('offsetWidth');
@@ -204,7 +204,7 @@ angular.module('controls.hcStripeChart', [])
 				console.log('data w pie chart', newVal, oldVal);
 				if(newVal !== oldVal){
 					console.log('stripe chart watch przy zmianie');
-					stripeChart($elem[0], $scope.data, width, height).render();
+					lineChart($elem[0], $scope.data, width, height).render();
 				}
 			});
 

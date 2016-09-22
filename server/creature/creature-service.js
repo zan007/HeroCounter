@@ -94,6 +94,53 @@ app.get('/creatures', function(req, res){
 	});
 });
 
+var reportDefeatMock = function(date, creature, reporterToken){
+	var reportDate = date;
+
+	pool.getConnection(function(err, connection) {
+
+		async.waterfall([
+			function(wcb){
+				userService.getUserByToken(reporterToken, function(err, user){
+					wcb(null, user.id);
+				});
+			},
+			function(userId, wcb){
+				var battleSet = {
+					creatureId: creature.id,
+					reportDate: moment(reportDate).format('YYYY-MM-DD HH:mm:ss'),
+					userId: userId
+				};
+
+				connection.query('insert into report set ?', battleSet, function (err, rows) {
+					if(err) {
+						throw(err);
+					}
+
+					wcb();
+				});
+			},
+			function(wcb){
+				connection.query('update creature set lastSeenDate = ? where id = ?', [dateUtils.timestampToSqlDatetime(reportDate), creature.id], function(err) {
+					if(err) {
+						throw(err);
+					}
+
+					wcb();
+				});
+
+			}
+		], function(err){
+			if(err) {
+				//res.status(404).send();
+			}
+
+			connection.release();
+		});
+	});
+
+};
+
 app.post('/reportDefeat', function(req, res){
 	var reportDate = req.body.date;
 	var creature = req.body.creature;
@@ -173,6 +220,11 @@ app.post('/reportDefeat', function(req, res){
 
 var getCreatureByName = function(name, foundCb, notFoundCb){
 	pool.getConnection(function(err, connection){
+
+		if(err){
+			console.log('err');
+			throw(err);
+		}
 		connection.query('select * from creature where name = ?', name, function(err, rows){
 			if(err){
 				connection.release();
@@ -189,5 +241,6 @@ var getCreatureByName = function(name, foundCb, notFoundCb){
 
 module.exports = {
 	recalcCreatureRespTime: recalcCreatureRespTime,
-	getCreatureByName: getCreatureByName
+	getCreatureByName: getCreatureByName,
+	reportDefeatMock: reportDefeatMock
 };

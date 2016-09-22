@@ -170,7 +170,7 @@ app.post('/getEvents', function(req, res) {
 	}
 });
 
-var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userId, guest, cb) {
+var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userId, guest, currentHeroLvl, cb) {
 	connection.query('select id from hero where heroName = ?', currentHeroName, function(err, rows) {
 		if (err) {
 			cb(err);
@@ -182,13 +182,13 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 			async.waterfall([
 				function(wcb){
 					if(userId !== null && guest === true){
-						connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
+						connection.query('update hero set guestUserId = ?, lvl = ? where id =?', [userId, currentHeroLvl, currentHeroId], function(err){
 							if(err) wcb(err);
 
 							wcb();
 						});
 					} else if(userId !== null && guest === false) {
-						connection.query('update hero set mainUserId = ? where id =?', [userId, currentHeroId], function(err){
+						connection.query('update hero set mainUserId = ?, lvl = ? where id =?', [userId, currentHeroLvl, currentHeroId], function(err){
 							if(err) wcb(err);
 
 							wcb();
@@ -216,7 +216,7 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 						cb(err);
 					}
 				});
-		} else {
+		} else if(rows.length === 0) {
 			async.waterfall([
 				function(wcb){
 					var heroFields = {
@@ -243,10 +243,10 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 							wcb(err);
 						}
 
-						wcb();
+						wcb(null, currentHeroId);
 					});
 				},
-				function(wcb){
+				function(currentHeroId, wcb){
 					if(userId !== null && guest === true){
 						connection.query('update hero set guestUserId = ? where id =?', [userId, currentHeroId], function(err){
 							if(err) {
@@ -275,6 +275,8 @@ var insertIntoHeroBattle = function(connection, currentHeroName, battleId, userI
 					connection.release();
 				}
 			});
+		} else {
+			cb();
 		}
 	});
 };
@@ -294,6 +296,152 @@ var checkEventDuplicate = function(creature, date, duplicateExistCb, duplicateNo
 		});
 	});
 };
+
+var registerEventMock = function(token, nick, creature, guest, group, place, timestampArg){
+	var timestamp = moment(timestampArg).format('YYYY-MM-DD HH:mm:ss');
+	pool.getConnection(function(err, connection) {
+		connection.query('select id from user where userToken = ?', token, function(err, rows) {
+			if (err) {
+				throw err;
+			}
+
+
+			var userId = rows[0].id;
+			var placeId = 1;
+			var creatureId = '';
+			var battleId = '';
+			var battleFields = '';
+
+			connection.beginTransaction(function(err) {
+				if (err) {
+					return connection.rollback(function() {
+						throw err;
+					});
+				}
+
+				async.waterfall([
+					function(cb){
+						var creatureService = require('../creature/creature-service');
+						creatureService.getCreatureByName(creature, function(creatureObj){
+							checkEventDuplicate(creatureObj, timestamp, function(){
+								cb({}, 'duplicate');
+							}, function(){
+								cb();
+							});
+						},function(){
+							cb({}, 'creature not found');
+						});
+					},
+					function(cb) {
+						connection.query('select id from place where name = ?', place, function(err, rows) {
+							if (err) {
+								cb(err);
+							}
+
+							if(rows && rows.length === 1) {
+								placeId = rows[0].id;
+								cb();
+							} else {
+								connection.query('insert into place set ?', {name: place}, function(err, rows) {
+									if(err) cb(err);
+
+									placeId = rows.insertId;
+									cb();
+								});
+							}
+						});
+					},
+					function(cb) {
+						connection.query('select id from creature where name = ?', creature, function(err, rows) {
+							if (err) {
+								cb(err);
+							}
+
+							if(rows.length === 1) {
+								creatureId = rows[0].id;
+
+								connection.query('update creature set defeatedDate = ? where id = ?; update creature set defeatCounter = defeatCounter + 1 where id = ?', [timestamp, creatureId, creatureId], function(err, rows) {
+									if(err) {
+										cb(err);
+									}
+
+									cb();
+								});
+							} else {
+								cb({}, 'unknown creature', 42);
+							}
+						});
+					},
+					function(cb) {
+						battleFields = {
+							creatureId: creatureId,
+							battleDate: timestamp,
+							placeId: placeId
+						};
+
+						connection.query('insert into battle set ?', battleFields, function(err, rows) {
+							if (err) cb(err);
+
+							battleId = rows.insertId;
+							cb();
+						});
+					},
+					function(cb) {
+						for(var i = 0, len = group.length; i < len; i++) {
+							(function() {
+								var iCopy = i;
+								var currentHero = group[iCopy];
+
+								if (currentHero.name === nick) {
+									insertIntoHeroBattle(connection, currentHero.name, battleId, userId, guest, currentHero.lvl, function(err){
+										if(err){
+											cb(err);
+										}
+
+										if(iCopy === len - 1){
+											cb();
+										}
+									});
+								} else {
+									insertIntoHeroBattle(connection, currentHero.name, battleId, null, false, currentHero.lvl, function(err){
+										if(err){
+											cb(err);
+										}
+
+										if(iCopy === len - 1){
+											cb();
+										}
+									});
+								}
+							}());
+						}
+					}, function(cb){
+						connection.commit(function(err) {
+							if (err) {
+								cb(err);
+							}
+
+							//connection.release();
+						});
+					}
+				], function (err, errorMessage, errCode) {
+					return connection.rollback(function() {
+
+						if(!errorMessage) {
+							//connection.release();
+							throw err;
+						} else {
+
+							//connection.release();
+						}
+					});
+				});
+			});
+
+		});
+	});
+};
+
 
 app.post('/registerEvent', function(req, res) {
 	if(req.body){
@@ -396,10 +544,10 @@ app.post('/registerEvent', function(req, res) {
 								for(var i = 0, len = group.length; i < len; i++) {
 									(function() {
 										var iCopy = i;
-										var currentHeroName = group[iCopy];
+										var currentHero = group[iCopy];
 
-										if (currentHeroName === nick) {
-											insertIntoHeroBattle(connection, currentHeroName, battleId, userId, guest, function(err){
+										if (currentHero.name === nick) {
+											insertIntoHeroBattle(connection, currentHero.name, battleId, userId, guest, currentHero.lvl, function(err){
 												if(err){
 													cb(err);
 												}
@@ -409,7 +557,7 @@ app.post('/registerEvent', function(req, res) {
 												}
 											});
 										} else {
-											insertIntoHeroBattle(connection, currentHeroName, battleId, null, false, function(err){
+											insertIntoHeroBattle(connection, currentHero.name, battleId, null, false, currentHero.lvl, function(err){
 												if(err){
 													cb(err);
 												}
@@ -475,5 +623,6 @@ app.post('/registerEvent', function(req, res) {
 });
 
 module.exports = {
-	getEvents: getEvents
+	 getEvents: getEvents,
+	registerEventMock: registerEventMock
 };

@@ -27,7 +27,12 @@ angular.module('controls.hcCreatureBattleTile', [])
 					if(d3.select($scope.radialChartElem[0]).select('.radial-svg')){
 						d3.select($scope.radialChartElem[0]).select('.radial-svg').remove();
 					}
-					radialProgressService.radialProgress($scope.radialChartElem[0], $scope.summaryCount).diameter(150).data([{ type: "outer", value:  $scope.count}]).render();
+					radialProgressService.radialProgress($scope.radialChartElem[0], $scope.summaryCount)
+						.diameter(150)
+						.data([{
+							type: "outer",
+							value:  $scope.count
+						}]).render();
 				};
 
 

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1",
+    "name":"Dziewicza Orlica",
+    "lvl":"51"
+  },
+  {
+    "id": "2",
+    "name":"Zabójczy królik",
+    "lvl":"70"
+  },
+  {
+    "id": "3",
+    "name":"Renegat Baulus",
+    "lvl":"101"
+  },
+  {
+    "id": "4",
+    "name":"Łowczyni Wspomnień",
+    "lvl":"177"
+  },
+  {
+    "id": "6",
+    "name":"Piekielny Arcymag",
+    "lvl":"131"
+  },
+  {
+    "id": "7",
+    "name":"Versus Zoons",
+    "lvl":"154"
+  },
+  {
+    "id": "8",
+    "name":"Przyzywacz demonów",
+    "lvl":"204"
+  },
+  {
+    "id": "9",
+    "name":"Maddok Magua",
+    "lvl":"231"
+  },
+  {
+    "id": "10",
+    "name":"Tezcatlipoca",
+    "lvl":"258"
+  },
+  {
+    "id": "11",
+    "name":"Tanroth",
+    "lvl":"285"
+  },
+  {
+    "id": "12",
+    "name":"Domina Ecclesiae",
+    "lvl":"21"
+  },
+  {
+    "id": "13",
+    "name":"Mietek Żul",
+    "lvl":"25"
+  },
+  {
+    "id": "14",
+    "name":"Mroczny Patryk",
+    "lvl":"35"
+  },
+  {
+    "id": "15",
+    "name":"Karmazynowy Mściciel",
+    "lvl":"45"
+  },
+  {
+    "id": "16",
+    "name":"Złodziej",
+    "lvl":"50"
+  },
+  {
+    "id": "17",
+    "name":"Zły Przewodnik",
+    "lvl":"63"
+  },
+  {
+    "id": "18",
+    "name":"Piekielny Kościej",
+    "lvl":"74"
+  },
+  {
+    "id": "19",
+    "name":"Opętany Paladyn",
+    "lvl":"85"
+  },
+  {
+    "id": "20",
+    "name":"Kochanka Nocy",
+    "lvl":"100"
+  },
+  {
+    "id": "21",
+    "name":"Perski Książę",
+    "lvl":"116"
+  },
+  {
+    "id": "22",
+    "name":"Baca Bez Łowiec",
+    "lvl":"123"
+  },
+  {
+    "id": "23",
+    "name":"Obłąkany łowca orków",
+    "lvl":"144"
+  },
+  {
+    "id": "24",
+    "name":"Czarująca Atalia",
+    "lvl":"157"
+  },
+  {
+    "id": "25",
+    "name":"Święty Braciszek",
+    "lvl":"165"
+  },
+  {
+    "id": "26",
+    "name":"Viviana Nandin"
+  },
+  {
+    "id": "27",
+    "name":"Mulher Ma"
+  },
+  {
+    "id": "28",
+    "name":"Demonis Pan Nicości"
+  },
+  {
+    "id": "29",
+    "name":"Vapor Veneno"
+  },
+  {
+    "id": "30",
+    "name":"Tepeyollotl"
+  }
+]

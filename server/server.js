@@ -11,7 +11,6 @@ var express = require('express'),
     mysql = require('mysql'),
     passport = require('passport'),
     flash    = require('connect-flash'),
-    http = require('http').Server(express),
     _ = require('lodash'),
     io,
     favicon = require('serve-favicon');
@@ -31,7 +30,7 @@ var app = express(),
 
 if(process.argv[2] === 'remote') {
     pool = mysql.createPool({
-        connectionLimit: 50,
+        connectionLimit: 100,
         host: databaseConfig.details.host,
         user: databaseConfig.details.user,
         password: databaseConfig.details.password,
@@ -41,7 +40,7 @@ if(process.argv[2] === 'remote') {
     console.log('remote');
 } else {
     pool = mysql.createPool({
-        connectionLimit: 14,
+        connectionLimit: 100,
         host: databaseConfig.homeDetails.host,
         user: databaseConfig.homeDetails.user,
         password: databaseConfig.homeDetails.password,
@@ -67,7 +66,7 @@ app.use(jsonParser);
 app.use(urlencodedParser);
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 var setEventHandlers = function() {
@@ -116,9 +115,9 @@ var settingsService = require('./settings/settings-service');
 var authentication = require('./authentication/authentication');
 require('./authentication/authentication')(passport);
 var socketUserCounter = 0;
+var random = require('./random/random');
 
-
-app.get('/init', function(req, res, next) {
+app.get('/init', function(req, res) {
     var model = {};
     async.series({
         personalData: function(callback){
@@ -139,15 +138,7 @@ app.get('/init', function(req, res, next) {
     });
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()){
-        return next();
-    }
-	var lang = req.session.lang ? req.session.lang : 'pl';
-    res.sendfile(path.join(__dirname, srcDir, 'index.' + lang + '.html'));
-}
-
-app.get('/', isLoggedIn, function(req, res, next) {
+app.get('/', function(req, res, next) {
     res.status(200);
 	var lang = req.session.lang ? req.session.lang : 'pl';
 

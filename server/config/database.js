@@ -1,5 +1,3 @@
-path = require('path');
-
 module.exports = {
 	details: {
 	    host: 'eu-cdbr-west-01.cleardb.com',

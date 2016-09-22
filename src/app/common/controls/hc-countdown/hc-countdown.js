@@ -18,7 +18,7 @@ angular.module('controls.hcCountdown', [])
 		            $scope.hours = Math.floor((($scope.timeToCountdown / (3600000)) % 24));
 		            $scope.days = Math.floor((($scope.timeToCountdown / (3600000)) / 24));
 			        mytimeout = $timeout(onTimeout,1000);
-			    }
+			    };
 
 			    if($scope.timeToCountdown){
 			    	startTimer();

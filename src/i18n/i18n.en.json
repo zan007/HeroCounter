@@ -149,7 +149,7 @@
   "profile.guest.heroes": "Heroes",
   "profile.top": "Generally",
   "profile.top.heroes": "Defeated by",
-  "profile.stripeChart.tooltip": "Defeat count",
+  "profile.lineChart.tooltip": "Defeat count",
 
   "creatureTile.unknownTime": "Unknown time",
   "creatureTile.lastSeenDate": "Last seen: ",

@@ -3,6 +3,9 @@
 		<div class="row">
 		 	<%include src="filter-box.html"%>
 		</div>
+        <div class="row">
+            <button class="button" ng-click="sendRequest()">wyslij</button>
+        </div>
 		<div class="row">
 			<div ng-repeat="creature in filteredCreatures">
                 <div hc-creature-tile="creature"></div>

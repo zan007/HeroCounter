@@ -24,12 +24,9 @@ angular.module('userAuthService', [])
 		dataSource.isLoggedIn().then(function(data){
 			if(data && data.hasOwnProperty('password')){
 				setLogged(true);
-				console.log('serwis, ',data);
-				$rootScope.$broadcast(AUTH_EVENTS.authenticated);
 				deferred.resolve(data);
 			} else {
 				setLogged(false);
-				$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
 				deferred.resolve();
 			}	
 		});
@@ -37,7 +34,7 @@ angular.module('userAuthService', [])
 		return deferred.promise;
 	};
 
-	var init = function() {
+	var initialize = function() {
 		getUserAuthData().then(function(data) {
 			$rootScope.$broadcast('app-ready');
 		});
@@ -95,9 +92,7 @@ angular.module('userAuthService', [])
 		getIsLogged: getIsLogged,
 		logout: logout,
 		register: register,
-		init: init,
-		getUserAuthData: getUserAuthData,
-		authEvents: AUTH_EVENTS,
+		initialize: initialize,
 		setLogged: setLogged
 	};
 }]);

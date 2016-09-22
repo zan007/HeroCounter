@@ -36,7 +36,7 @@ controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'cre
 				data: {
 					token: 'bcf3e0ce2f2986c9d7a5e651446de927654161635ab77a4e5c137cc0765f6751746ea326620c88f37674ebe1914ff37a',
 					nick: 'Nir',
-					creature: 'Renegat Baulus',
+					creature: 'Perski Książę',
 					group: ['Nir', 'Szopen', 'iiiiii', 'pppp', 'pooo'],
 					place: 'Mroczny przesmyk',
 					guest: true

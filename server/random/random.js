@@ -7,9 +7,9 @@ var server = require('../server'),
 	io = server.io,
 	fs = require('fs'),
 	path = require('path'),
-	creatures = JSON.parse(fs.readFileSync('random/creatures.json')),
-	players = JSON.parse(fs.readFileSync('random/players.json')),
-	otherPlayers = JSON.parse(fs.readFileSync('random/other-players-with-lvl.json')),
+	creatures = JSON.parse(fs.readFileSync(path.join('random','creatures.json'))),
+	players = JSON.parse(fs.readFileSync(path.join('random','players.json'))),
+	otherPlayers = JSON.parse(fs.readFileSync(path.join('random','other-players-with-lvl.json'))),
 	dateUtils = require('../utils/date-utils');
 
 

@@ -39,11 +39,11 @@ module.exports = function (grunt) {
         spawn: false
       },
       build: {
-        files: ['src/*.*', 'src/i18n/*.json', 'src/app/**', 'src/css/**/*.less', 'src/css/*.less', 'src/meta/**'],
+        files: ['src/*.*', 'src/i18n/*.json', 'src/app/**', 'src/css/**/*.less', 'src/css/*.less', 'src/meta/**', 'src/addon/*.js'],
         tasks: ['clean:app', 'copy:app', 'less:build', 'htmlrender:build', 'i18n:build']
       },
       release: {
-        files: ['src/*.*', 'src/i18n/*.json', 'src/app/**', 'src/css/*.less', 'src/css/*.less', 'src/meta/**'],
+        files: ['src/*.*', 'src/i18n/*.json', 'src/app/**', 'src/css/*.less', 'src/css/*.less', 'src/meta/**', 'src/addon/*.js'],
         tasks: ['clean:app', 'uglify:app', 'less:release', 'htmlrender:release']
       }
     },
@@ -104,7 +104,7 @@ module.exports = function (grunt) {
         files: [{ dest: 'dist', src : ['app/**/*.js'], expand: true, cwd: 'src' }]
       },
       assets: {
-        files: [{ dest: 'dist', src : ['img/**', 'vendor/**', 'font/**', 'favicon.ico'], expand: true, cwd: 'src' }]
+        files: [{ dest: 'dist', src : ['img/**', 'vendor/**', 'font/**', 'favicon.ico', 'addon/*.js'], expand: true, cwd: 'src' }]
         //files: [{ dest: 'dist', src : ['vendor/**', 'font/**'], expand: true, cwd: 'src' }]
       }
     },    

@@ -141,7 +141,7 @@ app.get('/init', function(req, res) {
 app.get('/addon', function(req, res){
 	res.status(200);
 
-	res.sendfile(path.join(__dirname, srcDir, 'app', 'addon', 'hero-counter-addon.js'));
+	res.sendfile(path.join(__dirname, srcDir, 'addon', 'hero-counter-addon.js'));
 });
 
 app.get('/', function(req, res, next) {

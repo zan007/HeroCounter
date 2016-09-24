@@ -61,12 +61,10 @@ g.loadQueue.push({
 								else if (npc.wt >= 10) {
 									index = 5;
 									rank = 'e';
-									canSendRequest = true;
 								}
 								else {
 									index = 4;
 									rank = 'n';
-									canSendRequest = true;
 								}
 
 

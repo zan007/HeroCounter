@@ -14,6 +14,7 @@ var path = require('path'),
 var recalcCreatureRespTime = function(callback, creatureId) {
 	var today = moment().valueOf();
 	var creatures = [];
+	//dodac zmiane koloru na jakis inny jak czas do respu osiagnal minimum
 	pool.getConnection(function(err, connection) {
 		if(!creatureId) {
 			connection.query('select * from creature order by lvl', function (err, rows) {
@@ -227,6 +228,11 @@ var getCreatureByName = function(name, foundCb, notFoundCb){
 		}
 		connection.query('select * from creature where name = ?', name, function(err, rows){
 			if(err){
+				connection.release();
+				notFoundCb();
+			}
+
+			if(rows.length === 0){
 				connection.release();
 				notFoundCb();
 			}

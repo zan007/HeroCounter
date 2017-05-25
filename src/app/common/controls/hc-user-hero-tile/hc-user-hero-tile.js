@@ -45,8 +45,6 @@ angular.module('controls.hcUserHeroTile', [])
 				countAndRender($scope.stats);
 				$scope.$apply();
 			});
-			/*radialProgress($elem[0]).diameter(100)
-			 .data([{ type: "outer", value: 32 }, { type: "inner", value: 84 }]).render();*/
 		}
 	};
 }]);

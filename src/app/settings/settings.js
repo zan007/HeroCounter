@@ -20,16 +20,9 @@ controller('settingsCtrl', ['$scope', '$rootScope', 'dataSource', 'avatarService
 		$rootScope.$on('dataSource.ready', function() {
 			counter++;
 			$scope.model = $rootScope.model;
-			if(counter === 1 && $rootScope.model.personalData.isAdministrator) {
-				//dataSource.refreshUsersToAccept();
-			}
-			console.log('settings datasource ready',counter);
+
 			setDefaultSettingsValues();
 		});
-
-
-		/*w modelu uzytkownicy do zaakceptowania, jak nie ma praw to pusta lista,
-		wyswietlanie komunikatu ze nie ma uzytkownikow do zaakceptowania jak pusta lista i uzytkownik typu administrator*/
 
 		var createSettingsCheckpoint = function(data){
 			var savedSettings = {

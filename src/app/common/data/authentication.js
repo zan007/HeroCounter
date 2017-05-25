@@ -34,10 +34,7 @@ angular.module('data.authentication', [])
 						login: credential.login,
 						password: credential.password
 					}
-				}, function(data) {
-					//console.log(data);
-					//$location.path('/heroes');
-				});
+				}, function(data) {});
 			},
 			isLoggedIn: function(){
 				var deferred = $q.defer();
@@ -47,14 +44,6 @@ angular.module('data.authentication', [])
 					} else {
 						deferred.reject();
 					}
-					/*if (user !== '0') {
-					 deferred.resolve();
-					 return ;
-					 } else {
-					 deferred.reject();
-					 $location.url('/login');
-					 return false;
-					 }*/
 				});
 
 				return deferred.promise;

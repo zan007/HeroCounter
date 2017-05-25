@@ -11,7 +11,7 @@
 
   <!-- web app in fullscreen mode on iPad -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" type="text/css" href="/app/app.1474725024065.css">
+  <link rel="stylesheet" type="text/css" href="/app/app.1476022451362.css">
   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
 
   <script>
@@ -62,7 +62,7 @@ $script.ready('angular', function() {
     ], 'vendors');
 });
 $script.ready('vendors', function() {
-    $script(['/app/app.1474725024065.js'], 'app');
+    $script(['/app/app.1476022451362.js'], 'app');
 });
 $script.ready('app', function() {
     angular.bootstrap(document, ['heroCounter']);
@@ -266,9 +266,6 @@ $script.ready('app', function() {
 	</div>
 </div>
 		</div>
-        <div class="row">
-            <button class="button" ng-click="sendRequest()">wyslij</button>
-        </div>
 		<div class="row">
 			<div ng-repeat="creature in filteredCreatures">
                 <div hc-creature-tile="creature"></div>
@@ -808,6 +805,7 @@ $script.ready('app', function() {
                         <div class="col-xs-4 center-vertically">
                             <img ng-src="{{creatureProfileModel.creature.image}}"/>
                         </div>
+
                         <div class="col-xs-8">
                             <div class="row">
                                 <div class="col-lg-6 col-xs-12">

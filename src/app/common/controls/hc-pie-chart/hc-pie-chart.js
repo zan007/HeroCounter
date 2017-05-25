@@ -21,14 +21,7 @@ angular.module('controls.hcPieChart', [])
 					r = h / 2,
 					component = {};
 
-				/*var data = [{'label': 'Category A', 'value': 20},
-					{'label': 'Category B', 'value': 50},
-					{'label': 'Category C', 'value': 30}];*/
-
 				component.render = function() {
-					/*if(d3.select('svg')){
-						d3.select('svg').remove();
-					}*/
 					if(d3.select(element).select('.main-circle')){
 						d3.select(element).select('.main-circle').remove();
 					}
@@ -92,7 +85,6 @@ angular.module('controls.hcPieChart', [])
 			var height = $elem.prop('offsetHeight');
 
 			angular.element($window).bind('resize', function() {
-				console.log('resize');
 				height = $elem.prop('offsetHeight');
 				pieChart($elem[0], $scope.data, height).render();
 			});

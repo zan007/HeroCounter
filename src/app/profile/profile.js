@@ -1,6 +1,5 @@
 angular.module('profile', [])
 .controller('profileCtrl', ['$scope', '$rootScope', 'dataSource', '$location', '$stateParams', 'defaultAvatar', '$state', 'locales', function($scope, $rootScope, dataSource, $location, $stateParams, defaultAvatar, $state, locales){
-	console.log('profileCtrl');
 	$scope.defaultAvatarLink = defaultAvatar.link;
 	$scope.userProfileModel = {};
 	$scope.lineChartData = [];
@@ -54,7 +53,6 @@ angular.module('profile', [])
 					label: locales.timeOfTheDay.night
 				}
 			];
-		console.log(chartData, 'piechartdata');
 		return chartData;
 	};
 
@@ -85,7 +83,6 @@ angular.module('profile', [])
 		var sortedData = [];
 		var topCount = 0;
 
-		//chartData = $scope.userProfileModel.mainHeroStats.creatures.concat($scope.userProfileModel.guestHeroStats.creatures);
 		chartData = concatCreatures($scope.userProfileModel.mainHeroStats.creatures.concat($scope.userProfileModel.guestHeroStats.creatures));
 		for(var i = 0, len = chartData.length; i < len; i++){
 			$rootScope.model.creatures.map(function(currentCreature){
@@ -96,19 +93,7 @@ angular.module('profile', [])
 		}
 
 		topCount = chartData.length >= 3 ? 3 : chartData.length;
-		console.log(topCount, 'asas');
 		sortedData = chartData.sort(compareBattleCount);
-
-		/*for(var j = 0, len = topCount; j < len; j++){
-
-			Math.max.apply(null, chartData.map(function(o){
-				dataToReturn.push(o);
-				chartData = chartData.filter(function(obj) {
-					return chartData.indexOf(obj) === -1;
-				});
-				return o.creatureBattleCount;
-			}));
-		}*/
 
 		if(sortedData.length > topCount){
 			var howManyElements =  sortedData.length - topCount;

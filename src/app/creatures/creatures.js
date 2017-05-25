@@ -29,25 +29,6 @@ controller('creaturesCtrl', ['$scope', '$rootScope', 'dataSource', '$http', 'cre
 			hero: true
 		};
 
-		$scope.sendRequest = function() {
-			call({
-				method: 'POST',
-				url: '/registerEvent',
-				data: {
-					token: 'bcf3e0ce2f2986c9d7a5e651446de927654161635ab77a4e5c137cc0765f6751746ea326620c88f37674ebe1914ff37a',
-					nick: 'Nir',
-					creature: 'Perski Książę',
-					group: ['Nir', 'Szopen', 'iiiiii', 'pppp', 'pooo'],
-					place: 'Mroczny przesmyk',
-					guest: true
-				}
-			}, function(data) {
-				console.log(data);
-				//$rootScope.model.creatures = data.creatures;
-				//$rootScope.$broadcast('dataSource.ready');
-			});
-		};
-
 		$scope.lvlRangeSlider = {
 			minValue: $cookieStore.get('lvlRange.minValue') ? $cookieStore.get('lvlRange.minValue'): 20,
 			maxValue: $cookieStore.get('lvlRange.maxValue') ? $cookieStore.get('lvlRange.maxValue'): 320,

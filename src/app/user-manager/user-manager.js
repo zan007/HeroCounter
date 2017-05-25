@@ -11,15 +11,11 @@ controller('userManagerCtrl', ['$scope', '$rootScope', 'dataSource', 'notificati
 
 		$rootScope.$on('dataSource.ready', function() {
 			$scope.users = $rootScope.model.users;
-			/*if($scope.users && $scope.users.length > 0){
-				$scope.activeUserId = $scope.users[0].id;
-			}*/
 		});
 
 		if($rootScope.model.personalData && $rootScope.model.personalData.isAdministrator) {
 			dataSource.getUsers();
 		}
-
 
 		$scope.setFilter = function(field){
 			$scope.filterConfig.field = field;

@@ -114,7 +114,6 @@ app.post('/activate', function(req, res) {
 			}
 
 			if (rows.length === 1) {
-				console.log(rows[0]);
 				res.status(200);
 				pool.query('update user set activationToken = ? where activationToken = ?', [null, token], function (err) {
 					if (err) {

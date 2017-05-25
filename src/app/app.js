@@ -45,16 +45,11 @@ $script.ready('angular', function() {
 		$httpProvider.interceptors.push(function ($q, $location, $window, $rootScope) {
 			return {
 				response: function (response) {
-					// do something on success
-					console.log('sukces');
 					return response;
 				},
 				responseError: function (response) {
-					console.log('error');
 					if (response.status === 401) {
-						console.log('401');
 						$rootScope.logout();
-
 					}
 
 					return $q.reject(response);
@@ -206,18 +201,12 @@ $script.ready('angular', function() {
 			var createSocketEventHandlers = function () {
 				socketFactory.getSocket().then(function (socket) {
 
-					socket.on('hello', function () {
-						console.log('udalo sie hello');
-					});
-
 					socket.on('creaturesUpdated', function (data) {
-						console.log('zupdatowana lista ', data);
 						dataSource.updateCreatures(data.creatures);
 						notificationService.showInfoNotification('Creatures list updated');
 					});
 
 					socket.on('eventsUpdated', function (data) {
-						console.log('nowy event', data);
 						dataSource.addEvent(data);
 
 						notificationService.showInfoNotification('Events list updated');
@@ -265,7 +254,6 @@ $script.ready('angular', function() {
 
 			$scope.setLanguage = function(lang) {
 				if(lang !== $scope.activeLang) {
-					//lang === 'pl' ? $scope.plLang = true : $scope.plLang = false;
 					dataSource.setLanguage(lang).then(function () {
 						$window.location.reload();
 					});

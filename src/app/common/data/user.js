@@ -2,7 +2,6 @@ angular.module('data.user', [])
 
 	.factory('user', ['$http', '$q', '$rootScope', '$location', 'notificationService', 'locales', 'call',
 		function($http, $q, $rootScope, $location, notificationService, locales, call) {
-			//var call = dataSource.call;
 			var user = {
 				getUserProfile: function(userId) {
 					return call({

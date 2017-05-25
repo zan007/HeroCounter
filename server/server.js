@@ -30,7 +30,7 @@ var app = express(),
 
 if(process.argv[2] === 'remote') {
     pool = mysql.createPool({
-        connectionLimit: 100,
+        connectionLimit: 1000,
         host: databaseConfig.details.host,
         user: databaseConfig.details.user,
         password: databaseConfig.details.password,
@@ -40,7 +40,7 @@ if(process.argv[2] === 'remote') {
     console.log('remote');
 } else {
     pool = mysql.createPool({
-        connectionLimit: 100,
+        connectionLimit: 1000,
         host: databaseConfig.homeDetails.host,
         user: databaseConfig.homeDetails.user,
         password: databaseConfig.homeDetails.password,
@@ -115,7 +115,6 @@ var settingsService = require('./settings/settings-service');
 var authentication = require('./authentication/authentication');
 require('./authentication/authentication')(passport);
 var socketUserCounter = 0;
-var random = require('./random/random');
 
 app.get('/init', function(req, res) {
     var model = {};

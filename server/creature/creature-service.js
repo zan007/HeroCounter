@@ -223,7 +223,6 @@ var getCreatureByName = function(name, foundCb, notFoundCb){
 	pool.getConnection(function(err, connection){
 
 		if(err){
-			console.log('err');
 			throw(err);
 		}
 		connection.query('select * from creature where name = ?', name, function(err, rows){

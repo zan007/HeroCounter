@@ -35,10 +35,7 @@ angular.module('controls.hcPrettyTime', [])
             }
 
             $scope.$watch('date', function(newDate, oldDate) {
-                //console.log('newDate', newDate, 'olddate', oldDate);
-				//if(newDate !== oldDate) {
-					convertDate();
-				//}
+				convertDate();
             }, true);
         }
     };

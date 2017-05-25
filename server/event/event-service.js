@@ -297,9 +297,9 @@ var checkEventDuplicate = function(creature, date, duplicateExistCb, duplicateNo
 	});
 };
 
-var registerEventMock = function(token, nick, creature, guest, group, place, timestampArg){
+var registerEventMock = function(connection, token, nick, creature, guest, group, place, timestampArg){
 	var timestamp = moment(timestampArg).format('YYYY-MM-DD HH:mm:ss');
-	pool.getConnection(function(err, connection) {
+	//pool.getConnection(function(err, connection) {
 		connection.query('select id from user where userToken = ?', token, function(err, rows) {
 			if (err) {
 				throw err;
@@ -428,18 +428,18 @@ var registerEventMock = function(token, nick, creature, guest, group, place, tim
 					return connection.rollback(function() {
 
 						if(!errorMessage) {
-							//connection.release();
+							connection.release();
 							throw err;
 						} else {
 
-							//connection.release();
+							connection.release();
 						}
 					});
 				});
 			});
 
 		});
-	});
+	//});
 };
 
 

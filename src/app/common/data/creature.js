@@ -2,7 +2,6 @@ angular.module('data.creature', [])
 
 	.factory('creature', ['$http', '$q', '$rootScope', '$location', 'notificationService', 'locales', 'call',
 		function($http, $q, $rootScope, $location, notificationService, locales, call) {
-			//var call = dataSource.call;
 			var creature = {
 				defeatCreature: function(creature) {
 					return call({ method: 'POST',
@@ -10,11 +9,7 @@ angular.module('data.creature', [])
 						data: {
 							creatureName: creature.name
 						}
-					}, function(data) {
-						//updateCreatures(data.creatures);
-						//$rootScope.model.creatures = data.creatures;
-						//$rootScope.$broadcast('dataSource.ready');
-					});
+					}, function(data) {});
 				},
 				reportDefeat: function(creature, date, reporterToken) {
 					return call({ method: 'POST',
@@ -25,9 +20,6 @@ angular.module('data.creature', [])
 							reporterToken: reporterToken
 						}
 					}, function(data) {
-						console.log('report defeat', data);
-						//$rootScope.model.creatures = data.creatures;
-						//$rootScope.$broadcast('dataSource.ready');
 					});
 				},
 				updateCreatures: function(creatures) {
@@ -39,7 +31,6 @@ angular.module('data.creature', [])
 							}
 						}
 					}
-					//angular.extend($rootScope.model.creatures, creatures, $rootScope.model.creatures);
 					$rootScope.$broadcast('dataSource.ready');
 				},
 				addEvent: function(event) {
@@ -55,7 +46,6 @@ angular.module('data.creature', [])
 						}
 					}
 					$rootScope.model.events.splice(addIndex, 0, event);
-					/*$rootScope.model.events.unshift(event);*/
 					$rootScope.$broadcast('dataSource.ready');
 				},
 				getCreatureProfile: function(creatureId) {
@@ -89,7 +79,6 @@ angular.module('data.creature', [])
 					}, function(data){
 						$rootScope.model.events = $rootScope.model.events.concat(data);
 						$rootScope.$broadcast('dataSource.ready');
-						console.log('nowe eventy ', data);
 					});
 				},
 			};

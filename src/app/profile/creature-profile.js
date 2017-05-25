@@ -83,8 +83,9 @@ angular.module('creatureProfile', [])
 			 $scope.pieChartData = preparePieChartData();
 			 }*/
 		});
-		/*dataSource.getCreatureAnalyze(parseInt($stateParams.creatureId)).then(function(data){
-			$scope.survivalChartData = prepareStripeChartData(data.probabilityArray);
-		});*/
+		dataSource.getCreatureAnalyze(parseInt($stateParams.creatureId)).then(function(data){
+			$scope.defeatCountMap = data.defeatCountMap;
+			$scope.survivalChartData = prepareLineChartData(data.probabilityArray);
+		});
 	}
 }]);

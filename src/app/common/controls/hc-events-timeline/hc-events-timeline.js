@@ -10,11 +10,6 @@ angular.module('controls.hcEventsTimeline', [])
 		restriction: 'E',
 		templateUrl: 'hc-events-timeline',
 		link: function($scope, $elem) {
-			console.log(locales.daysOfWeek.monday);
-			/*$rootScope.$on('dataSource.ready', function() {
-				$scope.eventDate = new Date($scope.events.battleDate);
-				console.log($scope.events);
-			});*/
 			$scope.showGoTopButton = false;
 			$rootScope.$on('dataSource.ready', function(){
 				$scope.showLoadingIndicator = false;

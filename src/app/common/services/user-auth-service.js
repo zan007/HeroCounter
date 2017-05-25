@@ -64,9 +64,7 @@ angular.module('userAuthService', [])
 	var logout = function() {
 		var deferred = $q.defer();
 		dataSource.logout().then(function(data) {
-			console.log('logout service', data);
 			setLogged(false);
-			/*this.isLogged = false;*/
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
 			deferred.resolve();
 		}, function() {

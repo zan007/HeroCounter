@@ -134,33 +134,9 @@ angular.module('controls.hcLineChart', [])
 						.style('stroke-opacity', 0.1);
 
 					svg.append('svg:path')
-						/*.call(d3.behavior.zoom().on("zoom", function () {
-							svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
-						}))*/
-
 						.attr('class', 'line')
 						.attr('d', line(data));
 
-					/*svg.append('svg:text')
-						.attr('x', 80)
-						.attr('y', -10)
-						.attr('text-anchor', 'end')
-						.style('stroke', '#444')
-						.style('fill', '#000')
-						.style('stroke-width', .2)
-						.style('font-size', '12px')
-						.style('font-weight', 'bold');
-
-					svg.append('svg:text')
-						.attr('x', w)
-						.attr('y', -10)
-						.attr('text-anchor', 'end')
-						.text('$' + total.toFixed(2) + ' total')
-						.style('stroke', '#008cdd')
-						.style('fill', '#008cdd')
-						.style('stroke-width', .2)
-						.style('font-size', '12px')
-						.style('font-weight', 'bold');*/
 					var tooltip = d3.select('body')
 						.append('div')
 						.attr('class', 'circle-tooltip');
@@ -189,21 +165,16 @@ angular.module('controls.hcLineChart', [])
 			};
 
 			angular.element($window).bind('resize', function() {
-				console.log('resize');
 				var width = $elem.prop('offsetWidth');
 				var height = $elem.prop('offsetHeight');
 				lineChart($elem[0], $scope.data, width, height).render();
 			});
-			console.log($scope.data);
+
 			var width = $elem.prop('offsetWidth');
 			var height = $elem.prop('offsetHeight');
-			/*chartData = prepareData();
-			stripeChart($elem[0], chartData, width, height).render();*/
 
 			$scope.$watch('data', function(newVal, oldVal){
-				console.log('data w pie chart', newVal, oldVal);
 				if(newVal !== oldVal){
-					console.log('stripe chart watch przy zmianie');
 					lineChart($elem[0], $scope.data, width, height).render();
 				}
 			});
